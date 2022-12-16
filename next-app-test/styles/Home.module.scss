@@ -1,0 +1,60 @@
+
+.app {
+  overflow: hidden;
+}
+.container {
+  overflow-x: auto;
+  height: 100vh;
+}
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.column {
+  width: 50%;
+  position: sticky;
+  top: 0; // Threshold is required
+}
+
+.columnLeft {
+  background: lightgreen;
+}
+
+.columnRight {
+  background: lightyellow;
+}
+
+.image {
+  background: red;
+  height: 180px;
+  border-bottom: 3px solid pink;
+}
+
+.dots {
+  background: coral;
+  height: 70px;
+}
+
+.description {
+  background: orange;
+  color: blue;
+  height: 150px
+}
+
+.selector {
+  height: 80px;
+  background: blue;
+  color: yellow;
+  border-bottom: 3px solid pink;
+}
+
+.summary {
+  background: orange;
+  height: 400px;
+}
+
+.otherContent {
+  background: yellow;
+  height: 500px;
+}
