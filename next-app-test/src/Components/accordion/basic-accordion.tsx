@@ -43,7 +43,7 @@ export const BasicAccordion = ({
 }: Props) => {
     const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse);
     const toggleDrawerVisibility = () => !disableCollapse && setIsOpen(!isOpen);
-    return <div>
+    return <div className={className}>
         <HeaderElement headerLevel={headerLevel}>
             <button
                 aria-expanded={isOpen}
