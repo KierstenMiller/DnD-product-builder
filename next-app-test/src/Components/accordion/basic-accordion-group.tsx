@@ -5,7 +5,7 @@ interface props {
     className?: string;
 }
 
-const BasicAccordionGroup = ({children, className}: props) => {
+export const BasicAccordionGroup = ({children, className}: props) => {
     // TODO: implement grouped accordions keyboard input management
     return (
         <div className={classNames(`basic-accordion-group`, className && className)}>

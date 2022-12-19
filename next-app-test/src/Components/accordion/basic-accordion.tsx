@@ -1,5 +1,7 @@
 import classNames from "classnames";
-import { useCallback, useState } from "react";
+import { useState } from "react";
+
+import defaultStyles from './basic-accordion-styles.module.scss'
 
 type headerLevel = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6';
 
@@ -9,9 +11,9 @@ interface Props {
     headerLevel: headerLevel;
     id: string;
     // optional
-    className?: string;
     drawerOpen?: boolean;
     disableCollapse?: boolean;
+    stylesOverride?: any; // TODO: look up typing for sass module
 }
 
 interface HeaderProps {
@@ -39,23 +41,25 @@ const HeaderElement = ({ headerLevel, children }: HeaderProps) => {
 
 
 export const BasicAccordion = ({
-    id, headerText, headerLevel, className, drawerOpen = false, disableCollapse = false, children
+    id, headerText, headerLevel, drawerOpen = false, disableCollapse = false, children, stylesOverride,
 }: Props) => {
+    const styles = stylesOverride || defaultStyles;
     const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse);
     const toggleDrawerVisibility = () => !disableCollapse && setIsOpen(!isOpen);
-    return <div className={className}>
+    return <div className={styles.container}>
         <HeaderElement headerLevel={headerLevel}>
             <button
                 aria-expanded={isOpen}
-                className={`accordion-trigger h${headerLevel}`}
+                className={`${styles.accordionTrigger} h${headerLevel}`}
                 aria-controls={`${id}-content`}
                 aria-disabled={disableCollapse}
                 id={id}
                 onClick={toggleDrawerVisibility}
             >
-                {headerText}
-                {!disableCollapse && !isOpen && <span className="glyphicon glyphicon-chevron-down">closedIcon</span>}
-                {!disableCollapse && isOpen && <span className="glyphicon glyphicon-chevron-up">openIcon</span>}
+                {headerText}{' '}
+                {!disableCollapse && <span className={styles.arrowContainer}>
+                    <span className={classNames(defaultStyles.arrow, isOpen ? defaultStyles.up : defaultStyles.down)}/>
+                </span>}
             </button>
         </HeaderElement>
         <div
@@ -63,46 +67,10 @@ export const BasicAccordion = ({
             role="region"
             aria-labelledby={id}
             // // including "display-none" css and the "hidden" attribute for older browsers. They do the same thing but it's good to have both
-            className={classNames('accordion-panel', !isOpen && 'hidden')}
+            className={classNames(styles.accordionContent, !isOpen && defaultStyles.hidden)}
             hidden={!isOpen}
         >
             {children}
         </div>
     </div>
 }
-
-
-// export const BasicAccordion = ({
-//     id,headerText,headerLevel, className, drawerOpen=false, disableCollapse=false, children
-// }: Props) => {
-//     const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse);
-//     const toggleDrawerVisibility = useCallback(() => {
-//         if(!disableCollapse) setIsOpen(!isOpen);
-//     }, [])
-//     return <div className={classNames('basic-accordion', isOpen ? 'open' : 'closed', className && className)}>
-//             <HeaderElement headerLevel={headerLevel}>
-//                 <button
-//                     aria-expanded={isOpen}
-//                     className={`accordion-trigger h${headerLevel}`}
-//                     aria-controls={`${id}-content`}
-//                     aria-disabled={disableCollapse}
-//                     id={id}
-//                     onClick={toggleDrawerVisibility}
-//                 >
-//                     {headerText}
-//                     {!disableCollapse && !isOpen && <span className="glyphicon glyphicon-chevron-down">closedIcon</span>}
-//                     {!disableCollapse && isOpen && <span className="glyphicon glyphicon-chevron-up">openIcon</span>}
-//                 </button>
-//             </HeaderElement>
-//             <div
-//                 id={`${}-content`}
-//                 role="region"
-//                 aria-labelledby={id}
-//                 // including "display-none" css and the "hidden" attribute for older browsers. They do the same thing but it's good to have both
-//                 className={classNames('accordion-panel', !isOpen && 'hidden')}
-//                 hidden={!isOpen}
-//             >
-//                 {children}
-//             </div>
-//     </div>
-// }

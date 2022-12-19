@@ -1,8 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.scss'
+
 import { BasicAccordion } from '../src/Components/accordion/basic-accordion'
+import { BasicAccordionGroup } from '../src/Components/accordion/basic-accordion-group'
+
+import styles from '../styles/Home.module.scss'
+import BYOStyles from '../styles/build-your-own.module.scss'
 
 const BuildYourOwn = () => {
     return (
@@ -21,47 +25,53 @@ const BuildYourOwn = () => {
                             <div className={styles.image}>builder</div>
                         </div>
                         <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
-                            <div className={styles.description}>Description</div>
-                            <BasicAccordion
-                                className={styles.selector}
-                                headerText="Accordion Header"
-                                headerLevel={3}
-                                id="basic-accordion-example"
-                            >
-                                Basic Accordion Content
-                            </BasicAccordion>
-                            <BasicAccordion
-                                className={styles.selector}
-                                headerText="Accordion Header"
-                                headerLevel={3}
-                                id="basic-accordion-example"
-                            >
-                                Basic Accordion Content
-                            </BasicAccordion>
-                            <BasicAccordion
-                                className={styles.selector}
-                                headerText="Accordion Header"
-                                headerLevel={3}
-                                id="basic-accordion-example"
-                            >
-                                Basic Accordion Content
-                            </BasicAccordion>
-                            <BasicAccordion
-                                className={styles.selector}
-                                headerText="Accordion Header"
-                                headerLevel={3}
-                                id="basic-accordion-example"
-                            >
-                                Basic Accordion Content
-                            </BasicAccordion>
-                            <BasicAccordion
-                                className={styles.selector}
-                                headerText="Accordion Header"
-                                headerLevel={3}
-                                id="basic-accordion-example"
-                            >
-                                Basic Accordion Content
-                            </BasicAccordion>
+                            <div className={styles.description}>
+                                <h2 className={styles.header}>Quilt Builder</h2>
+                                <p>Lorem ipsum skldfjd dslkfj sdl dskflajd flsadkfj dksjfa sdlkf jdskfl </p>
+                            </div>
+                            <BasicAccordionGroup>
+                                <BasicAccordion
+                                    stylesOverride={BYOStyles}
+                                    headerText="Dimensions"
+                                    headerLevel={3}
+                                    id="basic-accordion-example"
+                                >
+                                    Basic Accordion Content
+                                </BasicAccordion>
+                                <BasicAccordion
+                                    stylesOverride={BYOStyles}
+                                    headerText="Size"
+                                    headerLevel={3}
+                                    id="basic-accordion-example"
+                                >
+                                    Basic Accordion Content
+                                </BasicAccordion>
+                                <BasicAccordion
+                                    stylesOverride={BYOStyles}
+                                    headerText="Print"
+                                    headerLevel={3}
+                                    id="basic-accordion-example"
+                                >
+                                    Basic Accordion Content
+                                </BasicAccordion>
+                                <BasicAccordion
+                                    stylesOverride={BYOStyles}
+                                    headerText="Print Colorway"
+                                    headerLevel={3}
+                                    id="basic-accordion-example"
+                                >
+                                    Basic Accordion Content
+                                </BasicAccordion>
+                                <BasicAccordion
+                                    stylesOverride={BYOStyles}
+                                    headerText="Texture"
+                                    headerLevel={3}
+                                    id="basic-accordion-example"
+                                >
+                                    Basic Accordion Content
+                                </BasicAccordion>
+                            </BasicAccordionGroup>
+
                         </div>
                     </div>
                     <div className={styles.row}>

@@ -37,9 +37,10 @@
 }
 
 .description {
-  background: orange;
-  color: blue;
-  height: 150px
+  padding: 16px;
+  .header {
+    margin-bottom: 8px;
+  }
 }
 
 .selector {
