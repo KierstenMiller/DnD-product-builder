@@ -30,7 +30,7 @@ const BuildYourOwn = () => {
                                 <h2 className={styles.header}>Quilt Builder</h2>
                                 <p>Click on a square to edit it</p>
                             </div>
-                            <h3>Quilt Group</h3>
+                            <h3 className="text-yellow text-small ml-large">Quilt Group</h3>
                             <BasicAccordionGroup>
                                 <BasicAccordion
                                     stylesOverride={BYOStyles}
@@ -75,7 +75,16 @@ const BuildYourOwn = () => {
                                     headerLevel={3}
                                     id="basic-accordion-example"
                                 >
-                                    Basic Accordion Content
+                                    <InputRadio
+                                        heading="Pick a print"
+                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
+                                        options={[
+                                            {label:"Stitch A", selected: true},
+                                            {label:"Stitch B", selected: false},
+                                            {label:"Stitch C", selected: false},
+                                            {label:"Stitch D", selected: false},
+                                        ]}
+                                    />
                                 </BasicAccordion>
                                 <BasicAccordion
                                     stylesOverride={BYOStyles}
@@ -83,7 +92,16 @@ const BuildYourOwn = () => {
                                     headerLevel={3}
                                     id="basic-accordion-example"
                                 >
-                                    Basic Accordion Content
+                                    <InputRadio
+                                        heading="Pick a colorway"
+                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
+                                        options={[
+                                            {label:"Stitch A", selected: true},
+                                            {label:"Stitch B", selected: false},
+                                            {label:"Stitch C", selected: false},
+                                            {label:"Stitch D", selected: false},
+                                        ]}
+                                    />
                                 </BasicAccordion>
                                 <BasicAccordion
                                     stylesOverride={BYOStyles}
@@ -91,7 +109,16 @@ const BuildYourOwn = () => {
                                     headerLevel={3}
                                     id="basic-accordion-example"
                                 >
-                                    Basic Accordion Content
+                                    <InputRadio
+                                        heading="Pick a stitch"
+                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
+                                        options={[
+                                            {label:"Stitch A", selected: true},
+                                            {label:"Stitch B", selected: false},
+                                            {label:"Stitch C", selected: false},
+                                            {label:"Stitch D", selected: false},
+                                        ]}
+                                    />
                                 </BasicAccordion>
                             </BasicAccordionGroup>
 
