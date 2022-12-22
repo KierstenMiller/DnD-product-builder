@@ -73,3 +73,13 @@ $spacing-sizes: (
   @include modifiers($spacing-sizes, 'padding-bottom', 'b-');
   @include modifiers($spacing-sizes, 'padding-left', 'l-');
 }
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: 0;
+}

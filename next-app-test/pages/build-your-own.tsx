@@ -2,14 +2,84 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 
+
 import { BasicAccordion } from '../src/Components/accordion/basic-accordion'
 import { BasicAccordionGroup } from '../src/Components/accordion/basic-accordion-group'
 
 import styles from '../styles/Home.module.scss'
 import BYOStyles from '../styles/build-your-own.module.scss'
 import { InputRadio } from '../src/Components/form-controls/input-radio'
+import { BuildYourOwnModel } from '../src/page-components/build-your-own-model'
+import { observer } from 'mobx-react-lite'
+import { BuildYourOwnPage } from '../src/page-components/build-your-own-page'
 
-const BuildYourOwn = () => {
+// type OptionKey = 'DIMENSION' | 'STITCH' | 'PRINT' | 'COLORWAY' | 'TEXTURE';
+
+export enum OPTIONS {
+    DIMENSION = "DIMENSION",
+    STITCH = "STITCH",
+    PRINT = "PRINT",
+    COLORWAY = "COLORWAY",
+    TEXTURE = "TEXTURE",
+  }
+
+export interface rawData {
+    options: {
+        [OPTIONS.DIMENSION]: {label: string, selected: boolean }[],
+        [OPTIONS.STITCH]: {label: string, selected: boolean }[],
+        [OPTIONS.PRINT]: {label: string, selected: boolean }[],
+        [OPTIONS.COLORWAY]: {label: string, selected: boolean }[],
+        [OPTIONS.TEXTURE]: {label: string, selected: boolean }[],
+    }
+  }
+
+const data = {
+    options: {
+        [OPTIONS.DIMENSION]: [
+            {label:"20 x 20", selected: true},
+            {label:"30 x 30", selected: false},
+            {label:"40 x 40", selected: false},
+            {label:"50 x 50", selected: false},
+        ],
+        [OPTIONS.STITCH]: [
+            {label:"Stitch A", selected: true},
+            {label:"Stitch B", selected: false},
+            {label:"Stitch C", selected: false},
+            {label:"Stitch D", selected: false},
+        ],
+        [OPTIONS.PRINT]: [
+            {label:"checkered", selected: true},
+            {label:"polka dots", selected: false},
+            {label:"lined", selected: false},
+            {label:"solid", selected: false},
+        ],
+        [OPTIONS.COLORWAY]: [
+            {label:"Red", selected: true},
+            {label:"Yellow", selected: false},
+            {label:"Blue", selected: false},
+            {label:"Black", selected: false},
+        ],
+        [OPTIONS.TEXTURE]: [
+            {label:"plain", selected: true},
+            {label:"rough", selected: false},
+            {label:"sparkles", selected: false},
+            {label:"embroidered", selected: false},
+        ],
+    }
+    
+}
+
+const findInitValue = (options: {label: string, selected: boolean }[]) => options.find(opt => opt.selected)?.label || options[0].label;
+
+const BuildYourOwn = observer(() => {
+    // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
+    const model = new BuildYourOwnModel({
+        dimensions:  findInitValue(data.options[OPTIONS.DIMENSION]),
+        stitch:  findInitValue(data.options[OPTIONS.STITCH]),
+        print:  findInitValue(data.options[OPTIONS.PRINT]),
+        colorway:  findInitValue(data.options[OPTIONS.COLORWAY]),
+        texture:  findInitValue(data.options[OPTIONS.TEXTURE]),
+});
     return (
         <>
             <Head>
@@ -18,131 +88,9 @@ const BuildYourOwn = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-            <div className={styles.app}>
-                <div className={styles.container}>
-                    <div className={styles.row}>
-                        <div className={`${styles.column} ${styles.columnLeft}`}>
-                            <div className={styles.image}>builder</div>
-                        </div>
-                        <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
-                            <div className={styles.description}>
-                                <h2 className={styles.header}>Quilt Builder</h2>
-                                <p>Click on a square to edit it</p>
-                            </div>
-                            <h3 className="text-yellow text-small ml-large">Quilt Group</h3>
-                            <BasicAccordionGroup>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Dimensions"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a dimension"
-                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
-                                        options={[
-                                            {label:"20 x 20", selected: true},
-                                            {label:"30 x 30", selected: false},
-                                            {label:"40 x 40", selected: false},
-                                            {label:"50 x 50", selected: false},
-                                        ]}
-                                    />
-                                </BasicAccordion>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Stitch"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a stitch"
-                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
-                                        options={[
-                                            {label:"Stitch A", selected: true},
-                                            {label:"Stitch B", selected: false},
-                                            {label:"Stitch C", selected: false},
-                                            {label:"Stitch D", selected: false},
-                                        ]}
-                                    />
-                                </BasicAccordion>
-                            </BasicAccordionGroup>
-                            <h3>Selected Patch Group</h3>
-                            <BasicAccordionGroup>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Print"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a print"
-                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
-                                        options={[
-                                            {label:"Stitch A", selected: true},
-                                            {label:"Stitch B", selected: false},
-                                            {label:"Stitch C", selected: false},
-                                            {label:"Stitch D", selected: false},
-                                        ]}
-                                    />
-                                </BasicAccordion>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Print Colorway"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a colorway"
-                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
-                                        options={[
-                                            {label:"Stitch A", selected: true},
-                                            {label:"Stitch B", selected: false},
-                                            {label:"Stitch C", selected: false},
-                                            {label:"Stitch D", selected: false},
-                                        ]}
-                                    />
-                                </BasicAccordion>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Texture"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a stitch"
-                                        onChange={({newSelection}) => console.log('newSelection', newSelection)}
-                                        options={[
-                                            {label:"Stitch A", selected: true},
-                                            {label:"Stitch B", selected: false},
-                                            {label:"Stitch C", selected: false},
-                                            {label:"Stitch D", selected: false},
-                                        ]}
-                                    />
-                                </BasicAccordion>
-                            </BasicAccordionGroup>
-
-                        </div>
-                    </div>
-                    <div className={styles.row}>
-                        <div className={styles.column}>
-                            blank
-                        </div>
-                        <div className={styles.column}>
-                            <div className={styles.summary}>
-                                summary
-                            </div>
-                        </div>
-
-                    </div>
-                    <div className={styles.otherContent}>
-                        other content
-                    </div>
-                </div>
-            </div>
-
+            <BuildYourOwnPage model={model} data={data} />
         </>
     )
-}
+})
 
 export default BuildYourOwn;

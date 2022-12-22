@@ -8,10 +8,10 @@ interface props {
         // optional
         selected?: boolean;
     }[]
-
 }
 
 export const InputRadio = ({heading, options, onChange}: props) => {
+    const [selected, setSelected] = useState(options.find(opt => opt.selected)?.label);
     return <fieldset>
         <legend>{heading}</legend>
         {options.map(opt => <div>
@@ -20,8 +20,11 @@ export const InputRadio = ({heading, options, onChange}: props) => {
                 value={opt.label}
                 id={opt.label}
                 name={heading}
-                onChange={event => onChange({event, newSelection: opt.label})}
-                checked={opt.selected}
+                onChange={event => {
+                    setSelected(opt.label)
+                    onChange({event, newSelection: opt.label})}
+                }
+                checked={opt.label === selected}
             />
             selected: {opt.selected ? 'T' : 'F'}
             <label htmlFor={opt.label}>{opt.label}</label>
