@@ -14,7 +14,7 @@ export const InputRadio = ({heading, options, onChange}: props) => {
     const [selected, setSelected] = useState(options.find(opt => opt.selected)?.label);
     return <fieldset>
         <legend>{heading}</legend>
-        {options.map(opt => <div>
+        {options.map(opt => <div key={opt.label}>
             <input
                 type="radio"
                 value={opt.label}

@@ -1,37 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-
-
-import { BasicAccordion } from '../src/Components/accordion/basic-accordion'
-import { BasicAccordionGroup } from '../src/Components/accordion/basic-accordion-group'
-
-import styles from '../styles/Home.module.scss'
-import BYOStyles from '../styles/build-your-own.module.scss'
-import { InputRadio } from '../src/Components/form-controls/input-radio'
-import { BuildYourOwnModel } from '../src/page-components/build-your-own-model'
 import { observer } from 'mobx-react-lite'
-import { BuildYourOwnPage } from '../src/page-components/build-your-own-page'
 
-// type OptionKey = 'DIMENSION' | 'STITCH' | 'PRINT' | 'COLORWAY' | 'TEXTURE';
-
-export enum OPTIONS {
-    DIMENSION = "DIMENSION",
-    STITCH = "STITCH",
-    PRINT = "PRINT",
-    COLORWAY = "COLORWAY",
-    TEXTURE = "TEXTURE",
-  }
-
-export interface rawData {
-    options: {
-        [OPTIONS.DIMENSION]: {label: string, selected: boolean }[],
-        [OPTIONS.STITCH]: {label: string, selected: boolean }[],
-        [OPTIONS.PRINT]: {label: string, selected: boolean }[],
-        [OPTIONS.COLORWAY]: {label: string, selected: boolean }[],
-        [OPTIONS.TEXTURE]: {label: string, selected: boolean }[],
-    }
-  }
+import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
+import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
+import { OPTIONS } from '-/page-components/build-your-own/build-your-own.util'
 
 const data = {
     options: {
@@ -65,8 +37,7 @@ const data = {
             {label:"sparkles", selected: false},
             {label:"embroidered", selected: false},
         ],
-    }
-    
+    } 
 }
 
 const findInitValue = (options: {label: string, selected: boolean }[]) => options.find(opt => opt.selected)?.label || options[0].label;

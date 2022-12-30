@@ -1,4 +1,4 @@
-import { BasicAccordion } from "../src/Components/accordion/basic-accordion";
+import { BasicAccordion } from "-/Components/accordion/basic-accordion";
 
 const About = () => {
     return <div>

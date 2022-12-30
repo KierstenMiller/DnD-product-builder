@@ -1,18 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-
-// import styles from './next-app-test/styles/Home.module.scss'
-// import BYOStyles from './styles/build-your-own.module.scss'
 import { observer } from 'mobx-react-lite'
-import { OPTIONS, rawData } from '../../pages/build-your-own'
-import { BuildYourOwnModelInterface } from './build-your-own-model'
-import { BasicAccordionGroup } from '../Components/accordion/basic-accordion-group'
-import { BasicAccordion } from '../Components/accordion/basic-accordion'
-import { InputRadio } from '../Components/form-controls/input-radio'
 
-const styles = {};
-const BYOStyles = {};
+import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
+import { BasicAccordion } from '-/Components/accordion/basic-accordion'
+import { InputRadio } from '-/Components/form-controls/input-radio'
+import { OPTIONS, rawData } from './build-your-own.util'
+import { BuildYourOwnModelInterface } from '-/page-components/build-your-own/build-your-own-model'
+
+import BYOStyles from '#/build-your-own.module.scss'
+import styles from '#/Home.module.scss'
 
 export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnModelInterface, data: rawData}) => {
     return (<>
