@@ -26,7 +26,6 @@ export const InputRadio = ({heading, options, onChange}: props) => {
                 }
                 checked={opt.label === selected}
             />
-            selected: {opt.selected ? 'T' : 'F'}
             <label htmlFor={opt.label}>{opt.label}</label>
         </div>)}
     </fieldset>

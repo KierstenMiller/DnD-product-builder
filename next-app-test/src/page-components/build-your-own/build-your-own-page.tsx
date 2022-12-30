@@ -4,12 +4,12 @@ import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-grou
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { InputRadio } from '-/Components/form-controls/input-radio'
 import { OPTIONS, rawData } from './build-your-own.util'
-import { BuildYourOwnModelInterface } from '-/page-components/build-your-own/build-your-own-model'
+import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 
 import BYOStyles from '#/build-your-own.module.scss'
 import styles from '#/Home.module.scss'
 
-export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnModelInterface, data: rawData}) => {
+export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnModel, data: rawData}) => {
     return (<>
             <div className={styles.app}>
                 <div className={styles.container}>
@@ -39,7 +39,7 @@ export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnMod
                                 >
                                     <InputRadio
                                         heading="Pick a dimension"
-                                        onChange={({event, newSelection}: {event: React.ChangeEvent<HTMLInputElement>, newSelection: string}) => model.dimensions = newSelection}
+                                        onChange={({newSelection}: {newSelection: string}) => model.setDimensions(newSelection)}
                                         options={data.options[OPTIONS.DIMENSION]}
                                     />
                                 </BasicAccordion>
@@ -51,7 +51,7 @@ export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnMod
                                 >
                                     <InputRadio
                                         heading="Pick a stitch"
-                                        onChange={({event, newSelection}: {event: React.ChangeEvent<HTMLInputElement>, newSelection: string}) => model.dimensions = newSelection}
+                                        onChange={({newSelection}: {newSelection: string}) => model.setStitch(newSelection)}
                                         options={data.options[OPTIONS.STITCH]}
                                     />
                                 </BasicAccordion>
@@ -66,7 +66,7 @@ export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnMod
                                 >
                                     <InputRadio
                                         heading="Pick a print"
-                                        onChange={({event, newSelection}: {event: React.ChangeEvent<HTMLInputElement>, newSelection: string}) => model.dimensions = newSelection}
+                                        onChange={({newSelection}: {newSelection: string}) => model.setPrint(newSelection)}
                                         options={data.options[OPTIONS.PRINT]}
                                     />
                                 </BasicAccordion>
@@ -78,7 +78,7 @@ export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnMod
                                 >
                                     <InputRadio
                                         heading="Pick a colorway"
-                                        onChange={({event, newSelection}: {event: React.ChangeEvent<HTMLInputElement>, newSelection: string}) => model.dimensions = newSelection}
+                                        onChange={({newSelection}: {newSelection: string}) => model.setColorway(newSelection)}
                                         options={data.options[OPTIONS.COLORWAY]}
                                     />
                                 </BasicAccordion>
@@ -90,7 +90,7 @@ export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnMod
                                 >
                                     <InputRadio
                                         heading="Pick a texture"
-                                        onChange={({event, newSelection}: {event: React.ChangeEvent<HTMLInputElement>, newSelection: string}) => model.dimensions = newSelection}
+                                        onChange={({newSelection}: {newSelection: string}) => model.setTexture(newSelection)}
                                         options={data.options[OPTIONS.TEXTURE]}
                                     />
                                 </BasicAccordion>

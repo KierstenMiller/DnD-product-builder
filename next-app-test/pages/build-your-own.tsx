@@ -44,13 +44,14 @@ const findInitValue = (options: {label: string, selected: boolean }[]) => option
 
 const BuildYourOwn = observer(() => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
-    const model = new BuildYourOwnModel({
+    const model =  new BuildYourOwnModel({  
         dimensions:  findInitValue(data.options[OPTIONS.DIMENSION]),
         stitch:  findInitValue(data.options[OPTIONS.STITCH]),
         print:  findInitValue(data.options[OPTIONS.PRINT]),
         colorway:  findInitValue(data.options[OPTIONS.COLORWAY]),
         texture:  findInitValue(data.options[OPTIONS.TEXTURE]),
-});
+    });
+
     return (
         <>
             <Head>
