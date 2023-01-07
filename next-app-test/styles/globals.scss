@@ -83,3 +83,23 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
 }
+
+.flex {
+  display: flex;
+}
+
+.a-i-center {
+  align-items: center;
+}
+
+.a-c-center {
+  align-content: center;
+}
+
+.j-i-center {
+  justify-items: center;
+}
+
+.j-c-center {
+  justify-content: center;
+}

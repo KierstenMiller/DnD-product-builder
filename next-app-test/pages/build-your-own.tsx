@@ -25,26 +25,29 @@ const BuildYourOwn = observer(() => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div>
+            <div className="flex a-i-center">
                 <BasicAccordion
                     headerText="Project Goals"
                     headerLevel={3}
                     id="goals"
                 >
-                    <p>Goal: optimize first paint: provide only info that is needed OR cache all info server-side</p>
-                    <p>Goal: SEO for procuts</p>
-                    <p>Goal: allow a given product with a given productId to have multiple "looks"</p>
-                    <p>Goal: Allow api to decide presentation of the modifier component.</p>
-                    <p>Goal: Allow api to decide presentation of the workspace component</p>
-                    <p>Goal: Make MobX model agnostic of configuration</p>
-                    <p>Goal: Shallow update (do not effect browser's history) url on config change</p>
-                    <p>Goal: Include error handling</p>
-                    <ul>
-                        <li>input radio checks if all ids are unique, if not provide error handling (create unique ids and provide console.warn?)</li>
-                        <li>what if a display is not provided for modifier</li>
-                    </ul>
+                    <div className="m-x-large">
+                        <p>Goal: optimize first paint: provide only info that is needed OR cache all info server-side</p>
+                        <p>Goal: SEO for procuts</p>
+                        <p>Goal: allow a given product with a given productId to have multiple "looks"</p>
+                        <p>Goal: Allow api to decide presentation of the modifier component.</p>
+                        <p>Goal: Allow api to decide presentation of the workspace component</p>
+                        <p>Goal: Make MobX model agnostic of configuration</p>
+                        <p>Goal: Shallow update (do not effect browser's history) url on config change</p>
+                        <p>Goal: Include error handling</p>
+                        <ul>
+                            <li>input radio checks if all ids are unique, if not provide error handling (create unique ids and provide console.warn?)</li>
+                            <li>what if a display is not provided for modifier</li>
+                        </ul>
+                    </div>
+                    
                 </BasicAccordion>
-                
+                <span className="ml-medium"><b>UP NEXT: modifier display & modifier options sort/filter</b></span>
             </div>
             <BuildYourOwnPage model={model} modifiers={data.modifiers} />
         </>
