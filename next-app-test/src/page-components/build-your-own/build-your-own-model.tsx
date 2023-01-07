@@ -1,41 +1,22 @@
 import { makeObservable, observable, action} from "mobx"
+import { configItemI, configT } from "./build-your-own.util";
 
-export interface BuildYourOwnModelInterface {
-    dimensions: string,
-    stitch: string,
-    print: string,
-    colorway: string,
-    texture: string,
+export interface BuildYourOwnModelI {
+    config: configT
 }
-
 export class BuildYourOwnModel {
-    dimensions
-    stitch
-    print
-    colorway
-    texture
-    constructor({dimensions, stitch, print, colorway, texture}: BuildYourOwnModelInterface) {
-        this.dimensions = dimensions;
-        this.stitch = stitch;
-        this.print = print;
-        this.colorway = colorway;
-        this.texture = texture;
+    config
+    constructor({config}: BuildYourOwnModelI) {
+        this.config = config;
         makeObservable(this, {
-            dimensions: observable,
-            stitch: observable,
-            print: observable,
-            colorway: observable,
-            texture: observable,
-            setDimensions: action.bound,
-            setStitch: action.bound,
-            setPrint: action.bound,
-            setColorway: action.bound,
-            setTexture: action.bound,
+            config: observable,
+            setConfig: action.bound,
+            updateConfigItemSelection: action.bound,
         }) 
     }
-    setDimensions = (newDimensions: string) => this.dimensions = newDimensions;
-    setStitch = (newStitch: string) => this.stitch = newStitch;
-    setPrint = (newPrint: string) => this.print = newPrint;
-    setColorway = (newColorway: string) => this.colorway = newColorway;
-    setTexture = (newTexture: string) => this.texture = newTexture;
+    setConfig = (newConfig: configT) => this.config = newConfig;
+    updateConfigItemSelection = ({id, selection: newSelection}: configItemI) => {
+        const match = this.config.find(mod => mod.id === id);
+        if (match) match.selection = newSelection
+    };
 }

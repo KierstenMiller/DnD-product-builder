@@ -1,5 +1,6 @@
 export const mockOptions2D = [
     {
+        id: 'optionA_8-8',
         label: "option A",
         productId: 1,
         image: "someUrl-8x8",
@@ -7,6 +8,7 @@ export const mockOptions2D = [
         width: 8,
     },
     {
+        id: 'optionA_8-4',
         label: "option A",
         productId: 1,
         image: "someUrl-labelA-4x8",
@@ -14,6 +16,7 @@ export const mockOptions2D = [
         width: 4,
     },
     {
+        id: 'optionA_8-2',
         label: "option A",
         productId: 1,
         image: "someUrl-labelB-2x8",
@@ -21,6 +24,7 @@ export const mockOptions2D = [
         width: 2,
     },
     {
+        id: 'optionB_8-2',
         label: "option B",
         productId: 2,
         image: "someUrl-labelB-2x8",
@@ -28,8 +32,9 @@ export const mockOptions2D = [
         width: 2,
     },
     {
+        id: 'optionC_8-8',
         label: "option C",
-        productId: 1,
+        productId: 3,
         image: "someUrl-labelC-8x16",
         height: 8,
         width: 16,
@@ -37,6 +42,7 @@ export const mockOptions2D = [
 ]
 export const mockOptions2DPriced = [
     {
+        id: 'optionA_8-8',
         label: "option A",
         productId: 1,
         image: "someUrl-8x8",
@@ -45,6 +51,7 @@ export const mockOptions2DPriced = [
         price: 100,
     },
     {
+        id: 'optionA_8-4',
         label: "option A",
         productId: 1,
         image: "someUrl-labelA-4x8",
@@ -53,6 +60,7 @@ export const mockOptions2DPriced = [
         price: 200
     },
     {
+        id: 'optionA_8-2',
         label: "option A",
         productId: 1,
         image: "someUrl-labelB-2x8",
@@ -61,6 +69,7 @@ export const mockOptions2DPriced = [
         price: 300,
     },
     {
+        id: 'optionB_8-2',
         label: "option B",
         productId: 2,
         image: "someUrl-labelB-2x8",
@@ -69,6 +78,7 @@ export const mockOptions2DPriced = [
         price: 400,
     },
     {
+        id: 'optionC_8-16',
         label: "option C",
         productId: 1,
         image: "someUrl-labelC-8x16",
@@ -79,6 +89,7 @@ export const mockOptions2DPriced = [
 ]
 export const mockOptions3D = [
     {
+        id: 'optionA_8-8-8',
         label: "option A",
         productId: 1,
         image: "someUrl-8x8x8",
@@ -87,6 +98,7 @@ export const mockOptions3D = [
         depth: 8
     },
     {
+        id: 'optionA_8-4-4',
         label: "option A",
         productId: 1,
         image: "someUrl-labelA-4x8x4",
@@ -95,6 +107,7 @@ export const mockOptions3D = [
         depth: 4,
     },
     {
+        id: 'optionA_8-2-2',
         label: "option A",
         productId: 1,
         image: "someUrl-labelB-2x8x2",
@@ -103,6 +116,7 @@ export const mockOptions3D = [
         depth: 2,
     },
     {
+        id: 'optionB_8-2-4',
         label: "option B",
         productId: 2,
         image: "someUrl-labelB-2x8x4",
@@ -111,6 +125,7 @@ export const mockOptions3D = [
         depth: 4,
     },
     {
+        id: 'optionC_8-16-4',
         label: "option C",
         productId: 1,
         image: "someUrl-labelC-8x16x4",
@@ -122,6 +137,7 @@ export const mockOptions3D = [
 
 export const mockOptions3DStocked = [
     {
+        id: 'optionA_8-8-8',
         label: "option A",
         productId: 1,
         image: "someUrl-8x8x8",
@@ -131,6 +147,7 @@ export const mockOptions3DStocked = [
         stocked: true,
     },
     {
+        id: 'optionA_8-4-4',
         label: "option A",
         productId: 1,
         image: "someUrl-labelA-4x8x4",
@@ -140,6 +157,7 @@ export const mockOptions3DStocked = [
         stocked: false,
     },
     {
+        id: 'optionA_8-2-2',
         label: "option A",
         productId: 1,
         image: "someUrl-labelB-2x8x2",
@@ -149,6 +167,7 @@ export const mockOptions3DStocked = [
         stocked: false,
     },
     {
+        id: 'optionB_8-2-4',
         label: "option B",
         productId: 2,
         image: "someUrl-labelB-2x8x4",
@@ -158,6 +177,7 @@ export const mockOptions3DStocked = [
         stocked: true,
     },
     {
+        id: 'optionC_8-16-2',
         label: "option C",
         productId: 1,
         image: "someUrl-labelC-8x16x4",

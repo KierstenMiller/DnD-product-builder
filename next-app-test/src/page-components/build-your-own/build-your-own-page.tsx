@@ -3,99 +3,47 @@ import { observer } from 'mobx-react-lite'
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { InputRadio } from '-/Components/form-controls/input-radio'
-import { OPTIONS, rawData } from './build-your-own.util'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 
 import BYOStyles from '#/build-your-own.module.scss'
 import styles from '#/Home.module.scss'
+import { modifiersT } from './build-your-own.util'
 
-export const BuildYourOwnPage = observer(({model, data}: {model: BuildYourOwnModel, data: rawData}) => {
+interface BuildYourOwnPageI {
+    model: BuildYourOwnModel,
+    modifiers: modifiersT,
+}
+
+export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI) => {
     return (<>
             <div className={styles.app}>
                 <div className={styles.container}>
                     <div className={styles.row}>
                         <div className={`${styles.column} ${styles.columnLeft}`}>
                             <div className={styles.image}>
-                                <h3>Builder</h3>
-                                <div>Selected dimension: {model.dimensions}</div>
-                                <div>Selected stitch: {model.stitch}</div>
-                                <div>Selected print: {model.print}</div>
-                                <div>Selected colorway: {model.colorway}</div>
-                                <div>Selected texture: {model.texture}</div>
+                                <h2>Current Selections</h2>
+                                {model.config.map(c => <div>Selected {c.id}: {c.selection}</div>)}
                             </div>
                         </div>
                         <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
                             <div className={styles.description}>
-                                <h2 className={styles.header}>Quilt Builder</h2>
+                                <h2 className={styles.header}>Build Your Own</h2>
                                 <p>Click on a square to edit it</p>
                             </div>
-                            <h3 className="ml-medium">Quilt Group</h3>
                             <BasicAccordionGroup>
-                                <BasicAccordion
+                                {modifiers.map(mod => <BasicAccordion
                                     stylesOverride={BYOStyles}
-                                    headerText="Dimensions"
+                                    headerText={mod.label}
                                     headerLevel={3}
-                                    id="basic-accordion-example"
+                                    id={mod.label}
                                 >
                                     <InputRadio
-                                        heading="Pick a dimension"
-                                        onChange={({newSelection}: {newSelection: string}) => model.setDimensions(newSelection)}
-                                        options={data.options[OPTIONS.DIMENSION]}
+                                        heading={mod.label}
+                                        onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.label, selection: newSelection})}
+                                        options={mod.options}
                                     />
-                                </BasicAccordion>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Stitch"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a stitch"
-                                        onChange={({newSelection}: {newSelection: string}) => model.setStitch(newSelection)}
-                                        options={data.options[OPTIONS.STITCH]}
-                                    />
-                                </BasicAccordion>
+                                </BasicAccordion>)}
                             </BasicAccordionGroup>
-                            <h3 className='ml-medium'>Selected Patch Group</h3>
-                            <BasicAccordionGroup>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Print"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a print"
-                                        onChange={({newSelection}: {newSelection: string}) => model.setPrint(newSelection)}
-                                        options={data.options[OPTIONS.PRINT]}
-                                    />
-                                </BasicAccordion>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Print Colorway"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a colorway"
-                                        onChange={({newSelection}: {newSelection: string}) => model.setColorway(newSelection)}
-                                        options={data.options[OPTIONS.COLORWAY]}
-                                    />
-                                </BasicAccordion>
-                                <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText="Texture"
-                                    headerLevel={3}
-                                    id="basic-accordion-example"
-                                >
-                                    <InputRadio
-                                        heading="Pick a texture"
-                                        onChange={({newSelection}: {newSelection: string}) => model.setTexture(newSelection)}
-                                        options={data.options[OPTIONS.TEXTURE]}
-                                    />
-                                </BasicAccordion>
-                            </BasicAccordionGroup>
-
                         </div>
                     </div>
                     <div className={styles.row}>

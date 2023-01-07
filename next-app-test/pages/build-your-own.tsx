@@ -3,53 +3,18 @@ import { observer } from 'mobx-react-lite'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { OPTIONS } from '-/page-components/build-your-own/build-your-own.util'
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD } from '-/data/mockModifiers.data'
+import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 
+// K-TODO: move
 const data = {
-    options: {
-        [OPTIONS.DIMENSION]: [
-            {label:"20 x 20", selected: true},
-            {label:"30 x 30", selected: false},
-            {label:"40 x 40", selected: false},
-            {label:"50 x 50", selected: false},
-        ],
-        [OPTIONS.STITCH]: [
-            {label:"Stitch A", selected: true},
-            {label:"Stitch B", selected: false},
-            {label:"Stitch C", selected: false},
-            {label:"Stitch D", selected: false},
-        ],
-        [OPTIONS.PRINT]: [
-            {label:"checkered", selected: true},
-            {label:"polka dots", selected: false},
-            {label:"lined", selected: false},
-            {label:"solid", selected: false},
-        ],
-        [OPTIONS.COLORWAY]: [
-            {label:"Red", selected: true},
-            {label:"Yellow", selected: false},
-            {label:"Blue", selected: false},
-            {label:"Black", selected: false},
-        ],
-        [OPTIONS.TEXTURE]: [
-            {label:"plain", selected: true},
-            {label:"rough", selected: false},
-            {label:"sparkles", selected: false},
-            {label:"embroidered", selected: false},
-        ],
-    } 
+    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD],
 }
-
-const findInitValue = (options: {label: string, selected: boolean }[]) => options.find(opt => opt.selected)?.label || options[0].label;
 
 const BuildYourOwn = observer(() => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
-    const model =  new BuildYourOwnModel({  
-        dimensions:  findInitValue(data.options[OPTIONS.DIMENSION]),
-        stitch:  findInitValue(data.options[OPTIONS.STITCH]),
-        print:  findInitValue(data.options[OPTIONS.PRINT]),
-        colorway:  findInitValue(data.options[OPTIONS.COLORWAY]),
-        texture:  findInitValue(data.options[OPTIONS.TEXTURE]),
+    const model =  new BuildYourOwnModel({
+        config: data.modifiers.map(mod => ({ id: mod.label, selection: mod.options[0].id }))
     });
 
     return (
@@ -60,7 +25,28 @@ const BuildYourOwn = observer(() => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <BuildYourOwnPage model={model} data={data} />
+            <div>
+                <BasicAccordion
+                    headerText="Project Goals"
+                    headerLevel={3}
+                    id="goals"
+                >
+                    <p>Goal: optimize first paint: provide only info that is needed OR cache all info server-side</p>
+                    <p>Goal: SEO for procuts</p>
+                    <p>Goal: allow a given product with a given productId to have multiple "looks"</p>
+                    <p>Goal: Allow api to decide presentation of the modifier component.</p>
+                    <p>Goal: Allow api to decide presentation of the workspace component</p>
+                    <p>Goal: Make MobX model agnostic of configuration</p>
+                    <p>Goal: Shallow update (do not effect browser's history) url on config change</p>
+                    <p>Goal: Include error handling</p>
+                    <ul>
+                        <li>input radio checks if all ids are unique, if not provide error handling (create unique ids and provide console.warn?)</li>
+                        <li>what if a display is not provided for modifier</li>
+                    </ul>
+                </BasicAccordion>
+                
+            </div>
+            <BuildYourOwnPage model={model} modifiers={data.modifiers} />
         </>
     )
 })
