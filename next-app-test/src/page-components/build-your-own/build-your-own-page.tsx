@@ -8,6 +8,8 @@ import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-o
 import BYOStyles from '#/build-your-own.module.scss'
 import styles from '#/Home.module.scss'
 import { modifiersT } from './build-your-own.util'
+import { GroupedList } from '-/Components/organizer/groupedList'
+import { Modifier } from '-/Components/modifier/modifier'
 
 interface BuildYourOwnPageI {
     model: BuildYourOwnModel,
@@ -15,6 +17,7 @@ interface BuildYourOwnPageI {
 }
 
 export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI) => {
+    
     return (<>
             <div className={styles.app}>
                 <div className={styles.container}>
@@ -30,6 +33,7 @@ export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI)
                                 <h2 className={styles.header}>Build Your Own</h2>
                                 <p>Click on a square to edit it</p>
                             </div>
+                            <Modifier model={model} modifiers={modifiers}/>
                             <BasicAccordionGroup>
                                 {modifiers.map(mod => <BasicAccordion
                                     stylesOverride={BYOStyles}
@@ -37,6 +41,7 @@ export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI)
                                     headerLevel={3}
                                     id={mod.label}
                                 >
+                                    <GroupedList groupByKey={mod.groupBy} itemsToGroup={mod.options}/>
                                     <InputRadio
                                         heading={mod.label}
                                         onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.label, selection: newSelection})}
