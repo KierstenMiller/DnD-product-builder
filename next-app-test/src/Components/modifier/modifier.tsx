@@ -15,27 +15,24 @@ interface BuildYourOwnPageI {
     model: BuildYourOwnModel,
     modifiers: modifiersT,
 }
-
+// from https://stackoverflow.com/questions/42136098/array-groupby-in-typescript
 const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
     (groups[key(item)] ||= []).push(item);
     return groups;
   }, {} as Record<K, T[]>);
 
-export const Modifier = observer(({model, modifiers}: BuildYourOwnPageI) => {
-    
-    const whatIsThis = modifiers.map(mod => {
-        console.log('----------', mod.groupBy);
-        const thing = groupBy(mod.options, i => {
+export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
+    const newModifiers = modifiers.map(mod => {
+        const groupedOptions = groupBy(mod.options, i => {
             const [, value] = Object.entries(i).find(([key,]) => key === mod.groupBy) || []
             return value;
         });
-        console.log(thing);
-        return thing;
+        return {...mod, groupedOptions: groupedOptions};
     })
-    console.log('whatIsThis', whatIsThis);
+    console.log('newModifier', newModifiers);
     return <BasicAccordionGroup>
-        {modifiers.map(mod => <BasicAccordion
+        {newModifiers.map(mod => <BasicAccordion
             stylesOverride={BYOStyles}
             headerText={mod.label}
             headerLevel={3}

@@ -9,7 +9,7 @@ import BYOStyles from '#/build-your-own.module.scss'
 import styles from '#/Home.module.scss'
 import { modifiersT } from './build-your-own.util'
 import { GroupedList } from '-/Components/organizer/groupedList'
-import { Modifier } from '-/Components/modifier/modifier'
+import { Modifiers } from '-/Components/modifier/modifier'
 
 interface BuildYourOwnPageI {
     model: BuildYourOwnModel,
@@ -33,7 +33,7 @@ export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI)
                                 <h2 className={styles.header}>Build Your Own</h2>
                                 <p>Click on a square to edit it</p>
                             </div>
-                            <Modifier model={model} modifiers={modifiers}/>
+                            <Modifiers model={model} modifiers={modifiers}/>
                             <BasicAccordionGroup>
                                 {modifiers.map(mod => <BasicAccordion
                                     stylesOverride={BYOStyles}

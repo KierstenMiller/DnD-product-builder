@@ -22,9 +22,6 @@ export const GroupedList = ({ groupByKey, itemsToGroup, className, groupHeaderLe
         const curGroup = acc[key] ?? [];
         return { ...acc, [key]: [...curGroup, obj] };
       }, {});
-
-      console.log('groups', groups);
-
     return (
         <div className={classNames(`grouped-list-container`, className && className)}>
             GROUPS
