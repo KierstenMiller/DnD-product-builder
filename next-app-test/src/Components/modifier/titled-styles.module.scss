@@ -1,10 +1,23 @@
 .fieldset {
-    background: black;
-    color: white
+    background: pink;
 }
 .legend {
     background: red;
 }
 .label {
-    color: yellow;
+    color: lightpink;
+}
+.option {
+    border: 1px solid deeppink;
+    color: deeppink
+}
+.image {
+    background: grey;
+    height: 100px;
+    width: 100px;
+    margin-right:8px;
+}
+.optionsContainer {
+    display: flex;
+    flex-wrap: wrap;
 }

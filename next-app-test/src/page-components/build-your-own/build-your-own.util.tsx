@@ -14,13 +14,13 @@ export interface filterI {
 }
 export interface modifierI {
     label: string,
-        groupBy: groupByValues,
-        sortBy: sortByValues | sortByValues[],
-        measurementUnit: measurementValues,
-        display: modifierCollectionDisplayValues,
-        options: optionsT,
-        //optional
-        filter?: filterI,
+    groupBy: groupByValues,
+    sortBy: sortByValues | sortByValues[],
+    measurementUnit: measurementValues,
+    display: modifierCollectionDisplayValues,
+     options: optionsT,
+     //optional
+     filter?: filterI,
 }
 export interface configItemI {
      id: string, selection: string 

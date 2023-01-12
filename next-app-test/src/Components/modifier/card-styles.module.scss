@@ -1,10 +1,27 @@
 
 .fieldset {
-    background: pink;
+    background: lightblue;
 }
 .legend {
-    background: lightgoldenrodyellow;
+    background: darkblue;
+    color: white;
 }
 .label {
-    color: lightgreen;
+    color: aqua;
+}
+.option {
+    border: 1px solid deepskyblue;
+    color: deepskyblue;
+    display: flex;
+    margin-right: 8px;
+}
+.image {
+    background: grey;
+    height: 100px;
+    width: 100px;
+    margin-right:8px;
+}
+.optionsContainer {
+    display: flex;
+    flex-wrap: wrap;
 }

@@ -51,6 +51,15 @@ export const mockOptions2DPriced = [
         price: 100,
     },
     {
+        id: 'optionA_8-2',
+        label: "option A",
+        productId: 1,
+        image: "someUrl-2x8",
+        height: 8,
+        width: 2,
+        price: 100,
+    },
+    {
         id: 'optionA_8-4',
         label: "option A",
         productId: 1,
@@ -78,6 +87,15 @@ export const mockOptions2DPriced = [
         price: 400,
     },
     {
+        id: 'optionB_8-4',
+        label: "option B",
+        productId: 2,
+        image: "someUrl-labelB-2x8",
+        height: 8,
+        width: 2,
+        price: 100,
+    },
+    {
         id: 'optionC_8-16',
         label: "option C",
         productId: 1,
@@ -85,6 +103,15 @@ export const mockOptions2DPriced = [
         height: 8,
         width: 16,
         price: 500
+    },
+    {
+        id: 'optionC_8-2',
+        label: "option C",
+        productId: 1,
+        image: "someUrl-labelC-8x16",
+        height: 8,
+        width: 2,
+        price: 100
     }
 ]
 export const mockOptions3D = [
