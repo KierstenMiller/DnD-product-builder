@@ -34,21 +34,6 @@ export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI)
                                 <p>Click on a square to edit it</p>
                             </div>
                             <Modifiers model={model} modifiers={modifiers}/>
-                            <BasicAccordionGroup>
-                                {modifiers.map(mod => <BasicAccordion
-                                    stylesOverride={BYOStyles}
-                                    headerText={mod.label}
-                                    headerLevel={3}
-                                    id={mod.label}
-                                >
-                                    <GroupedList groupByKey={mod.groupBy} itemsToGroup={mod.options}/>
-                                    <InputRadio
-                                        heading={mod.label}
-                                        onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.label, selection: newSelection})}
-                                        options={mod.options}
-                                    />
-                                </BasicAccordion>)}
-                            </BasicAccordionGroup>
                         </div>
                     </div>
                     <div className={styles.row}>
