@@ -11,7 +11,7 @@ interface propsI {
     options: propsOptionI[],
     // optional
     styles?: any, // TODO: look up styles typing
-    mirage?: (option: propsOptionI) => React.ReactNode,
+    mirage?: (props: any) => React.ReactNode, // TODO: look up how to not make this any
 }
 
 export const InputRadio = ({heading, options, onChange, styles = {}, mirage}: propsI) => {
