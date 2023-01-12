@@ -5,10 +5,12 @@ import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { InputRadio } from '-/Components/form-controls/input-radio'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { GroupedList } from '-/Components/organizer/groupedList'
-import { modifiersT } from '-/page-components/build-your-own/build-your-own.util'
-import { groupByValues } from '-/data/mockUtil.data'
+import { modifiersT, optionI } from '-/page-components/build-your-own/build-your-own.util'
+import { groupByValues, modifierCollectionDisplayValues } from '-/data/mockUtil.data'
 
-import mirageStyles from './mirage-styles.module.scss'
+import cardStyles from './card-styles.module.scss'
+import imageFirstStyles from './image-first-styles.module.scss'
+import titledStyles from './titled-styles.module.scss'
 import BYOStyles from '#/build-your-own.module.scss'
 import styles from '#/Home.module.scss'
 
@@ -24,6 +26,21 @@ const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
     return groups;
   }, {} as Record<K, T[]>);
 
+const collectionDisplays = {
+    [modifierCollectionDisplayValues.card]: {
+        styles: cardStyles,
+        mirage: (opt: optionI) => <div>I'm a CARD of {opt.label}</div>
+    },
+    [modifierCollectionDisplayValues.titled]: {
+        styles: titledStyles,
+        mirage: (opt: optionI) => <div>I'm a TITLED of {opt.label}</div>
+    },
+    [modifierCollectionDisplayValues.imageFirst]: {
+        styles: imageFirstStyles,
+        mirage: (opt: optionI) => <div>I'm a IMAGE FIRST of {opt.label}</div>
+    },
+}
+
 export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
     const newModifiers = modifiers.map(mod => {
         const groupedOptions = groupBy(mod.options, i => {
@@ -32,7 +49,6 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
         });
         return {...mod, groupedOptions: groupedOptions};
     })
-    console.log('newModifier', newModifiers);
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion
             stylesOverride={BYOStyles}
@@ -45,8 +61,8 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
                 heading={`${key} ${mod.groupBy}`}
                 onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.label, selection: newSelection})}
                 options={value}
-                styles={mirageStyles}
-                mirage={(opt) => <div>IM A MIRAGE OF {opt.label}</div>}
+                styles={collectionDisplays[mod.display]?.styles}
+                mirage={collectionDisplays[mod.display]?.mirage}
             />)}
         </BasicAccordion>)}
     </BasicAccordionGroup>

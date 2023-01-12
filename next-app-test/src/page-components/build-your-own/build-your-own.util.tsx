@@ -1,4 +1,4 @@
-import { filterDisplayValues, groupByValues, measurementValues, modifierDisplayValues, sortByValues } from '-/data/mockUtil.data'
+import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/mockUtil.data'
 
 export interface optionI {
     id: string,
@@ -17,7 +17,7 @@ export interface modifierI {
         groupBy: groupByValues,
         sortBy: sortByValues | sortByValues[],
         measurementUnit: measurementValues,
-        display: modifierDisplayValues,
+        display: modifierCollectionDisplayValues,
         options: optionsT,
         //optional
         filter?: filterI,

@@ -19,7 +19,7 @@ export enum measurementValues {
 }
 
 // ui view keys
-export enum modifierDisplayValues {
+export enum modifierCollectionDisplayValues {
     card = "card",
     titled = "titled",
     imageFirst = "image-first"
