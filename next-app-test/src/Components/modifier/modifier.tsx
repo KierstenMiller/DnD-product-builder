@@ -2,22 +2,21 @@ import { observer } from 'mobx-react-lite'
 
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { CategorizedRadioInputGroup, RadioInputGroup } from '-/Components/form-controls/radio-input-group'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-import { GroupedList } from '-/Components/organizer/groupedList'
 import { modifiersT, optionI } from '-/page-components/build-your-own/build-your-own.util'
-import { groupByValues, modifierCollectionDisplayValues } from '-/data/mockUtil.data'
+import { modifierCollectionDisplayValues } from '-/data/mockUtil.data'
+import { CategorizedRadioInputGroup } from '../form-controls/categorized-radio-input-group'
 
 import cardStyles from './card-styles.module.scss'
 import imageFirstStyles from './image-first-styles.module.scss'
 import titledStyles from './titled-styles.module.scss'
 import BYOStyles from '#/build-your-own.module.scss'
-import styles from '#/Home.module.scss'
 
 interface BuildYourOwnPageI {
     model: BuildYourOwnModel,
     modifiers: modifiersT,
 }
+
 // from https://stackoverflow.com/questions/42136098/array-groupby-in-typescript
 // K-TODO: put this somewhere else
 const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
@@ -58,7 +57,7 @@ const collectionDisplays = {
 const makeId = (toId: string) => toId.replace(/ /g,"-");
 
 export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
-    const newModifiers = modifiers.map((mod, index) => {
+    const newModifiers = modifiers.map((mod) => {
         const groupedOptions = groupBy(mod.options, i => {
             const [, value] = Object.entries(i).find(([key,]) => key === mod.groupBy) || [];
             return value;

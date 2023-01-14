@@ -1,0 +1,11 @@
+.focus {
+    &:focus-within {
+        outline: 1px dashed;
+        background: red;
+    }
+ 
+}
+.selected {
+    color: darkblue;
+    font-weight: bold;
+}
