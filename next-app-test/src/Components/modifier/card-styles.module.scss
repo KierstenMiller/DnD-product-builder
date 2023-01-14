@@ -2,21 +2,20 @@
 .fieldset {
     background: lightblue;
 }
-.legend {
-    background: darkblue;
-    color: white;
-}
-.label {
-    color: aqua;
-}
+// .legend {
+//     background: darkblue;
+//     color: white;
+// }
+// .label {
+//     color: aqua;
+// }
 .option {
-    border: 1px solid deepskyblue;
-    color: deepskyblue;
+    border: 1px solid black;
     display: flex;
     margin-right: 8px;
 }
 .image {
-    background: grey;
+    background: lightgrey;
     height: 100px;
     width: 100px;
     margin-right:8px;
