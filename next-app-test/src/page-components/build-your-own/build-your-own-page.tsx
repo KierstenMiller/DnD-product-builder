@@ -17,7 +17,6 @@ interface BuildYourOwnPageI {
 }
 
 export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI) => {
-    
     return (<>
             <div className={styles.app}>
                 <div className={styles.container}>
@@ -30,7 +29,7 @@ export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI)
                         </div>
                         <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
                             <div className={styles.description}>
-                                <h2 className={styles.header}>Build Your Own</h2>
+                                <h1 className={styles.header}>Build Your Own</h1>
                                 <p>Click on a square to edit it</p>
                             </div>
                             <Modifiers model={model} modifiers={modifiers}/>

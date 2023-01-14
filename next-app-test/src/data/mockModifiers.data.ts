@@ -1,5 +1,5 @@
 import { mockFilterDoubleDropDown, mockFilterSingleTabbed } from "./mockFilters.data";
-import { mockOptions2DPriced, mockOptions3D, mockOptions3DStocked } from "./mockOptions.data";
+import { mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3DStockedPriced } from "./mockOptions.data";
 import { groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from "./mockUtil.data";
 
 export const mockModifierA = {
@@ -39,5 +39,5 @@ export const mockModifierD = {
     measurementUnit: measurementValues.inches,
     display: modifierCollectionDisplayValues.titled,
     filter: mockFilterDoubleDropDown,
-    options: mockOptions3D,
+    options: mockOptions3DStockedPriced,
 }

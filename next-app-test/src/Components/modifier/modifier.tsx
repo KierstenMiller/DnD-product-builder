@@ -30,7 +30,7 @@ const collectionDisplays = {
     [modifierCollectionDisplayValues.card]: {
         styles: cardStyles,
         mirage: (opt: optionI) => <div className={cardStyles.option}>
-            <div className={cardStyles.image}>{opt.image}</div>
+            <div aria-hidden={true} className={cardStyles.image}>{opt.image}</div>
             <div>
                 <div>{opt.label}</div>
                 <div>{opt.id}</div>
@@ -41,14 +41,14 @@ const collectionDisplays = {
         styles: titledStyles,
         mirage: (opt: optionI) => <div className={titledStyles.option}>
             <div>{opt.label}</div>
-            <div className={titledStyles.image}>{opt.image}</div>
+            <div aria-hidden={true} className={titledStyles.image}>{opt.image}</div>
             <div>{opt.id}</div>
         </div>
     },
     [modifierCollectionDisplayValues.imageFirst]: {
         styles: imageFirstStyles,
         mirage: (opt: optionI) => <div className={imageFirstStyles.option}>
-            <div className={imageFirstStyles.image}>{opt.image}</div>
+            <div aria-hidden={true} className={imageFirstStyles.image}>{opt.image}</div>
             <div>{opt.label}</div>
             <div>{opt.id}</div>
         </div>
