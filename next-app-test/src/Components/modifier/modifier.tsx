@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { InputRadio } from '-/Components/form-controls/input-radio'
+import { CategorizedRadioInputGroup, RadioInputGroup } from '-/Components/form-controls/radio-input-group'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { GroupedList } from '-/Components/organizer/groupedList'
 import { modifiersT, optionI } from '-/page-components/build-your-own/build-your-own.util'
@@ -63,6 +63,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
         });
         return {...mod, groupedOptions: groupedOptions};
     })
+    console.log('newModifiers', newModifiers);
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion
             stylesOverride={BYOStyles}
@@ -70,14 +71,22 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
             headerLevel={3}
             id={mod.label}
         >
-            {Object.entries(mod.groupedOptions).map(([key, value]) => <InputRadio
+            <CategorizedRadioInputGroup
+                key={mod.label}
+                heading={`${mod.label} ${mod.groupBy}`}
+                onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.label, selection: newSelection})}
+                categorizedOptions={Object.entries(mod.groupedOptions).map( ([category, options]) => ({category, options}))}
+                styles={collectionDisplays[mod.display]?.styles}
+                mirage={collectionDisplays[mod.display]?.mirage} 
+            />
+            {/* {Object.entries(mod.groupedOptions).map(([key, value]) => <RadioInputGroup
                 key={key}
                 heading={`${key} ${mod.groupBy}`}
                 onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.label, selection: newSelection})}
                 options={value}
                 styles={collectionDisplays[mod.display]?.styles}
-                mirage={collectionDisplays[mod.display]?.mirage}
-            />)}
+                mirage={collectionDisplays[mod.display]?.mirage} 
+            />)} */}
         </BasicAccordion>)}
     </BasicAccordionGroup>
 })

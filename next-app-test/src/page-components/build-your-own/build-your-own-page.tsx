@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { InputRadio } from '-/Components/form-controls/input-radio'
+import { RadioInputGroup } from '-/Components/form-controls/radio-input-group'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 
 import BYOStyles from '#/build-your-own.module.scss'
