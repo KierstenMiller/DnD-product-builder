@@ -3,6 +3,7 @@ import { mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3D
 import { groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from "./mockUtil.data";
 
 export const mockModifierA = {
+    id: 'mod-A',
     label: 'modifier A',
     groupBy: groupByValues.height,
     sortBy:sortByValues.ascending,
@@ -13,6 +14,7 @@ export const mockModifierA = {
 }
 
 export const mockModifierB = {
+    id: 'mod-B',
     label: 'modifier B',
     groupBy: groupByValues.stocked,
     sortBy: [sortByValues.having, sortByValues.ascending],
@@ -23,6 +25,7 @@ export const mockModifierB = {
 }
 
 export const mockModifierC = {
+    id: 'mod-C',
     label: 'modifier C',
     groupBy: groupByValues.price,
     sortBy: [sortByValues.having, sortByValues.descending],
@@ -33,6 +36,7 @@ export const mockModifierC = {
 }
 
 export const mockModifierD = {
+    id: 'mod-D',
     label: 'modifier D',
     groupBy: groupByValues.width,
     sortBy: sortByValues.descending,

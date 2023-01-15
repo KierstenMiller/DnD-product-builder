@@ -13,6 +13,7 @@ export interface filterI {
     values: string[] | string[][],
 }
 export interface modifierI {
+    id: string,
     label: string,
     groupBy: groupByValues,
     sortBy: sortByValues | sortByValues[],

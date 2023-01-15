@@ -64,6 +64,8 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
         });
         return {...mod, id:`${makeId(mod.label)}`,  groupedOptions: groupedOptions};
     })
+    console.log('new modifiers', newModifiers);
+    console.log('model.config', model.config);
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion
             key={mod.id}
@@ -74,7 +76,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
         >
             <CategorizedRadioInputGroup
                 heading={`${mod.label} ${mod.groupBy}`}
-                onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.label, selection: newSelection})}
+                onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.id, selection: newSelection})}
                 categorizedOptions={Object.entries(mod.groupedOptions)
                     .map(([category, options]) => ({id:`${mod.id}_${category}`, category, options}))
                 }

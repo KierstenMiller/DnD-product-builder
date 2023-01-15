@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { observer } from 'mobx-react-lite'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
@@ -14,7 +13,7 @@ const data = {
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const model =  new BuildYourOwnModel({
-        config: data.modifiers.map(mod => ({ id: mod.label, selection: mod.options[0].id }))
+        config: data.modifiers.map(mod => ({ id: mod.id, selection: mod.options[0].id }))
     });
 
     return (
