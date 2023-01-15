@@ -29,10 +29,11 @@ export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChang
     }
     return <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>
-        {categorizedOptions.map(cat => <div>
+        {categorizedOptions.map(cat => <div key={cat.id}>
             <div id={cat.id}>{cat.category}</div>
             <div className={styles.optionsContainer}>
                 {cat.options.map((opt) => <RadioInput
+                    key={opt.id}
                     {...opt}
                     name={heading}
                     onChange={onChangeToUse}

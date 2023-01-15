@@ -24,7 +24,7 @@ export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI)
                         <div className={`${styles.column} ${styles.columnLeft}`}>
                             <div className={styles.image}>
                                 <h2>Current Selections</h2>
-                                {model.config.map(c => <div>Selected {c.id}: {c.selection}</div>)}
+                                {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
                             </div>
                         </div>
                         <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
@@ -51,7 +51,6 @@ export const BuildYourOwnPage = observer(({model, modifiers}: BuildYourOwnPageI)
                     </div>
                 </div>
             </div>
-
         </>
     )
 })
