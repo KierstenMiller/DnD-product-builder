@@ -11,7 +11,7 @@ const data = {
     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD],
 }
 
-const BuildYourOwn = observer(() => {
+const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const model =  new BuildYourOwnModel({
         config: data.modifiers.map(mod => ({ id: mod.label, selection: mod.options[0].id }))
@@ -52,6 +52,6 @@ const BuildYourOwn = observer(() => {
             <BuildYourOwnPage model={model} modifiers={data.modifiers} />
         </>
     )
-})
+};
 
 export default BuildYourOwn;

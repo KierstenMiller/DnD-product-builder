@@ -1,15 +1,10 @@
 import { observer } from 'mobx-react-lite'
 
-import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
-import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { RadioInputGroup } from '-/Components/form-controls/radio-input-group'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-
-import BYOStyles from '#/build-your-own.module.scss'
-import styles from '#/Home.module.scss'
 import { modifiersT } from './build-your-own.util'
-import { GroupedList } from '-/Components/organizer/groupedList'
 import { Modifiers } from '-/Components/modifier/modifier'
+
+import styles from '#/Home.module.scss'
 
 interface BuildYourOwnPageI {
     model: BuildYourOwnModel,

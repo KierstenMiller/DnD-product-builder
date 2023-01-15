@@ -64,7 +64,6 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
         });
         return {...mod, id:`${makeId(mod.label)}`,  groupedOptions: groupedOptions};
     })
-    console.log('newModifiers', newModifiers);
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion
             key={mod.id}
