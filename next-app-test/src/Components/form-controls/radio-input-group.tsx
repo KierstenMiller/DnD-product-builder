@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { onChangeI, RadioInput } from "./radio-input";
 
 interface propsOptionI {
     id: string,
@@ -8,7 +9,7 @@ interface propsOptionI {
 }
 interface propsI {
     heading: string,
-    onChange: ({event, newSelection}: {event: React.ChangeEvent<HTMLInputElement>, newSelection: string}) => any;
+    onChange: ({event, newSelection}: onChangeI) => any;
     options: propsOptionI[],
     // optional
     styles?: any, // TODO: look up styles typing
@@ -16,30 +17,22 @@ interface propsI {
 }
 
 export const RadioInputGroup = ({heading, options, onChange, styles = {}, mirage}: propsI) => {
-    const [selected, setSelected] = useState(options.find(opt => opt.selected)?.id);
+    const [selection, setSelection] = useState(options.find(opt => opt.selected)?.id);
+    const onChangeToUse = ({event, newSelection}: onChangeI) => {
+        setSelection(newSelection);
+        onChange({event, newSelection})
+    }
     return <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>
         <div className={styles.optionsContainer}>
-            {options.map(opt => <div key={opt.id} className={styles.inputContainer}>
-                <input
-                    className={styles.input}
-                    type="radio"
-                    value={opt.label}
-                    id={opt.id}
-                    name={heading}
-                    onChange={event => {
-                        setSelected(opt.id);
-                        onChange({event, newSelection: opt.id})
-                    }}
-                    checked={opt.id === selected}
-                />
-                <label
-                    className={styles.label}
-                    htmlFor={opt.id}
-                >
-                    {mirage ? mirage(opt) : opt.label}
-                </label>
-            </div>)}
+            {options.map(opt => <RadioInput
+                {...opt}
+                name={heading}
+                onChange={onChangeToUse}
+                selected={opt.id === selection}
+                styles={styles}
+                mirage={mirage}
+            />)}
         </div>
     </fieldset>
 }
