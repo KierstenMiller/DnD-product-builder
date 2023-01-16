@@ -54,7 +54,7 @@ const collectionDisplays = {
     },
 }
 
-const makeId = (toId: string) => toId.replace(/ /g,"-");
+
 
 export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
     const newModifiers = modifiers.map((mod) => {
@@ -62,7 +62,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
             const [, value] = Object.entries(i).find(([key,]) => key === mod.groupBy) || [];
             return value;
         });
-        return {...mod, id:`${makeId(mod.label)}`,  groupedOptions: groupedOptions};
+        return {...mod, id:`${mod.id}`,  groupedOptions: groupedOptions};
     })
     console.log('new modifiers', newModifiers);
     console.log('model.config', model.config);
