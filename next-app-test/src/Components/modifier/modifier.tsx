@@ -94,15 +94,15 @@ const sortList = (toSort: any[], sortBy: sortByValues) => {
 
 export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
     const newModifiers = modifiers.map((mod) => {
-        const groupedOptions = groupByMap(mod.options, i => { // using map to ensure stability of key order
+        const groupedMap = groupByMap(mod.options, i => { // using map to ensure stability of key type (Object.entries() converts numbers to strings, someMap.keys() keeps numbers as numbers)
             const [, value] = Object.entries(i).find(([key,]) => key === mod.groupBy) || [];
             return value;
         });
-        const sortByThing = Array.isArray(mod.sortBy) ? mod.sortBy[0] : mod.sortBy;
-        const sortedKeys = sortList([...groupedOptions.keys()], sortByThing) || []
-        const mapThing = new Map();
-        sortedKeys.forEach( key => mapThing.set(key, groupedOptions.get(key)))
-        return {...mod, id:`${mod.id}`,  groupedOptions: mapThing};
+        const theSort = Array.isArray(mod.sortBy) ? mod.sortBy[0] : mod.sortBy; // TODO: implement more than 1 sort
+        const sortedKeys = sortList([...groupedMap.keys()], theSort) || []
+        const sortedGroupedMap = new Map(sortedKeys.map( key => [key, groupedMap.get(key)])); // using map for modifier's composedOptions to keep keys
+        sortedKeys.map( key => [key, groupedMap.get(key)])
+        return {...mod, id:`${mod.id}`,  composedOptions: sortedGroupedMap};
     });
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion
