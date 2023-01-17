@@ -46,7 +46,7 @@ const BuildYourOwn = () => {
                     </div>
                     
                 </BasicAccordion>
-                <span className="ml-medium"><b>UP NEXT: modifier display & modifier options sort/filter</b></span>
+                <span className="ml-medium"><b>UP NEXT: modifier sort by "having"</b></span>
             </div>
             <BuildYourOwnPage model={model} modifiers={data.modifiers} />
         </>

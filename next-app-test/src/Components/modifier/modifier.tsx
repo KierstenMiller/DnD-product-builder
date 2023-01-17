@@ -94,14 +94,15 @@ const sortList = (toSort: any[], sortBy: sortByValues) => {
 
 export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
     const newModifiers = modifiers.map((mod) => {
-        const groupedMap = groupByMap(mod.options, i => { // using map to ensure stability of key type (Object.entries() converts numbers to strings, someMap.keys() keeps numbers as numbers)
+        // using map to ensure stability of key type (Object.entries() converts numbers to strings, someMap.keys() keeps numbers as numbers)
+        const groupedMap = groupByMap(mod.options, i => { 
             const [, value] = Object.entries(i).find(([key,]) => key === mod.groupBy) || [];
             return value;
         });
         const theSort = Array.isArray(mod.sortBy) ? mod.sortBy[0] : mod.sortBy; // TODO: implement more than 1 sort
-        const sortedKeys = sortList([...groupedMap.keys()], theSort) || []
-        const sortedGroupedMap = new Map(sortedKeys.map( key => [key, groupedMap.get(key)])); // using map for modifier's composedOptions to keep keys
-        sortedKeys.map( key => [key, groupedMap.get(key)])
+        const sortedKeys = sortList([...groupedMap.keys()], theSort) || [];
+        // using map to ensure stability of key order
+        const sortedGroupedMap = new Map(sortedKeys.map( key => [key, groupedMap.get(key)])); 
         return {...mod, id:`${mod.id}`,  composedOptions: sortedGroupedMap};
     });
     return <BasicAccordionGroup>
@@ -115,9 +116,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
             <CategorizedRadioInputGroup
                 heading={`${mod.label} ${mod.groupBy}`}
                 onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.id, selection: newSelection})}
-                categorizedOptions={Object.entries(mod.groupedOptions)
-                    .map(([category, options]) => ({id:`${mod.id}_${category}`, category, options}))
-                }
+                categorizedOptions={[...mod.composedOptions.entries()].map(([category, options]) => ({id:`${mod.id}_${category}`, category, options}))}
                 styles={collectionDisplays[mod.display]?.styles}
                 mirage={collectionDisplays[mod.display]?.mirage} 
             />

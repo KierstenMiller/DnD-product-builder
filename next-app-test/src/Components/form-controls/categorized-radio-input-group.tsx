@@ -12,8 +12,8 @@ interface propsI {
     heading: string,
     onChange: ({event, newSelection}: onChangeI) => any;
     categorizedOptions: {
-        id: string,
-        category: string,
+        id: string | number,
+        category: string | number,
         options: propsOptionI[],
     }[],
     hideInput?: boolean,
