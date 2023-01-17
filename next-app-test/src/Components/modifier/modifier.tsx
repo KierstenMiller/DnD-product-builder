@@ -4,7 +4,7 @@ import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-grou
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { modifiersT, optionI } from '-/page-components/build-your-own/build-your-own.util'
-import { modifierCollectionDisplayValues } from '-/data/mockUtil.data'
+import { modifierCollectionDisplayValues, sortByValues } from '-/data/mockUtil.data'
 import { CategorizedRadioInputGroup } from '../form-controls/categorized-radio-input-group'
 
 import cardStyles from './card-styles.module.scss'
@@ -22,8 +22,19 @@ interface BuildYourOwnPageI {
 const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
     (groups[key(item)] ||= []).push(item);
+    console.log('groups', groups);
     return groups;
   }, {} as Record<K, T[]>);
+
+  const groupByMap = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+  arr.reduce((groups, item) => {
+    const keyThing = key(item);
+    const valueThing = groups.get(keyThing);
+    if(keyThing && !valueThing) groups.set(keyThing, [item]);
+    else if(keyThing && Array.isArray(valueThing)) valueThing.push(item);
+    console.log('groups', groups);
+    return groups;
+  }, new Map());
 
 const collectionDisplays = {
     [modifierCollectionDisplayValues.card]: {
@@ -54,18 +65,45 @@ const collectionDisplays = {
     },
 }
 
+interface sortNumI {
+    toSort: number[],
+    sortBy: sortByValues,
+}
+interface sortAlphaI {
+    toSort: string[],
+    sortBy: sortByValues,
+}
+
+const sortAlpha = ({toSort, sortBy}: sortAlphaI) => toSort.sort((a, b) =>  sortBy === sortByValues.ascending
+    ? a.toLowerCase() < b.toLowerCase() ? -1 : 1
+    : a.toLowerCase() < b.toLowerCase() ? 1 : -1
+)
+const sortNum = ({toSort, sortBy}: sortNumI) => toSort.sort((a, b) => sortBy === sortByValues.ascending
+    ? a - b
+    : b - a
+);
+const sortList = (toSort: any[], sortBy: sortByValues) => {
+    const isNumerical = toSort.every((i) =>  typeof i === "number");
+    const isAlpha = toSort.every((i) =>  typeof i === "string");
+    console.log({isNumerical, isAlpha});
+    if (isNumerical) {return sortNum({toSort, sortBy});};
+    if (isAlpha) {return sortAlpha({toSort, sortBy});};
+    console.warn('Could not perform sort');
+}
 
 
 export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
     const newModifiers = modifiers.map((mod) => {
-        const groupedOptions = groupBy(mod.options, i => {
+        const groupedOptions = groupByMap(mod.options, i => { // using map to ensure stability of key order
             const [, value] = Object.entries(i).find(([key,]) => key === mod.groupBy) || [];
             return value;
         });
-        return {...mod, id:`${mod.id}`,  groupedOptions: groupedOptions};
-    })
-    console.log('new modifiers', newModifiers);
-    console.log('model.config', model.config);
+        const sortByThing = Array.isArray(mod.sortBy) ? mod.sortBy[0] : mod.sortBy;
+        const sortedKeys = sortList([...groupedOptions.keys()], sortByThing) || []
+        const mapThing = new Map();
+        sortedKeys.forEach( key => mapThing.set(key, groupedOptions.get(key)))
+        return {...mod, id:`${mod.id}`,  groupedOptions: mapThing};
+    });
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion
             key={mod.id}

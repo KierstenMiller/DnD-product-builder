@@ -2,12 +2,12 @@ import Head from 'next/head'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD } from '-/data/mockModifiers.data'
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/mockModifiers.data'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 
 // K-TODO: move
 const data = {
-    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD],
+    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
 }
 
 const BuildYourOwn = () => {
