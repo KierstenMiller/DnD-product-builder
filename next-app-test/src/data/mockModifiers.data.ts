@@ -39,7 +39,7 @@ export const mockModifierD = {
     id: 'mod-D',
     label: 'modifier D',
     groupBy: groupByValues.width,
-    sortBy: sortByValues.descending,
+    sortBy: sortByValues.ascending,
     measurementUnit: measurementValues.inches,
     display: modifierCollectionDisplayValues.titled,
     filter: mockFilterDoubleDropDown,
