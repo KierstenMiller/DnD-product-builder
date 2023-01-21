@@ -30,7 +30,7 @@ export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChang
     return <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>
         {categorizedOptions.map(cat => <div key={cat.id}>
-            <div id={cat.id}>{cat.category}</div>
+            <div id={cat.id.toString()}>{cat.category}</div>
             <div className={styles.optionsContainer}>
                 {cat.options.map((opt) => <RadioInput
                     key={opt.id}
@@ -41,7 +41,7 @@ export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChang
                     mirage={mirage}
                     hideInput={hideInput}
                     selected={opt.id === selection}
-                    ariaLabelledBy={cat.id}
+                    ariaLabelledBy={cat.id.toString()}
                 />)}
             </div>  
         </div>)}

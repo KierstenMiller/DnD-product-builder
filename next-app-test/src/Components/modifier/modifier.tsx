@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite'
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-import { modifiersT, optionI } from '-/page-components/build-your-own/build-your-own.util'
-import { modifierCollectionDisplayValues, sortByValues } from '-/data/mockUtil.data'
+import { modifiersT, optionI, optionsT } from '-/page-components/build-your-own/build-your-own.util'
+import { groupByValues, modifierCollectionDisplayValues, sortByValues } from '-/data/mockUtil.data'
 import { CategorizedRadioInputGroup } from '../form-controls/categorized-radio-input-group'
 
 import cardStyles from './card-styles.module.scss'
@@ -22,19 +22,17 @@ interface BuildYourOwnPageI {
 const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
     (groups[key(item)] ||= []).push(item);
-    console.log('groups', groups);
     return groups;
   }, {} as Record<K, T[]>);
 
-  const groupByMap = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+const groupByMap = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
     const keyThing = key(item);
     const valueThing = groups.get(keyThing);
     if(keyThing && !valueThing) groups.set(keyThing, [item]);
     else if(keyThing && Array.isArray(valueThing)) valueThing.push(item);
-    console.log('groups', groups);
     return groups;
-  }, new Map());
+}, new Map());
 
 const collectionDisplays = {
     [modifierCollectionDisplayValues.card]: {
@@ -84,26 +82,30 @@ const sortNum = ({toSort, sortBy}: sortNumI) => toSort.sort((a, b) => sortBy ===
 );
 const sortList = (toSort: any[], sortBy: sortByValues) => {
     const isNumerical = toSort.every((i) =>  typeof i === "number");
-    const isAlpha = toSort.every((i) =>  typeof i === "string");
-    console.log({isNumerical, isAlpha});
-    if (isNumerical) {return sortNum({toSort, sortBy});};
-    if (isAlpha) {return sortAlpha({toSort, sortBy});};
+    const isAlpha = !isNumerical && toSort.every((i) =>  typeof i === "string");
+    if (isNumerical) return sortNum({toSort, sortBy});
+    if (isAlpha) return sortAlpha({toSort, sortBy});
     console.warn('Could not perform sort');
 }
-
+// Could use this function when we move data massaging to serverside
+const assembleOptionsMap = (options: optionsT, groupBy: groupByValues , sortBy: sortByValues) => {
+    const groupedMap = groupByMap(options, opt => { 
+        const [, value] = Object.entries(opt).find(([key,]) => key === groupBy) || [];
+        // TODO: add optional groupByLabel for 'having' sorted mod options
+        const groupLabel = typeof value === "boolean" ? `${groupBy}: ${value.toString()}`: value
+        return groupLabel;
+    }); 
+    return (sortBy === sortByValues.having)
+    ? groupedMap
+    : new Map((sortList([...groupedMap.keys()], sortBy) || []).map( key => [key, groupedMap.get(key)]))
+}
 
 export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
     const newModifiers = modifiers.map((mod) => {
-        // using map to ensure stability of key type (Object.entries() converts numbers to strings, someMap.keys() keeps numbers as numbers)
-        const groupedMap = groupByMap(mod.options, i => { 
-            const [, value] = Object.entries(i).find(([key,]) => key === mod.groupBy) || [];
-            return value;
-        });
         const theSort = Array.isArray(mod.sortBy) ? mod.sortBy[0] : mod.sortBy; // TODO: implement more than 1 sort
-        const sortedKeys = sortList([...groupedMap.keys()], theSort) || [];
-        // using map to ensure stability of key order
-        const sortedGroupedMap = new Map(sortedKeys.map( key => [key, groupedMap.get(key)])); 
-        return {...mod, id:`${mod.id}`,  composedOptions: sortedGroupedMap};
+        // using map to ensure stability of key order. BIG WHY:Object.entries(someObject) converts numbers to strings, someMap.entries() keeps numbers as numbers (numbers and strings can't be sorted the same, so converting all numbers to strings is problematic)
+        const sortedGroupedMap = assembleOptionsMap(mod.options, mod.groupBy, theSort)
+        return {...mod, id:`${mod.id}`,  composedOptions: sortedGroupedMap}
     });
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion

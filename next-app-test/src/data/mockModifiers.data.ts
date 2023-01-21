@@ -9,7 +9,7 @@ export const mockModifierA = {
     sortBy:sortByValues.ascending,
     measurementUnit: measurementValues.inches,
     display: modifierCollectionDisplayValues.card,
-    filter: mockFilterDoubleDropDown,
+    filter: mockFilterDoubleDropDown, // TODO: implement ability to filter modifier's options
     options: mockOptions3D
 }
 
@@ -28,7 +28,7 @@ export const mockModifierC = {
     id: 'mod-C',
     label: 'modifier C',
     groupBy: groupByValues.price,
-    sortBy: [sortByValues.having, sortByValues.descending],
+    sortBy: [sortByValues.descending],
     measurementUnit: measurementValues.inches,
     display: modifierCollectionDisplayValues.titled,
     filter: mockFilterSingleTabbed,

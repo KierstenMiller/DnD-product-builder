@@ -225,7 +225,6 @@ export const mockOptions3D = [
         depth: 4,
     }
 ]
-
 export const mockOptions3DStocked = [
     {
         id: 'optionA_8-8-8_3D-stocked',
@@ -278,7 +277,6 @@ export const mockOptions3DStocked = [
         stocked: false,
     }
 ]
-
 export const mockOptions3DStockedPriced = [
     {
         id: 'optionA_8-8-8_3D-stocked-priced',
