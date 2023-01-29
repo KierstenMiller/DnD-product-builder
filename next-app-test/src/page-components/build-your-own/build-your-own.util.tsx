@@ -1,4 +1,4 @@
-import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/mockUtil.data'
+import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/mock/mockUtil.data'
 
 export interface optionI {
     id: string,
@@ -15,16 +15,16 @@ export interface filterI {
 export interface modifierI {
     id: string,
     label: string,
-    groupBy: groupByValues,
-    sortBy: sortByValues | sortByValues[],
-    measurementUnit: measurementValues,
     display: modifierCollectionDisplayValues,
-     options: optionsT,
-     //optional
-     filter?: filterI,
+    options: optionsT,
+    //optional
+    filter?: filterI,
+    groupBy?: groupByValues,
+    sortBy?: sortByValues | sortByValues[],
+    measurementUnit?: measurementValues,
 }
 export interface configItemI {
-     id: string, selection: string 
+    id: string, selection: string 
 };
 export type optionsT = optionI[];
 export type modifiersT = modifierI[];

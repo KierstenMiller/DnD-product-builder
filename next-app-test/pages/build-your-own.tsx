@@ -2,12 +2,17 @@ import Head from 'next/head'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/mockModifiers.data'
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/mock/mockModifiers.data'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
+import { robotModifiers } from '-/data/robots/robotModifiers.data'
 
 // K-TODO: move
+// const data = {
+//     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
+// }
+
 const data = {
-    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
+    modifiers: robotModifiers,
 }
 
 const BuildYourOwn = () => {
@@ -46,7 +51,7 @@ const BuildYourOwn = () => {
                     </div>
                     
                 </BasicAccordion>
-                <span className="ml-medium"><b>UP NEXT: modifier sort by "having"</b></span>
+                <span className="ml-medium"><b>UP NEXT:</b> Implement workspaces A and B <br/> A:SINGLETON . . .  B:FREEFORM_GRID</span>
             </div>
             <BuildYourOwnPage model={model} modifiers={data.modifiers} />
         </>
