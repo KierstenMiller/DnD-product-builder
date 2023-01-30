@@ -29,7 +29,7 @@ const BuildYourOwn = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <span className="mr-medium"><b>UP NEXT:</b> Implement workspaces A, B, C, and D </span>
+            <span className="mr-medium"><b>UP NEXT:</b> Create Grid in Workspace Using React DnD </span>
             <div className="flex a-i-center">
                 <div className="flex">
                     <BasicAccordion
@@ -93,9 +93,7 @@ const BuildYourOwn = () => {
                             <li>what if a display is not provided for modifier</li>
                         </ul>
                     </BasicAccordion>
-
                 </div>
-
             </div>
             <BuildYourOwnPage model={model} modifiers={data.modifiers} />
         </>

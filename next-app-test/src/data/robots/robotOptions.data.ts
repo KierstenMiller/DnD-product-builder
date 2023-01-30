@@ -2,7 +2,7 @@ export const robotShapeOptions = [
     {
         id: 'GIR',
         label: 'Class G',
-        productId: '1',
+        productId: 1,
         image: 'GIR_default',
         height: 1,
     },

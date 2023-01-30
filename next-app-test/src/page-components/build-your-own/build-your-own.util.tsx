@@ -3,10 +3,12 @@ import { filterDisplayValues, groupByValues, measurementValues, modifierCollecti
 export interface optionI {
     id: string,
     label: string,
-    productId: number,
     image: string,
-    height: number,
-    width: number,
+    // optional
+    productId?: string | number,
+    height?: number,
+    width?: number,
+    insured?: boolean,
 }
 export interface filterI {
     display: filterDisplayValues,
