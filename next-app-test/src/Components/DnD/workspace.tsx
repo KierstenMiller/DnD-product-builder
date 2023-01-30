@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useDrag, useDrop } from 'react-dnd'
+import { DropZone } from './dropZone'
 
 export enum DnDItemTypes {
     ITEM = "item",
@@ -34,14 +35,27 @@ export const Workspace = observer(() => {
                 opacity: isDragging ? 0.5 : 1,
             }}
         >
-            ♘
+            Drag me
         </div>
-        <div
-            ref={drop}>
-            DROP ZONE
-            {isOver && !canDrop && "is over - can't drop"}
-            {!isOver && canDrop && "is not over - can drop"}
-            {isOver && canDrop && "is over - can drop"}
+        <div className="flex">
+            <div>
+                <DropZone />
+                <DropZone />
+                <DropZone />
+                <DropZone />
+            </div>
+            <div>
+                <DropZone />
+                <DropZone />
+                <DropZone />
+                <DropZone />
+            </div>
+            <div>
+                <DropZone />
+                <DropZone />
+                <DropZone />
+                <DropZone />
+            </div>
         </div>
     </div>
     )
