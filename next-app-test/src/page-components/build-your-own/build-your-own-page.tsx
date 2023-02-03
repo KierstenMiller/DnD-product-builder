@@ -8,6 +8,8 @@ import { Modifiers } from '-/Components/modifier/modifier'
 import { Workspace } from '-/Components/DnD/workspace'
 
 import styles from '#/Home.module.scss'
+import { DropZone } from '-/Components/DnD/dropZone'
+import { DragZone } from '-/Components/DnD/dragZone'
 
 
 interface BuildYourOwnPageI {
@@ -23,24 +25,29 @@ export const BuildYourOwnPage = observer(({ model, modifiers }: BuildYourOwnPage
     return (<>
         <div className={styles.app}>
             <div className={styles.container}>
-                <div className={styles.row}>
-                    <div className={`${styles.column} ${styles.columnLeft}`}>
-                        <div className={styles.image}>
-                            <h2>Current Selections</h2>
-                            {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-                            <DndProvider backend={HTML5Backend}>
-                               <Workspace />
-                            </DndProvider>
+                <DndProvider backend={HTML5Backend}>
+                    <div className={styles.row}>
+                        <div className={`${styles.column} ${styles.columnLeft}`}>
+                            <div className={styles.image}>
+                                <Workspace />
+                            </div>
+                        </div>
+                        <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
+                            <div className="flex">
+                                <div className={styles.description}>
+                                    <h1 className={styles.header}>Build Your Own</h1>
+                                    <p>Click on a square to edit it</p>
+                                </div>
+                                <div>
+                                    <h2>Current Selections</h2>
+                                    {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
+                                    <DragZone />
+                                </div>
+                            </div>
+                            <Modifiers model={model} modifiers={modifiers} />
                         </div>
                     </div>
-                    <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
-                        <div className={styles.description}>
-                            <h1 className={styles.header}>Build Your Own</h1>
-                            <p>Click on a square to edit it</p>
-                        </div>
-                        <Modifiers model={model} modifiers={modifiers} />
-                    </div>
-                </div>
+                </DndProvider>
                 <div className={styles.row}>
                     <div className={styles.column}>
                         blank

@@ -19,44 +19,24 @@ export const Workspace = observer(() => {
         }),
         [],
     )
-    const [{ isDragging }, drag, preview] = useDrag(
-        () => ({
-            type: DnDItemTypes.ITEM,
-            collect: (monitor) => ({
-                isDragging: !!monitor.isDragging(),
-            }),
-        }),
-        [],
-    )
-    return (<div>
-        <div
-            ref={drag}
-            style={{
-                opacity: isDragging ? 0.5 : 1,
-            }}
-        >
-            Drag me
+    return (<div className="flex">
+        <div>
+            <DropZone />
+            <DropZone />
+            <DropZone />
+            <DropZone />
         </div>
-        <div className="flex">
-            <div>
-                <DropZone />
-                <DropZone />
-                <DropZone />
-                <DropZone />
-            </div>
-            <div>
-                <DropZone />
-                <DropZone />
-                <DropZone />
-                <DropZone />
-            </div>
-            <div>
-                <DropZone />
-                <DropZone />
-                <DropZone />
-                <DropZone />
-            </div>
+        <div>
+            <DropZone />
+            <DropZone />
+            <DropZone />
+            <DropZone />
         </div>
-    </div>
-    )
+        <div>
+            <DropZone />
+            <DropZone />
+            <DropZone />
+            <DropZone />
+        </div>
+    </div>)
 })
