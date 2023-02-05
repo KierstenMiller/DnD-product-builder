@@ -11,10 +11,12 @@ export interface matrixIndexI {
     column: number,
 }
 
+export interface pieceI {id: string, image: React.ReactNode;}
+
 interface propsI {
     matrixIndex: matrixIndexI,
     onDrop: (matrixIndex: matrixIndexI) => void,
-    piece?: {id: string, imageUrl: string},
+    piece?: pieceI
 }
 
 export const DropZone = observer(({matrixIndex, onDrop, piece}: propsI) => {
@@ -41,6 +43,7 @@ export const DropZone = observer(({matrixIndex, onDrop, piece}: propsI) => {
     >
         DROP ZONE
         {piece && piece.id}
-        {piece && <img height={30} width={30} src={piece?.imageUrl} />}
+        {piece?.image && piece.image}
+        {/* {piece && <img height={30} width={30} src={piece?.imageUrl} />} */}
     </div>)
 })
