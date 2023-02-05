@@ -10,6 +10,7 @@ import { Workspace } from '-/Components/DnD/workspace'
 import styles from '#/Home.module.scss'
 import { DropZone } from '-/Components/DnD/dropZone'
 import { DragZone } from '-/Components/DnD/dragZone'
+import { colors, icons } from '-/Components/DnD/workspace.util'
 
 
 interface BuildYourOwnPageI {
@@ -22,6 +23,7 @@ export enum DnDItemTypes {
 }
 
 export const BuildYourOwnPage = observer(({ model, modifiers }: BuildYourOwnPageI) => {
+    const image = icons.star({fill: colors.red, stroke: colors.blue})
     return (<>
         <div className={styles.app}>
             <div className={styles.container}>
@@ -29,7 +31,7 @@ export const BuildYourOwnPage = observer(({ model, modifiers }: BuildYourOwnPage
                     <div className={styles.row}>
                         <div className={`${styles.column} ${styles.columnLeft}`}>
                             <div className={styles.image}>
-                                <Workspace />
+                                <Workspace dropImage={image}/>
                             </div>
                         </div>
                         <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
@@ -41,7 +43,9 @@ export const BuildYourOwnPage = observer(({ model, modifiers }: BuildYourOwnPage
                                 <div>
                                     <h2>Current Selections</h2>
                                     {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-                                    <DragZone />
+                                    <DragZone>
+                                        {image}
+                                    </DragZone>
                                 </div>
                             </div>
                             <Modifiers model={model} modifiers={modifiers} />

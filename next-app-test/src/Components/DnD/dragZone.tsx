@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
 import { useDrag } from 'react-dnd'
-import { colors, DnDItemTypes, icons } from './workspace.util'
+import { DnDItemTypes } from './workspace.util'
 
-export const DragZone = observer(() => {
+export const DragZone = observer(({children}: {children: React.ReactNode}) => {
     const [{ isDragging }, drag, preview] = useDrag(
         () => ({
             type: DnDItemTypes.ITEM,
@@ -12,7 +12,7 @@ export const DragZone = observer(() => {
         }),
         [],
     )
-    const image = icons.star({fill: colors.red, stroke: colors.blue})
+    
     return (<div
         ref={drag}
         style={{
@@ -20,6 +20,6 @@ export const DragZone = observer(() => {
         }}
     >
         Drag me
-        {image}
+        {children}
     </div>)
 })

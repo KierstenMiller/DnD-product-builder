@@ -5,14 +5,21 @@ import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-ow
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/mock/mockModifiers.data'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { robotModifiers } from '-/data/robots/robotModifiers.data'
+import { shapeModifiers } from '-/data/freeform-grid_shapes/shapeModifiers.data'
 
-// K-TODO: move
+// mock data
 // const data = {
 //     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
 // }
 
+// robot SINGLETON data
+// const data = {
+//     modifiers: robotModifiers,
+// }
+
+// shapes FREEFORM GRID data
 const data = {
-    modifiers: robotModifiers,
+    modifiers: shapeModifiers,
 }
 
 const BuildYourOwn = () => {

@@ -8,7 +8,7 @@ const addToMatrix = ({matrix, addIndex, piece}: {matrix: typeof matrixMock, addI
     matrix[addIndex.row][addIndex.column].piece = piece;
 }
 
-export const Workspace = observer(() => {
+export const Workspace = observer(({dropImage}: {dropImage: JSX.Element}) => {
     const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: DnDItemTypes.ITEM,
@@ -31,7 +31,7 @@ export const Workspace = observer(() => {
                 onDrop={(matrixIndex) => addToMatrix({
                     matrix: matrixMock,
                     addIndex: matrixIndex,
-                    piece: {id:"newPiece", image: icons.circle({fill: colors.red, stroke: colors.blue})}
+                    piece: {id:"newPiece", image: dropImage}
                 })}
             />)}
         </div>)}
