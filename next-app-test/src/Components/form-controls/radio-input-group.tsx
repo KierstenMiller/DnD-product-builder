@@ -26,6 +26,7 @@ export const RadioInputGroup = ({heading, options, onChange, styles = {}, mirage
         <legend className={styles.legend}>{heading}</legend>
         <div className={styles.optionsContainer}>
             {options.map(opt => <RadioInput
+                key={opt.id}
                 {...opt}
                 name={heading}
                 onChange={onChangeToUse}
