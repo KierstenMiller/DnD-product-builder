@@ -1,17 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
-
-export enum DnDItemTypes {
-    ITEM = "item",
-}
-
-export interface matrixIndexI {
-    row: number,
-    column: number,
-}
-
-export interface pieceI {id: string, image: React.ReactNode;}
+import { useDrop } from 'react-dnd'
+import { DnDItemTypes, matrixIndexI, pieceI } from './workspace.util'
 
 interface propsI {
     matrixIndex: matrixIndexI,
@@ -44,6 +33,5 @@ export const DropZone = observer(({matrixIndex, onDrop, piece}: propsI) => {
         DROP ZONE
         {piece && piece.id}
         {piece?.image && piece.image}
-        {/* {piece && <img height={30} width={30} src={piece?.imageUrl} />} */}
     </div>)
 })
