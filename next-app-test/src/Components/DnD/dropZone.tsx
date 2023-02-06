@@ -2,13 +2,16 @@ import { observer } from 'mobx-react-lite'
 import { useDrop } from 'react-dnd'
 import { DnDItemTypes, matrixIndexI, pieceI } from './workspace.util'
 
+export type onDropI = (matrixIndex: matrixIndexI) => void
+
 interface propsI {
     matrixIndex: matrixIndexI,
-    onDrop: (matrixIndex: matrixIndexI) => void,
+    onDrop: onDropI,
     piece?: pieceI
 }
 
 export const DropZone = observer(({matrixIndex, onDrop, piece}: propsI) => {
+    // console.log('rerender DropZone', {matrixIndex, piece});
     const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: DnDItemTypes.ITEM,

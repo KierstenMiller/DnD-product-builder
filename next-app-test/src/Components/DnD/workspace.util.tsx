@@ -10,17 +10,24 @@ export interface iconColoringI {
     stroke: colors,
 }
 
+export enum shapeIds {
+    circle= 'circle',
+    square= 'square',
+    star= 'star',
+    triangle= 'triangle',
+}
+
  export const icons = {
-    circle: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
+    [shapeIds.circle]: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
         <circle style={{fill: fill, stroke: stroke}} cx="38.05" cy="38.05" r="28"/>
     </svg>,
-    square: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
+    [shapeIds.square]: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
         <rect style={{fill: fill, stroke: stroke}} x="10.05" y="10.05" width="56" height="56"/>
     </svg>,
-    star: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
+    [shapeIds.star]: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
         <polygon style={{fill: fill, stroke: stroke}} points="38.05 10.05 45 31.44 67.5 31.44 49.3 44.66 56.25 66.05 38.05 52.83 19.86 66.05 26.81 44.66 8.61 31.44 31.1 31.44 38.05 10.05"/>
     </svg>,
-    triangle: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
+    [shapeIds.triangle]: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
         <polygon style={{fill: fill, stroke: stroke}} points="38.05 10.05 54.22 38.05 70.39 66.05 38.05 66.05 5.72 66.05 21.89 38.05 38.05 10.05"/>
     </svg>
 }
