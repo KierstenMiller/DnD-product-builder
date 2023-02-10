@@ -28,6 +28,7 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}
         [],
     )
     const realizedImage = (typeof piece?.image === 'function') ? piece.image() : piece?.image
+    console.log('realizedImage', realizedImage)
     return (<div
         ref={drop}
         style={{
@@ -38,7 +39,7 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}
         }}
     >
         {realizedImage}
-        {onRemove && <button onClick={() => onRemove(matrixIndex)}>Clear</button>}
-        {onMove && <button onClick={() => onMove(matrixIndex)}>Move</button>}
+        {realizedImage && onRemove && <button onClick={() => onRemove(matrixIndex)}>Clear</button>}
+        {realizedImage && onMove && <button onClick={() => onMove(matrixIndex)}>Move</button>}
     </div>)
 })
