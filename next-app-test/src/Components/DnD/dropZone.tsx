@@ -4,6 +4,7 @@ import { DnDItemTypes, matrixIndexI, pieceI } from './workspace.util'
 
 export type onDropI = (matrixIndex: matrixIndexI) => void;
 export type onRemoveI = (matrixIndex: matrixIndexI) => void;
+export type onMoveI = (matrixIndex: matrixIndexI) => void;
 
 interface propsI {
     matrixIndex: matrixIndexI,
@@ -11,9 +12,10 @@ interface propsI {
     // optional
     piece?: pieceI,
     onRemove?: onRemoveI,
+    onMove?: onMoveI,
 }
 
-export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove}: propsI) => {
+export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}: propsI) => {
     const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: DnDItemTypes.ITEM,
@@ -36,6 +38,7 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove}: propsI
         }}
     >
         {realizedImage}
-        {onRemove && <button onClick={() => onRemove(matrixIndex)}>Remove</button>}
+        {onRemove && <button onClick={() => onRemove(matrixIndex)}>Clear</button>}
+        {onMove && <button onClick={() => onMove(matrixIndex)}>Move</button>}
     </div>)
 })
