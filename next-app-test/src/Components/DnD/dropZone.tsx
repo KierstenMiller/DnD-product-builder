@@ -2,20 +2,21 @@ import { observer } from 'mobx-react-lite'
 import { useDrop } from 'react-dnd'
 import { DnDItemTypes, matrixIndexI, pieceI } from './workspace.util'
 
-export type onDropI = (matrixIndex: matrixIndexI) => void
+export type onDropI = (matrixIndex: matrixIndexI) => void;
+export type onEditI = (matrixIndex: matrixIndexI) => void;
 
 interface propsI {
     matrixIndex: matrixIndexI,
     onDrop: onDropI,
-    piece?: pieceI
+    // optional
+    piece?: pieceI,
+    onEdit?: (matrixIndex: matrixIndexI) => void,
 }
 
-export const DropZone = observer(({matrixIndex, onDrop, piece}: propsI) => {
-    // console.log('rerender DropZone', {matrixIndex, piece});
+export const DropZone = observer(({matrixIndex, piece, onDrop, onEdit }: propsI) => {
     const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
             accept: DnDItemTypes.ITEM,
-            //   canDrop: () => game.canMoveKnight(x, y),
             drop: () => onDrop(matrixIndex),
             collect: (monitor) => ({
                 isOver: !!monitor.isOver(),
@@ -24,6 +25,7 @@ export const DropZone = observer(({matrixIndex, onDrop, piece}: propsI) => {
         }),
         [],
     )
+    const realizedImage = (typeof piece?.image === 'function') ? piece.image() : piece?.image
     return (<div
         ref={drop}
         style={{
@@ -33,8 +35,10 @@ export const DropZone = observer(({matrixIndex, onDrop, piece}: propsI) => {
             color: canDrop ? 'blue' : 'red',
         }}
     >
-        DROP ZONE
-        {piece && piece.id}
-        {piece?.image && piece.image}
+        {realizedImage}
+        <div className="flex">
+            {onEdit && <button style={{minHeight: '44px', minWidth: '44px'}} onClick={() => onEdit(matrixIndex)}>Edit</button>}
+            <button style={{minHeight: '44px', minWidth: '44px'}} onClick={() => console.log('todo: drag')}>Drag</button>
+        </div>
     </div>)
 })

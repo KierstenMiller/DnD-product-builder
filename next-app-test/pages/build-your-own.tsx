@@ -6,6 +6,7 @@ import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifie
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { robotModifiers } from '-/data/robots/robotModifiers.data'
 import { shapeModifiers } from '-/data/freeform-grid_shapes/shapeModifiers.data'
+import { matrixMock } from '-/Components/DnD/workspace.util'
 
 // mock data
 // const data = {
@@ -25,7 +26,8 @@ const data = {
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const model = new BuildYourOwnModel({
-        config: data.modifiers.map(mod => ({ id: mod.id, selection: mod.options[0].id }))
+        config: data.modifiers.map(mod => ({ id: mod.id, selection: mod.options[0].id })),
+        matrix: matrixMock
     });
 
     return (
