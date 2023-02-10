@@ -55,11 +55,12 @@ export class BuildYourOwnModel {
         const match = this.config.find(mod => mod.id === id);
         if (match) match.selection = newSelection
     };
-    updateMatrixIndexPiece = (addIndex: matrixIndexI) => {
-        const index = this.matrix[addIndex.row][addIndex.column];
-        if(index.piece) index.piece.setConfig(this.config)
-        else index['piece'] = new Piece({id:'addedPiece', config: [...this.config.map(c => (
-            {...c} // removing observability
-        ))]})
+    updateMatrixIndexPiece = (matrixIndex: matrixIndexI, removePiece?: boolean) => {
+        console.log('matrixIndex', matrixIndex);
+        const index = this.matrix[matrixIndex.row][matrixIndex.column];
+        const nonObservableConfig = [...this.config.map(c => ({...c}))];
+        if (removePiece) index.piece = undefined
+        else if (index.piece) index.piece.setConfig(nonObservableConfig)
+        else index['piece'] = new Piece({id:'addedPiece', config: nonObservableConfig})
     }
 }

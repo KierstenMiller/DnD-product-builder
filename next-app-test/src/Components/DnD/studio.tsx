@@ -21,14 +21,13 @@ export enum DnDItemTypes {
 }
 
 export const Studio = observer(({ model, modifiers }: propsI) => {
-    const onDrop = (matrixIndex : matrixIndexI) => {   
-        model.updateMatrixIndexPiece(matrixIndex, model.config.slice());
-    }
+    const onDrop = (matrixIndex : matrixIndexI) => model.updateMatrixIndexPiece(matrixIndex);
+    const onRemove = (matrixIndex : matrixIndexI) => model.updateMatrixIndexPiece(matrixIndex, true);
     return (<DndProvider backend={HTML5Backend}>
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    <Workspace matrix={model.matrix} onDrop={onDrop}/>
+                    <Workspace matrix={model.matrix} onDrop={onDrop} onRemove={onRemove}/>
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>

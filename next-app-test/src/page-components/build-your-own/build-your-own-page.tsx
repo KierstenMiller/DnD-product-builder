@@ -12,7 +12,6 @@ interface BuildYourOwnPageI {
 }
 
 export const BuildYourOwnPage = observer(({ model, modifiers }: BuildYourOwnPageI) => {
-    console.log('page rerender');
     return (<>
         <div className={styles.app}>
             <div className={styles.container}>

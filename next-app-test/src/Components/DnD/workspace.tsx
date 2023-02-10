@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
-import { DropZone, onDropI } from './dropZone'
+import { DropZone, onDropI, onRemoveI,  } from './dropZone'
 import { matrixMock,  } from './workspace.util'
 
-export const Workspace = observer(({matrix, onDrop}: {matrix: typeof matrixMock, onDrop: onDropI}) => { // TODO: make matrix typing
+export const Workspace = observer(({matrix, onDrop, onRemove}: {matrix: typeof matrixMock, onDrop: onDropI, onRemove: onRemoveI}) => { // TODO: make matrix typing
     return (<div className="flex">
         {/* TODO: make a index that isn't from the iterator index */}
         {matrix.map((r, i) => <div key={i}>
@@ -11,7 +11,7 @@ export const Workspace = observer(({matrix, onDrop}: {matrix: typeof matrixMock,
                 matrixIndex={c.matrixIndex}
                 onDrop={onDrop}
                 piece={c.piece}
-                onEdit={() => console.log('todo')}
+                onRemove={onRemove}
             />)}
         </div>)}
     </div>)
