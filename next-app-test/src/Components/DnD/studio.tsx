@@ -16,13 +16,9 @@ interface propsI {
     modifiers: modifiersT,
 }
 
-export enum DnDItemTypes {
-    ITEM = "item",
-}
-
 export const Studio = observer(({ model, modifiers }: propsI) => {
-    const onDrop = (matrixIndex : matrixIndexI) => model.updateMatrixIndexPiece(matrixIndex);
-    const onRemove = (matrixIndex : matrixIndexI) => model.updateMatrixIndexPiece(matrixIndex, true);
+    const onDrop = (matrixIndex: matrixIndexI, swapIndex?: matrixIndexI) => {swapIndex ? model.swapPieces(matrixIndex, swapIndex) : model.setMatrixIndexPiece(matrixIndex)};
+    const onRemove = (matrixIndex : matrixIndexI) => model.removeMatrixIndexPiece(matrixIndex);
     const onMove = (matrixIndex: matrixIndexI) => console.log('matrixIndex to move from', matrixIndex);
     return (<DndProvider backend={HTML5Backend}>
         <div className={styles.row}>

@@ -53,6 +53,7 @@ export const getImage = (config: configT) => {
 
 export enum DnDItemTypes {
     ITEM = "item",
+    WORKSPACE_ITEM = "workspace-item"
 }
 
 export enum colors {

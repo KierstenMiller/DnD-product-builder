@@ -122,7 +122,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
             {mod.composedOptions
                 ? <CategorizedRadioInputGroup
                     heading={`${mod.label} ${mod.groupBy}`}
-                    onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.id, selection: newSelection})}
+                    onChange={({newSelection}) => model.updateConfigSelection({id: mod.id, selection: newSelection})}
                     categorizedOptions={[...mod.composedOptions.entries()].map(([category, options]) => ({id:`${mod.id}_${category}`, category, options}))}
                     styles={collectionDisplays[mod.display]?.styles}
                     mirage={collectionDisplays[mod.display]?.mirage} 
@@ -130,7 +130,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
                 : <RadioInputGroup
                     heading={mod.label}
                     options={mod.options}
-                    onChange={({newSelection}) => model.updateConfigItemSelection({id: mod.id, selection: newSelection})}
+                    onChange={({newSelection}) => model.updateConfigSelection({id: mod.id, selection: newSelection})}
                     styles={collectionDisplays[mod.display]?.styles}
                     mirage={collectionDisplays[mod.display]?.mirage} 
                 />
