@@ -10,6 +10,7 @@ import { matrixIndexI } from '-/Components/DnD/workspace.util'
 import {  modifiersT } from '-/page-components/build-your-own/build-your-own.util'
 
 import styles from '#/Home.module.scss'
+import { ModalTrigger } from '../modal/modalTrigger'
 
 interface propsI {
     model: BuildYourOwnModel,
@@ -39,6 +40,15 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
                         <DragZone>
                             {model.configuredImage}
                         </DragZone>
+                        <ModalTrigger
+                            triggerConfig={{
+                                text: 'Add to workspace',
+                            }}
+                            modalConfig={{
+                                header: {content: 'First Modal'},
+                                body: 'Body string!',
+                            }}
+                        />
                     </div>
                 </div>
                 <Modifiers model={model} modifiers={modifiers} />

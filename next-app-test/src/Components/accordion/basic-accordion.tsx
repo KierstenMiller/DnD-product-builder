@@ -16,9 +16,9 @@ interface Props {
 }
 
 export const BasicAccordion = ({
-    id, headerText, headerLevel, drawerOpen = false, disableCollapse = false, children, stylesOverride,
+    id, headerText, headerLevel, drawerOpen = false, disableCollapse = false, children, stylesOverride = {},
 }: Props) => {
-    const styles = stylesOverride || defaultStyles;
+    const styles = {...defaultStyles, ...stylesOverride} ;
     const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse);
     const toggleDrawerVisibility = () => !disableCollapse && setIsOpen(!isOpen);
     return <div className={styles.container}>
