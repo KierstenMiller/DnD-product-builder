@@ -1,18 +1,31 @@
 .trigger {
-    min-height: 44px; // TODO: make button class or component for this min
-    min-width: 44px;
     background: red;
 }
-
 .container {
+    z-index: 999;
     position: fixed;
     inset: 0;
     overflow-y: scroll;
     display: flex;
 }
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: black;
+    opacity: 0.6;
+}
 .modal {
+    padding: 32px 24px;
+    z-index: 9999;
     width: 484px;
-    height: 900px;
     margin: 0px auto;
+    margin-top: 64px; // TODO import spacing
     background: lightblue;
+    height: fit-content;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 16px;
 }
