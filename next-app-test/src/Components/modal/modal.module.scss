@@ -4,31 +4,32 @@
     background: red;
 }
 .container {
-    z-index: 999;
-    position: fixed;
-    overflow-y: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top:0;
-    bottom:0;
+    z-index: 1000;
+    // background: black;
+    // opacity: 0.6;
+    box-sizing: border-box;
     left:0;
+    bottom: 0;
     right:0;
-    
+    top:0;
+    position:fixed;
 }
-.backdrop {
+.container2 {
+    overflow-y: scroll;
+    inset: 0px;
     position: fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    background: black;
-    opacity: 0.8;
+    display: flex;
+}
+.container3 {
+    // height: 100%;
+    // display: flex;
+    // min-height: 0px;
+    // position: relative;
+    // border-radius: 6px;
+    margin: 0px auto;
 }
 .modal {
-    z-index: 9999;
-    position: relative;
-    width: 50vw;
-    max-height: 90vh;
-    background: white;
+    width: 484px;
+    height: 900px;
+    background: lightblue;
 }
