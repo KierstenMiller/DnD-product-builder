@@ -26,7 +26,11 @@ export const ModalTrigger = ({ triggerConfig, modalConfig, isGlobal = true, styl
     const triggerClick = (event: mouseButtonClickT) => toggle(true, event, triggerConfig.openCallback);
     const styles = { ...defaultStyles, ...stylesOverride }
     const [isOpen, setIsOpen] = useState(false);
-    const modal = <Modal {...modalConfig} closeCallback={modalCloseClick} stylesOverride={stylesOverride} />
+    const css = `body {overflow: hidden;}`
+    const modal = <>
+        <style>{css}</style>
+        <Modal {...modalConfig} closeCallback={modalCloseClick} stylesOverride={stylesOverride} />
+    </>;
     return <>
         {isOpen && <>
             {isGlobal

@@ -33,17 +33,8 @@ export const Modal = ({
 }: ModalI) => {
     const styles = { ...defaultStyles, ...stylesOverride };
     const close = (event: mouseButtonClickT) => closeCallback(event, false);
-    const css = `
-    body {
-        background-color: #f00;
-        overflow: hidden;
-    }
-`
+    
     return <>
-        {/* <style>body { overflow: 'hidden !important' }</style> */}
-        <style>
-        {css}
-        </style>
         <div className={styles.container}>
             <div className={styles.container2}>
                 {/* <div className={styles.backdrop} /> */}
@@ -62,9 +53,7 @@ export const Modal = ({
                         </div>}
                     </div>
                 </div>
-
             </div>
-
         </div>
 
     </>
