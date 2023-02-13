@@ -3,26 +3,16 @@
     min-width: 44px;
     background: red;
 }
+
 .container {
-    z-index: 1000;
-    box-sizing: border-box;
-    left:0;
-    bottom: 0;
-    right:0;
-    top:0;
-    position:fixed;
-}
-.container2 {
-    overflow-y: scroll;
-    inset: 0px;
     position: fixed;
+    inset: 0;
+    overflow-y: scroll;
     display: flex;
-}
-.container3 {
-    margin: 0px auto;
 }
 .modal {
     width: 484px;
     height: 900px;
+    margin: 0px auto;
     background: lightblue;
 }
