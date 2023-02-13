@@ -33,17 +33,20 @@ export const Modal = ({
  }: ModalI) => {
     const styles = {...defaultStyles, ...stylesOverride};
     const close = (event: mouseButtonClickT) => closeCallback(event, false);
-    return <div className={styles.modal}>
-        <div className={styles.header}>
-            {typeof header.content === 'string' ? <h2>{header.content}</h2> : header.content}
-            <button onClick={close}>{header.closeType ? closeButtonContent[header.closeType] : closeButtonContent.ex}</button>
+    return <div className={styles.container}>
+        <div className={styles.backdrop}/>
+        <div className={styles.modal}>
+            <div className={styles.header}>
+                {typeof header.content === 'string' ? <h2>{header.content}</h2> : header.content}
+                <button onClick={close}>{header.closeType ? closeButtonContent[header.closeType] : closeButtonContent.ex}</button>
+            </div>
+            <div className={styles.body}>
+                {body}
+            </div>
+            {footer && <div className={styles.footer}>
+                {footer.closeType && <button onClick={close}>{closeButtonContent[footer.closeType]}</button>}
+                {footer.content}
+            </div>}
         </div>
-        <div className={styles.body}>
-            {body}
-        </div>
-        {footer && <div className={styles.footer}>
-            {footer.closeType && <button onClick={close}>{closeButtonContent[footer.closeType]}</button>}
-            {footer.content}
-        </div>}
     </div>
 }

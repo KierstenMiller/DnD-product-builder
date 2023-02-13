@@ -8,9 +8,9 @@ import { Workspace } from '-/Components/DnD/workspace'
 import { DragZone } from '-/Components/DnD/dragZone'
 import { matrixIndexI } from '-/Components/DnD/workspace.util'
 import {  modifiersT } from '-/page-components/build-your-own/build-your-own.util'
+import { ModalTrigger } from '../modal/modalTrigger'
 
 import styles from '#/Home.module.scss'
-import { ModalTrigger } from '../modal/modalTrigger'
 
 interface propsI {
     model: BuildYourOwnModel,

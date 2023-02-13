@@ -3,3 +3,32 @@
     min-width: 44px;
     background: red;
 }
+.container {
+    z-index: 999;
+    position: fixed;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    
+}
+.backdrop {
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background: black;
+    opacity: 0.8;
+}
+.modal {
+    z-index: 9999;
+    position: relative;
+    width: 50vw;
+    max-height: 90vh;
+    background: white;
+}
