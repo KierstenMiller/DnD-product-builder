@@ -11,6 +11,7 @@ import {  modifiersT } from '-/page-components/build-your-own/build-your-own.uti
 import { ModalTrigger } from '../modal/modalTrigger'
 
 import styles from '#/Home.module.scss'
+import { closeButtons } from '../modal/modal.util'
 
 interface propsI {
     model: BuildYourOwnModel,
@@ -47,7 +48,9 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
                             modalConfig={{
                                 header: {content: 'First Modal'},
                                 body: 'Body string!',
+                                footer: {buttons: [{text: 'Ok'}]}
                             }}
+                            
                         />
                     </div>
                 </div>
