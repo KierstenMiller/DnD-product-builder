@@ -20,6 +20,7 @@ interface propsI {
 }
 
 export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected, hideInput, styles = {}, mirage }: propsI) => {
+    
     return <div
         key={id}
         className={classNames(
@@ -36,9 +37,12 @@ export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected
             name={name}
             onChange={event => {onChange({event, newSelection: id})}}
             checked={selected}
-            aria-labelledby={`${`${name}_${id}`} ${ariaLabelledBy}`}
+            {...ariaLabelledBy && {'aria-labelledby':`${name}_${id} ${ariaLabelledBy}`}}
         />
-        <label id={`${name}_${id}`} className={classNames({ 'visually-hidden': mirage })}>{label}</label>
+        <label
+            className={classNames({ 'visually-hidden': mirage })}
+            {...(ariaLabelledBy ? {id:`${name}_${id}`} : {htmlFor: id})} 
+        >{label}</label>
          {/* NOTE: In forms mode (which we are forced into in a fieldset) any text in the mirage wouldn't be read - Including aria-hidden just in case */}
          {mirage && <div aria-hidden={true} className={styles.label} onClick={event => {onChange({event, newSelection: id})}}>
             {mirage({id, label, selected})}

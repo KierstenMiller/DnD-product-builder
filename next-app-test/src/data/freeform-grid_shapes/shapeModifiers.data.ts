@@ -1,5 +1,5 @@
 import { modifierCollectionDisplayValues } from "../mock/mockUtil.data";
-import { shapeColorOptions, shapeOptions } from "./shapeOptions.data";
+import { fillOptions, shapeOptions, strokeOptions } from "./shapeOptions.data";
 
 export const shapeModifiers = [
     {
@@ -12,13 +12,13 @@ export const shapeModifiers = [
         id: 'mod-fill',
         label: 'Fill Color',
         display: modifierCollectionDisplayValues.titled,
-        options: shapeColorOptions,
+        options: fillOptions,
     },
     {
         id: 'mod-stroke',
         label: 'Stroke Color',
         display: modifierCollectionDisplayValues.titled,
-        options: shapeColorOptions,
+        options: strokeOptions,
     },
 ]
     

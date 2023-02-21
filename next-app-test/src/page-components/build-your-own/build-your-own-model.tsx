@@ -1,6 +1,6 @@
-import { getImage, matrixIndexI, matrixMock, pieceI } from "-/Components/DnD/workspace.util";
-import { makeObservable, observable, action, computed} from "mobx"
-import { configItemI, configT } from "./build-your-own.util";
+import { generateImage, matrixIndexI, matrixMock, pieceI } from "-/Components/DnD/workspace.util";
+import { makeObservable, observable, action} from "mobx"
+import { configItemI, configT, modifiersT } from "./build-your-own.util";
 
 // great article on data structure of matrix, include sort algo https://www.geeksforgeeks.org/introduction-to-matrix-or-grid-data-structure-and-algorithms-tutorial/
 
@@ -13,20 +13,22 @@ export interface BuildYourOwnModelI {
 class Piece {
     id
     config
-    constructor({id, config}: pieceI) {
+    image
+    constructor({id, config, image}: pieceI) {
         this.id = id
         this.config = config
+        this.image = image
         makeObservable(this, {
             config: observable,
-            image: computed,
+            image: observable.ref, // deep observable doesn't work well with JSX.Element
             setConfig: action.bound,
         })
     }
-    get image() {
-        return getImage(this.config);
-    }
     setConfig(config: configT) {
         this.config = config;
+    }
+    setImage(image: JSX.Element) {
+        this.image = image;
     }
 }
 
@@ -61,16 +63,12 @@ export class BuildYourOwnModel {
         }))));
         makeObservable(this, {
             config: observable,
-            matrix: observable.ref,
-            configuredImage: computed,
+            matrix: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
             setConfig: action.bound,
             updateConfigSelection: action.bound,
             setMatrixIndexPiece: action.bound,
             removeMatrixIndexPiece: action.bound,
         }) 
-    }
-    get configuredImage() {
-        return getImage(this.config);
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     updateConfigSelection = ({id, selection: newSelection}: configItemI) => {
@@ -81,6 +79,11 @@ export class BuildYourOwnModel {
         const matrixIndex = this.matrix[index.row][index.column];
         const nonObservableConfigCopy = [...this.config.map(i => ({...i}))];
         matrixIndex.setPiece(piece || {id:'addedPiece', config: nonObservableConfigCopy});
+    }
+    setMatrixIndexPieceImage = (index:matrixIndexI, modifiers: modifiersT) => { // TODO: prevent model knowing about modifiers
+        const matrixIndex = this.matrix[index.row][index.column];
+        const image = generateImage([...this.config.map(i => ({...i}))], modifiers)
+        image && matrixIndex.piece?.setImage(image);
     }
     swapPieces = (indexA: matrixIndexI, indexB: matrixIndexI) => {
         const pieceA = this.matrix[indexA.row][indexA.column].piece;

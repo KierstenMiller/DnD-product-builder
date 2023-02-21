@@ -1,6 +1,6 @@
 import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/mock/mockUtil.data'
 
-export interface optionI {
+export interface optionI { // todo: make more specific to workspace type
     id: string,
     label: string,
     image: string,
@@ -9,6 +9,7 @@ export interface optionI {
     height?: number,
     width?: number,
     insured?: boolean,
+    colorKey?: string,
 }
 export interface filterI {
     display: filterDisplayValues,
