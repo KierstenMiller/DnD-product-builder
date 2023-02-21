@@ -32,18 +32,27 @@ export enum shapeKeys {
 }
 export enum colorKeys {
     defaultRed= 'default-red',
+    lightRed= 'light-red',
     defaultBlue= 'default-blue',
-    defaultGreen= 'default-green'
+    lightBlue= 'light-blue',
+    defaultGreen= 'default-green',
+    lightGreen= 'light-green',
 }
 enum colorCodes {
     defaultRed= '#ff0000',
+    lightRed= '#ff8080',
     defaultBlue= '#0000ff',
+    lightBlue= '#7f7fff',
     defaultGreen= '#00ff00',
+    lightGreen= '#8ffb8f',
 }
 const colors = {
     [colorKeys.defaultRed]: colorCodes.defaultRed,
+    [colorKeys.lightRed]: colorCodes.lightRed,
     [colorKeys.defaultBlue]: colorCodes.defaultBlue,
+    [colorKeys.lightBlue]: colorCodes.lightBlue,
     [colorKeys.defaultGreen]: colorCodes.defaultGreen,
+    [colorKeys.lightGreen]: colorCodes.lightGreen,
 }
 const icons = {
     [shapeKeys.circle]: ({fill, stroke}: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">

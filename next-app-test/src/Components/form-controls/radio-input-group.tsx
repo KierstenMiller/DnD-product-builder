@@ -31,7 +31,7 @@ export const RadioInputGroup = ({heading, options, onChange, styles = {}, mirage
                 name={heading}
                 onChange={onChangeToUse}
                 selected={opt.id === selection}
-                styles={styles}
+                stylesOverride={styles}
                 mirage={mirage}
             />)}
         </div>

@@ -37,7 +37,7 @@ export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChang
                     {...opt}
                     name={heading}
                     onChange={onChangeToUse}
-                    styles={styles}
+                    stylesOverride={styles}
                     mirage={mirage}
                     hideInput={hideInput}
                     selected={opt.id === selection}

@@ -15,12 +15,12 @@ interface propsI {
     ariaLabelledBy?: string,
     selected?: boolean,
     hideInput?: boolean,
-    styles?: any, // TODO: typescript
+    stylesOverride?: any, // TODO: typescript
     mirage?: (props: any) => React.ReactNode, // TODO: look up how to not make this any
 }
 
-export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected, hideInput, styles = {}, mirage }: propsI) => {
-    
+export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected, hideInput, stylesOverride: stylesOverride = {}, mirage }: propsI) => {
+    const styles = {...defaultStyles, ...stylesOverride};
     return <div
         key={id}
         className={classNames(

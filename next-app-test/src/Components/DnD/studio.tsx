@@ -8,7 +8,7 @@ import { Workspace } from '-/Components/DnD/workspace'
 import { DragZone } from '-/Components/DnD/dragZone'
 import { generateImage, matrixIndexI } from '-/Components/DnD/workspace.util'
 import { modifiersT } from '-/page-components/build-your-own/build-your-own.util'
-import { ModalTrigger } from '../modal/modalTrigger'
+import { AddModal, AddModalOnClickI } from './addModal'
 
 import styles from '#/Home.module.scss'
 
@@ -18,7 +18,6 @@ interface propsI {
 }
 
 export const Studio = observer(({ model, modifiers }: propsI) => {
-    console.log(model)
     const workingImage = generateImage(model.config, modifiers);
     const onDrop = (matrixIndex: matrixIndexI, swapIndex?: matrixIndexI) => {
         if(swapIndex) model.swapPieces(matrixIndex, swapIndex)
@@ -29,6 +28,10 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
     };
     const onRemove = (matrixIndex: matrixIndexI) => model.removeMatrixIndexPiece(matrixIndex);
     const onMove = (matrixIndex: matrixIndexI) => console.log('matrixIndex to move from', matrixIndex);
+    const onModalAdd = ({matrixIndex}: AddModalOnClickI) => {
+        model.setMatrixIndexPiece(matrixIndex);
+        model.setMatrixIndexPieceImage(matrixIndex, modifiers);
+    }
     return (<DndProvider backend={HTML5Backend}>
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
@@ -48,27 +51,7 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
                         <DragZone>
                             {workingImage}
                         </DragZone>
-                        <ModalTrigger
-                            triggerConfig={{
-                                text: 'Add to workspace',
-                            }}
-                            modalConfig={{
-                                header: { content: 'Add Piece to Workspace' },
-                                body: <div>
-                                    <div>
-                                        {workingImage}
-                                    </div>
-                                    <label>
-                                        <span className="label_text">Street:</span>
-                                        <input type="text" className="wide_input"/>
-                                    </label>
-                                    <label>Row</label><input />
-                                    <label>Column</label><input />
-                                </div>,
-                                footer: { buttons: [{ text: 'Cancel' }, { text: 'Ok' }] }
-                            }}
-
-                        />
+                        {workingImage && <AddModal image={workingImage} onSubmit={onModalAdd}/>}
                     </div>
                 </div>
                 <Modifiers model={model} modifiers={modifiers} />
