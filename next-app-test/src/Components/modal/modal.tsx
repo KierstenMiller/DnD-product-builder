@@ -70,7 +70,7 @@ export const Modal = ({
                     {body}
                 </div>
                 {footer?.buttons && <div className={styles.footer}>
-                    {footer.buttons.map(b => <FooterButton {...b} close={close} />)}
+                    {footer.buttons.map(b => <FooterButton key={b.text} {...b} close={close} />)}
                 </div>}
             </div>
         </FocusTrap>

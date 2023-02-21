@@ -3,9 +3,9 @@ import { useState } from 'react'
 
 import { matrixIndexI } from '-/Components/DnD/workspace.util'
 import { ModalTrigger } from '../modal/modalTrigger'
-import { TextInput } from '../form-controls/text-input'
-
 import { mouseButtonClickT } from '-/util/interactionTyping'
+import { Select } from '../form-controls/select'
+import { noop } from '-/util/helpers'
 
 export interface AddModalOnClickI {event: mouseButtonClickT, matrixIndex: matrixIndexI}
 
@@ -16,10 +16,20 @@ interface propsI {
     onCancel?: ({event, matrixIndex}: AddModalOnClickI) => void,
 }
 
-export const AddModal = observer(({ image, onCancel, onSubmit }: propsI) => {
-    const [row, setRow] = useState('0');
-    const [column, setColumn] = useState('0');
-    const matrixIndex = {row: parseInt(row), column: parseInt(column)};
+const defaultMatrixIndex = {row: '0', column: '0'};
+const selectOptions = [{id: '0', text: '0'}, {id: '1', text: '1'}, {id: '2', text: '2'}, {id: '3', text: '3'}];
+const convertStringIndex = (matrixIndex: {row: string, column: string}) => ({row: parseInt(matrixIndex.row), column: parseInt(matrixIndex.column)})
+
+export const AddModal = observer(({ image, onSubmit, onCancel=noop}: propsI) => {
+    const [matrixIndex, setMatrixIndex] = useState(defaultMatrixIndex); 
+    const submit = (event: mouseButtonClickT) => {
+        onSubmit({event, matrixIndex: convertStringIndex(matrixIndex)});
+        setMatrixIndex(defaultMatrixIndex);
+    };
+    const cancel = (event: mouseButtonClickT) => {
+        onCancel({event, matrixIndex: convertStringIndex(matrixIndex)});
+        setMatrixIndex(defaultMatrixIndex);
+    };
     return <ModalTrigger
         triggerConfig={{
             text: 'Add to workspace',
@@ -28,12 +38,22 @@ export const AddModal = observer(({ image, onCancel, onSubmit }: propsI) => {
             header: { content: 'Add Piece to Workspace' },
             body: <div>
                 <div>{image}</div>
-                <TextInput id="row" label="Row" onChange={({ newValue }) => setRow(newValue)} />
-                <TextInput id="column" label="Column" onChange={({ newValue }) => setColumn(newValue)} />
+                <Select
+                    id="row"
+                    label="Row"
+                    options={selectOptions.map(o => ({...o, selected: o.id === matrixIndex.row}))}
+                    onChange={({ newSelection }) => setMatrixIndex({row: newSelection, column:matrixIndex.column})}
+                />
+                <Select
+                    id="column"
+                    label="Column"
+                    options={selectOptions.map(o => ({...o, selected: o.id === matrixIndex.column}))}
+                    onChange={({ newSelection }) => setMatrixIndex({row: matrixIndex.row, column: newSelection})}
+                />  
             </div>,
             footer: {buttons: [
-                { text: 'Cancel', ...onCancel && {onClick: (event) => onCancel({event, matrixIndex})} },
-                { text: 'Ok', ...onSubmit && {onClick: (event) => onSubmit({event, matrixIndex})} }
+                { text: 'Cancel', onClick: cancel },
+                { text: 'Ok', onClick: submit }
             ]}
         }}
 

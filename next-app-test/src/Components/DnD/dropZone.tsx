@@ -52,7 +52,7 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}
             color: dropInfo.canDrop ? 'blue' : 'red',
         }}
     >
-        {matrixIndex.column} - {matrixIndex.row}
+        {matrixIndex.row} - {matrixIndex.column}
         {realizedImage}
         {realizedImage && onRemove && <button onClick={() => onRemove(matrixIndex)}>Clear</button>}
         {realizedImage && onMove && <button onClick={() => onMove(matrixIndex)}>Move</button>}
