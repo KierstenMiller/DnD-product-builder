@@ -1,14 +1,14 @@
+import { matrixIndexCoordinatesI, pieceI } from '-/page-components/build-your-own/build-your-own.util';
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd'
-import { DnDItemTypes, matrixIndexI, pieceI } from './workspace.util'
+import { DnDItemTypes } from './workspace.util'
 
-export type onDropI = (matrixIndex: matrixIndexI, swapIndex?: matrixIndexI) => void;
-export type onRemoveI = (matrixIndex: matrixIndexI) => void;
-export type onMoveI = (matrixIndex: matrixIndexI) => void;
-
+export type onDropI = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => void;
+export type onRemoveI = (matrixIndex: matrixIndexCoordinatesI) => void;
+export type onMoveI = (matrixIndex: matrixIndexCoordinatesI) => void;
 interface propsI {
-    matrixIndex: matrixIndexI,
+    matrixIndex: matrixIndexCoordinatesI,
     onDrop: onDropI,
     // optional
     piece?: pieceI,

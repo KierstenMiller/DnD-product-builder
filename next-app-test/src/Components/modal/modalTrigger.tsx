@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import defaultStyles from './modal.module.scss'
 import { Modal, ModalI, modalToggleCallbackT } from "./modal";
 import { mouseButtonClickT } from "-/util/interactionTyping";
-import { createPortal } from "react-dom";
 
 interface ModalTriggerI {
     triggerConfig: {

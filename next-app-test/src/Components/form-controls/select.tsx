@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { useState } from "react";
 
 import defaultStyles from './categorized-radio-input-group-styles.module.scss'
@@ -7,14 +6,12 @@ export interface onChangeI {
     event: React.ChangeEvent<HTMLSelectElement> | React.FormEvent<HTMLDivElement>,
     newSelection: string
 }
-
 interface propsOptionI {
     id: string,
     text: string,
     // optional
     selected?: boolean,
 }
-
 interface propsI {
     id: string,
     label: string,

@@ -1,5 +1,18 @@
 import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/mock/mockUtil.data'
 
+export interface matrixIndexCoordinatesI {
+    row: number,
+    column: number,
+}
+export interface pieceI {
+    id: string,
+    config: configT,
+    image?: JSX.Element | (() => JSX.Element)
+}
+export interface matrixIndexI {
+    matrixIndex: matrixIndexCoordinatesI;
+    piece?: pieceI;
+}
 export interface optionI { // todo: make more specific to workspace type
     id: string,
     label: string,
@@ -29,6 +42,7 @@ export interface modifierI {
 export interface configItemI {
     id: string, selection: string 
 };
+export type matrixT = matrixIndexI[][];
 export type optionsT = optionI[];
 export type modifiersT = modifierI[];
 export type configT = configItemI[];

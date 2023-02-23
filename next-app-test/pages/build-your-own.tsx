@@ -6,12 +6,13 @@ import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifie
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { robotModifiers } from '-/data/robots/robotModifiers.data'
 import { shapeModifiers } from '-/data/freeform-grid_shapes/shapeModifiers.data'
-import { generateImage, matrixMock } from '-/Components/DnD/workspace.util'
+import { generateImage } from '-/Components/DnD/workspace.util'
+import { matrixMock } from '-/data/freeform-grid_shapes/matrix.data'
 
 // mock data
-// const data = {
-//     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
-// }
+const data = {
+    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
+}
 
 // robot SINGLETON data
 // const data = {
@@ -19,18 +20,19 @@ import { generateImage, matrixMock } from '-/Components/DnD/workspace.util'
 // }
 
 // shapes FREEFORM GRID data
-const data = {
-    modifiers: shapeModifiers,
-}
+// const data = {
+//     modifiers: shapeModifiers, 
+//     matrix: matrixMock
+// }
 
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const model = new BuildYourOwnModel({
         config: data.modifiers.map(mod => ({ id: mod.id, selection: mod.options[0].id })),
-        matrix: matrixMock.map(r => r.map(i => {
+        matrix: data?.matrix?.map(r => r.map(i => {
             if(i.piece?.config) i.piece.image = generateImage(i.piece.config, data.modifiers)
             return i;
-        }))
+        })),
     });
     return (
         <>
