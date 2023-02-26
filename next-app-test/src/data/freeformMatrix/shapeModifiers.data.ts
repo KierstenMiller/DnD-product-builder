@@ -1,4 +1,4 @@
-import { modifierCollectionDisplayValues } from "../mock/mockUtil.data";
+import { modifierCollectionDisplayValues } from "../testingMocks/mockUtil.data";
 import { fillOptions, shapeOptions, strokeOptions } from "./shapeOptions.data";
 
 export const shapeModifiers = [

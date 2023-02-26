@@ -4,7 +4,7 @@ import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-grou
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { modifiersT, optionI, optionsT } from '-/page-components/build-your-own/build-your-own.util'
-import { groupByValues, modifierCollectionDisplayValues, sortByValues } from '-/data/mock/mockUtil.data'
+import { groupByValues, modifierCollectionDisplayValues, sortByValues } from '-/data/testingMocks/mockUtil.data'
 import { CategorizedRadioInputGroup } from '../form-controls/categorized-radio-input-group'
 
 import cardStyles from './card-styles.module.scss'

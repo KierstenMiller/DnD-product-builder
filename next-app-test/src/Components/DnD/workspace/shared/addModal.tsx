@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
-import { ModalTrigger } from '../modal/modalTrigger'
+import { ModalTrigger } from '../../../modal/modalTrigger'
 import { mouseButtonClickT } from '-/util/interactionTyping'
-import { Select } from '../form-controls/select'
+import { Select } from '../../../form-controls/select'
 import { noop } from '-/util/helpers'
 import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.util'
 

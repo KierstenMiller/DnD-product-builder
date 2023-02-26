@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 
 import { Matrix } from '-/page-components/build-your-own/build-your-own-model'
-import { DropZone } from './dropZone'
+import { DropZone } from '../../dropZone'
 import { matrixIndexCoordinatesI, modifiersT } from '-/page-components/build-your-own/build-your-own.util'
 
 interface propsI {
@@ -9,7 +9,7 @@ interface propsI {
     modifiers: modifiersT,
 }
 
-export const Workspace = observer(({matrix, modifiers}: propsI) => { 
+export const WorkspaceFreeformMatrix = observer(({matrix, modifiers}: propsI) => { 
     const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => {
         if(swapIndex) matrix.swapPieces(matrixIndex, swapIndex)
         else {

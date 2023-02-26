@@ -2,7 +2,7 @@ import { matrixIndexCoordinatesI, pieceI } from '-/page-components/build-your-ow
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd'
-import { DnDItemTypes } from './workspace.util'
+import { DnDItemTypes } from './workspace/freeformMatrix/freeformMatrix.util'
 
 export type onDropI = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => void;
 export type onRemoveI = (matrixIndex: matrixIndexCoordinatesI) => void;

@@ -1,14 +1,11 @@
-import { generateImage } from "-/Components/DnD/workspace.util";
-import { matrixMock } from "-/data/freeform-grid_shapes/matrix.data";
+import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
 import { makeObservable, observable, action} from "mobx"
 import { configItemI, configT, matrixIndexCoordinatesI, matrixT, modifiersT, pieceI } from "./build-your-own.util";
 
-// great article on data structure of matrix, include sort algo https://www.geeksforgeeks.org/introduction-to-matrix-or-grid-data-structure-and-algorithms-tutorial/
-
-type matrixI = typeof matrixMock; // TODO: make type
 export interface BuildYourOwnModelI {
     config: configT
-    matrix?: matrixI
+    matrix?: matrixT
+    builder?: any // TODO: builder typing
 }
 
 class Piece {
@@ -96,10 +93,12 @@ export class Matrix {
 export class BuildYourOwnModel {
     config
     matrix
-    constructor({config, matrix}: BuildYourOwnModelI) {
+    builder
+    constructor({config, matrix, builder}: BuildYourOwnModelI) {
         this.config = config;
         // passing observable version of config
         this.matrix = matrix ? new Matrix({config: this.config, matrix}) : null;
+        this.builder = builder;
         makeObservable(this, {
             config: observable,
             matrix: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable

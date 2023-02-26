@@ -1,4 +1,4 @@
-import { groupByValues, modifierCollectionDisplayValues, sortByValues } from "../mock/mockUtil.data";
+import { groupByValues, modifierCollectionDisplayValues, sortByValues } from "../testingMocks/mockUtil.data";
 import { robotColorOptions, robotPersonalityOptions, robotShapeOptions, robotSupportOptions } from "./robotOptions.data";
 
 export const robotModifiers = [

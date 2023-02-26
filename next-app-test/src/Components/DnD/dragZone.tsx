@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useDrag } from 'react-dnd'
-import { DnDItemTypes } from './workspace.util'
+import { DnDItemTypes } from './workspace/freeformMatrix/freeformMatrix.util'
 
 export const DragZone = observer(({children}: {children: React.ReactNode}) => {
     const [{ isDragging }, drag, preview] = useDrag(

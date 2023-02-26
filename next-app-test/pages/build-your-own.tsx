@@ -2,28 +2,35 @@ import Head from 'next/head'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/mock/mockModifiers.data'
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/testingMocks/mockModifiers.data'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { robotModifiers } from '-/data/robots/robotModifiers.data'
-import { shapeModifiers } from '-/data/freeform-grid_shapes/shapeModifiers.data'
-import { generateImage } from '-/Components/DnD/workspace.util'
-import { matrixMock } from '-/data/freeform-grid_shapes/matrix.data'
+import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
+import { generateImage } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util'
+import { matrixMock } from '-/data/freeformMatrix/matrix.data'
+import { builderMock } from '-/data/builderMatrix/builder.data'
 
 // mock data
-const data = {
-    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
-}
+// const data = {
+//     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
+// }
 
 // robot SINGLETON data
 // const data = {
 //     modifiers: robotModifiers,
 // }
 
-// shapes FREEFORM GRID data
+// FREEFORM MATRIX data
 // const data = {
 //     modifiers: shapeModifiers, 
 //     matrix: matrixMock
 // }
+
+// BUILDER data
+const data = {
+    modifiers: shapeModifiers, 
+    builder: builderMock,
+}
 
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)

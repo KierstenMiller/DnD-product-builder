@@ -1,4 +1,4 @@
-import { shapeKeys } from "-/Components/DnD/workspace.util";
+import { shapeKeys } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
 
 export const matrixMock = [
     [

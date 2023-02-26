@@ -4,11 +4,12 @@ import { DndProvider } from 'react-dnd'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { Modifiers } from '-/Components/modifier/modifier'
-import { Workspace } from '-/Components/DnD/workspace'
+import { WorkspaceFreeformMatrix } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix'
 import { modifiersT } from '-/page-components/build-your-own/build-your-own.util'
+import { AddToWorkspace } from './workspace/shared/addToWorkspace'
 
 import styles from '#/Home.module.scss'
-import { AddToWorkspace } from './addToWorkspace'
+import { WorkspaceBuilder } from './workspace/builder/builder'
 
 interface propsI {
     model: BuildYourOwnModel,
@@ -20,7 +21,8 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    {model.matrix && <Workspace matrix={model.matrix} modifiers={modifiers} />}
+                    {model.matrix && <WorkspaceFreeformMatrix matrix={model.matrix} modifiers={modifiers} />}
+                    {model.builder && <WorkspaceBuilder builder={model.builder} modifiers={modifiers} />}
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
