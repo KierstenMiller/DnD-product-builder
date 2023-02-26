@@ -1,11 +1,12 @@
 import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
+import { builderMock1 } from "-/data/builderMatrix/builder.data";
 import { makeObservable, observable, action} from "mobx"
-import { configItemI, configT, matrixIndexCoordinatesI, matrixT, modifiersT, pieceI } from "./build-your-own.util";
+import { builderT, configItemI, configT, matrixIndexCoordinatesI, matrixT, modifiersT, pieceI } from "./build-your-own.util";
 
 export interface BuildYourOwnModelI {
     config: configT
     matrix?: matrixT
-    builder?: any // TODO: builder typing
+    builder?: typeof builderMock1 // TODO: builder typing
 }
 
 class Piece {

@@ -1,18 +1,24 @@
+import { builderMock1 } from '-/data/builderMatrix/builder.data';
 import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/testingMocks/mockUtil.data'
 
+// BUILDER
+
+// MATRIX
 export interface matrixIndexCoordinatesI {
     row: number,
     column: number,
-}
-export interface pieceI {
-    id: string,
-    config: configT,
-    image?: JSX.Element | (() => JSX.Element)
 }
 export interface matrixIndexI {
     matrixIndex: matrixIndexCoordinatesI;
     piece?: pieceI;
 }
+// MATRIX + BUILDER
+export interface pieceI {
+    id: string,
+    config: configT,
+    image?: JSX.Element | (() => JSX.Element)
+}
+// MODIFIER
 export interface optionI { // todo: make more specific to workspace type
     id: string,
     label: string,
@@ -42,6 +48,8 @@ export interface modifierI {
 export interface configItemI {
     id: string, selection: string 
 };
+// BIG TYPES
+export type builderT = typeof builderMock1 // TODO: builder typing
 export type matrixT = matrixIndexI[][];
 export type optionsT = optionI[];
 export type modifiersT = modifierI[];

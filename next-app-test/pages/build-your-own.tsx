@@ -2,13 +2,14 @@ import Head from 'next/head'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/testingMocks/mockModifiers.data'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { robotModifiers } from '-/data/robots/robotModifiers.data'
 import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
 import { generateImage } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util'
+// MOCK DATA IMPORTS
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/testingMocks/mockModifiers.data'
+import { robotModifiers } from '-/data/robots/robotModifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { builderMock } from '-/data/builderMatrix/builder.data'
+import { builderMock1 } from '-/data/builderMatrix/builder.data'
 
 // mock data
 // const data = {
@@ -29,7 +30,7 @@ import { builderMock } from '-/data/builderMatrix/builder.data'
 // BUILDER data
 const data = {
     modifiers: shapeModifiers, 
-    builder: builderMock,
+    builder: builderMock1,
 }
 
 const BuildYourOwn = () => {
