@@ -52,12 +52,6 @@ const BuildYourOwn = () => {
             value: selectedOption.optionKey || selectedOption.label,
         }
     })
-    if (data.builder.type === builderKeys.freeformMatrix) {
-        data.builder.data.map(r => r.map(i => {
-            if (i.piece?.config) i.piece.image = generateImage(i.piece.config)
-            return i;
-        }))
-    }
     const model = new BuildYourOwnModel({
         config: config,
         builder: data.builder

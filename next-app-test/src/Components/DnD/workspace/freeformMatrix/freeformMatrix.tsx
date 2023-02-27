@@ -6,18 +6,14 @@ import { Matrix } from '-/page-components/build-your-own/freeform-grid.model';
 
 interface propsI {
     matrix: Matrix,
-    image: JSX.Element,
 }
 
-export const WorkspaceFreeformMatrix = observer(({matrix, image}: propsI) => { 
-    console.log('WorkspaceFreeformMatrix render');
+export const WorkspaceFreeformMatrix = observer(({matrix}: propsI) => { 
     const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => {
-        console.log('dropping', image);
-        swapIndex ? matrix.swapPieces(matrixIndex, swapIndex) : matrix.setMatrixIndexPiece({matrixIndex, image});  
-    } ;
+        swapIndex ? matrix.swapPieces(matrixIndex, swapIndex) : matrix.setMatrixIndexPiece({matrixIndex});  
+    };
     const onRemove = (matrixIndex: matrixIndexCoordinatesI) => matrix.removeMatrixIndexPiece(matrixIndex);
     return (<div className="flex">
-        {image}
         {/* TODO: make a index that isn't from the iterator index */}
         {matrix.matrix.map((r, i) => <div key={i}>
             {r.map(c => <DropZone

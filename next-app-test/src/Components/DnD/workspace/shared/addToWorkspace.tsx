@@ -11,7 +11,7 @@ interface propsI {
 
 export const AddToWorkspace = observer(({ matrix, image }: propsI) => {
     const onModalAdd = ({matrixIndex}: AddModalOnClickI) => {
-        matrix.setMatrixIndexPiece({matrixIndex, image});
+        matrix.setMatrixIndexPiece({matrixIndex});
     }
     return (<>
         <DragZone>

@@ -10,6 +10,7 @@ import { AddToWorkspace } from './workspace/shared/addToWorkspace'
 
 import styles from '#/Home.module.scss'
 import { WorkspaceFreeformMatrix } from './workspace/freeformMatrix/freeformMatrix'
+import { generateImage } from './workspace/freeformMatrix/freeformMatrix.util'
 
 interface propsI {
     model: BuildYourOwnModel,
@@ -17,15 +18,14 @@ interface propsI {
 }
 
 export const Studio = observer(({ model, modifiers }: propsI) => {
-    console.log('studio render');
+    const image = generateImage(model.config);
     const WorkspaceThing = getWorkspace(model.builder.type);
     // const addToWorkspace = getAddTo({builder: model.builder, })
     return (<DndProvider backend={HTML5Backend}>
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    {model.builder.type === builderKeys.freeformMatrix && model.currentConfigImage && <WorkspaceFreeformMatrix matrix={model.builder.build} image={model.currentConfigImage} />}
-                    {/* <WorkspaceThing matrix={model.builder.build} image={model.currentConfigImage}/> */}
+                    <WorkspaceThing matrix={model.builder.build}/>
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
@@ -37,7 +37,7 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
                     <div>
                         <h2>Current Selections</h2>
                         {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-                        {model.builder.type === builderKeys.freeformMatrix && <AddToWorkspace matrix={model.builder.build} image={model.currentConfigImage}/>}
+                        {model.builder.type === builderKeys.freeformMatrix && <AddToWorkspace matrix={model.builder.build} image={image}/>}
                     </div>
                 </div>
                 <Modifiers model={model} modifiers={modifiers} />

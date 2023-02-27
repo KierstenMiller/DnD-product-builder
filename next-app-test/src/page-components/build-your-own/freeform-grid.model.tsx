@@ -1,4 +1,5 @@
-import { makeObservable, observable, action} from "mobx"
+import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
+import { makeObservable, observable, action, computed} from "mobx"
 
 import { buildPiece } from "./build-your-own-model";
 import { configT, matrixIndexCoordinatesI, matrixT, pieceI } from "./build-your-own.types";
@@ -42,13 +43,10 @@ export class Matrix {
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     setMatrixIndexPiece = ({matrixIndex, piece, image}: {matrixIndex: matrixIndexCoordinatesI, piece?: pieceI, image?: JSX.Element}) => {
-        console.log('PASSING:', {matrixIndex, piece, image});
         const index = this.matrix[matrixIndex.row][matrixIndex.column];
         const nonObservableConfigCopy = [...this.config.map(i => ({...i}))];
         const newPiece = piece || {id:'addedPiece', config: nonObservableConfigCopy}
-        console.log('newPiece', newPiece);
         index.setPiece(newPiece);
-        image && index.piece?.setImage(image);
     }
     swapPieces = (indexA: matrixIndexCoordinatesI, indexB: matrixIndexCoordinatesI) => {
         const pieceA = this.matrix[indexA.row][indexA.column].piece;

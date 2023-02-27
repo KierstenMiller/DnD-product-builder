@@ -22,7 +22,6 @@ export interface matrixIndexI {
 export interface pieceI {
     id: string,
     config: configT,
-    image?: JSX.Element | (() => JSX.Element)
 }
 // MODIFIER
 export interface optionI { // todo: make more specific to workspace type

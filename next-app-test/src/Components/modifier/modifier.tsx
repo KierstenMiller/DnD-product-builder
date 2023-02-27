@@ -6,12 +6,13 @@ import { BuildYourOwnModel, BuildYourOwnModelI } from '-/page-components/build-y
 import { modifiersT, optionI, optionsT } from '-/page-components/build-your-own/build-your-own.types'
 import { groupByValues, modifierCollectionDisplayValues, sortByValues } from '-/data/singleton/testingMocks/mockUtil.data'
 import { CategorizedRadioInputGroup } from '../form-controls/categorized-radio-input-group'
+import { RadioInputGroup } from '../form-controls/radio-input-group'
 
 import cardStyles from './card-styles.module.scss'
 import imageFirstStyles from './image-first-styles.module.scss'
 import titledStyles from './titled-styles.module.scss'
 import BYOStyles from '#/build-your-own.module.scss'
-import { RadioInputGroup } from '../form-controls/radio-input-group'
+
 
 interface BuildYourOwnPageI {
     model: BuildYourOwnModel,

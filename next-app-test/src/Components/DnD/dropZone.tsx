@@ -2,7 +2,7 @@ import { matrixIndexCoordinatesI, pieceI } from '-/page-components/build-your-ow
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd'
-import { DnDItemTypes } from './workspace/freeformMatrix/freeformMatrix.util'
+import { DnDItemTypes, generateImage } from './workspace/freeformMatrix/freeformMatrix.util'
 
 export type onDropI = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => void;
 export type onRemoveI = (matrixIndex: matrixIndexCoordinatesI) => void;
@@ -17,8 +17,8 @@ interface propsI {
 }
 
 export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}: propsI) => {
-    const realizedImage = (typeof piece?.image === 'function') ? piece.image() : piece?.image
     const zoneRef = useRef();
+    const image = piece ? generateImage(piece.config) : null;
     const [dropInfo, drop] = useDrop(
         () => ({
             accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
@@ -52,9 +52,10 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}
             color: dropInfo.canDrop ? 'blue' : 'red',
         }}
     >
+        <div className="text-small">{piece?.config.map(c => <div key={c.value}>{c.value}</div>)}</div>
         {matrixIndex.row} - {matrixIndex.column}
-        {realizedImage}
-        {realizedImage && onRemove && <button onClick={() => onRemove(matrixIndex)}>Clear</button>}
-        {realizedImage && onMove && <button onClick={() => onMove(matrixIndex)}>Move</button>}
+        {image}
+        {image && onRemove && <button onClick={() => onRemove(matrixIndex)}>Clear</button>}
+        {image && onMove && <button onClick={() => onMove(matrixIndex)}>Move</button>}
     </div>)
 })
