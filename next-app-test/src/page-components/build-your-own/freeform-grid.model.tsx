@@ -35,6 +35,7 @@ export class Matrix {
         makeObservable(this, {
             matrix: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
             config: observable,
+            setConfig: action.bound,
             setMatrixIndexPiece: action.bound,
             setMatrixIndexPieceImage: action.bound,
             swapPieces: action.bound,

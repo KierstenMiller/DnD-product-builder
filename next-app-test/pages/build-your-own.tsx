@@ -9,7 +9,7 @@ import { generateImage } from '-/Components/DnD/workspace/freeformMatrix/freefor
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/mockModifiers.data'
 import { robotModifiers } from '-/data/singleton/robots/robotModifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { builderMock1 } from '-/data/aggulativeStacks/builder.data'
+import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/builder.data'
 import { builderKeys } from '-/page-components/build-your-own/build-your-own.util'
 import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
 
@@ -38,7 +38,7 @@ const data = {
 //     modifiers: shapeModifiers, 
 //     builder: {
 //         type: builderKeys.aggulativeStacks,
-//         data: builderMock1
+//         data: aggulativeStacksMock1
 //     },
 // }
 

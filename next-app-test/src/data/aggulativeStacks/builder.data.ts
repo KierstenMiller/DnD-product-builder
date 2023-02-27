@@ -1,6 +1,6 @@
-export const emptyBuilderMock = [];
+export const aggulativeStacksMockEmpty = [];
 
-export const builderMock1 = [
+export const aggulativeStacksMock1 = [
     [
         { column: 1, piece: {id:'piece-1', config: [{id: 'mod-height', selection: '1'}]}},
         { column: 1, piece: {id:'piece-2', config: [{id: 'mod-height', selection: '1'}]}},
@@ -19,12 +19,12 @@ export const builderMock1 = [
         { column: 4, piece: {id:'piece-9', config: [{id: 'mod-height', selection: '1'}]}},
     ],
 ];
-export const builderMock2 = [
+export const aggulativeStacksMock2 = [
     [
         { column: 1, piece: {id:'piece-1', config: [{id: 'mod-height', selection: '2'}]}},
     ],
 ];
-export const builderMock3 = [
+export const aggulativeStacksMock4 = [
     [
         { column: 1, piece: {id:'piece-1', config: [{id: 'mod-height', selection: '4'}]}},
         { column: 2, piece: {id:'piece-2', config: [{id: 'mod-height', selection: '4'}]}},

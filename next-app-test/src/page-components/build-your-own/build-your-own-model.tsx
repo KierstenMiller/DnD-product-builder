@@ -59,6 +59,6 @@ export class BuildYourOwnModel {
     updateConfigSelection = ({id, selection: newSelection}: configItemI) => {
         const match = this.config.find(mod => mod.id === id);
         if (match) match.selection = newSelection
-        // this.matrix?.setConfig(this.config);
+        this.builder.build?.setConfig(this.config);
     }
 }

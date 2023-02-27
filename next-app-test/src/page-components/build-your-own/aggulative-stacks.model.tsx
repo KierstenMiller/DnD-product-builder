@@ -22,6 +22,11 @@ export class AggulativeStacks {
             column: c.column,
             piece: c.piece,
         }))));
-        // makeObservable(this, {}) 
+        makeObservable(this, {
+            stacks: observable.ref, // using ref to give children control over what is observable
+            config: observable,
+            setConfig: action.bound,
+        }) 
     }
+    setConfig = (newConfig: configT) => this.config = newConfig;
 }
