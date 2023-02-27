@@ -3,13 +3,13 @@ import Head from 'next/head'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
+import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 
 // MOCK DATA IMPORTS
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/mockModifiers.data'
 import { robotModifiers } from '-/data/singleton/robots/robotModifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
 import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/builder.data'
-import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
 import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
 

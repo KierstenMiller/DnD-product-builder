@@ -1,9 +1,7 @@
-import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
-import { makeObservable, observable, action, computed } from "mobx"
-import { type } from "os";
+import { makeObservable, observable, action } from "mobx"
 import { AggulativeStacks } from "./aggulative-stacks.model";
 import { aggulativeStacksT, configItemI, configT, matrixT, pieceI } from "./build-your-own.types";
-import { builderKeys, getBuilder } from "./build-your-own.util";
+import { builderKeys } from "./build-your-own.util";
 import { Matrix } from "./freeform-grid.model";
 
 export type BuilderDataT = {type: builderKeys.singleton, data: undefined}
@@ -13,10 +11,6 @@ export type BuilderT = {type: builderKeys.singleton, build: undefined}
 | {type: builderKeys.freeformMatrix, build: Matrix}
 | {type: builderKeys.aggulativeStacks, build: AggulativeStacks}
 export type BuildT = Matrix | AggulativeStacks | null
-// export interface BuildYourOwnModelPropsI {
-//     config: configT
-//     builder: BuilderDataT
-// }
 export interface BuildYourOwnModelI {
     config: configT
     builder: BuilderT

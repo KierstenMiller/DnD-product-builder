@@ -1,7 +1,5 @@
-
 import { makeObservable, observable, action} from "mobx"
 import { aggulativeStacksT, configT, pieceI } from "./build-your-own.types";
-
 
 class ColumnPiece {
     column
