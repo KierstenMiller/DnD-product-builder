@@ -13,10 +13,10 @@ export type BuilderT = {type: builderKeys.singleton, build: undefined}
 | {type: builderKeys.freeformMatrix, build: Matrix}
 | {type: builderKeys.aggulativeStacks, build: AggulativeStacks}
 export type BuildT = Matrix | AggulativeStacks | null
-export interface BuildYourOwnModelPropsI {
-    config: configT
-    builder: BuilderDataT
-}
+// export interface BuildYourOwnModelPropsI {
+//     config: configT
+//     builder: BuilderDataT
+// }
 export interface BuildYourOwnModelI {
     config: configT
     builder: BuilderT
@@ -37,22 +37,20 @@ export class buildPiece {
     }
 }
 export class BuildYourOwnModel {
-    builderData: BuilderDataT
     config: configT
-    constructor({config, builder: builderData}: BuildYourOwnModelPropsI) {
-        this.builderData = builderData
+    builder: BuilderT
+    constructor({config, builder}: BuildYourOwnModelI) {
         this.config = config;
+        this.builder = builder
         // TODO: make builder a computed?
         makeObservable(this, {
             config: observable,
-            builder: computed,
+            builder: observable.ref, // allow children to decide what is observable
             setConfig: action.bound,
             updateConfigSelection: action.bound,
         }) 
     }
-    get builder() {
-        return getBuilder({config: this.config, ...this.builderData})
-    }
+
     setConfig = (newConfig: configT) => this.config = newConfig;
     updateConfigSelection = ({id, selection: newSelection, value: newValue}: configItemI) => {
         const match = this.config.find(mod => mod.id === id);

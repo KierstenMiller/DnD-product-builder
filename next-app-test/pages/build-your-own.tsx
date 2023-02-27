@@ -3,44 +3,52 @@ import Head from 'next/head'
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
-import { generateImage } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util'
+
 // MOCK DATA IMPORTS
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/mockModifiers.data'
 import { robotModifiers } from '-/data/singleton/robots/robotModifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
 import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/builder.data'
-import { builderKeys } from '-/page-components/build-your-own/build-your-own.util'
+import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
+import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
 
 // mock data
 // const data = {
 //     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
+//     builder: {
+//         type: builderKeys.singleton,
+//         data: undefined,
+//     }
 // }
 
 // robot SINGLETON data
 // const data = {
 //     modifiers: robotModifiers,
+//     builder: {
+//         type: builderKeys.singleton,
+//         data: undefined,
+//     }
 // }
 
 // FREEFORM MATRIX data
-const data = {
-    modifiers: shapeModifiers,
-    builder: {
-        // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
-        type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
-        data: matrixMock as matrixT,
-    }
-}
+// const data = {
+//     modifiers: shapeModifiers,
+//     builder: {
+//         // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
+//         type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
+//         data: matrixMock as matrixT,
+//     }
+// }
 
 // AGGULATIVE STACKS data
-// const data = {
-//     modifiers: shapeModifiers, 
-//     builder: {
-//         type: builderKeys.aggulativeStacks,
-//         data: aggulativeStacksMock1
-//     },
-// }
+const data = {
+    modifiers: shapeModifiers, 
+    builder: {
+        type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
+        data: aggulativeStacksMock1
+    },
+}
 
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
@@ -54,7 +62,7 @@ const BuildYourOwn = () => {
     })
     const model = new BuildYourOwnModel({
         config: config,
-        builder: data.builder
+        builder: getBuilder({config, ...data.builder}),
     });
     return (
         <>

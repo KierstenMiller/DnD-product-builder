@@ -5,6 +5,7 @@ export const robotShapeOptions = [
         productId: 1,
         image: 'GIR_default',
         height: 1,
+        optionKey: 'gir',
     },
     {
         id: 'BMO',
@@ -12,6 +13,8 @@ export const robotShapeOptions = [
         productId: 2,
         image: 'BMO_default',
         height: 1,
+        optionKey: 'bmo',
+        selected: true,
     },
     {
         id: 'EVE',
@@ -19,6 +22,7 @@ export const robotShapeOptions = [
         productId: 3,
         image: 'EVE_default',
         height: 2,
+        optionKey: 'eve',
     },
     {
         id: 'KAT',
@@ -26,6 +30,7 @@ export const robotShapeOptions = [
         productId: 4,
         image: 'KAT_default',
         height: 1,
+        optionKey: 'kat',
     },
     {
         id: 'HONI',
@@ -33,6 +38,7 @@ export const robotShapeOptions = [
         productId: 5,
         image: 'HONI_default',
         height: 3,
+        optionKey: 'honi',
     },
     {
         id: 'TRIG',
@@ -40,6 +46,7 @@ export const robotShapeOptions = [
         productId: 6,
         image: 'EVE_default',
         height: 2,
+        optionKey: 'trig',
     },
 ]
 export const robotColorOptions = [
@@ -47,48 +54,54 @@ export const robotColorOptions = [
         id: 'red',
         label: 'Power Red',
         image: 'color_power-red',
+        optionKey: 'default-red',
     },
     {
-        id: 'tan',
-        label: 'Desert Sand',
-        image: 'color_power-red',
+        id: 'pink',
+        label: 'Neon Rose',
+        image: 'color_neon-rose',
+        optionKey: 'light-red',
     },
     {
-        id: 'yellow',
-        label: 'Electric Yellow',
-        image: 'color_electric-yellow',
+        id: 'green',
+        label: 'Lush Prairie',
+        image: 'color_lush-prairie',
+        optionKey: 'default-green',
+    },
+    {
+        id: 'light-green',
+        label: 'Matcha',
+        image: 'color_matcha',
+        optionKey: 'light-green',
     },
     {
         id: 'blue',
         label: 'Aquatic Blue',
         image: 'color_aquatic',
+        selected: true,
+        optionKey: 'default-blue',
     },
-    {
-        id: 'pink',
-        label: 'Neon Rose',
-        image: 'color_aquatic',
-    },
-    {
-        id: 'green',
-        label: 'Hunter Green',
-        image: 'color_aquatic',
-    },
+    
 ]
 export const robotSupportOptions = [
     {
         id: 'wheels',
         label: 'Wheels',
         image: 'support_wheels',
+        optionKey: 'wheels',
     },
     {
         id: 'legs',
         label: 'Legs',
         image: 'support_legs',
+        selected: true,
+        optionKey: 'legs',
     },
     {
         id: 'none',
         label: 'None',
         image: 'support_none',
+        optionKey: 'float',
     },
 ]
 export const robotPersonalityOptions = [
@@ -97,6 +110,7 @@ export const robotPersonalityOptions = [
         label: 'Default',
         image: 'STOCK_default_personality',
         insured: true,
+        selected: true,
     },
     {
         id: 'kind',

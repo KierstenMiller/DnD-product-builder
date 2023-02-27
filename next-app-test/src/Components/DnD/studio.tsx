@@ -25,7 +25,7 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    <WorkspaceThing matrix={model.builder.build}/>
+                    <WorkspaceThing build={model.builder.build}/>
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>

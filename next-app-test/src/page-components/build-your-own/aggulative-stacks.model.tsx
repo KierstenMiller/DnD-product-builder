@@ -15,15 +15,15 @@ class ColumnPiece {
 
 export class AggulativeStacks {
     config
-    stacks
+    // stacks
     constructor({config, stacks}: {config: configT, stacks: aggulativeStacksT}) {
         this.config = config
-        this.stacks = stacks?.map(n => n.map(c => (new ColumnPiece({
-            column: c.column,
-            piece: c.piece,
-        }))));
+        // this.stacks = stacks?.map(n => n.map(c => (new ColumnPiece({
+        //     column: c.column,
+        //     piece: c.piece,
+        // }))));
         makeObservable(this, {
-            stacks: observable.ref, // using ref to give children control over what is observable
+            // stacks: observable.ref, // using ref to give children control over what is observable
             config: observable,
             setConfig: action.bound,
         }) 
