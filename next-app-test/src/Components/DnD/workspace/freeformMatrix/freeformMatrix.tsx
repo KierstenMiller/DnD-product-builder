@@ -10,9 +10,14 @@ interface propsI {
 }
 
 export const WorkspaceFreeformMatrix = observer(({matrix, image}: propsI) => { 
-    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => swapIndex ? matrix.swapPieces(matrixIndex, swapIndex) : matrix.setMatrixIndexPiece({matrixIndex, image});;
+    console.log('WorkspaceFreeformMatrix render');
+    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => {
+        console.log('dropping', image);
+        swapIndex ? matrix.swapPieces(matrixIndex, swapIndex) : matrix.setMatrixIndexPiece({matrixIndex, image});  
+    } ;
     const onRemove = (matrixIndex: matrixIndexCoordinatesI) => matrix.removeMatrixIndexPiece(matrixIndex);
     return (<div className="flex">
+        {image}
         {/* TODO: make a index that isn't from the iterator index */}
         {matrix.matrix.map((r, i) => <div key={i}>
             {r.map(c => <DropZone

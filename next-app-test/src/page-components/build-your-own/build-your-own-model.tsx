@@ -1,5 +1,6 @@
 import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
 import { makeObservable, observable, action, computed } from "mobx"
+import { type } from "os";
 import { AggulativeStacks } from "./aggulative-stacks.model";
 import { aggulativeStacksT, configItemI, configT, matrixT, pieceI } from "./build-your-own.types";
 import { builderKeys, getBuilder } from "./build-your-own.util";
@@ -41,20 +42,34 @@ export class buildPiece {
         this.image = image;
     }
 }
+// export class Builder {
+//     type
+//     data
+//     constructor({type, data}) {
+//         this.type = type;
+//         this.data
+//     }
+//     get builder() {
+//         return 
+//     }
+// }
 export class BuildYourOwnModel {
+    builderData: BuilderDataT
     config: configT
-    builder: BuilderT
     constructor({config, builder: builderData}: BuildYourOwnModelPropsI) {
+        this.builderData = builderData
         this.config = config;
         // TODO: make builder a computed?
-        this.builder = getBuilder({config, ...builderData});
         makeObservable(this, {
             config: observable,
-            builder: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
+            builder: computed,
             currentConfigImage: computed,
             setConfig: action.bound,
             updateConfigSelection: action.bound,
         }) 
+    }
+    get builder() {
+        return getBuilder({config: this.config, ...this.builderData})
     }
     get currentConfigImage() {
         console.log('generating currentConfigImage', this.config);

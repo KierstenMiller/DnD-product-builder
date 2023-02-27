@@ -111,6 +111,11 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
             }
         }
     });
+    const getOptionValue = (modId: string, selectionId: string) => {
+        const match = newModifiers.find(mod => mod.id === modId)?.options.find(o => o.id === selectionId)?.optionKey;
+        if (!match) throw new Error(`No optionkey value was found in modifier ${modId}`)
+        return match;
+    }
     return <BasicAccordionGroup>
         {newModifiers.map(mod => <BasicAccordion
             key={mod.id}
@@ -122,7 +127,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
             {mod.composedOptions
                 ? <CategorizedRadioInputGroup
                     heading={`${mod.label} ${mod.groupBy}`}
-                    onChange={({newSelection}) => model.updateConfigSelection({id: mod.id, selection: newSelection})}
+                    onChange={({newSelection}) => model.updateConfigSelection({id: mod.id, selection: newSelection, value: getOptionValue(mod.id, newSelection)})}
                     categorizedOptions={[...mod.composedOptions.entries()].map(([category, options]) => ({id:`${mod.id}_${category}`, category, options}))}
                     styles={collectionDisplays[mod.display]?.styles}
                     mirage={collectionDisplays[mod.display]?.mirage} 
@@ -130,7 +135,7 @@ export const Modifiers = observer(({model, modifiers}: BuildYourOwnPageI) => {
                 : <RadioInputGroup
                     heading={mod.label}
                     options={mod.options}
-                    onChange={({newSelection}) => model.updateConfigSelection({id: mod.id, selection: newSelection})}
+                    onChange={({newSelection}) => model.updateConfigSelection({id: mod.id, selection: newSelection, value: getOptionValue(mod.id, newSelection)})}
                     styles={collectionDisplays[mod.display]?.styles}
                     mirage={collectionDisplays[mod.display]?.mirage} 
                 />

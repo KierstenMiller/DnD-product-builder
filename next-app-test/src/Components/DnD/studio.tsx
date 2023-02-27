@@ -9,6 +9,7 @@ import { builderKeys, getWorkspace } from '-/page-components/build-your-own/buil
 import { AddToWorkspace } from './workspace/shared/addToWorkspace'
 
 import styles from '#/Home.module.scss'
+import { WorkspaceFreeformMatrix } from './workspace/freeformMatrix/freeformMatrix'
 
 interface propsI {
     model: BuildYourOwnModel,
@@ -23,7 +24,8 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    <WorkspaceThing matrix={model.builder.build} image={model.currentConfigImage}/>
+                    {model.builder.type === builderKeys.freeformMatrix && model.currentConfigImage && <WorkspaceFreeformMatrix matrix={model.builder.build} image={model.currentConfigImage} />}
+                    {/* <WorkspaceThing matrix={model.builder.build} image={model.currentConfigImage}/> */}
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
@@ -35,7 +37,7 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
                     <div>
                         <h2>Current Selections</h2>
                         {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-                        {model.builder.type === builderKeys.freeformMatrix && model.currentConfigImage && <AddToWorkspace matrix={model.builder?.build} image={model.currentConfigImage}/>}
+                        {model.builder.type === builderKeys.freeformMatrix && <AddToWorkspace matrix={model.builder.build} image={model.currentConfigImage}/>}
                     </div>
                 </div>
                 <Modifiers model={model} modifiers={modifiers} />

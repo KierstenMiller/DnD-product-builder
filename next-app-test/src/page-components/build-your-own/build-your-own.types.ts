@@ -26,7 +26,8 @@ export interface pieceI {
 }
 // MODIFIER
 export interface optionI { // todo: make more specific to workspace type
-    id: string,
+    id: string, // id to identify option
+    optionKey: string, // optionKey to match against library of keys
     label: string,
     image: string,
     // optional
@@ -35,7 +36,7 @@ export interface optionI { // todo: make more specific to workspace type
     height?: number,
     width?: number,
     insured?: boolean,
-    optionKey?: string,
+    
 }
 export interface filterI {
     display: filterDisplayValues,
