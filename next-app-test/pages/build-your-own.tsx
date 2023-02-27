@@ -25,7 +25,7 @@ import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
 
 // FREEFORM MATRIX data
 const data = {
-    modifiers: shapeModifiers, 
+    modifiers: shapeModifiers,
     builder: {
         // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
         type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
@@ -44,13 +44,20 @@ const data = {
 
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
-    const config = data.modifiers.map(mod => ({ id: mod.id, selection: mod.options[0].id }))
-    if(data.builder.type === builderKeys.freeformMatrix) {
+    const config = data.modifiers.map(mod => {
+        const selectedOption = mod.options.find(o => o.selected) || mod.options[0];
+        return {
+            id: mod.id,
+            selection: selectedOption.id,
+            value: selectedOption.optionKey || selectedOption.label,
+        }
+    })
+    if (data.builder.type === builderKeys.freeformMatrix) {
         data.builder.data.map(r => r.map(i => {
-            if(i.piece?.config) i.piece.image = generateImage(i.piece.config, data.modifiers)
+            if (i.piece?.config) i.piece.image = generateImage(i.piece.config)
             return i;
         }))
-    } 
+    }
     const model = new BuildYourOwnModel({
         config: config,
         builder: data.builder

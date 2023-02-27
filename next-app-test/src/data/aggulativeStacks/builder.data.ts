@@ -1,5 +1,4 @@
 export const aggulativeStacksMockEmpty = [];
-
 export const aggulativeStacksMock1 = [
     [
         { column: 1, piece: {id:'piece-1', config: [{id: 'mod-height', selection: '1'}]}},

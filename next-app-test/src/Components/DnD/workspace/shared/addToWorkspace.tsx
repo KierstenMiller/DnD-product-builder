@@ -1,27 +1,22 @@
 import { observer } from 'mobx-react-lite'
 
-import { Matrix } from '-/page-components/build-your-own/build-your-own-model'
 import { DragZone } from '-/Components/DnD/dragZone'
-import { generateImage } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util'
-import { configT, modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { AddModal, AddModalOnClickI } from './addModal'
+import { Matrix } from '-/page-components/build-your-own/freeform-grid.model'
 
 interface propsI {
-    config: configT,
     matrix: Matrix,
-    modifiers: modifiersT,
+    image: JSX.Element,
 }
 
-export const AddToWorkspace = observer(({ config, matrix, modifiers }: propsI) => {
-    const workingImage = generateImage(config, modifiers);
+export const AddToWorkspace = observer(({ matrix, image }: propsI) => {
     const onModalAdd = ({matrixIndex}: AddModalOnClickI) => {
-        matrix.setMatrixIndexPiece(matrixIndex);
-        matrix.setMatrixIndexPieceImage(matrixIndex, modifiers);
+        matrix.setMatrixIndexPiece({matrixIndex, image});
     }
     return (<>
         <DragZone>
-            {workingImage}
+            {image}
         </DragZone>
-        {workingImage && <AddModal image={workingImage} onSubmit={onModalAdd}/>}
+        <AddModal image={image} onSubmit={onModalAdd}/>
     </>)
 })

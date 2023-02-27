@@ -1,22 +1,16 @@
 import { observer } from 'mobx-react-lite'
 
-import { Matrix } from '-/page-components/build-your-own/build-your-own-model'
 import { DropZone } from '../../dropZone'
-import { matrixIndexCoordinatesI, modifiersT } from '-/page-components/build-your-own/build-your-own.types'
+import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
+import { Matrix } from '-/page-components/build-your-own/freeform-grid.model';
 
 interface propsI {
     matrix: Matrix,
-    modifiers: modifiersT,
+    image: JSX.Element,
 }
 
-export const WorkspaceFreeformMatrix = observer(({matrix, modifiers}: propsI) => { 
-    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => {
-        if(swapIndex) matrix.swapPieces(matrixIndex, swapIndex)
-        else {
-            matrix.setMatrixIndexPiece(matrixIndex);
-            matrix.setMatrixIndexPieceImage(matrixIndex, modifiers);
-        }
-    };
+export const WorkspaceFreeformMatrix = observer(({matrix, image}: propsI) => { 
+    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => swapIndex ? matrix.swapPieces(matrixIndex, swapIndex) : matrix.setMatrixIndexPiece({matrixIndex, image});;
     const onRemove = (matrixIndex: matrixIndexCoordinatesI) => matrix.removeMatrixIndexPiece(matrixIndex);
     return (<div className="flex">
         {/* TODO: make a index that isn't from the iterator index */}

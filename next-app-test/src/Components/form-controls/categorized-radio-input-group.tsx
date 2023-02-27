@@ -10,7 +10,7 @@ interface propsOptionI {
 }
 interface propsI {
     heading: string,
-    onChange: ({event, newSelection}: onChangeI) => any;
+    onChange: ({event, newSelection }: onChangeI) => any;
     categorizedOptions: {
         id: string | number,
         category: string | number,
@@ -25,7 +25,7 @@ export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChang
     const [selection, setSelection] = useState(categorizedOptions.flatMap(cat => cat.options).find(opt => opt.selected)?.id);
     const onChangeToUse = ({event, newSelection}: onChangeI) => {
         setSelection(newSelection);
-        onChange({event, newSelection})
+        onChange({event, newSelection,})
     }
     return <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>

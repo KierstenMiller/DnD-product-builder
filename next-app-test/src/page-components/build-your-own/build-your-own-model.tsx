@@ -1,5 +1,5 @@
 import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
-import { makeObservable, observable, action} from "mobx"
+import { makeObservable, observable, action, computed } from "mobx"
 import { AggulativeStacks } from "./aggulative-stacks.model";
 import { aggulativeStacksT, configItemI, configT, matrixT, pieceI } from "./build-your-own.types";
 import { builderKeys, getBuilder } from "./build-your-own.util";
@@ -51,14 +51,22 @@ export class BuildYourOwnModel {
         makeObservable(this, {
             config: observable,
             builder: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
+            currentConfigImage: computed,
             setConfig: action.bound,
             updateConfigSelection: action.bound,
         }) 
     }
+    get currentConfigImage() {
+        console.log('generating currentConfigImage', this.config);
+        return generateImage(this.config)
+    }
     setConfig = (newConfig: configT) => this.config = newConfig;
-    updateConfigSelection = ({id, selection: newSelection}: configItemI) => {
+    updateConfigSelection = ({id, selection: newSelection, value: newValue}: configItemI) => {
+        console.log('updating selection', {id, newSelection, newValue});
         const match = this.config.find(mod => mod.id === id);
         if (match) match.selection = newSelection
+        if (match) match.value = newValue
+        console.log('upated model config', this.config);
         this.builder.build?.setConfig(this.config);
     }
 }

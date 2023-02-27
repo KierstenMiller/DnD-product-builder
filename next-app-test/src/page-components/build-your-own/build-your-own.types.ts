@@ -30,11 +30,12 @@ export interface optionI { // todo: make more specific to workspace type
     label: string,
     image: string,
     // optional
+    selected?: boolean,
     productId?: string | number,
     height?: number,
     width?: number,
     insured?: boolean,
-    colorKey?: string,
+    optionKey?: string,
 }
 export interface filterI {
     display: filterDisplayValues,
@@ -52,7 +53,7 @@ export interface modifierI {
     measurementUnit?: measurementValues,
 }
 export interface configItemI {
-    id: string, selection: string 
+    id: string, selection: string, value: string,
 };
 export interface singletonI {
     type: builderKeys.singleton,

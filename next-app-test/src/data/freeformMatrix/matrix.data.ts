@@ -1,5 +1,3 @@
-import { shapeKeys } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
-
 export const matrixMock = [
     [
         {
@@ -7,9 +5,9 @@ export const matrixMock = [
             piece: {
                 id:'piece-1',
                 config: [
-                    { id: 'mod-shape', selection: `${shapeKeys.circle}`},
-                    { id: 'mod-fill', selection: 'fill-red'},
-                    { id: 'mod-stroke', selection: 'stroke-green'},
+                    { id: 'mod-shape', selection: 'circle', value: 'circle'},
+                    { id: 'mod-fill', selection: 'fill-red', value: 'default-red'},
+                    { id: 'mod-stroke', selection: 'stroke-green', value: 'default-green'},
                 ],
             }
         },
@@ -22,9 +20,9 @@ export const matrixMock = [
             piece: {
                 id:'piece-2',
                 config: [
-                    { id: 'mod-shape', selection: `${shapeKeys.square}`},
-                    { id: 'mod-fill', selection: 'fill-red'},
-                    { id: 'mod-stroke', selection: 'stroke-green'},
+                    { id: 'mod-shape', selection: 'square', value: 'square'},
+                    { id: 'mod-fill', selection: 'fill-red', value: 'light-red'},
+                    { id: 'mod-stroke', selection: 'stroke-green', value: 'default-green'},
                 ],
             }
         },
@@ -37,9 +35,9 @@ export const matrixMock = [
             piece: {
                 id:'piece-3',
                 config: [
-                    { id: 'mod-shape', selection: `${shapeKeys.star}`},
-                    { id: 'mod-fill', selection: 'fill-red'},
-                    { id: 'mod-stroke', selection: 'stroke-green'},
+                    { id: 'mod-shape', selection: 'star', value: 'star'},
+                    { id: 'mod-fill', selection: 'fill-red', value: 'default-red'},
+                    { id: 'mod-stroke', selection: 'stroke-green', value: 'default-green'},
                 ],
             }
         },
@@ -52,9 +50,9 @@ export const matrixMock = [
             piece: {
                 id:'piece-4',
                 config: [
-                    { id: 'mod-shape', selection: `${shapeKeys.triangle}`},
-                    { id: 'mod-fill', selection: 'fill-red'},
-                    { id: 'mod-stroke', selection: 'stroke-green'},
+                    { id: 'mod-shape', selection: 'triangle', value: 'triangle'},
+                    { id: 'mod-fill', selection: 'fill-red', value: 'light-red'},
+                    { id: 'mod-stroke', selection: 'stroke-green', value: 'default-green'},
                 ],
             }
         },

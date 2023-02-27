@@ -73,13 +73,11 @@ export const getImage = (shapeKey: string, fillColorKey: string, strokeColorKey:
         ? shapeIcon({fill, stroke})
         : icons.circle({fill: colorCodes.defaultGreen, stroke: colorCodes.defaultBlue}) // TODO: FAIL HARD
 }
-export const generateImage = (config: configT, modifiers: modifiersT) => {
-    const shapeSelection = config.find(c => c.id === 'mod-shape')?.selection;
-    const fillSelection = config.find(c => c.id === 'mod-fill')?.selection;
-    const fill = modifiers.find(m => m.id === 'mod-fill')?.options?.find(o => o.id === fillSelection)?.colorKey;
-    const strokeSelection = config.find(c => c.id === 'mod-stroke')?.selection;
-    const stroke = modifiers.find(m => m.id === 'mod-stroke')?.options?.find(o => o.id === strokeSelection)?.colorKey;
+export const generateImage = (config: configT) => {
+    const shapeSelection = config.find(c => c.id === 'mod-shape')?.value;
+    const fill = config.find(c => c.id === 'mod-fill')?.value;
+    const stroke = config.find(c => c.id === 'mod-stroke')?.value;
     return (shapeSelection && fill && stroke)
     ? getImage(shapeSelection, fill, stroke)
-    : null;
+    : getImage(shapeKeys.circle, colorKeys.defaultRed, colorKeys.defaultRed);
 }
