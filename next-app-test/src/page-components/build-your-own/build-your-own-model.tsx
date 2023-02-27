@@ -1,15 +1,26 @@
 import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
-import { builderMock1 } from "-/data/builderMatrix/builder.data";
 import { makeObservable, observable, action} from "mobx"
-import { builderT, configItemI, configT, matrixIndexCoordinatesI, matrixT, modifiersT, pieceI } from "./build-your-own.util";
+import { AggulativeStacks } from "./aggulative-stacks.model";
+import { aggulativeStacksT, configItemI, configT, matrixT, pieceI } from "./build-your-own.types";
+import { builderKeys, getBuilder } from "./build-your-own.util";
+import { Matrix } from "./freeform-grid.model";
 
+export type BuilderDataT = {type: builderKeys.singleton, data: undefined}
+| {type: builderKeys.freeformMatrix, data: matrixT}
+| {type: builderKeys.aggulativeStacks, data: aggulativeStacksT}
+export type BuilderT = {type: builderKeys.singleton, build: undefined}
+| {type: builderKeys.freeformMatrix, build: Matrix}
+| {type: builderKeys.aggulativeStacks, build: AggulativeStacks}
+export type BuildT = Matrix | AggulativeStacks | null
+export interface BuildYourOwnModelPropsI {
+    config: configT
+    builder: BuilderDataT
+}
 export interface BuildYourOwnModelI {
     config: configT
-    matrix?: matrixT
-    builder?: typeof builderMock1 // TODO: builder typing
+    builder: BuilderT
 }
-
-class Piece {
+export class buildPiece {
     id
     config
     image
@@ -30,79 +41,16 @@ class Piece {
         this.image = image;
     }
 }
-
-class MatrixIndex {
-    matrixIndex
-    piece
-    constructor({matrixIndex, piece}: {matrixIndex: matrixIndexCoordinatesI, piece?: pieceI}) {
-        this.matrixIndex = matrixIndex;
-        this.piece = piece ? new Piece(piece) : undefined;
-        makeObservable(this, {
-            piece: observable,
-            setPiece: action.bound,
-            removePiece: action.bound,
-        })
-    }
-    setPiece = (piece: pieceI) => {
-        this.piece = new Piece(piece);
-    }
-    removePiece = () => {
-        this.piece = undefined;
-    }
-}
-
-export class Matrix {
-    config
-    matrix
-    constructor({config, matrix}: {config: configT, matrix: matrixT}) {
-        this.config = config
-        this.matrix = matrix?.map(r => r.map(c => (new MatrixIndex({
-            matrixIndex: c.matrixIndex,
-            piece: c.piece,
-        }))));
-        makeObservable(this, {
-            matrix: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
-            config: observable,
-            setMatrixIndexPiece: action.bound,
-            setMatrixIndexPieceImage: action.bound,
-            swapPieces: action.bound,
-            removeMatrixIndexPiece: action.bound,
-        }) 
-    }
-    setConfig = (newConfig: configT) => this.config = newConfig;
-    setMatrixIndexPiece = (index: matrixIndexCoordinatesI, piece?: pieceI) => {
-        const matrixIndex = this.matrix[index.row][index.column];
-        const nonObservableConfigCopy = [...this.config.map(i => ({...i}))];
-        matrixIndex.setPiece(piece || {id:'addedPiece', config: nonObservableConfigCopy});
-    }
-    setMatrixIndexPieceImage = (index:matrixIndexCoordinatesI, modifiers: modifiersT) => { // TODO: prevent model knowing about modifiers
-        const matrixIndex = this.matrix[index.row][index.column];
-        const image = generateImage([...this.config.map(i => ({...i}))], modifiers)
-        image && matrixIndex.piece?.setImage(image);
-    }
-    swapPieces = (indexA: matrixIndexCoordinatesI, indexB: matrixIndexCoordinatesI) => {
-        const pieceA = this.matrix[indexA.row][indexA.column].piece;
-        const pieceB = this.matrix[indexB.row][indexB.column].piece
-        pieceB ? this.setMatrixIndexPiece(indexA, pieceB) : this.removeMatrixIndexPiece(indexA);
-        pieceA ? this.setMatrixIndexPiece(indexB, pieceA) : this.removeMatrixIndexPiece(indexB);
-    }
-    removeMatrixIndexPiece = (matrixIndex: matrixIndexCoordinatesI) => {
-        this.matrix[matrixIndex.row][matrixIndex.column].removePiece();
-    }
-}
-
 export class BuildYourOwnModel {
-    config
-    matrix
-    builder
-    constructor({config, matrix, builder}: BuildYourOwnModelI) {
+    config: configT
+    builder: BuilderT
+    constructor({config, builder: builderData}: BuildYourOwnModelPropsI) {
         this.config = config;
-        // passing observable version of config
-        this.matrix = matrix ? new Matrix({config: this.config, matrix}) : null;
-        this.builder = builder;
+        // TODO: make builder a computed?
+        this.builder = getBuilder({config, ...builderData});
         makeObservable(this, {
             config: observable,
-            matrix: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
+            builder: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
             setConfig: action.bound,
             updateConfigSelection: action.bound,
         }) 
@@ -111,6 +59,6 @@ export class BuildYourOwnModel {
     updateConfigSelection = ({id, selection: newSelection}: configItemI) => {
         const match = this.config.find(mod => mod.id === id);
         if (match) match.selection = newSelection
-        this.matrix?.setConfig(this.config);
+        // this.matrix?.setConfig(this.config);
     }
 }

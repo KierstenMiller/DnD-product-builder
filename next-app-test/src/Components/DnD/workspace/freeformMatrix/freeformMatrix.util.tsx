@@ -1,4 +1,4 @@
-import { configT, modifiersT } from "-/page-components/build-your-own/build-your-own.util";
+import { configT, modifiersT } from "-/page-components/build-your-own/build-your-own.types";
 
 //////////////////////
 //      TYPING      //

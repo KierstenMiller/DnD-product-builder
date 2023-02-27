@@ -5,7 +5,7 @@ import { ModalTrigger } from '../../../modal/modalTrigger'
 import { mouseButtonClickT } from '-/util/interactionTyping'
 import { Select } from '../../../form-controls/select'
 import { noop } from '-/util/helpers'
-import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.util'
+import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
 
 export interface AddModalOnClickI {event: mouseButtonClickT, matrixIndex: matrixIndexCoordinatesI}
 interface propsI {

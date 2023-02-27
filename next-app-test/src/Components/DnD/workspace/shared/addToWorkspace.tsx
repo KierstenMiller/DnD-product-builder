@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { Matrix } from '-/page-components/build-your-own/build-your-own-model'
 import { DragZone } from '-/Components/DnD/dragZone'
 import { generateImage } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util'
-import { configT, modifiersT } from '-/page-components/build-your-own/build-your-own.util'
+import { configT, modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { AddModal, AddModalOnClickI } from './addModal'
 
 interface propsI {

@@ -1,56 +1,41 @@
-import { builderMock1 } from '-/data/builderMatrix/builder.data';
-import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/testingMocks/mockUtil.data'
+import { WorkspaceFreeformMatrix } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix";
+import { AggulativeStacks } from "./aggulative-stacks.model";
+import { BuilderT } from "./build-your-own-model";
+import { builderT, configT, modifiersT } from "./build-your-own.types";
+import { Matrix } from "./freeform-grid.model";
 
-// BUILDER
+export enum builderKeys {
+    singleton= 'singleton',
+    freeformMatrix= 'freeform-matrix',
+    aggulativeStacks= 'aggulative-stacks',
 
-// MATRIX
-export interface matrixIndexCoordinatesI {
-    row: number,
-    column: number,
 }
-export interface matrixIndexI {
-    matrixIndex: matrixIndexCoordinatesI;
-    piece?: pieceI;
+
+interface getWorkspaceI {
+    builder: BuilderT,
+    modifiers: modifiersT,
 }
-// MATRIX + BUILDER
-export interface pieceI {
-    id: string,
-    config: configT,
-    image?: JSX.Element | (() => JSX.Element)
+
+export const getWorkspace = ({builder, modifiers}: getWorkspaceI) => {
+    switch (builder.type) {
+        case builderKeys.singleton:
+            return <div>THIS IS A SINGLETON</div>;
+        case builderKeys.freeformMatrix:
+            return <WorkspaceFreeformMatrix matrix={builder.build} modifiers={modifiers} />
+        case builderKeys.aggulativeStacks:
+            return <div>THIS IS A AGGULATIVE STACK</div>
+        default: throw new Error('Builder type is not valid');
+    }
 }
-// MODIFIER
-export interface optionI { // todo: make more specific to workspace type
-    id: string,
-    label: string,
-    image: string,
-    // optional
-    productId?: string | number,
-    height?: number,
-    width?: number,
-    insured?: boolean,
-    colorKey?: string,
+
+export const getBuilder = ({type, config, data}: builderT): BuilderT => {
+    switch (type) {
+        case builderKeys.singleton:
+            return {type, build: undefined};
+        case builderKeys.freeformMatrix:
+            return {type, build: new Matrix({config, matrix: data})};
+        case builderKeys.aggulativeStacks:
+            return {type, build: new AggulativeStacks({config, stacks: data})}
+        default: throw new Error('Builder type is not valid');
+    }
 }
-export interface filterI {
-    display: filterDisplayValues,
-    values: string[] | string[][],
-}
-export interface modifierI {
-    id: string,
-    label: string,
-    display: modifierCollectionDisplayValues,
-    options: optionsT,
-    //optional
-    filter?: filterI,
-    groupBy?: groupByValues,
-    sortBy?: sortByValues | sortByValues[],
-    measurementUnit?: measurementValues,
-}
-export interface configItemI {
-    id: string, selection: string 
-};
-// BIG TYPES
-export type builderT = typeof builderMock1 // TODO: builder typing
-export type matrixT = matrixIndexI[][];
-export type optionsT = optionI[];
-export type modifiersT = modifierI[];
-export type configT = configItemI[];

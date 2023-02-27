@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-import { modifiersT } from './build-your-own.util'
+import { modifiersT } from './build-your-own.types'
 import { Studio } from '-/Components/DnD/studio'
 
 import styles from '#/Home.module.scss'

@@ -1,4 +1,4 @@
-import { matrixIndexCoordinatesI, pieceI } from '-/page-components/build-your-own/build-your-own.util';
+import { matrixIndexCoordinatesI, pieceI } from '-/page-components/build-your-own/build-your-own.types';
 import { observer } from 'mobx-react-lite'
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd'

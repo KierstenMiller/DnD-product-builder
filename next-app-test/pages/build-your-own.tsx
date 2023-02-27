@@ -6,10 +6,12 @@ import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
 import { generateImage } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util'
 // MOCK DATA IMPORTS
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/testingMocks/mockModifiers.data'
-import { robotModifiers } from '-/data/robots/robotModifiers.data'
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/mockModifiers.data'
+import { robotModifiers } from '-/data/singleton/robots/robotModifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { builderMock1 } from '-/data/builderMatrix/builder.data'
+import { builderMock1 } from '-/data/aggulativeStacks/builder.data'
+import { builderKeys } from '-/page-components/build-your-own/build-your-own.util'
+import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
 
 // mock data
 // const data = {
@@ -22,25 +24,36 @@ import { builderMock1 } from '-/data/builderMatrix/builder.data'
 // }
 
 // FREEFORM MATRIX data
-// const data = {
-//     modifiers: shapeModifiers, 
-//     matrix: matrixMock
-// }
-
-// BUILDER data
 const data = {
     modifiers: shapeModifiers, 
-    builder: builderMock1,
+    builder: {
+        // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
+        type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
+        data: matrixMock as matrixT,
+    }
 }
+
+// AGGULATIVE STACKS data
+// const data = {
+//     modifiers: shapeModifiers, 
+//     builder: {
+//         type: builderKeys.aggulativeStacks,
+//         data: builderMock1
+//     },
+// }
 
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
-    const model = new BuildYourOwnModel({
-        config: data.modifiers.map(mod => ({ id: mod.id, selection: mod.options[0].id })),
-        matrix: data?.matrix?.map(r => r.map(i => {
+    const config = data.modifiers.map(mod => ({ id: mod.id, selection: mod.options[0].id }))
+    if(data.builder.type === builderKeys.freeformMatrix) {
+        data.builder.data.map(r => r.map(i => {
             if(i.piece?.config) i.piece.image = generateImage(i.piece.config, data.modifiers)
             return i;
-        })),
+        }))
+    } 
+    const model = new BuildYourOwnModel({
+        config: config,
+        builder: data.builder
     });
     return (
         <>

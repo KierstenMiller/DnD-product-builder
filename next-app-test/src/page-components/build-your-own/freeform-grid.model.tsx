@@ -1,31 +1,40 @@
-
 import { generateImage } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix.util";
-import { builderMock1 } from "-/data/builderMatrix/builder.data";
 import { makeObservable, observable, action} from "mobx"
-import { builderT, configItemI, configT, matrixIndexCoordinatesI, matrixT, modifiersT, pieceI } from "./build-your-own.util";
 
+import { buildPiece } from "./build-your-own-model";
+import { configT, matrixIndexCoordinatesI, matrixT, modifiersT, pieceI } from "./build-your-own.types";
 
-class ColumnPiece {
-    column
+class MatrixIndex {
+    matrixIndex
     piece
-    constructor({column, piece}: {column: number, piece: pieceI}) {
-        this.column = column;
-        this.piece = piece;
+    constructor({matrixIndex, piece}: {matrixIndex: matrixIndexCoordinatesI, piece?: pieceI}) {
+        this.matrixIndex = matrixIndex;
+        this.piece = piece ? new buildPiece(piece) : undefined;
+        makeObservable(this, {
+            piece: observable,
+            setPiece: action.bound,
+            removePiece: action.bound,
+        })
+    }
+    setPiece = (piece: pieceI) => {
+        this.piece = new buildPiece(piece);
+    }
+    removePiece = () => {
+        this.piece = undefined;
     }
 }
-
-export class Builder {
+export class Matrix {
     config
-    builder
-    constructor({config, builder}: {config: configT, builder: builderT}) {
+    matrix
+    constructor({config, matrix}: {config: configT, matrix: matrixT}) {
         this.config = config
-        this.builder = builder?.map(n => n.map(c => (new ColumnPiece({
-            column: c.column,
+        this.matrix = matrix?.map(r => r.map(c => (new MatrixIndex({
+            matrixIndex: c.matrixIndex,
             piece: c.piece,
         }))));
         makeObservable(this, {
             matrix: observable.ref, // using ref to give MatrixIndex and Piece control over what is observable
-            config: observabl,
+            config: observable,
             setMatrixIndexPiece: action.bound,
             setMatrixIndexPieceImage: action.bound,
             swapPieces: action.bound,

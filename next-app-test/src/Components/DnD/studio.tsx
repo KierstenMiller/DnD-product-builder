@@ -4,25 +4,24 @@ import { DndProvider } from 'react-dnd'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { Modifiers } from '-/Components/modifier/modifier'
-import { WorkspaceFreeformMatrix } from '-/Components/DnD/workspace/freeformMatrix/freeformMatrix'
-import { modifiersT } from '-/page-components/build-your-own/build-your-own.util'
-import { AddToWorkspace } from './workspace/shared/addToWorkspace'
+import { modifiersT } from '-/page-components/build-your-own/build-your-own.types'
+import { getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
 
 import styles from '#/Home.module.scss'
-import { WorkspaceBuilder } from './workspace/builder/builder'
+import { AddToWorkspace } from './workspace/shared/addToWorkspace'
 
 interface propsI {
     model: BuildYourOwnModel,
     modifiers: modifiersT,
 }
 
-export const Studio = observer(({ model, modifiers }: propsI) => {    
+export const Studio = observer(({ model, modifiers }: propsI) => {   
+    const workspace = getWorkspace({builder: model.builder, modifiers});
     return (<DndProvider backend={HTML5Backend}>
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    {model.matrix && <WorkspaceFreeformMatrix matrix={model.matrix} modifiers={modifiers} />}
-                    {model.builder && <WorkspaceBuilder builder={model.builder} modifiers={modifiers} />}
+                    {workspace}
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
@@ -34,7 +33,7 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
                     <div>
                         <h2>Current Selections</h2>
                         {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-                        {model.matrix && <AddToWorkspace config={model.config} matrix={model.matrix} modifiers={modifiers}/>}
+                        {model.builder.build && <AddToWorkspace config={model.config} matrix={model.builder?.build} modifiers={modifiers}/>}
                     </div>
                 </div>
                 <Modifiers model={model} modifiers={modifiers} />
