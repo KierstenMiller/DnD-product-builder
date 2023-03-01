@@ -105,16 +105,32 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
 }
 
+.a-i-end {
+  align-items: end;
+}
+
 .a-c-center {
   align-content: center;
+}
+
+.a-c-end {
+  align-content: end;
 }
 
 .j-i-center {
   justify-items: center;
 }
 
+.j-i-end {
+  justify-items: end;
+}
+
 .j-c-center {
   justify-content: center;
+}
+
+.j-c-end {
+  justify-content: end;
 }
 
 button {

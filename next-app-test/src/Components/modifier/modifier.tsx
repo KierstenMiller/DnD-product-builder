@@ -1,21 +1,18 @@
 import { observer } from 'mobx-react-lite'
 
-import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-import { modifierI, modifiersT, optionI, optionsT } from '-/page-components/build-your-own/build-your-own.types'
+import { modifierI, optionI } from '-/page-components/build-your-own/build-your-own.types'
 import { CategorizedRadioInputGroup } from '../form-controls/categorized-radio-input-group'
 import { RadioInputGroup } from '../form-controls/radio-input-group'
-
-import BYOStyles from '#/build-your-own.module.scss'
 import { displays } from './displays'
 import { assembleOptionsMap } from './modifier.util'
 import { onChangeI } from '../form-controls/radio-input'
 import { adderDisplayValues } from './modifier.types'
-import { useState } from 'react'
+
+import BYOStyles from '#/build-your-own.module.scss'
+
 
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
-
 interface propsOptionI {
     id: string,
     label: string,
@@ -32,18 +29,12 @@ interface props2I {
 }
 
 const AdderGroup = ({ heading, options, onChange, styles = {}, view }: props2I) => {
-    const [selection, setSelection] = useState(options.find(opt => opt.selected)?.id);
-    const onChangeToUse = ({ event, newSelection }: onChangeI) => {
-        console.log('onChange', {event, newSelection});
-        setSelection(newSelection);
-        onChange({ event, newSelection })
-    }
     return <div className={styles.fieldset}>
         <div className={styles.legend}>{heading}</div>
         <div className={styles.optionsContainer}>
             {options.map(opt => <div key={opt.id}>
                 {view && <div aria-hidden={true} className={styles.label}>
-                    {view(opt, onChangeToUse)}
+                    {view(opt, onChange)}
                 </div>}
             </div>)}
         </div>

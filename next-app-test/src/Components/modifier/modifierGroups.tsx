@@ -22,8 +22,8 @@ export const ModifierGroups = observer(({ model, modifiers }: BuildYourOwnPageI)
     }
     const onChange = ({ newSelection }: onChangeI, mod: modifierI) => model.updateConfigSelection({ id: mod.id, selection: newSelection, value: getOptionValue(mod.id, newSelection) })
     return <>
-        {[...sortedGroupedModifiers.entries()].map(([category, modifierGroup]) => <BasicAccordionGroup className="mt-large">
-            {modifierGroup.map(mod => <ModifierInstance mod={mod} onChange={(args) => onChange(args, mod)} />)}
+        {[...sortedGroupedModifiers.entries()].map(([category, modifierGroup]) => <BasicAccordionGroup key={category} className="mt-large">
+            {modifierGroup.map(mod => <ModifierInstance key={mod.id} mod={mod} onChange={(args) => onChange(args, mod)} />)}
         </BasicAccordionGroup>)
         }
     </>

@@ -3,6 +3,7 @@ import { builderKeys } from './build-your-own.util';
 
 // AGGULATIVE-STACKS
 export interface stackPieceI {
+    id: string,
     column: string,
     piece: pieceI,
 }
