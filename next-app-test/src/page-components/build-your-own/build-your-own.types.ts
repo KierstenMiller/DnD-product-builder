@@ -1,4 +1,4 @@
-import { filterDisplayValues, groupByValues, measurementValues, radioDisplayValues, sortByValues } from '-/Components/modifier/modifier.types'
+import { displayValuesT, filterDisplayValues, groupByValues, measurementValues, sortByValues } from '-/Components/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
 
 // AGGULATIVE-STACKS
@@ -41,7 +41,7 @@ export interface filterI {
 export interface modifierI {
     id: string,
     label: string,
-    display: radioDisplayValues,
+    display: displayValuesT,
     options: optionsT,
     //optional
     filter?: filterI,

@@ -1,4 +1,4 @@
-import { radioDisplayValues } from "../../Components/modifier/modifier.types";
+import { adderDisplayValues, radioDisplayValues } from "../../Components/modifier/modifier.types";
 import { fillOptions, heightOptions, strokeOptions } from "./options.data";
 
 export const modifiers = [
@@ -6,7 +6,7 @@ export const modifiers = [
         id: 'mod-height',
         label: 'Block Height',
         groupKey: 'unique-config',
-        display: radioDisplayValues.imageFirst,
+        display: adderDisplayValues.imageFirst,
         options: heightOptions,
     },
     {

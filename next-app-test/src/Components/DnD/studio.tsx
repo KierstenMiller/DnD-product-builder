@@ -3,7 +3,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-import { Modifiers } from '-/Components/modifier/modifier'
+import { ModifierGroups } from '-/Components/modifier/modifierGroups'
 import { modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { builderKeys, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
 import { AddToWorkspace } from './workspace/shared/addToWorkspace'
@@ -39,7 +39,7 @@ export const Studio = observer(({ model, modifiers }: propsI) => {
                         {model.builder.type === builderKeys.freeformMatrix && <AddToWorkspace matrix={model.builder.build} image={image}/>}
                     </div>
                 </div>
-                <Modifiers model={model} modifiers={modifiers} />
+                <ModifierGroups model={model} modifiers={modifiers} />
             </div>
         </div>
     </DndProvider>)

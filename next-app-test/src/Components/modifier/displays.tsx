@@ -1,13 +1,34 @@
 import { optionI } from '-/page-components/build-your-own/build-your-own.types'
+import { onChangeI } from '../form-controls/radio-input'
 import cardStyles from './card-styles.module.scss'
 import imageFirstStyles from './image-first-styles.module.scss'
-import { radioDisplayValues } from './modifier.types'
+import { adderDisplayValues, radioDisplayValues } from './modifier.types'
 import titledStyles from './titled-styles.module.scss'
 
-export const radioDisplays = {
+export const displays = {
+    [adderDisplayValues.card]: {
+        styles: cardStyles,
+        view: (opt: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => <div className={cardStyles.option}>
+        <div aria-hidden={true} className={cardStyles.image}>{opt.image}</div>
+        <div>
+            <div>{opt.label}</div>
+            <div>{opt.id}</div>
+            <button onClick={(event) => onClick({event, newSelection: opt.id})}>Add</button>
+        </div>
+    </div>
+    },
+    [adderDisplayValues.imageFirst]: {
+        styles: imageFirstStyles,
+        view: (opt: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => <div className={imageFirstStyles.option}>
+        <div aria-hidden={true} className={imageFirstStyles.image}>{opt.image}</div>
+        <div>{opt.label}</div>
+        <div>{opt.id}</div>
+        <button onClick={(event) => onClick({event, newSelection: opt.id})}>Add</button>
+    </div>
+    },
     [radioDisplayValues.card]: {
         styles: cardStyles,
-        mirage: (opt: optionI) => <div className={cardStyles.option}>
+        view: (opt: optionI) => <div className={cardStyles.option}>
             <div aria-hidden={true} className={cardStyles.image}>{opt.image}</div>
             <div>
                 <div>{opt.label}</div>
@@ -17,7 +38,7 @@ export const radioDisplays = {
     },
     [radioDisplayValues.titled]: {
         styles: titledStyles,
-        mirage: (opt: optionI) => <div className={titledStyles.option}>
+        view: (opt: optionI) => <div className={titledStyles.option}>
             <div>{opt.label}</div>
             <div aria-hidden={true} className={titledStyles.image}>{opt.image}</div>
             <div>{opt.id}</div>
@@ -25,7 +46,7 @@ export const radioDisplays = {
     },
     [radioDisplayValues.imageFirst]: {
         styles: imageFirstStyles,
-        mirage: (opt: optionI) => <div className={imageFirstStyles.option}>
+        view: (opt: optionI) => <div className={imageFirstStyles.option}>
             <div aria-hidden={true} className={imageFirstStyles.image}>{opt.image}</div>
             <div>{opt.label}</div>
             <div>{opt.id}</div>
