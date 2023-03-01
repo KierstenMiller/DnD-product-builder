@@ -6,6 +6,10 @@ export interface sortAlphaI {
     toSort: string[],
     sortBy: sortByValues,
 }
+export enum groupKeyValues {
+    unique = 'unique',
+    global = 'global'
+} 
 export enum groupByValues {
     height = "height",
     width = "width",

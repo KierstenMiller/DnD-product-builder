@@ -45,7 +45,8 @@ export interface modifierI {
     options: optionsT,
     //optional
     filter?: filterI,
-    groupBy?: groupByValues,
+    groupKey?: groupKeyValues, // TODO: think though is we want a defined list of groupKeys or just any string can be used
+    groupBy?: groupByValues, // TODO: rename to optionsGroupByProp
     sortBy?: sortByValues | sortByValues[],
     measurementUnit?: measurementValues,
 }
