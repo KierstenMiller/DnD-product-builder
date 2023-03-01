@@ -5,7 +5,7 @@ import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-o
 import { modifierI, modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { ModifierInstance } from './modifier'
 import { onChangeI } from '../form-controls/radio-input'
-import { assembleModifierMap, assembleOptionsMap, groupBy, sortList } from './modifier.util'
+import { assembleModifierMap, groupBy } from './modifier.util'
 import { sortByValues } from './modifier.types'
 
 interface BuildYourOwnPageI {
@@ -14,10 +14,7 @@ interface BuildYourOwnPageI {
 }
 
 export const ModifierGroups = observer(({ model, modifiers }: BuildYourOwnPageI) => {
-    const groupedModifiers = groupBy(modifiers, (mod => mod.groupKey || 'standard-group'));
-    console.log('groupedModifiers', groupedModifiers);
     const sortedGroupedModifiers = assembleModifierMap(modifiers, 'groupKey', sortByValues.descending)
-    console.log('stuff', sortedGroupedModifiers);
     const getOptionValue = (modId: string, selectionId: string) => {
         const match = modifiers.find(mod => mod.id === modId)?.options.find(o => o.id === selectionId)?.optionKey;
         if (!match) throw new Error(`${selectionId} was not found as an optionkey in modifier ${modId}`)
