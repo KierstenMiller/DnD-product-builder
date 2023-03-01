@@ -5,7 +5,7 @@ import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-o
 import { modifierI, modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { ModifierInstance } from './modifier'
 import { onChangeI } from '../form-controls/radio-input'
-import { assembleModifierMap, groupBy } from './modifier.util'
+import { assembleModifierMap } from './modifier.util'
 import { sortByValues } from './modifier.types'
 
 interface BuildYourOwnPageI {
