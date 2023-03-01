@@ -2,8 +2,7 @@ import { displayValuesT, filterDisplayValues, groupByValues, measurementValues, 
 import { builderKeys } from './build-your-own.util';
 
 // AGGULATIVE-STACKS
-export interface stackPieceI {
-    id: string,
+export interface blockI {
     column: string,
     piece: pieceI,
 }
@@ -71,7 +70,7 @@ export interface aggulativeStacksI {
 }
 
 // TYPES
-export type aggulativeStacksT = stackPieceI[][] | []
+export type aggulativeStacksT = blockI[][] | []
 export type matrixT = matrixIndexI[][];
 export type builderTypesT = builderKeys;
 export type builderT = singletonI | freeformMatrixI | aggulativeStacksI;

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { modifiersT } from '-/page-components/build-your-own/build-your-own.types'
+import { modifiersT, blockI } from '-/page-components/build-your-own/build-your-own.types'
 import { useDrag, useDrop } from 'react-dnd';
 import { DnDItemTypes } from '../freeformMatrix/freeformMatrix.util';
 import { useRef } from 'react';
@@ -11,21 +11,40 @@ interface propsI {
     modifiers: modifiersT,
 }
 
+const Block = ({block}:{block: blockI}) => {
+    const units = parseInt(block.piece.config.find(c => c.id === 'mod-height')?.selection || '1')
+    return <div
+        style={{
+            width: `${100}px`,
+            height: `${100*units}px`,
+        }}
+    >
+        {block.piece.id}-{units}
+    </div>
+
+}
+
 export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI) => {
     const onDrop = () => console.log('ONDROP');
-    const onRemove = () => console.log('ONREMOVE'); //
+    const onRemove = () => console.log('ONREMOVE');
     console.log('build', build);
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, index) => <div key={index}>
             {stack.map(block => <div key={block.piece.id}>
-                id: {block.piece.id}
-                <AggulativeStacksDropZone onDrop={onDrop} onRemove={onRemove} />
+                <AggulativeStacksDropZone
+                    onDrop={onDrop}
+                    onRemove={onRemove}
+                >
+                    <Block block={block}/>
+                </AggulativeStacksDropZone>
             </div>)}
         </div>)}
     </div>)
 })
 
-const AggulativeStacksDropZone = observer(({ onDrop, onMove }: { onDrop: onDropI, onMove: onMoveI }) => {
+
+// TODO: generalize and share with freeformMatrix dropZone component
+const AggulativeStacksDropZone = observer(({ onDrop, onMove, children }: { onDrop: onDropI, onMove: onMoveI, children: React.ReactNode }) => {
     const zoneRef = useRef();
     const [dropInfo, drop] = useDrop(
         () => ({
@@ -53,12 +72,11 @@ const AggulativeStacksDropZone = observer(({ onDrop, onMove }: { onDrop: onDropI
     return (<div
         ref={zoneRef}
         style={{
-            width: '100px',
-            height: '100px',
             background: dropInfo.isOver ? 'yellow' : 'white',
             color: dropInfo.canDrop ? 'blue' : 'red',
         }}
     >
-        DROP HERE
+        ITEM
+        {children}
     </div>)
 })
