@@ -1,4 +1,4 @@
-import { filterDisplayValues, groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from '-/data/singleton/testingMocks/mockUtil.data'
+import { filterDisplayValues, groupByValues, measurementValues, radioDisplayValues, sortByValues } from '-/Components/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
 
 // AGGULATIVE-STACKS
@@ -6,7 +6,6 @@ export interface stackPieceI {
     column: string,
     piece: pieceI,
 }
-
 // FREEFORM-MATRIX
 export interface matrixIndexCoordinatesI {
     row: number,
@@ -42,7 +41,7 @@ export interface filterI {
 export interface modifierI {
     id: string,
     label: string,
-    display: modifierCollectionDisplayValues,
+    display: radioDisplayValues,
     options: optionsT,
     //optional
     filter?: filterI,

@@ -1,6 +1,6 @@
 import { mockFilterDoubleDropDown, mockFilterSingleTabbed } from "./mockFilters.data";
 import { mockOptions2D, mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3DStockedPriced } from "./mockOptions.data";
-import { groupByValues, measurementValues, modifierCollectionDisplayValues, sortByValues } from "./mockUtil.data";
+import { groupByValues, measurementValues, radioDisplayValues, sortByValues } from "../../../Components/modifier/modifier.types";
 
 export const mockModifierA = {
     id: 'mod-A',
@@ -8,7 +8,7 @@ export const mockModifierA = {
     groupBy: groupByValues.height,
     sortBy:sortByValues.ascending,
     measurementUnit: measurementValues.inches,
-    display: modifierCollectionDisplayValues.card,
+    display: radioDisplayValues.card,
     filter: mockFilterDoubleDropDown, // TODO: implement ability to filter modifier's options
     options: mockOptions3D
 }
@@ -19,7 +19,7 @@ export const mockModifierB = {
     groupBy: groupByValues.stocked,
     sortBy: [sortByValues.having, sortByValues.ascending],
     measurementUnit: measurementValues.inches,
-    display: modifierCollectionDisplayValues.imageFirst,
+    display: radioDisplayValues.imageFirst,
     // no filter
     options:mockOptions3DStocked,
 }
@@ -30,7 +30,7 @@ export const mockModifierC = {
     groupBy: groupByValues.price,
     sortBy: [sortByValues.descending],
     measurementUnit: measurementValues.inches,
-    display: modifierCollectionDisplayValues.titled,
+    display: radioDisplayValues.titled,
     filter: mockFilterSingleTabbed,
     options: mockOptions2DPriced,
 }
@@ -41,7 +41,7 @@ export const mockModifierD = {
     groupBy: groupByValues.width,
     sortBy: sortByValues.ascending,
     measurementUnit: measurementValues.inches,
-    display: modifierCollectionDisplayValues.titled,
+    display: radioDisplayValues.titled,
     filter: mockFilterDoubleDropDown,
     options: mockOptions3DStockedPriced,
 }
@@ -52,7 +52,7 @@ export const mockModifierE = {
     groupBy: groupByValues.height,
     sortBy:sortByValues.descending,
     measurementUnit: measurementValues.inches,
-    display: modifierCollectionDisplayValues.card,
+    display: radioDisplayValues.card,
     filter: mockFilterDoubleDropDown,
     options: mockOptions2D
 }

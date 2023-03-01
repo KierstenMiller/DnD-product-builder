@@ -1,4 +1,4 @@
-import { filterDisplayValues } from "./mockUtil.data";
+import { filterDisplayValues } from "../../../Components/modifier/modifier.types";
 
 // filter arrays
 const singleFilter = ['filter A', 'filter B', 'filter C', 'filter D'];

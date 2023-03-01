@@ -9,9 +9,10 @@ import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/mockModifiers.data'
 import { robotModifiers } from '-/data/singleton/robots/robotModifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/builder.data'
+import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/stacks.data'
 import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
 import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
+import { modifiers } from '-/data/aggulativeStacks/modifiers.data'
 
 // mock data
 // const data = {
@@ -43,7 +44,7 @@ import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
 
 // AGGULATIVE STACKS data
 const data = {
-    modifiers: shapeModifiers, 
+    modifiers: modifiers, 
     builder: {
         type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
         data: aggulativeStacksMock1

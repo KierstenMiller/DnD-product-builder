@@ -1,4 +1,4 @@
-import { groupByValues, modifierCollectionDisplayValues, sortByValues } from "../testingMocks/mockUtil.data";
+import { groupByValues, radioDisplayValues, sortByValues } from "../../../Components/modifier/modifier.types";
 import { robotColorOptions, robotPersonalityOptions, robotShapeOptions, robotSupportOptions } from "./robotOptions.data";
 
 export const robotModifiers = [
@@ -7,25 +7,25 @@ export const robotModifiers = [
         label: 'Classification',
         groupBy: groupByValues.height,
         sortBy: sortByValues.ascending,
-        display: modifierCollectionDisplayValues.card,
+        display: radioDisplayValues.card,
         options: robotShapeOptions,
     },
     {
         id: 'mod-color',
         label: 'Color',
-        display: modifierCollectionDisplayValues.imageFirst,
+        display: radioDisplayValues.imageFirst,
         options: robotColorOptions,
     },
     {
         id: 'mod-supports',
         label: 'Supports',
-        display: modifierCollectionDisplayValues.titled,
+        display: radioDisplayValues.titled,
         options: robotSupportOptions,
     },
     {
         id: 'mod-personality',
         label: 'Personality',
-        display: modifierCollectionDisplayValues.imageFirst,
+        display: radioDisplayValues.imageFirst,
         options: robotPersonalityOptions,
     },
 ]
