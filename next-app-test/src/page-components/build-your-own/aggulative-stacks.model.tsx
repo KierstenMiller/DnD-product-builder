@@ -1,11 +1,9 @@
 import { makeObservable, observable, action} from "mobx"
-import { aggulativeStacksT, configT, pieceI } from "./build-your-own.types";
+import { aggulativeStacksT, blockIndexI, configT, pieceI } from "./build-your-own.types";
 
 export class Block {
-    column
     piece
-    constructor({column, piece}: {column: string, piece: pieceI}) {
-        this.column = column;
+    constructor({piece}: {piece: pieceI}) {
         this.piece = piece;
          // makeObservable(this, {}) 
     }
@@ -29,5 +27,10 @@ export class AggulativeStacks {
     };
     addStack = (stackIndex: number) => {
         this.stacks.splice(stackIndex, 0,  [{ column: `${stackIndex}`, piece: {id:'NEW PIECE', config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}}])
+    };
+    removeBlock = (stackIndex:number, id:string) => {
+        const thing = this.stacks[stackIndex].findIndex(block => block.piece.id === id);
+        this.stacks[stackIndex].splice(thing, 1);
+        this.stacks = this.stacks.filter(s => s.length > 0);
     };
 }

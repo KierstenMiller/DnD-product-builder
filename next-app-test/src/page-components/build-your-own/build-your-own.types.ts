@@ -3,7 +3,6 @@ import { builderKeys } from './build-your-own.util';
 
 // AGGULATIVE-STACKS
 export interface blockI {
-    column: string,
     piece: pieceI,
 }
 // FREEFORM-MATRIX
