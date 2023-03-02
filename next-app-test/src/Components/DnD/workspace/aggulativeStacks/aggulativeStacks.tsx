@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import { modifiersT, blockI, blockIndexI } from '-/page-components/build-your-own/build-your-own.types'
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { DnDItemTypes } from '../freeformMatrix/freeformMatrix.util';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { onDropI, onMoveI } from '../../dropZone';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
 
@@ -25,14 +25,17 @@ const Block = ({ block }: { block: blockI }) => {
 }
 
 export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI) => {
-    // const { isDragging } = useDragLayer(
-    //     monitor => ({ isDragging: monitor.isDragging() })
-    // )
+    const { isDragging } = useDragLayer(
+        monitor => ({ isDragging: monitor.isDragging() })
+    )
+    const [isDraggingState, setIsDraggingState] = useState(false);
+    console.log('isDraggingState', isDraggingState);
 
     return (<div className="flex a-i-end">
+        isDraggingState: {isDraggingState ? 'T' : 'F'}
         {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} className="flex a-i-end">
             {/* SELF DROP ZONE */}
-           {stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex)} />}
+            {isDraggingState && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex)} />}
             {/* NON-DRAGGABLE STACK */}
             <div>
                 <div>STACK: {stackIndex}</div>
@@ -40,39 +43,59 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                     {/* SELF DROP ZONE */}
                     {blockIndex === 0 && <>
                         <div>SELF</div>
-                        <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />
+                        {isDraggingState && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />}
                     </>}
                     {/* DRAGGABLE BLOCK*/}
-                    <DragZone onEnd={() => build.removeBlock(stackIndex, block.piece.id)}>
+                    <DragZone
+                        id={block.piece.id}
+                        isDraggingState={isDraggingState}
+                        setIsDraggingState={setIsDraggingState}
+                        onEnd={() => build.removeBlock(stackIndex, block.piece.id)}
+                    >
                         index: {stackIndex}-{blockIndex}<br />
                         <Block block={block} />
                     </DragZone>
                     {/* NEXT DROP ZONE */}
                     <div>NEXT</div>
-                    <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1)} />
+                    {isDraggingState && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1)} />}
                 </div>)}
             </div>
             {/* NEXT DROP ZONE */}
-            <DropZone onDrop={() => build.addStack(stackIndex + 1)} />
+            {isDraggingState && <DropZone onDrop={() => build.addStack(stackIndex + 1)} />}
         </div>)}
     </div>)
 })
 
 
 // TODO: generalize and share with freeformMatrix dropZone component
-const DragZone = observer(({onEnd, children}: {
+const DragZone = observer(({id, isDraggingState, setIsDraggingState, onEnd, children }: {
+    id: string,
+    isDraggingState: boolean,
+    setIsDraggingState: (arg: boolean) => void,
     onEnd: () => void,
     children: React.ReactNode
 }) => {
     const [dragInfo, drag, preview] = useDrag(
         () => ({
             type: DnDItemTypes.WORKSPACE_ITEM,
-            collect: (monitor) => ({
-                isDragging: !!monitor.isDragging(),
-            }),
+            item: {id},
+            collect: (monitor) => {
+                const isDraggingSelf = monitor?.getItem()?.id === id;
+                isDraggingSelf && setTimeout(() => {
+                    console.log("START Delayed for 1 second.");
+                    setIsDraggingState(true);
+                  }, 1000)
+                return {
+                    isDragging: !!monitor.isDragging(),
+                }
+            },
             end: (item, monitor) => {
+                setTimeout(() => {
+                    console.log("END Delayed for 1 second.");
+                    setIsDraggingState(false);
+                  }, 1000)
                 onEnd();
-        }
+            }
         }),
         [],
     )
@@ -91,7 +114,7 @@ const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
     const [dropInfo, drop] = useDrop(
         () => ({
             accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
-            drop: () => { 
+            drop: () => {
                 onDrop();
             },
             collect: (monitor) => ({
