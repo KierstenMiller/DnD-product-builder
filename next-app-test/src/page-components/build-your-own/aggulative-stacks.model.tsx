@@ -1,6 +1,8 @@
 import { makeObservable, observable, action} from "mobx"
 import { aggulativeStacksT, blockIndexI, configT, pieceI } from "./build-your-own.types";
 
+const generateId = () => 'id' + (new Date()).getTime();
+
 export class Block {
     piece
     constructor({piece}: {piece: pieceI}) {
@@ -23,10 +25,12 @@ export class AggulativeStacks {
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     addToStack = (stackIndex: number, blockIndex: number) => {
-        this.stacks[stackIndex].splice(blockIndex, 0,  { column: `${stackIndex}`, piece: {id:'NEW PIECE', config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}})
+        var uniq = 
+        console.log('id generated', uniq);
+        this.stacks[stackIndex].splice(blockIndex, 0,  { column: `${stackIndex}`, piece: {id: generateId(), config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}})
     };
     addStack = (stackIndex: number) => {
-        this.stacks.splice(stackIndex, 0,  [{ column: `${stackIndex}`, piece: {id:'NEW PIECE', config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}}])
+        this.stacks.splice(stackIndex, 0,  [{ column: `${stackIndex}`, piece: {id: generateId(), config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}}])
     };
     removeBlock = (stackIndex:number, id:string) => {
         const thing = this.stacks[stackIndex].findIndex(block => block.piece.id === id);
