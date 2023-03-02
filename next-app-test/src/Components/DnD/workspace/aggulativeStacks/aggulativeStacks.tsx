@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { modifiersT, blockI, blockIndexI } from '-/page-components/build-your-own/build-your-own.types'
+import { modifiersT, blockI, blockIndexI, pieceI } from '-/page-components/build-your-own/build-your-own.types'
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { DnDItemTypes } from '../freeformMatrix/freeformMatrix.util';
 import { useRef, useState } from 'react';
@@ -25,15 +25,18 @@ const Block = ({ block }: { block: blockI }) => {
 }
 
 export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI) => {
-    const { isDraggingOutside } = useDragLayer( // for dragging from modifier
-        monitor => ({ isDraggingOutside: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM })
+    const { isDraggingOutside, draggingPiece } = useDragLayer( // for dragging from modifier
+        monitor => ({
+             isDraggingOutside: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
+             draggingPiece: monitor.getItem()?.piece
+        })
     )
     const [isDraggingInside, setIsDraggingInside] = useState(false); // for dragging from workspace (show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag)
     const isDragging = isDraggingInside || isDraggingOutside
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} className="flex a-i-end">
             {/* SELF DROP ZONE */}
-            {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex)} />}
+            {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex, draggingPiece)} />}
             {/* NON-DRAGGABLE STACK */}
             <div>
                 <div>STACK: {stackIndex}</div>
@@ -41,11 +44,11 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                     {/* SELF DROP ZONE */}
                     {blockIndex === 0 && <>
                         <div>SELF</div>
-                        {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />}
+                        {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex, draggingPiece)} />}
                     </>}
                     {/* DRAGGABLE BLOCK*/}
                     <DragZone
-                        id={block.piece.id}
+                        piece={block.piece}
                         isDraggingState={isDraggingInside}
                         setIsDraggingState={setIsDraggingInside}
                         onEnd={() => build.removeBlock(stackIndex, block.piece.id)}
@@ -55,19 +58,19 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                     </DragZone>
                     {/* NEXT DROP ZONE */}
                     <div>NEXT</div>
-                    {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1)} />}
+                    {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1, draggingPiece)} />}
                 </div>)}
             </div>
             {/* NEXT DROP ZONE */}
-            {isDragging && <DropZone onDrop={() => build.addStack(stackIndex + 1)} />}
+            {isDragging && <DropZone onDrop={() => build.addStack(stackIndex + 1, draggingPiece)} />}
         </div>)}
     </div>)
 })
 
 
 // TODO: generalize and share with freeformMatrix dropZone component
-const DragZone = observer(({id, isDraggingState, setIsDraggingState, onEnd, children }: {
-    id: string,
+const DragZone = observer(({piece, isDraggingState, setIsDraggingState, onEnd, children }: {
+    piece: pieceI,
     isDraggingState: boolean,
     setIsDraggingState: (arg: boolean) => void,
     onEnd: () => void,
@@ -76,9 +79,9 @@ const DragZone = observer(({id, isDraggingState, setIsDraggingState, onEnd, chil
     const [dragInfo, drag, preview] = useDrag(
         () => ({
             type: DnDItemTypes.WORKSPACE_ITEM,
-            item: {id},
+            item: {piece},
             collect: (monitor) => {
-                monitor?.getItem()?.id === id && setTimeout(() => setIsDraggingState(true), 250)
+                piece && piece.id === monitor?.getItem()?.piece?.id && setTimeout(() => setIsDraggingState(true), 250);
                 return {
                     isDragging: !!monitor.isDragging(),
                 }

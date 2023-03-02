@@ -27,11 +27,11 @@ export class AggulativeStacks {
         }) 
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
-    addToStack = (stackIndex: number, blockIndex: number) => {
-        this.stacks[stackIndex].splice(blockIndex, 0,  { column: `${stackIndex}`, piece: {id: generateId(), config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}})
+    addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
+        this.stacks[stackIndex].splice(blockIndex, 0, {piece});
     };
-    addStack = (stackIndex: number) => {
-        this.stacks.splice(stackIndex, 0,  [{ column: `${stackIndex}`, piece: {id: generateId(), config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}}])
+    addStack = (stackIndex: number, piece: pieceI) => {
+        this.stacks.splice(stackIndex, 0,  [{piece}]);
     };
     removeBlock = (stackIndex:number, id:string) => {
         const thing = this.stacks[stackIndex].findIndex(block => block.piece.id === id);
