@@ -25,17 +25,15 @@ const Block = ({ block }: { block: blockI }) => {
 }
 
 export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI) => {
-    const { isDragging } = useDragLayer(
-        monitor => ({ isDragging: monitor.isDragging() })
+    const { isDraggingOutside } = useDragLayer( // for dragging from modifier
+        monitor => ({ isDraggingOutside: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM })
     )
-    const [isDraggingState, setIsDraggingState] = useState(false);
-    console.log('isDraggingState', isDraggingState);
-
+    const [isDraggingInside, setIsDraggingInside] = useState(false); // for dragging from workspace (show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag)
+    const isDragging = isDraggingInside || isDraggingOutside
     return (<div className="flex a-i-end">
-        isDraggingState: {isDraggingState ? 'T' : 'F'}
         {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} className="flex a-i-end">
             {/* SELF DROP ZONE */}
-            {isDraggingState && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex)} />}
+            {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex)} />}
             {/* NON-DRAGGABLE STACK */}
             <div>
                 <div>STACK: {stackIndex}</div>
@@ -43,13 +41,13 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                     {/* SELF DROP ZONE */}
                     {blockIndex === 0 && <>
                         <div>SELF</div>
-                        {isDraggingState && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />}
+                        {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />}
                     </>}
                     {/* DRAGGABLE BLOCK*/}
                     <DragZone
                         id={block.piece.id}
-                        isDraggingState={isDraggingState}
-                        setIsDraggingState={setIsDraggingState}
+                        isDraggingState={isDraggingInside}
+                        setIsDraggingState={setIsDraggingInside}
                         onEnd={() => build.removeBlock(stackIndex, block.piece.id)}
                     >
                         index: {stackIndex}-{blockIndex}<br />
@@ -57,11 +55,11 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                     </DragZone>
                     {/* NEXT DROP ZONE */}
                     <div>NEXT</div>
-                    {isDraggingState && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1)} />}
+                    {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1)} />}
                 </div>)}
             </div>
             {/* NEXT DROP ZONE */}
-            {isDraggingState && <DropZone onDrop={() => build.addStack(stackIndex + 1)} />}
+            {isDragging && <DropZone onDrop={() => build.addStack(stackIndex + 1)} />}
         </div>)}
     </div>)
 })
