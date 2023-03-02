@@ -11,12 +11,12 @@ interface propsI {
     modifiers: modifiersT,
 }
 
-const Block = ({block}:{block: blockI}) => {
+const Block = ({ block }: { block: blockI }) => {
     const units = parseInt(block.piece.config.find(c => c.id === 'mod-height')?.selection || '1')
     return <div
         style={{
             width: `${100}px`,
-            height: `${100*units}px`,
+            height: `${100 * units}px`,
         }}
     >
         {block.piece.id}-{units}
@@ -25,26 +25,38 @@ const Block = ({block}:{block: blockI}) => {
 }
 
 export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI) => {
-    const onDrop = () => console.log('ONDROP');
+    const onDrop = () => console.log('onDrop');
     const onRemove = () => console.log('ONREMOVE');
-    const {isDragging} = useDragLayer(
-        monitor => ({isDragging: monitor.isDragging()})
-      )
+    const { isDragging } = useDragLayer(
+        monitor => ({ isDragging: monitor.isDragging() })
+    )
     console.log('build', build);
     return (<div className="flex a-i-end">
-            {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex}>
-        <div>STACK: {stackIndex}</div>
-            {stack.map((block, blockIndex) => <div key={block.piece.id}>
-                {isDragging && blockIndex === 0 && <DropZone onDrop={() => console.log('dropping in SELF zone')}/>}
-                <DragDropZone
-                    onDrop={onDrop}
-                    onRemove={onRemove}
-                >
-                    index: {blockIndex}
-                    <Block block={block}/>
-                </DragDropZone>
-                {isDragging && <DropZone onDrop={() => console.log('dropping in NEXT zone')}/>}
-            </div>)}
+        {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} className="flex a-i-end">
+
+            {/* SELF DROP ZONE */}
+            {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex)} />}
+            {/* NON-DRAGGABLE STACK */}
+            <div>
+                <div>STACK: {stackIndex}</div>
+                {stack.map((block, blockIndex) => <div key={block.piece.id}>
+                    {/* SELF DROP ZONE */}
+                    {isDragging && blockIndex === 0 && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />}
+                    {/* DRAGGABLE BLOCK*/}
+                    <DragDropZone
+                        onDrop={onDrop}
+                        onRemove={onRemove}
+                    >
+                        index: {blockIndex}
+                        <Block block={block} />
+                    </DragDropZone>
+                    {/* NEXT DROP ZONE */}
+                    {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1)} />}
+                </div>)}
+            </div>
+
+            {/* NEXT DROP ZONE */}
+            {isDragging && <DropZone onDrop={() => build.addStack(stackIndex + 1)} />}
         </div>)}
     </div>)
 })
@@ -89,7 +101,7 @@ const DragDropZone = observer(({ onDrop, onMove, children }: { onDrop: onDropI, 
     </div>)
 })
 
-const DropZone = observer(({ onDrop }: { onDrop: () => void}) => {
+const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
     const [dropInfo, drop] = useDrop(
         () => ({
             accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
