@@ -32,19 +32,23 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} className="flex a-i-end">
             {/* SELF DROP ZONE */}
-            <DropZone onDrop={() => build.addStack(stackIndex)} />
+           {stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex)} />}
             {/* NON-DRAGGABLE STACK */}
             <div>
                 <div>STACK: {stackIndex}</div>
                 {stack.map((block, blockIndex) => <div key={block.piece.id}>
                     {/* SELF DROP ZONE */}
-                    <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />
+                    {blockIndex === 0 && <>
+                        <div>SELF</div>
+                        <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex)} />
+                    </>}
                     {/* DRAGGABLE BLOCK*/}
                     <DragZone onEnd={() => build.removeBlock(stackIndex, block.piece.id)}>
                         index: {stackIndex}-{blockIndex}<br />
                         <Block block={block} />
                     </DragZone>
                     {/* NEXT DROP ZONE */}
+                    <div>NEXT</div>
                     <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1)} />
                 </div>)}
             </div>
