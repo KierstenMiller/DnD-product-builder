@@ -80,20 +80,13 @@ const DragZone = observer(({id, isDraggingState, setIsDraggingState, onEnd, chil
             type: DnDItemTypes.WORKSPACE_ITEM,
             item: {id},
             collect: (monitor) => {
-                const isDraggingSelf = monitor?.getItem()?.id === id;
-                isDraggingSelf && setTimeout(() => {
-                    console.log("START Delayed for 1 second.");
-                    setIsDraggingState(true);
-                  }, 1000)
+                monitor?.getItem()?.id === id && setTimeout(() => setIsDraggingState(true), 250)
                 return {
                     isDragging: !!monitor.isDragging(),
                 }
             },
             end: (item, monitor) => {
-                setTimeout(() => {
-                    console.log("END Delayed for 1 second.");
-                    setIsDraggingState(false);
-                  }, 1000)
+                setTimeout(() => setIsDraggingState(false), 250)
                 onEnd();
             }
         }),

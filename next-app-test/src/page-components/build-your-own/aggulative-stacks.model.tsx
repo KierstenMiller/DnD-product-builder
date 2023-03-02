@@ -21,12 +21,13 @@ export class AggulativeStacks {
             stacks: observable,
             config: observable,
             setConfig: action.bound,
+            addToStack: action.bound,
+            addStack: action.bound,
+            removeBlock: action.bound,
         }) 
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     addToStack = (stackIndex: number, blockIndex: number) => {
-        var uniq = 
-        console.log('id generated', uniq);
         this.stacks[stackIndex].splice(blockIndex, 0,  { column: `${stackIndex}`, piece: {id: generateId(), config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}})
     };
     addStack = (stackIndex: number) => {
