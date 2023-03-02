@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { modifiersT, blockI } from '-/page-components/build-your-own/build-your-own.types'
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { DnDItemTypes } from '../freeformMatrix/freeformMatrix.util';
 import { useRef } from 'react';
 import { onDropI, onMoveI } from '../../dropZone';
@@ -27,16 +27,23 @@ const Block = ({block}:{block: blockI}) => {
 export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI) => {
     const onDrop = () => console.log('ONDROP');
     const onRemove = () => console.log('ONREMOVE');
+    const {isDragging} = useDragLayer(
+        monitor => ({isDragging: monitor.isDragging()})
+      )
     console.log('build', build);
     return (<div className="flex a-i-end">
-        {build?.stacks?.map((stack, index) => <div key={index}>
-            {stack.map(block => <div key={block.piece.id}>
-                <AggulativeStacksDropZone
+            {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex}>
+        <div>STACK: {stackIndex}</div>
+            {stack.map((block, blockIndex) => <div key={block.piece.id}>
+                {isDragging && blockIndex === 0 && <DropZone onDrop={() => console.log('dropping in SELF zone')}/>}
+                <DragDropZone
                     onDrop={onDrop}
                     onRemove={onRemove}
                 >
+                    index: {blockIndex}
                     <Block block={block}/>
-                </AggulativeStacksDropZone>
+                </DragDropZone>
+                {isDragging && <DropZone onDrop={() => console.log('dropping in NEXT zone')}/>}
             </div>)}
         </div>)}
     </div>)
@@ -44,13 +51,14 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
 
 
 // TODO: generalize and share with freeformMatrix dropZone component
-const AggulativeStacksDropZone = observer(({ onDrop, onMove, children }: { onDrop: onDropI, onMove: onMoveI, children: React.ReactNode }) => {
+const DragDropZone = observer(({ onDrop, onMove, children }: { onDrop: onDropI, onMove: onMoveI, children: React.ReactNode }) => {
     const zoneRef = useRef();
     const [dropInfo, drop] = useDrop(
         () => ({
             accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
             drop: () => { // TODO: figure out better typing
                 console.log('DROPPED!!!!!!!!!');
+                // onDrop()
             },
             collect: (monitor) => ({
                 isOver: !!monitor.isOver(),
@@ -74,9 +82,35 @@ const AggulativeStacksDropZone = observer(({ onDrop, onMove, children }: { onDro
         style={{
             background: dropInfo.isOver ? 'yellow' : 'white',
             color: dropInfo.canDrop ? 'blue' : 'red',
+            border: '1px solid red'
         }}
     >
-        ITEM
         {children}
+    </div>)
+})
+
+const DropZone = observer(({ onDrop }: { onDrop: () => void}) => {
+    const [dropInfo, drop] = useDrop(
+        () => ({
+            accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
+            drop: () => { // TODO: figure out better typing
+                console.log('DROPPED!!!!!!!!!');
+                onDrop();
+            },
+            collect: (monitor) => ({
+                isOver: !!monitor.isOver(),
+                canDrop: !!monitor.canDrop(),
+            }),
+        }),
+        [],
+    );
+    return (<div
+        ref={drop}
+        style={{
+            background: dropInfo.isOver ? 'yellow' : 'white',
+            color: dropInfo.canDrop ? 'blue' : 'red',
+        }}
+    >
+        + Add item
     </div>)
 })

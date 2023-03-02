@@ -1,12 +1,10 @@
 import { makeObservable, observable, action} from "mobx"
 import { aggulativeStacksT, configT, pieceI } from "./build-your-own.types";
 
-class StackPiece {
-    id
+export class Block {
     column
     piece
-    constructor({id, column, piece}: {id: string, column: string, piece: pieceI}) {
-        this.id = id;
+    constructor({column, piece}: {column: string, piece: pieceI}) {
         this.column = column;
         this.piece = piece;
          // makeObservable(this, {}) 
@@ -18,7 +16,7 @@ export class AggulativeStacks {
     stacks
     constructor({config, stacks}: {config: configT, stacks: aggulativeStacksT}) {
         this.config = config
-        this.stacks = stacks?.map(s => s.map(piece => (new StackPiece({...piece}))));
+        this.stacks = stacks?.map(s => s.map(piece => (new Block({...piece}))));
         makeObservable(this, {
             stacks: observable,
             config: observable,
