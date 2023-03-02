@@ -25,11 +25,9 @@ export class AggulativeStacks {
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     addToStack = (stackIndex: number, blockIndex: number) => {
-        console.log('ADDRING TO STACK', {stackIndex, blockIndex});
         this.stacks[stackIndex].splice(blockIndex, 0,  { column: `${stackIndex}`, piece: {id:'NEW PIECE', config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}})
     };
     addStack = (stackIndex: number) => {
-        console.log('ADDING STACK', {stackIndex});
         this.stacks.splice(stackIndex, 0,  [{ column: `${stackIndex}`, piece: {id:'NEW PIECE', config: [{id: 'mod-height', selection: '1', optionKey:'one-block'}]}}])
     };
 }
