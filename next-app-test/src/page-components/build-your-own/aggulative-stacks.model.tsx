@@ -7,8 +7,11 @@ export class Block {
     piece
     constructor({piece}: {piece: pieceI}) {
         this.piece = piece;
-         // makeObservable(this, {}) 
+         makeObservable(this, {
+            piece: observable.ref,
+         }) 
     }
+    // setPiece = (newPiece: pieceI) => this.piece = newPiece
 }
 
 export class AggulativeStacks {
@@ -28,11 +31,30 @@ export class AggulativeStacks {
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
-        this.stacks[stackIndex].splice(blockIndex, 0, {piece});
+        let thePiece;
+        const foundIndex = this.findId(piece.id);
+        if (foundIndex){
+            thePiece = this.removeBlockAt(foundIndex.stackIndex, foundIndex.blockIndex);
+            this.stacks[stackIndex].splice(blockIndex, 0, {piece});
+        } 
+        
     };
     addStack = (stackIndex: number, piece: pieceI) => {
         this.stacks.splice(stackIndex, 0,  [{piece}]);
     };
+    findId = (id: string) => {
+        console.log('finding', id);
+        let blockIndex = -1;
+        const stackIndex = this.stacks.findIndex(s => {
+            blockIndex = s.findIndex(b => b.piece.id === id)
+            return blockIndex >= 0;
+        }) 
+        return stackIndex >= 0 ? {stackIndex, blockIndex} : null;
+    }
+    removeBlockAt = (stackIndex: number, blockIndex: number) => {
+        console.log('removingBlockAt', {stackIndex, blockIndex});
+        this.stacks[stackIndex].splice(blockIndex, 1);
+    }
     removeBlock = (stackIndex:number, id:string) => {
         const thing = this.stacks[stackIndex].findIndex(block => block.piece.id === id);
         this.stacks[stackIndex].splice(thing, 1);

@@ -19,7 +19,8 @@ const Block = ({ block }: { block: blockI }) => {
             height: `${100 * units}px`,
         }}
     >
-        {block.piece.id}-{units}
+        B-id:{block.piece.id} <br />
+        B-value:{units}
     </div>
 
 }
@@ -51,7 +52,9 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                         piece={block.piece}
                         isDraggingState={isDraggingInside}
                         setIsDraggingState={setIsDraggingInside}
-                        onEnd={() => build.removeBlock(stackIndex, block.piece.id)}
+                        onEnd={() => {
+                            //build.removeBlock(stackIndex, block.piece.id)
+                        }}
                     >
                         index: {stackIndex}-{blockIndex}<br />
                         <Block block={block} />
