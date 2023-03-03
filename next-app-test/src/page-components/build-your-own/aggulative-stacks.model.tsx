@@ -31,15 +31,19 @@ export class AggulativeStacks {
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
-        let thePiece;
         const foundIndex = this.findId(piece.id);
         if (foundIndex){
-            thePiece = this.removeBlockAt(foundIndex.stackIndex, foundIndex.blockIndex);
-            this.stacks[stackIndex].splice(blockIndex, 0, {piece});
+            this.removeBlockAt(foundIndex.stackIndex, foundIndex.blockIndex);
         } 
+        this.stacks[stackIndex].splice(blockIndex, 0, {piece});
+        this.stacks = this.stacks.filter(s => s.length > 0);
         
     };
     addStack = (stackIndex: number, piece: pieceI) => {
+        const foundIndex = this.findId(piece.id);
+        if (foundIndex){
+            this.removeBlockAt(foundIndex.stackIndex, foundIndex.blockIndex);
+        } 
         this.stacks.splice(stackIndex, 0,  [{piece}]);
     };
     findId = (id: string) => {
