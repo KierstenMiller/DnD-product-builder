@@ -55,7 +55,8 @@ export class AggulativeStacks {
     }
     generatePiece = () => {
         console.log('this.config', this.config);
-        return { id: generateId(), config: [...this.config] }
+        const nonObservableConfigCopy = [...this.config.map(i => ({...i}))];
+        return { id: generateId(), config: nonObservableConfigCopy }
     }
     clearEmptyStacks = () => {
         this.stacks = this.stacks.filter(s => s.length > 0);  
