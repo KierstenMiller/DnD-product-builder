@@ -1,7 +1,15 @@
 import { makeObservable, observable, action} from "mobx"
-import { aggulativeStacksT, blockIndexI, configT, pieceI } from "./build-your-own.types";
+import { aggulativeStacksT, blockI, configT, pieceI } from "./build-your-own.types";
 
 const generateId = () => 'id' + (new Date()).getTime();
+const findIndex2D = (stacks: blockI[][], id: string) => {
+    let block = -1;
+    const stack = stacks.findIndex(s => {
+        block = s.findIndex(b => b.piece.id === id)
+        return block >= 0;
+    }) 
+    return stack >= 0 ? {stack, block} : null;
+}
 
 export class Block {
     piece
@@ -11,7 +19,6 @@ export class Block {
             piece: observable.ref,
          }) 
     }
-    // setPiece = (newPiece: pieceI) => this.piece = newPiece
 }
 
 export class AggulativeStacks {
@@ -24,36 +31,27 @@ export class AggulativeStacks {
             stacks: observable,
             config: observable,
             setConfig: action.bound,
-            addToStack: action.bound,
             addStack: action.bound,
+            addToStack: action.bound,
         }) 
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
-    addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
-        const foundIndex = this.findId(piece.id);
-        if (foundIndex){
-            this.removeBlockAt(foundIndex.stackIndex, foundIndex.blockIndex);
-        } 
-        this.stacks[stackIndex].splice(blockIndex, 0, {piece});
-        this.stacks = this.stacks.filter(s => s.length > 0);
-        
-    };
     addStack = (stackIndex: number, piece: pieceI) => {
-        const foundIndex = this.findId(piece.id);
-        if (foundIndex){
-            this.removeBlockAt(foundIndex.stackIndex, foundIndex.blockIndex);
-        } 
+        this.findAndRemoveBlock(piece.id)
         this.stacks.splice(stackIndex, 0,  [{piece}]);
+        this.clearEmptyStacks();
     };
-    findId = (id: string) => {
-        let blockIndex = -1;
-        const stackIndex = this.stacks.findIndex(s => {
-            blockIndex = s.findIndex(b => b.piece.id === id)
-            return blockIndex >= 0;
-        }) 
-        return stackIndex >= 0 ? {stackIndex, blockIndex} : null;
+    addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
+        this.findAndRemoveBlock(piece.id)
+        this.stacks[stackIndex].splice(blockIndex, 0, {piece});
+        this.clearEmptyStacks();   
+    };
+    // util actions
+    findAndRemoveBlock = (id: string) => {
+        const foundIndex = findIndex2D(this.stacks, id);
+        if (foundIndex) this.stacks[foundIndex.stack].splice(foundIndex.block, 1); //this.removeBlockAt(foundIndex.stackIndex, foundIndex.blockIndex);
     }
-    removeBlockAt = (stackIndex: number, blockIndex: number) => {
-        this.stacks[stackIndex].splice(blockIndex, 1);
+    clearEmptyStacks = () => {
+        this.stacks = this.stacks.filter(s => s.length > 0);  
     }
 }
