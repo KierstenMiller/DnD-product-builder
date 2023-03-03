@@ -20,7 +20,6 @@ export class Block {
          }) 
     }
 }
-
 export class AggulativeStacks {
     config
     stacks
@@ -37,13 +36,11 @@ export class AggulativeStacks {
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     addStack = (stackIndex: number, piece: pieceI) => {
-        console.log('piece', piece);
         if(piece) this.findAndRemoveBlock(piece.id)
         this.stacks.splice(stackIndex, 0, [{piece: piece || this.generatePiece()}]);
         this.clearEmptyStacks();
     };
     addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
-        console.log('piece', piece);
         if(piece) this.findAndRemoveBlock(piece.id)
         this.stacks[stackIndex].splice(blockIndex, 0, {piece: piece || this.generatePiece()});
         this.clearEmptyStacks();   
@@ -54,7 +51,6 @@ export class AggulativeStacks {
         if (foundIndex) this.stacks[foundIndex.stack].splice(foundIndex.block, 1);
     }
     generatePiece = () => {
-        console.log('this.config', this.config);
         const nonObservableConfigCopy = [...this.config.map(i => ({...i}))];
         return { id: generateId(), config: nonObservableConfigCopy }
     }
