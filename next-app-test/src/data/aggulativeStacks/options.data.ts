@@ -1,18 +1,18 @@
 export const heightOptions = [
     {
-        id: 'one',
+        id: '1',
         label: 'Single Block',
         image: 'SINGLE_BLOCK',
         optionKey: 'one-block',
     },
     {
-        id: 'two',
+        id: '2',
         label: 'Double Block',
         image: 'DOUBLE_BLOCK',
         optionKey: 'two-block',
     },
     {
-        id: 'four',
+        id: '4',
         label: 'Quadruple Block',
         image: 'QUADRUPLE_BLOCK',
         optionKey: 'four-block',

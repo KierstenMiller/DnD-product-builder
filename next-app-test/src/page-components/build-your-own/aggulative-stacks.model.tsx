@@ -54,6 +54,7 @@ export class AggulativeStacks {
         if (foundIndex) this.stacks[foundIndex.stack].splice(foundIndex.block, 1);
     }
     generatePiece = () => {
+        console.log('this.config', this.config);
         return { id: generateId(), config: [...this.config] }
     }
     clearEmptyStacks = () => {

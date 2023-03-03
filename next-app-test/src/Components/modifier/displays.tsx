@@ -11,7 +11,7 @@ export const displays = {
     [adderDisplayValues.card]: {
         styles: cardStyles,
         view: (opt: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => <div className={cardStyles.option}>
-        <DragZone>
+        <DragZone onDrag={() => onClick({event: null, newSelection: opt.id})}>
             <div aria-hidden={true} className={cardStyles.image}>{opt.image}</div>
         </DragZone>
         <div>
@@ -24,7 +24,7 @@ export const displays = {
     [adderDisplayValues.imageFirst]: {
         styles: imageFirstStyles,
         view: (opt: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => <div className={imageFirstStyles.option}>
-        <DragZone>
+        <DragZone onDrag={() => onClick({event: null, newSelection: opt.id})}>
             <div aria-hidden={true} className={imageFirstStyles.image}>{opt.image}</div>
         </DragZone>
         <div>{opt.label}</div>
