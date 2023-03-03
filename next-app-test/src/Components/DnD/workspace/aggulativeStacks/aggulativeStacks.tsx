@@ -28,26 +28,22 @@ const Block = ({ block }: { block: blockI }) => {
 export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI) => {
     const { isDraggingOutside, draggingPiece } = useDragLayer( // for dragging from modifier
         monitor => ({
-             isDraggingOutside: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
-             draggingPiece: monitor.getItem()?.piece
+            isDraggingOutside: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
+            draggingPiece: monitor.getItem()?.piece
         })
     )
     const [isDraggingInside, setIsDraggingInside] = useState(false); // for dragging from workspace (show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag)
     const isDragging = isDraggingInside || isDraggingOutside
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} className="flex a-i-end">
-            {/* SELF DROP ZONE */}
             {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex, draggingPiece)} />}
-            {/* NON-DRAGGABLE STACK */}
             <div>
                 <div>STACK: {stackIndex}</div>
                 {stack.map((block, blockIndex) => <div key={block.piece.id}>
-                    {/* SELF DROP ZONE */}
                     {blockIndex === 0 && <>
                         <div>SELF</div>
                         {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex, draggingPiece)} />}
                     </>}
-                    {/* DRAGGABLE BLOCK*/}
                     <DragZone
                         piece={block.piece}
                         setIsDraggingState={setIsDraggingInside}
@@ -55,7 +51,6 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                         index: {stackIndex}-{blockIndex}<br />
                         <Block block={block} />
                     </DragZone>
-                    {/* NEXT DROP ZONE */}
                     <div>NEXT</div>
                     {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1, draggingPiece)} />}
                 </div>)}
@@ -68,7 +63,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
 
 
 // TODO: generalize and share with freeformMatrix dropZone component
-const DragZone = observer(({piece, setIsDraggingState, children }: {
+const DragZone = observer(({ piece, setIsDraggingState, children }: {
     piece: pieceI,
     setIsDraggingState: (arg: boolean) => void,
     children: React.ReactNode
@@ -76,7 +71,7 @@ const DragZone = observer(({piece, setIsDraggingState, children }: {
     const [dragInfo, drag, preview] = useDrag(
         () => ({
             type: DnDItemTypes.WORKSPACE_ITEM,
-            item: {piece},
+            item: { piece },
             collect: (monitor) => {
                 piece && piece.id === monitor?.getItem()?.piece?.id && setTimeout(() => setIsDraggingState(true), 250);
                 return {
