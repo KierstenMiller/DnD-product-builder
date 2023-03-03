@@ -50,11 +50,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
                     {/* DRAGGABLE BLOCK*/}
                     <DragZone
                         piece={block.piece}
-                        isDraggingState={isDraggingInside}
                         setIsDraggingState={setIsDraggingInside}
-                        onEnd={() => {
-                            //build.removeBlock(stackIndex, block.piece.id)
-                        }}
                     >
                         index: {stackIndex}-{blockIndex}<br />
                         <Block block={block} />
@@ -72,11 +68,9 @@ export const WorkspaceAggulativeStacks = observer(({ build, modifiers }: propsI)
 
 
 // TODO: generalize and share with freeformMatrix dropZone component
-const DragZone = observer(({piece, isDraggingState, setIsDraggingState, onEnd, children }: {
+const DragZone = observer(({piece, setIsDraggingState, children }: {
     piece: pieceI,
-    isDraggingState: boolean,
     setIsDraggingState: (arg: boolean) => void,
-    onEnd: () => void,
     children: React.ReactNode
 }) => {
     const [dragInfo, drag, preview] = useDrag(
@@ -91,7 +85,6 @@ const DragZone = observer(({piece, isDraggingState, setIsDraggingState, onEnd, c
             },
             end: (item, monitor) => {
                 setTimeout(() => setIsDraggingState(false), 250)
-                onEnd();
             }
         }),
         [],

@@ -26,7 +26,6 @@ export class AggulativeStacks {
             setConfig: action.bound,
             addToStack: action.bound,
             addStack: action.bound,
-            removeBlock: action.bound,
         }) 
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
@@ -47,7 +46,6 @@ export class AggulativeStacks {
         this.stacks.splice(stackIndex, 0,  [{piece}]);
     };
     findId = (id: string) => {
-        console.log('finding', id);
         let blockIndex = -1;
         const stackIndex = this.stacks.findIndex(s => {
             blockIndex = s.findIndex(b => b.piece.id === id)
@@ -56,12 +54,6 @@ export class AggulativeStacks {
         return stackIndex >= 0 ? {stackIndex, blockIndex} : null;
     }
     removeBlockAt = (stackIndex: number, blockIndex: number) => {
-        console.log('removingBlockAt', {stackIndex, blockIndex});
         this.stacks[stackIndex].splice(blockIndex, 1);
     }
-    removeBlock = (stackIndex:number, id:string) => {
-        const thing = this.stacks[stackIndex].findIndex(block => block.piece.id === id);
-        this.stacks[stackIndex].splice(thing, 1);
-        this.stacks = this.stacks.filter(s => s.length > 0);
-    };
 }
