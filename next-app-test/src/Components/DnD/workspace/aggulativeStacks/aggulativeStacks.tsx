@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
-import { modifiersT, blockI, pieceI } from '-/page-components/build-your-own/build-your-own.types'
+import { modifiersT, blockI, pieceI, configT } from '-/page-components/build-your-own/build-your-own.types'
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
-import { DnDItemTypes } from '../freeformMatrix/freeformMatrix.util';
+import { blockKeys, blocks, DnDItemTypes, generateBlock } from '../shared/shapes.util';
 import { useState } from 'react';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
 
@@ -14,18 +14,8 @@ interface dragZonePropsI {
     setIsDraggingState: (arg: boolean) => void,
     children: React.ReactNode
 }
-
-const Block = ({ block }: { block: blockI }) => {
-    const units = parseInt(block.piece.config.find(c => c.id === 'mod-height')?.selection || '1')
-    return <div
-        style={{
-            width: `${100}px`,
-            height: `${100 * units}px`,
-        }}
-    >
-        id:{block.piece.id}
-    </div>
-
+const overrideConfig = (config: configT, overrideConfig: configT) => {
+    return config.map(c => (overrideConfig.find(o => o.id === c.id) || c));
 }
 export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
     // for dragging from modifier
@@ -37,7 +27,7 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
     const [isDraggingInside, setIsDraggingInside] = useState(false);
     const isDragging = isDraggingInside || isDraggingOutside;
     return (<div className="flex a-i-end">
-        {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} className="flex a-i-end">
+        {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} style={{'border': '1px solid red'}} className="flex a-i-end">
             {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex, draggingPiece)} />}
             <div>
                 {stack.map((block, blockIndex) => <div key={block.piece.id}>
@@ -46,7 +36,7 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
                         piece={block.piece}
                         setIsDraggingState={setIsDraggingInside}
                     >
-                        <Block block={block} />
+                        {generateBlock(overrideConfig(build.config, block.piece.config))}
                     </DragZone>
                     {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1, draggingPiece)} />}
                 </div>)}
@@ -66,7 +56,7 @@ const DragZone = observer(({ piece, setIsDraggingState, children }: dragZoneProp
         },
         end: () => setTimeout(() => setIsDraggingState(false), 250)
     }), [])
-    return <div ref={drag} style={{ background: 'white', border: '1px solid red' }}>{children}</div>
+    return <div ref={drag}>{children}</div>
 })
 const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
     const [dropInfo, drop] = useDrop(() => ({

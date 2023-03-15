@@ -3,19 +3,19 @@ export const heightOptions = [
         id: '1',
         label: 'Single Block',
         image: 'SINGLE_BLOCK',
-        optionKey: 'one-block',
+        value: 'one-block',
     },
     {
         id: '2',
         label: 'Double Block',
         image: 'DOUBLE_BLOCK',
-        optionKey: 'two-block',
+        value: 'two-block',
     },
     {
         id: '4',
         label: 'Quadruple Block',
         image: 'QUADRUPLE_BLOCK',
-        optionKey: 'four-block',
+        value: 'four-block',
     },
 ]
 export const fillOptions = [
@@ -23,38 +23,38 @@ export const fillOptions = [
         id: 'fill-red',
         label: 'Red',
         image: 'RED_COLOR',
-        optionKey: 'default-red'
+        value: 'default-red'
     },
     {
         id: 'fill-light-red',
         label: 'Light Red',
         image: 'LIGHT_RED_COLOR',
-        optionKey: 'light-red',
+        value: 'light-red',
         selected: true
     },
     {
         id: 'fill-blue',
         label: 'Blue',
         image: 'BLUE_COLOR',
-        optionKey: 'default-blue'
+        value: 'default-blue'
     },
     {
         id: 'fill-light-blue',
         label: 'Light Blue',
         image: 'LIGHT_BLUE_COLOR',
-        optionKey: 'light-blue'
+        value: 'light-blue'
     },
     {
         id: 'fill-green',
         label: 'Green',
         image: 'GREEN_COLOR',
-        optionKey: 'default-green'
+        value: 'default-green'
     },
     {
         id: 'fill-light-green',
         label: 'Light Green',
         image: 'LIGHT_GREEN_COLOR',
-        optionKey: 'light-green'
+        value: 'light-green'
     },
 ]
 export const strokeOptions = [
@@ -62,19 +62,19 @@ export const strokeOptions = [
         id: 'stroke-red',
         label: 'Red',
         image: 'RED_COLOR',
-        optionKey: 'default-red',
+        value: 'default-red',
         selected: true,
     },
     {
         id: 'stroke-blue',
         label: 'Blue',
         image: 'BLUE_COLOR',
-        optionKey: 'default-blue'
+        value: 'default-blue'
     },
     {
         id: 'stroke-green',
         label: 'Green',
         image: 'GREEN_COLOR',
-        optionKey: 'default-green'
+        value: 'default-green'
     },
 ]

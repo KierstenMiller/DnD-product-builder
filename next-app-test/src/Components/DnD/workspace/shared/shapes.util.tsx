@@ -22,6 +22,13 @@ export enum shapeKeys {
     star= 'star',
     triangle= 'triangle',
 }
+
+export enum blockKeys {
+    oneBlock= 'one-block',
+    twoBlock= 'two-block',
+    fourBlock= 'four-block',
+}
+
 export enum colorKeys {
     defaultRed= 'default-red',
     lightRed= 'light-red',
@@ -61,6 +68,22 @@ const icons = {
     </svg>
 }
 
+export const blocks = {
+    [blockKeys.oneBlock]: ({fill, stroke}: iconColoringI) => <svg width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.01 57.99">
+        <rect style={{fill: fill, stroke: stroke}} x="1" y="1" width="56" height="56"/>
+    </svg>,
+    [blockKeys.twoBlock]:  ({fill, stroke}: iconColoringI) => <svg width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 114">
+        <rect style={{fill: fill, stroke: stroke}} x="1" y="1" width="56" height="56"/>
+        <rect style={{fill: fill, stroke: stroke}} x="1" y="57" width="56" height="56"/>
+    </svg>,
+    [blockKeys.fourBlock]:  ({fill, stroke}: iconColoringI) => <svg width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.06 225.98">
+       <rect style={{fill: fill, stroke: stroke}} x="1.04" y=".98" width="56" height="56"/>
+       <rect style={{fill: fill, stroke: stroke}} x="1.04" y="56.98" width="56" height="56"/>
+       <rect style={{fill: fill, stroke: stroke}} x="1.04" y="112.98" width="56" height="56"/>
+       <rect style={{fill: fill, stroke: stroke}} x="1.04" y="168.98" width="56" height="56"/>
+    </svg>,
+}
+
 ////////////////////////
 //      METHODS      //
 ///////////////////////
@@ -80,4 +103,19 @@ export const generateImage = (config: configT) => {
     return (shapeSelection && fill && stroke)
     ? getImage(shapeSelection, fill, stroke)
     : getImage(shapeKeys.circle, colorKeys.defaultRed, colorKeys.defaultRed);
+}
+
+export const getBlock = (blockKey: blockKeys, fillColorKey: colorKeys, strokeColorKey: colorKeys) => {
+    console.log('blockKey', blockKey);
+    const blockIcon = blocks[(blockKey)];
+    const fill = colors[(fillColorKey)];
+    const stroke = colors[(strokeColorKey)];
+    console.log('blockIcon({fill, stroke})', blockIcon({fill, stroke}));
+    return  blockIcon({fill, stroke});
+}
+export const generateBlock = (config: configT) => {
+    const blockSelection = config.find(c => c.id === 'mod-height')?.value as blockKeys || blockKeys.oneBlock;
+    const fill = config.find(c => c.id === 'mod-fill')?.value as colorKeys || colorKeys.defaultRed;
+    const stroke = config.find(c => c.id === 'mod-stroke')?.value as colorKeys || colorKeys.defaultRed;
+    return getBlock(blockSelection, fill, stroke)
 }

@@ -22,7 +22,7 @@ export interface pieceI {
 // MODIFIER
 export interface optionI { // todo: make more specific to workspace type
     id: string, // id to identify option
-    optionKey: string, // optionKey to match against library of keys
+    value: string, // value to match against library of keys
     label: string,
     image: string,
     // optional

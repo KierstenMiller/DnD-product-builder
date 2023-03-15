@@ -7,7 +7,7 @@ import { ModifierGroups } from '-/Components/modifier/modifierGroups'
 import { modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { builderKeys, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
 import { AddToWorkspace } from './workspace/shared/addToWorkspace'
-import { generateImage } from './workspace/freeformMatrix/freeformMatrix.util'
+import { generateImage } from './workspace/shared/shapes.util'
 
 import styles from '#/Home.module.scss'
 

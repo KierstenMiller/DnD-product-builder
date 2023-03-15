@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { modifiersT, blockI } from '-/page-components/build-your-own/build-your-own.types'
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
-import { DnDItemTypes } from '../freeformMatrix/freeformMatrix.util';
+import { DnDItemTypes } from '../shared/shapes.util';
 import { useRef } from 'react';
 import { onDropI, onMoveI } from '../../dropZone';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';

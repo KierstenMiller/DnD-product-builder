@@ -9,7 +9,7 @@ import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/mockModifiers.data'
 import { robotModifiers } from '-/data/singleton/robots/robotModifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/stacks.data'
+import { aggulativeStacksMock1, aggulativeStacksMock5 } from '-/data/aggulativeStacks/stacks.data'
 import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
 import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
 import { modifiers } from '-/data/aggulativeStacks/modifiers.data'
@@ -58,7 +58,7 @@ const BuildYourOwn = () => {
         return {
             id: mod.id,
             selection: selectedOption.id,
-            value: selectedOption.optionKey || selectedOption.label,
+            value: selectedOption.value || selectedOption.label,
         }
     })
     const model = new BuildYourOwnModel({
