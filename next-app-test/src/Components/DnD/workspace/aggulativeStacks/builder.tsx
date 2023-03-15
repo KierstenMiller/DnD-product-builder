@@ -93,7 +93,7 @@ const DragDropZone = observer(({onRemove, children }: { onRemove: () => void, ch
         style={{
             background: dropInfo.isOver ? 'yellow' : 'white',
             color: dropInfo.canDrop ? 'blue' : 'red',
-            border: '1px solid red'
+            // border: '1px solid red'
         }}
     >
         {children}

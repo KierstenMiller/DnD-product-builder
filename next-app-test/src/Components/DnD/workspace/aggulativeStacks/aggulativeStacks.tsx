@@ -27,7 +27,11 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
     const [isDraggingInside, setIsDraggingInside] = useState(false);
     const isDragging = isDraggingInside || isDraggingOutside;
     return (<div className="flex a-i-end">
-        {build?.stacks?.map((stack, stackIndex) => <div key={stackIndex} style={{'border': '1px solid red'}} className="flex a-i-end">
+        {build?.stacks?.map((stack, stackIndex) => <div
+            key={stackIndex}
+            // style={{'border': '1px solid red'}}
+            className="flex a-i-end"
+        >
             {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex, draggingPiece)} />}
             <div>
                 {stack.map((block, blockIndex) => <div key={block.piece.id}>
