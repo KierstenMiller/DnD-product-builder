@@ -108,11 +108,9 @@ export const generateImage = (config: configT) => {
 }
 
 export const getBlock = (blockKey: blockKeys, fillColorKey: colorKeys, strokeColorKey: colorKeys) => {
-    console.log('blockKey', blockKey);
     const blockIcon = blocks[(blockKey)];
     const fill = colors[(fillColorKey)];
     const stroke = colors[(strokeColorKey)];
-    console.log('blockIcon({fill, stroke})', blockIcon({ fill, stroke }));
     return blockIcon({ fill, stroke });
 }
 export const generateBlock = (config: configT) => {

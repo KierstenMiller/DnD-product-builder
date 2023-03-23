@@ -81,9 +81,6 @@ const DragDropZone = observer(({onRemove, children }: { onRemove: () => void, ch
             collect: (monitor) => ({
                 isDragging: !!monitor.isDragging(),
             }),
-            end: (item, monitor) => {
-                console.log('END DRAG');
-            }
         }),
         [],
     )
@@ -104,8 +101,7 @@ const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
     const [dropInfo, drop] = useDrop(
         () => ({
             accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
-            drop: () => { // TODO: figure out better typing
-                console.log('DROPPED!!!!!!!!!');
+            drop: () => {
                 onDrop();
             },
             collect: (monitor) => ({

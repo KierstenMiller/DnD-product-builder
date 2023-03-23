@@ -10,6 +10,6 @@ export const WorkspaceSingleton = observer(({builder, modifiers}: propsI) => {
     const onDrop = () => console.log('ONDROP');
     const onRemove = () => console.log('ONREMOVE');
     return (<div className="flex">
-        SINGLETON 
+        SINGLETON TODO
     </div>)
 })
