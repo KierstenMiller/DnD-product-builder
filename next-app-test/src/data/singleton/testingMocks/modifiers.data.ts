@@ -1,10 +1,11 @@
 import { mockFilterDoubleDropDown, mockFilterSingleTabbed } from "./mockFilters.data";
-import { mockOptions2D, mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3DStockedPriced } from "./mockOptions.data";
-import { groupByValues, measurementValues, radioDisplayValues, sortByValues } from "../../../Components/modifier/modifier.types";
+import { mockOptions2D, mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3DStockedPriced } from "./options.data";
+import { groupByValues, groupKeyValues, measurementValues, radioDisplayValues, sortByValues } from "../../../Components/modifier/modifier.types";
 
 export const mockModifierA = {
     id: 'mod-A',
     label: 'modifier A',
+    groupKey: groupKeyValues.global,
     groupBy: groupByValues.height,
     sortBy:sortByValues.ascending,
     measurementUnit: measurementValues.inches,
@@ -16,6 +17,7 @@ export const mockModifierA = {
 export const mockModifierB = {
     id: 'mod-B',
     label: 'modifier B',
+    groupKey: groupKeyValues.global,
     groupBy: groupByValues.stocked,
     sortBy: [sortByValues.having, sortByValues.ascending],
     measurementUnit: measurementValues.inches,
@@ -27,6 +29,7 @@ export const mockModifierB = {
 export const mockModifierC = {
     id: 'mod-C',
     label: 'modifier C',
+    groupKey: groupKeyValues.global,
     groupBy: groupByValues.price,
     sortBy: [sortByValues.descending],
     measurementUnit: measurementValues.inches,
@@ -38,6 +41,7 @@ export const mockModifierC = {
 export const mockModifierD = {
     id: 'mod-D',
     label: 'modifier D',
+    groupKey: groupKeyValues.global,
     groupBy: groupByValues.width,
     sortBy: sortByValues.ascending,
     measurementUnit: measurementValues.inches,
@@ -49,6 +53,7 @@ export const mockModifierD = {
 export const mockModifierE = {
     id: 'mod-E',
     label: 'modifier E',
+    groupKey: groupKeyValues.global,
     groupBy: groupByValues.height,
     sortBy:sortByValues.descending,
     measurementUnit: measurementValues.inches,

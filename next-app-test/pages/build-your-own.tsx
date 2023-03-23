@@ -6,44 +6,45 @@ import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 
 // MOCK DATA IMPORTS
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/mockModifiers.data'
-import { robotModifiers } from '-/data/singleton/robots/robotModifiers.data'
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/modifiers.data'
+import { robotModifiers } from '-/data/singleton/robots/modifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
 import { aggulativeStacksMock1, aggulativeStacksMock5 } from '-/data/aggulativeStacks/stacks.data'
 import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
-import { shapeModifiers } from '-/data/freeformMatrix/shapeModifiers.data'
+import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
 import { modifiers } from '-/data/aggulativeStacks/modifiers.data'
+import { useState } from 'react'
 
 // mock data
-// const data = {
-//     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
-//     builder: {
-//         type: builderKeys.singleton,
-//         data: undefined,
-//     }
-// }
+const dataSingletonMock = {
+    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
+    builder: {
+        type: builderKeys.singleton,
+        data: undefined,
+    }
+}
 
 // robot SINGLETON data
-// const data = {
-//     modifiers: robotModifiers,
-//     builder: {
-//         type: builderKeys.singleton,
-//         data: undefined,
-//     }
-// }
+const dataSingletonRobot = {
+    modifiers: robotModifiers,
+    builder: {
+        type: builderKeys.singleton,
+        data: undefined,
+    }
+}
 
 // FREEFORM MATRIX data
-// const data = {
-//     modifiers: shapeModifiers,
-//     builder: {
-//         // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
-//         type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
-//         data: matrixMock as matrixT,
-//     }
-// }
+const dataFreeformMatrix = {
+    modifiers: shapeModifiers,
+    builder: {
+        // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
+        type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
+        data: matrixMock as matrixT,
+    }
+}
 
 // AGGULATIVE STACKS data
-const data = {
+const dataAggulativeStacks = {
     modifiers: modifiers, 
     builder: {
         type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
@@ -53,6 +54,7 @@ const data = {
 
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
+    const [data, setData] = useState(dataFreeformMatrix);
     const config = data.modifiers.map(mod => {
         const selectedOption = mod.options.find(o => o.selected) || mod.options[0];
         return {
@@ -74,6 +76,15 @@ const BuildYourOwn = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <span className="mr-medium"><b>UP NEXT:</b> Create Grid in Workspace Using React DnD </span>
+            <div>
+                Switch:
+                <div>
+                    <button onClick={() => setData(dataSingletonMock)}>Singleton Robots</button>
+                    <button onClick={() => setData(dataSingletonRobot)}>Singleton Robots</button>
+                    <button onClick={() => setData(dataFreeformMatrix)}>Freeform Matrix</button>
+                    <button onClick={() => setData(dataAggulativeStacks)}>Aggulative Stacks</button>
+                </div>
+            </div>
             <div className="flex a-i-center">
                 <div className="flex">
                     <BasicAccordion
