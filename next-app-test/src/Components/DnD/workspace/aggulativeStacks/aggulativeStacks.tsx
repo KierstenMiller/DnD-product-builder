@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite'
-import { modifiersT, blockI, pieceI, configT } from '-/page-components/build-your-own/build-your-own.types'
-import { useDrag, useDragLayer, useDrop } from 'react-dnd';
-import { blockKeys, blocks, DnDItemTypes, generateBlock } from '../shared/shapes.util';
 import { useState } from 'react';
+import { useDrag, useDragLayer, useDrop } from 'react-dnd';
+
+import { modifiersT, pieceI, configT } from '-/page-components/build-your-own/build-your-own.types'
+import { DnDItemTypes, generateBlock } from '../shared/shapes.util';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
 
 interface propsI {
@@ -29,7 +30,6 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, stackIndex) => <div
             key={stackIndex}
-            // style={{'border': '1px solid red'}}
             className="flex a-i-end"
         >
             {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex, draggingPiece)} />}
@@ -40,6 +40,8 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
                         piece={block.piece}
                         setIsDraggingState={setIsDraggingInside}
                     >
+                        {block.piece.id}<br/>
+                        {block.piece.config.map(c => c.selection)}<br/>
                         {generateBlock(overrideConfig(build.config, block.piece.config))}
                     </DragZone>
                     {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1, draggingPiece)} />}

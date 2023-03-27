@@ -1,61 +1,14 @@
 import Head from 'next/head'
+import { useState } from 'react'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-your-own.util'
-
-// MOCK DATA IMPORTS
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/modifiers.data'
-import { robotModifiers } from '-/data/singleton/robots/modifiers.data'
-import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { aggulativeStacksMock1, aggulativeStacksMock5 } from '-/data/aggulativeStacks/stacks.data'
-import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
-import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
-import { modifiers } from '-/data/aggulativeStacks/modifiers.data'
-import { useState } from 'react'
-import { BuildYourOwnDevBar } from '-/page-components/build-your-own/build-your-own-dev-bar'
-
-// mock data
-const dataSingletonMock = {
-    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
-    builder: {
-        type: builderKeys.singleton,
-        data: undefined,
-    }
-}
-
-// robot SINGLETON data
-const dataSingletonRobot = {
-    modifiers: robotModifiers,
-    builder: {
-        type: builderKeys.singleton,
-        data: undefined,
-    }
-}
-
-// FREEFORM MATRIX data
-const dataFreeformMatrix = {
-    modifiers: shapeModifiers,
-    builder: {
-        // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
-        type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
-        data: matrixMock as matrixT,
-    }
-}
-
-// AGGULATIVE STACKS data
-const dataAggulativeStacks = {
-    modifiers: modifiers, 
-    builder: {
-        type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
-        data: aggulativeStacksMock1
-    },
-}
+import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
+import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
 
 const BuildYourOwn = () => {
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
-    const [data, setData] = useState(dataFreeformMatrix);
+    const [data, setData] = useState(dataAggulativeStacksRental);
     const config = data.modifiers.map(mod => {
         const selectedOption = mod.options.find(o => o.selected) || mod.options[0];
         return {

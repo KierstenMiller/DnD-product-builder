@@ -1,21 +1,18 @@
-import Head from 'next/head'
-
-import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { builderKeys, getBuilder } from '-/page-components/build-your-own/build-your-own.util'
+import { builderKeys } from '-/page-components/build-your-own/build-your-own.util'
 
 // MOCK DATA IMPORTS
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/modifiers.data'
 import { robotModifiers } from '-/data/singleton/robots/modifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { aggulativeStacksMock1, aggulativeStacksMock5 } from '-/data/aggulativeStacks/stacks.data'
+import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/testingMocks/stacks.data'
 import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
 import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
-import { modifiers } from '-/data/aggulativeStacks/modifiers.data'
-import { useState } from 'react'
+import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
+import { modifiers as rentalModifiers } from '-/data/aggulativeStacks/rental/modifiers.data'
+import { rentalStacksMock } from '-/data/aggulativeStacks/rental/stacks.data'
 
-// mock data
+// mock SINGLETON data
 const dataSingletonMock = {
     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
     builder: {
@@ -33,7 +30,7 @@ const dataSingletonRobot = {
     }
 }
 
-// FREEFORM MATRIX data
+// mock FREEFORM MATRIX data
 const dataFreeformMatrix = {
     modifiers: shapeModifiers,
     builder: {
@@ -43,7 +40,7 @@ const dataFreeformMatrix = {
     }
 }
 
-// AGGULATIVE STACKS data
+// mock AGGULATIVE STACKS data
 const dataAggulativeStacks = {
     modifiers: modifiers,
     builder: {
@@ -52,8 +49,17 @@ const dataAggulativeStacks = {
     },
 }
 
+// rental AGGULATIVE STACKS data
+export const dataAggulativeStacksRental = {
+    modifiers: rentalModifiers, 
+    builder: {
+        type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
+        rules: {maxStackHeight: 8, maxStackCount: 4},
+        data: rentalStacksMock
+    },
+}
+
 export const BuildYourOwnDevBar = ({setData}: {setData: (data: any) => void}) => {
-    // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     return (
         <div>
             <BasicAccordion
@@ -63,10 +69,11 @@ export const BuildYourOwnDevBar = ({setData}: {setData: (data: any) => void}) =>
             >
                 <span className="mr-medium"><b>UP NEXT:</b> Create rules for aggulative stacks and implement those rules </span>
                 <div>
-                    <button onClick={() => setData(dataSingletonMock)}>Singleton Robots</button>
+                    <button onClick={() => setData(dataSingletonMock)}>Singleton Mock</button>
                     <button onClick={() => setData(dataSingletonRobot)}>Singleton Robots</button>
-                    <button onClick={() => setData(dataFreeformMatrix)}>Freeform Matrix</button>
-                    <button onClick={() => setData(dataAggulativeStacks)}>Aggulative Stacks</button>
+                    <button onClick={() => setData(dataFreeformMatrix)}>Freeform Matrix Mock</button>
+                    <button onClick={() => setData(dataAggulativeStacks)}>Aggulative Stacks Mock</button>
+                    <button onClick={() => setData(dataAggulativeStacksRental)}>Aggulative Stacks Rental</button>
                 </div>
                 <BasicAccordion
                         id="workspace-goals"

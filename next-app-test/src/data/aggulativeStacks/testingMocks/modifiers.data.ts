@@ -1,4 +1,4 @@
-import { adderDisplayValues, groupKeyValues, radioDisplayValues } from "../../Components/modifier/modifier.types";
+import { adderDisplayValues, groupKeyValues, radioDisplayValues } from "../../../Components/modifier/modifier.types";
 import { fillOptions, heightOptions, strokeOptions } from "./options.data";
 
 // TODO: RENAME groupBy to optionsGroupByProp
