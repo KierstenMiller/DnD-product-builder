@@ -8,10 +8,10 @@ import { displays } from './displays'
 import { assembleOptionsMap } from './modifier.util'
 import { onChangeI } from '../form-controls/radioInput'
 import { adderDisplayValues } from './modifier.types'
-
-import BYOStyles from '#/build-your-own.module.scss'
 import { CategorizedAdderGroup } from './Adder/categorizedAdderGroup'
 import { AdderGroup } from './Adder/AdderGroup'
+
+import BYOStyles from '#/build-your-own.module.scss'
 
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
 

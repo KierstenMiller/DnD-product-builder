@@ -19,14 +19,13 @@ const overrideConfig = (config: configT, overrideConfig: configT) => {
     return config.map(c => (overrideConfig.find(o => o.id === c.id) || c));
 }
 export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
-    // for dragging from modifier
-    const { isDraggingOutside, draggingPiece } = useDragLayer(monitor => ({
-        isDraggingOutside: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
+    const { isDraggingDndLayer, draggingPiece } = useDragLayer(monitor => ({
+        isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
         draggingPiece: monitor.getItem()?.piece
     }));
-    // for dragging from workspace. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
-    const [isDraggingInside, setIsDraggingInside] = useState(false);
-    const isDragging = isDraggingInside || isDraggingOutside;
+    // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
+    const [isDraggingWorkspacePiece, setIsDraggingWorkspacePiece] = useState(false);
+    const isDragging = isDraggingWorkspacePiece || isDraggingDndLayer;
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, stackIndex) => <div
             key={stackIndex}
@@ -38,7 +37,7 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
                     {blockIndex === 0 && isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex, draggingPiece)} />}
                     <DragZone
                         piece={block.piece}
-                        setIsDraggingState={setIsDraggingInside}
+                        setIsDraggingState={setIsDraggingWorkspacePiece}
                     >
                         {block.piece.id}<br/>
                         {block.piece.config.map(c => c.selection + ' - ')}<br/>
