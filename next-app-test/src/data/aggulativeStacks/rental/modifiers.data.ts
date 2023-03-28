@@ -6,7 +6,7 @@ export const modifiers = [
     {
         id: 'mod-blocks',
         label: 'Blocks',
-        groupKey: groupKeyValues.global,
+        groupKey: groupKeyValues.unique,
         groupBy: groupByValues.rank,
         sortBy:sortByValues.ascending,
         display: adderDisplayValues.imageFirst,

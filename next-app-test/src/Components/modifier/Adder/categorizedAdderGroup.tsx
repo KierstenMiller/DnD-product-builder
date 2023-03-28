@@ -1,5 +1,4 @@
 import { onChangeI } from "-/Components/form-controls/radioInput";
-import { useState } from "react";
 import { AdderGroup } from "./AdderGroup";
 
 interface propsOptionI {
@@ -22,11 +21,6 @@ interface propsI {
 }
 
 export const CategorizedAdderGroup = ({heading, categorizedOptions, onChange, styles = {}, view }: propsI) => {
-    const [selection, setSelection] = useState(categorizedOptions.flatMap(cat => cat.options).find(opt => opt.selected)?.id);
-    const onChangeToUse = ({event, newSelection}: onChangeI) => {
-        setSelection(newSelection);
-        onChange({event, newSelection,})
-    }
     return <div className={styles.fieldset}>
         <div className={styles.legend}>{heading}</div>
         {categorizedOptions.map(cat => <div key={cat.id}>

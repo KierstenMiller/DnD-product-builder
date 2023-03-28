@@ -1,3 +1,4 @@
+import { groupKeyValues } from "-/Components/modifier/modifier.types";
 import { makeObservable, observable, action} from "mobx"
 import { aggulativeStacksT, blockI, configT, pieceI } from "./build-your-own.types";
 
@@ -51,7 +52,9 @@ export class AggulativeStacks {
         if (foundIndex) this.stacks[foundIndex.stack].splice(foundIndex.block, 1);
     }
     generatePiece = () => {
-        return { id: generateId(), config: this.config }
+        // unique config items are not observable/changable
+        const config = this.config.map(c => c.groupKey === groupKeyValues.unique ? {...c} : c);
+        return { id: generateId(), config }
     }
     clearEmptyStacks = () => {
         this.stacks = this.stacks.filter(s => s.length > 0);  

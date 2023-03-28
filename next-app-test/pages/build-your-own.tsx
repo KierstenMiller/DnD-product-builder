@@ -15,6 +15,7 @@ const BuildYourOwn = () => {
             id: mod.id,
             selection: selectedOption.id,
             value: selectedOption.value || selectedOption.label,
+            groupKey: mod.groupKey
         }
     })
     const model = new BuildYourOwnModel({

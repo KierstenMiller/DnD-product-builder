@@ -1,4 +1,4 @@
-import { displayValuesT, filterDisplayValues, groupByValues, measurementValues, sortByValues } from '-/Components/modifier/modifier.types'
+import { displayValuesT, filterDisplayValues, groupByValues, groupKeyValues, measurementValues, sortByValues } from '-/Components/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
 
 // AGGULATIVE-STACKS
@@ -50,7 +50,10 @@ export interface modifierI {
     measurementUnit?: measurementValues,
 }
 export interface configItemI {
-    id: string, selection: string, value: string,
+    id: string,
+    selection: string,
+    value: string,
+    groupKey?: groupKeyValues,
 };
 export interface singletonI {
     type: builderKeys.singleton,
