@@ -8,10 +8,10 @@ import { displays } from './displays'
 import { assembleOptionsMap } from './modifier.util'
 import { onChangeI } from '../form-controls/radioInput'
 import { adderDisplayValues } from './modifier.types'
-import { AdderGroup } from './Adder/AdderGroup'
 
 import BYOStyles from '#/build-your-own.module.scss'
 import { CategorizedAdderGroup } from './Adder/categorizedAdderGroup'
+import { AdderGroup } from './Adder/AdderGroup'
 
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
 
@@ -25,7 +25,6 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
             composedOptions: assembleOptionsMap(mod.options, mod.groupBy, theSort)
         }
     };
-    console.log('newModifier', newModifier);
     return <BasicAccordion
         key={mod.id}
         stylesOverride={BYOStyles}
@@ -43,6 +42,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
                     view={displays[mod.display]?.view}
                 />
                 : <AdderGroup
+                    heading={mod.label}
                     options={mod.options}
                     onChange={onChange}
                     styles={displays[mod.display]?.styles}
