@@ -1,45 +1,19 @@
 import { observer } from 'mobx-react-lite'
 
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
-import { modifierI, optionI } from '-/page-components/build-your-own/build-your-own.types'
-import { CategorizedRadioInputGroup } from '../form-controls/categorized-radio-input-group'
-import { RadioInputGroup } from '../form-controls/radio-input-group'
+import { modifierI } from '-/page-components/build-your-own/build-your-own.types'
+import { CategorizedRadioInputGroup } from '../form-controls/categorizedRadioInputGroup'
+import { RadioInputGroup } from '../form-controls/radioInputGroup'
 import { displays } from './displays'
 import { assembleOptionsMap } from './modifier.util'
-import { onChangeI } from '../form-controls/radio-input'
+import { onChangeI } from '../form-controls/radioInput'
 import { adderDisplayValues } from './modifier.types'
+import { AdderGroup } from './Adder/AdderGroup'
 
 import BYOStyles from '#/build-your-own.module.scss'
-
+import { CategorizedAdderGroup } from './Adder/categorizedAdderGroup'
 
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
-interface propsOptionI {
-    id: string,
-    label: string,
-    // optional
-    selected?: boolean,
-}
-interface props2I {
-    heading: string,
-    onChange: ({ event, newSelection }: onChangeI) => any;
-    options: propsOptionI[],
-    // optional
-    styles?: any, // TODO: look up styles typing
-    view?: (option: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => React.ReactNode, // TODO: look up how to not make this any
-}
-
-const AdderGroup = ({ heading, options, onChange, styles = {}, view }: props2I) => {
-    return <div className={styles.fieldset}>
-        <div className={styles.legend}>{heading}</div>
-        <div className={styles.optionsContainer}>
-            {options.map(opt => <div key={opt.id}>
-                {view && <div aria-hidden={true} className={styles.label}>
-                    {view(opt, onChange)}
-                </div>}
-            </div>)}
-        </div>
-    </div>
-}
 
 export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
     const isAdder = Object.values(adderDisplayValues).includes(mod.display); //mod.display in adderDisplayValues;
@@ -51,6 +25,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
             composedOptions: assembleOptionsMap(mod.options, mod.groupBy, theSort)
         }
     };
+    console.log('newModifier', newModifier);
     return <BasicAccordion
         key={mod.id}
         stylesOverride={BYOStyles}
@@ -59,12 +34,20 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
         id={mod.id}
     >
         {isAdder
-            ? <AdderGroup
-                options={mod.options}
-                onChange={onChange}
-                styles={displays[mod.display]?.styles}
-                view={displays[mod.display]?.view}
-            />
+            ? newModifier.composedOptions
+                ? <CategorizedAdderGroup
+                    heading={`${mod.label} ${mod.groupBy}`}
+                    onChange={onChange}
+                    categorizedOptions={[...newModifier.composedOptions.entries()].map(([category, options]) => ({ id: `${mod.id}_${category}`, category, options }))}
+                    styles={displays[mod.display]?.styles}
+                    view={displays[mod.display]?.view}
+                />
+                : <AdderGroup
+                    options={mod.options}
+                    onChange={onChange}
+                    styles={displays[mod.display]?.styles}
+                    view={displays[mod.display]?.view}
+                />
             : newModifier.composedOptions
                 ? <CategorizedRadioInputGroup
                     heading={`${mod.label} ${mod.groupBy}`}

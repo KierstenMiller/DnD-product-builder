@@ -41,7 +41,7 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
                         setIsDraggingState={setIsDraggingInside}
                     >
                         {block.piece.id}<br/>
-                        {block.piece.config.map(c => c.selection)}<br/>
+                        {block.piece.config.map(c => c.selection + ' - ')}<br/>
                         {generateBlock(overrideConfig(build.config, block.piece.config))}
                     </DragZone>
                     {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1, draggingPiece)} />}

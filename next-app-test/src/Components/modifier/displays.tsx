@@ -1,7 +1,7 @@
 import { optionI } from '-/page-components/build-your-own/build-your-own.types'
 import { DragZone } from '../DnD/dragZone'
 import { AddModal } from '../DnD/workspace/shared/addModal'
-import { onChangeI } from '../form-controls/radio-input'
+import { onChangeI } from '../form-controls/radioInput'
 import cardStyles from './card-styles.module.scss'
 import imageFirstStyles from './image-first-styles.module.scss'
 import { adderDisplayValues, radioDisplayValues } from './modifier.types'

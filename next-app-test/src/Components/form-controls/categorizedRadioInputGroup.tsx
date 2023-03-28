@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { onChangeI, RadioInput } from "./radio-input";
+import { onChangeI, RadioInput } from "./radioInput";
 
 interface propsOptionI {
     id: string,

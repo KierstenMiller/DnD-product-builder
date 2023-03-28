@@ -1,28 +1,16 @@
-import { adderDisplayValues, groupKeyValues, radioDisplayValues } from "../../../Components/modifier/modifier.types";
-import { amenityOptions, apartmentOptions, entryOptions, fillOptions, strokeOptions } from "./options.data";
+import { adderDisplayValues, groupByValues, groupKeyValues, radioDisplayValues, sortByValues } from "../../../Components/modifier/modifier.types";
+import { blockOptions, fillOptions, strokeOptions } from "./options.data";
 
 // TODO: RENAME groupBy to optionsGroupByProp
 export const modifiers = [
     {
-        id: 'mod-entries',
-        label: 'Entries',
-        groupKey: groupKeyValues.unique,
+        id: 'mod-blocks',
+        label: 'Blocks',
+        groupKey: groupKeyValues.global,
+        groupBy: groupByValues.rank,
+        sortBy:sortByValues.ascending,
         display: adderDisplayValues.imageFirst,
-        options: entryOptions,
-    },
-    {
-        id: 'mod-apartments',
-        label: 'Apartments',
-        groupKey: groupKeyValues.unique,
-        display: adderDisplayValues.imageFirst,
-        options: apartmentOptions,
-    },
-    {
-        id: 'mod-amenities',
-        label: 'Amenities',
-        groupKey: groupKeyValues.unique,
-        display: adderDisplayValues.imageFirst,
-        options: amenityOptions,
+        options: blockOptions,
     },
     {
         id: 'mod-fill',

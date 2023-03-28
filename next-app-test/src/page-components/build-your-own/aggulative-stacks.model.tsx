@@ -51,8 +51,7 @@ export class AggulativeStacks {
         if (foundIndex) this.stacks[foundIndex.stack].splice(foundIndex.block, 1);
     }
     generatePiece = () => {
-        const nonObservableConfigCopy = [...this.config.map(i => ({...i}))];
-        return { id: generateId(), config: nonObservableConfigCopy }
+        return { id: generateId(), config: this.config }
     }
     clearEmptyStacks = () => {
         this.stacks = this.stacks.filter(s => s.length > 0);  

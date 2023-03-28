@@ -18,13 +18,13 @@ interface propsI {
 
 export const Studio = observer(({ model, modifiers }: propsI) => {
     const image = generateImage(model.config);
-    const WorkspaceThing = getWorkspace(model.builder.type);
+    const Workspace = getWorkspace(model.builder.type);
     // const addToWorkspace = getAddTo({builder: model.builder, })
     return (<DndProvider backend={HTML5Backend}>
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    <WorkspaceThing build={model.builder.build}/>
+                    <Workspace build={model.builder.build}/>
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>

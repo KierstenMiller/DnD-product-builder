@@ -1,8 +1,10 @@
-export const entryOptions = [
+export const blockOptions = [
     {
         id: 'simple-entry',
         label: 'Simple Entry',
         image: 'SIMPLE_ENTRY',
+        value: 'simple-entry',
+        rank: 1,
         validation: [
             {type: 'position', values: ['level-0']}
         ]
@@ -11,6 +13,8 @@ export const entryOptions = [
         id: 'fancy-entry',
         label: 'Fancy Entry',
         image: 'FANCY_ENTRY',
+        value: 'fancy-entry',
+        rank: 1,
         validation: [
             {type: 'position', values: ['level-0']}
         ]
@@ -19,16 +23,18 @@ export const entryOptions = [
         id: 'raised-entry',
         label: 'Raised Entry',
         image: 'RAISED_ENTRY',
+        value: 'raised-entry',
+        rank: 1,
         validation: [
             {type: 'position', values: ['level-0']}
         ]
     },
-]
-export const apartmentOptions = [
     {
         id: 'apartment-single-studio',
         label: 'Single level studio',
         image: 'SINGLE_LEVEL_STUDIO',
+        value: 'apartment-single-studio',
+        rank: 2,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
@@ -38,6 +44,8 @@ export const apartmentOptions = [
         id: 'apartment-double-studio',
         label: 'Double level studio',
         image: 'DOUBLE_LEVEL_STUDIO',
+        value: 'apartment-double-studio',
+        rank: 2,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
@@ -47,6 +55,8 @@ export const apartmentOptions = [
         id: 'apartment-single-one',
         label: 'Single level one bedroom',
         image: 'SINGLE_LEVEL_ONE_BEDROOM',
+        value: 'apartment-single-one',
+        rank: 2,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
@@ -56,17 +66,19 @@ export const apartmentOptions = [
         id: 'apartment-double-one',
         label: 'Double level one bedroom',
         image: 'DOUBLE_LEVEL_ONE_BEDROOM',
+        value: 'apartment-double-one',
+        rank: 2,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
-]
-export const amenityOptions = [
     {
         id: 'amenity-pool',
         label: 'Pool',
         image: 'POOL',
+        value: 'amenity-pool',
+        rank: 3,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1']}
@@ -76,6 +88,8 @@ export const amenityOptions = [
         id: 'amenity-observatory',
         label: 'Observatory',
         image: 'OBSERVATORY',
+        value: 'amenity-observatory',
+        rank: 3,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
@@ -85,6 +99,8 @@ export const amenityOptions = [
         id: 'amenity-cafe',
         label: 'Cafe',
         image: 'CAFE',
+        value: 'amenity-cafe',
+        rank: 3,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
@@ -94,6 +110,8 @@ export const amenityOptions = [
         id: 'amenity-dinning',
         label: 'Dinning',
         image: 'DINNING',
+        value: 'amenity-dinning',
+        rank: 3,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
@@ -103,6 +121,8 @@ export const amenityOptions = [
         id: 'amenity-kitchen',
         label: 'Kitchen',
         image: 'KITCHEN',
+        value: 'amenity-kitchen',
+        rank: 3,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'has-all', values: ['amenity-cafe', 'amenity-dinning']},
@@ -114,12 +134,15 @@ export const amenityOptions = [
         id: 'amenity-gym',
         label: 'Gym',
         image: 'GYM',
+        value: 'amenity-gym',
+        rank: 3,
         validation: [
             {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4']}
         ]
     },
 ]
+
 export const fillOptions = [
     {
         id: 'fill-red',
