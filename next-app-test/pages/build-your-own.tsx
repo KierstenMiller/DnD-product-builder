@@ -5,7 +5,6 @@ import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-o
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
-import { groupKeyValues } from '-/Components/modifier/modifier.types'
 
 const BuildYourOwn = () => {
     const [data, setData] = useState(dataAggulativeStacksRental);
@@ -19,25 +18,18 @@ const BuildYourOwn = () => {
             groupKey: mod.groupKey
         }
     })
+    // will be undefined if builder doesn't have data
+    const builderDataWithGroupKeys = data.builder?.data?.map(d => d.map(m => {
+        if(m.piece?.config) m.piece.config = m?.piece?.config.map(pC => {
+            const match = config.find(gC => gC.id === pC.id);
+            return {...pC, groupKey: match?.groupKey};
+        })
+        return m;
+    }))
     const builder = {
         ...data.builder,
-        ...data.builder?.data && {data: data.builder.data.map(i => i.map(n => {
-            console.log('n', n);
-            return {
-                ...n,
-                ...n.piece && {piece: {
-                    ...n.piece,
-                    ...n.piece?.config && {config: n.piece.config.map(pC => {
-                        const match = config.find(gC => gC.id === pC.id);
-                        return {
-                            ...pC,
-                            groupKey: match?.groupKey
-                        }
-                    })}
-                }}
-            }
-        }))}
-    }
+        ...builderDataWithGroupKeys && {data: builderDataWithGroupKeys}
+    } 
     const model = new BuildYourOwnModel({
         config: config,
         builder: getBuilder({config, ...builder}),
