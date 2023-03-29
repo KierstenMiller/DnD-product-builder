@@ -1,7 +1,6 @@
 import { groupKeyValues } from "-/Components/modifier/modifier.types";
 import { makeObservable, observable, computed, action} from "mobx"
 import { aggulativeStacksT, blockI, configT, pieceI } from "./build-your-own.types";
-import { overrideConfig } from "./build-your-own.util";
 
 const generateId = () => 'id' + (new Date()).getTime();
 const findIndex2D = (stacks: blockI[][], id: string) => {
@@ -12,18 +11,17 @@ const findIndex2D = (stacks: blockI[][], id: string) => {
     }) 
     return stack >= 0 ? {stack, block} : null;
 }
-const keepUniqueValues = ({config, overrideConfig}: {config: configT, overrideConfig?: configT}) => {
-    console.log('stuff', {config, overrideConfig});
-    return config.map(c => c.groupKey === groupKeyValues.unique
-        ? {...c}
-        : overrideConfig?.find(o => o.id === c.id) || c);
+const keepUniqueValues = ({pieceConfig, globalConfig}: {pieceConfig?: configT, globalConfig: configT}) => {
+    // if pieceConfig passed, return non-observable version of each unique config item. For each global config item: override with the most updated global value or return current value if no matching id is found
+    if(pieceConfig) return pieceConfig.map(c => c.groupKey === groupKeyValues.unique? {...c} : globalConfig?.find(o => o.id === c.id) || c);
+    // otherwise, make sure unique configItems are non-observable
+    return globalConfig.map(c => c.groupKey === groupKeyValues.unique ? {...c} : c);
 }
 
 export class AggulativeStacks {
     config
     stacksData
     constructor({config, stacks: stacksData}: {config: configT, stacks: aggulativeStacksT}) {
-        console.log('CREATING MODEL');
         this.config = config;
         this.stacksData = stacksData;
         makeObservable(this, {
@@ -58,11 +56,11 @@ export class AggulativeStacks {
     }
     generatePiece = (id?: string, config?: configT) => {
         // unique config items are not observable/changable
-        const newConfig = config
-        ? keepUniqueValues({ config: config, overrideConfig: this.config })
-        : keepUniqueValues({ config: this.config });
-        // console.log('newConfig', newConfig);
-        return { id: id || generateId(), config: newConfig}
+        const values = { 
+            globalConfig: this.config,
+            ...config && {pieceConfig: config},
+        }; 
+        return { id: id || generateId(), config: keepUniqueValues(values)}
     }
     clearEmptyStacks = () => {
         this.stacksData = this.stacksData.filter(s => s.length > 0);  
