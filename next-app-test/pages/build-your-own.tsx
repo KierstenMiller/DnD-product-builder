@@ -11,6 +11,7 @@ const BuildYourOwn = () => {
 
     console.log('BuildYourOwn render');
     const [data, setData] = useState(dataAggulativeStacksRental);
+    console.log('data', data);
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const config = data.modifiers.map(mod => {
         const selectedOption = mod.options.find(o => o.selected) || mod.options[0];
@@ -21,6 +22,7 @@ const BuildYourOwn = () => {
             groupKey: mod.groupKey
         }
     })
+    console.log('config', config);
     const builder = {
         ...data.builder,
         data: data.builder.data.map(s => s.map(b => {
@@ -43,7 +45,12 @@ const BuildYourOwn = () => {
     console.log('builder', builder);
     const model = new BuildYourOwnModel({
         config: config,
-        builder: getBuilder({ config, ...builder }),
+        builder: getBuilder({
+            config,
+            type: builder.type,
+            data: builder.data,
+            rules: builder.rules,
+        }),
     });
     return (
         <>

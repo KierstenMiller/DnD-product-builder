@@ -12,6 +12,7 @@ interface BuildYourOwnPageI {
 }
 
 export const BuildYourOwnPage = observer(({ model, modifiers }: BuildYourOwnPageI) => {
+    console.log('UPDATED', model);
     return (<>
         <div className={styles.app}>
             <div className={styles.container}>

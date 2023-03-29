@@ -12,29 +12,18 @@ const findIndex2D = (stacks: blockI[][], id: string) => {
     }) 
     return stack >= 0 ? {stack, block} : null;
 }
-const generatePieceConfig = (pieceConfig: configT, globalConfig: configT) => {
-    const oConfig = overrideConfig(globalConfig, pieceConfig);
-    globalConfig.forEach(gC => {
-        const found = pieceConfig.find(pC => pC.id === gC.id)
-        console.log('found', {found, gC});
-    })
-    console.log('result', { pieceConfig, globalConfig, oConfig });
-    //this.config.map(c => c.groupKey === groupKeyValues.unique ? {...c} : c)
-}
 const keepUniqueValues = ({config, overrideConfig}: {config: configT, overrideConfig?: configT}) => {
-
-    const thing = config.map(c => c.groupKey === groupKeyValues.unique
+    console.log('stuff', {config, overrideConfig});
+    return config.map(c => c.groupKey === groupKeyValues.unique
         ? {...c}
-        : overrideConfig ? overrideConfig.find(o => o.id === c.id) : c)
-    console.log('override', overrideConfig);
-    console.log('thing', thing);
-    return thing;
+        : overrideConfig?.find(o => o.id === c.id) || c);
 }
 
 export class AggulativeStacks {
     config
     stacksData
     constructor({config, stacks: stacksData}: {config: configT, stacks: aggulativeStacksT}) {
+        console.log('CREATING MODEL');
         this.config = config;
         this.stacksData = stacksData;
         makeObservable(this, {
@@ -48,7 +37,7 @@ export class AggulativeStacks {
     }
     get stacks() {
         return this.stacksData.map(s => s.map(b => ({
-            piece: this.generatePiece(b.piece.id, overrideConfig(this.config, b.piece.config))
+            piece: this.generatePiece(b.piece.id, b.piece.config)
         })));
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
@@ -58,8 +47,7 @@ export class AggulativeStacks {
         this.clearEmptyStacks();
     };
     addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
-        if(piece) this.findAndRemoveBlock(piece.id)
-        console.log('ADDING TO STACK', piece);
+        if(piece) this.findAndRemoveBlock(piece.id);
         this.stacksData[stackIndex].splice(blockIndex, 0, {piece: piece || this.generatePiece()});
         this.clearEmptyStacks();   
     };
@@ -70,10 +58,10 @@ export class AggulativeStacks {
     }
     generatePiece = (id?: string, config?: configT) => {
         // unique config items are not observable/changable
-        // if (config) console.log('keepUniqueValues', keepUniqueValues({ config: config, overrideConfig: this.config }))
         const newConfig = config
         ? keepUniqueValues({ config: config, overrideConfig: this.config })
-        : this.config.map(c => c.groupKey === groupKeyValues.unique ? {...c} : c);
+        : keepUniqueValues({ config: this.config });
+        // console.log('newConfig', newConfig);
         return { id: id || generateId(), config: newConfig}
     }
     clearEmptyStacks = () => {
