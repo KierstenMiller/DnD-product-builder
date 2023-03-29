@@ -5,10 +5,13 @@ import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-o
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
+import { groupKeyValues } from '-/Components/modifier/modifier.types'
 
 const BuildYourOwn = () => {
-    // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
+    
+    console.log('BuildYourOwn render');
     const [data, setData] = useState(dataAggulativeStacksRental);
+    // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const config = data.modifiers.map(mod => {
         const selectedOption = mod.options.find(o => o.selected) || mod.options[0];
         return {
@@ -18,9 +21,13 @@ const BuildYourOwn = () => {
             groupKey: mod.groupKey
         }
     })
+    data.builder.data.forEach(s => s.forEach(b => {
+        const match = config.find(c => c.id === b.piece.id);
+        b.piece.config = b.piece.config.map(c => ({...c, groupKey: match?.groupKey}));
+    }))
     const model = new BuildYourOwnModel({
         config: config,
-        builder: getBuilder({config, ...data.builder}),
+        builder: getBuilder({ config, ...data.builder }),
     });
     return (
         <>
@@ -30,7 +37,7 @@ const BuildYourOwn = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <BuildYourOwnDevBar setData={setData}/>
+            <BuildYourOwnDevBar setData={setData} />
             <BuildYourOwnPage model={model} modifiers={data.modifiers} />
         </>
     )

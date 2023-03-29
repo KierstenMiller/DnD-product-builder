@@ -2,9 +2,10 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 
-import { modifiersT, pieceI, configT } from '-/page-components/build-your-own/build-your-own.types'
+import { modifiersT, pieceI } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes, generateBlock } from '../shared/shapes.util';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
+import { overrideConfig } from '-/page-components/build-your-own/build-your-own.util';
 
 interface propsI {
     build: AggulativeStacks,
@@ -15,9 +16,7 @@ interface dragZonePropsI {
     setIsDraggingState: (arg: boolean) => void,
     children: React.ReactNode
 }
-const overrideConfig = (config: configT, overrideConfig: configT) => {
-    return config.map(c => (overrideConfig.find(o => o.id === c.id) || c));
-}
+
 export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
     const { isDraggingDndLayer, draggingPiece } = useDragLayer(monitor => ({
         isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
@@ -31,6 +30,7 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
             key={stackIndex}
             className="flex a-i-end"
         >
+            {stackIndex}
             {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex, draggingPiece)} />}
             <div>
                 {stack.map((block, blockIndex) => <div key={block.piece.id}>
@@ -39,7 +39,7 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
                         piece={block.piece}
                         setIsDraggingState={setIsDraggingWorkspacePiece}
                     >
-                        {block.piece.id}<br/>
+                        {/* {block.piece.id}<br/> */}
                         {block.piece.config.map(c => c.selection + ' - ')}<br/>
                         {generateBlock(overrideConfig(build.config, block.piece.config))}
                     </DragZone>

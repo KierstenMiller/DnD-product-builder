@@ -1,6 +1,7 @@
 import { groupKeyValues } from "-/Components/modifier/modifier.types";
-import { makeObservable, observable, action} from "mobx"
+import { makeObservable, observable, computed, action} from "mobx"
 import { aggulativeStacksT, blockI, configT, pieceI } from "./build-your-own.types";
+import { overrideConfig } from "./build-your-own.util";
 
 const generateId = () => 'id' + (new Date()).getTime();
 const findIndex2D = (stacks: blockI[][], id: string) => {
@@ -11,29 +12,34 @@ const findIndex2D = (stacks: blockI[][], id: string) => {
     }) 
     return stack >= 0 ? {stack, block} : null;
 }
-
-export class Block {
-    piece
-    constructor({piece}: {piece: pieceI}) {
-        this.piece = piece;
-         makeObservable(this, {
-            piece: observable.ref,
-         }) 
-    }
+const generatePieceConfig = (pieceConfig: configT, globalConfig: configT) => {
+    const oConfig = overrideConfig(globalConfig, pieceConfig);
+    globalConfig.forEach(gC => {
+        const found = pieceConfig.find(pC => pC.id === gC.id)
+        console.log('found', {found, gC});
+    })
+    console.log('result', { pieceConfig, globalConfig, oConfig });
+    //this.config.map(c => c.groupKey === groupKeyValues.unique ? {...c} : c)
 }
+
 export class AggulativeStacks {
     config
-    stacks
-    constructor({config, stacks}: {config: configT, stacks: aggulativeStacksT}) {
-        this.config = config
-        this.stacks = stacks?.map(s => s.map(piece => (new Block({...piece}))));
+    stacksData
+    constructor({config, stacks: stacksData}: {config: configT, stacks: aggulativeStacksT}) {
+        this.config = config;
+        console.log('stacksData', stacksData);
+        this.stacksData = stacksData;
         makeObservable(this, {
-            stacks: observable,
             config: observable,
+            stacksData: observable,
+            stacks: computed,
             setConfig: action.bound,
             addStack: action.bound,
             addToStack: action.bound,
-        }) 
+        })
+    }
+    get stacks() {
+        return this.stacksData.map(s => s.map(b => ({ piece: this.generatePiece(b.piece.id, overrideConfig(this.config, b.piece.config))})));
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
     addStack = (stackIndex: number, piece: pieceI) => {
@@ -51,12 +57,12 @@ export class AggulativeStacks {
         const foundIndex = findIndex2D(this.stacks, id);
         if (foundIndex) this.stacks[foundIndex.stack].splice(foundIndex.block, 1);
     }
-    generatePiece = () => {
+    generatePiece = (id?: string, config?: configT) => {
         // unique config items are not observable/changable
-        const config = this.config.map(c => c.groupKey === groupKeyValues.unique ? {...c} : c);
-        return { id: generateId(), config }
+        const newConfig = this.config.map(c => c.groupKey === groupKeyValues.unique ? {...c} : c);
+        return { id: id || generateId(), config: config || newConfig}
     }
     clearEmptyStacks = () => {
-        this.stacks = this.stacks.filter(s => s.length > 0);  
+        this.stacksData = this.stacks.filter(s => s.length > 0);  
     }
 }

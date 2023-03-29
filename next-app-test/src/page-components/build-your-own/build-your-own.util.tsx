@@ -3,7 +3,7 @@ import { WorkspaceFreeformMatrix } from "-/Components/DnD/workspace/freeformMatr
 import { WorkspaceSingleton } from "-/Components/DnD/workspace/singleton/singleton";
 import { AggulativeStacks } from "./aggulative-stacks.model";
 import { BuilderT } from "./build-your-own-model";
-import { builderT } from "./build-your-own.types";
+import { builderT, configT } from "./build-your-own.types";
 import { Matrix } from "./freeform-grid.model";
 
 export enum builderKeys {
@@ -12,7 +12,9 @@ export enum builderKeys {
     aggulativeStacks= 'aggulative-stacks',
 
 }
-
+export const overrideConfig = (config: configT, overrideConfig: configT) => {
+    return config.map(c => (overrideConfig.find(o => o.id === c.id) || c));
+}
 export const getWorkspace = (type: builderKeys) => {
     switch (type) {
         case builderKeys.singleton:
@@ -24,7 +26,6 @@ export const getWorkspace = (type: builderKeys) => {
         default: throw new Error(`Workspace does not exist for provided builder type: ${type}`);
     }
 }
-
 export const getBuilder = ({type, config, data}: builderT): BuilderT => {
     switch (type) {
         case builderKeys.singleton:
