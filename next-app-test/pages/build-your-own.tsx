@@ -8,7 +8,7 @@ import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-component
 import { groupKeyValues } from '-/Components/modifier/modifier.types'
 
 const BuildYourOwn = () => {
-    
+
     console.log('BuildYourOwn render');
     const [data, setData] = useState(dataAggulativeStacksRental);
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
@@ -21,13 +21,29 @@ const BuildYourOwn = () => {
             groupKey: mod.groupKey
         }
     })
-    data.builder.data.forEach(s => s.forEach(b => {
-        const match = config.find(c => c.id === b.piece.id);
-        b.piece.config = b.piece.config.map(c => ({...c, groupKey: match?.groupKey}));
-    }))
+    const builder = {
+        ...data.builder,
+        data: data.builder.data.map(s => s.map(b => {
+            const newConfig = {
+                ...b,
+                piece: {
+                    ...b.piece,
+                    config: b.piece.config.map(pC => {
+                        const match = config.find(gC => gC.id === pC.id);
+                        return {
+                            ...pC,
+                            groupKey: match?.groupKey
+                        }
+                    })
+                }
+            }
+            return newConfig;
+        }))
+    }
+    console.log('builder', builder);
     const model = new BuildYourOwnModel({
         config: config,
-        builder: getBuilder({ config, ...data.builder }),
+        builder: getBuilder({ config, ...builder }),
     });
     return (
         <>
