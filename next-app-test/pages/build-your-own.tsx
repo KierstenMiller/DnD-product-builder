@@ -18,10 +18,20 @@ const BuildYourOwn = () => {
             groupKey: mod.groupKey
         }
     })
+    // want the validation data inside of modifier's option's data. Option data should be all in one place. So we need to extract the validation here
+    const validation = data.modifiers.map(mod => ({
+        id: mod.id,
+        validation: mod.options.map(opt => ({
+            id: opt.id,
+            validation: opt?.validation,
+        })).filter(opt => Boolean(opt.validation))
+    })).filter(mod => mod.validation.length > 0);
     // will be undefined if builder doesn't have data
     const builderDataWithGroupKeys = data.builder?.data?.map(d => d.map(m => {
         if(m.piece?.config) m.piece.config = m.piece.config.map(pC => {
-            const match = config.find(gC => gC.id === pC.id);
+            const match = data.modifiers.find(mod => mod.id === pC.id)
+            // const match = config.find(gC => gC.id === pC.id);
+            // put validation here?
             return {...pC, groupKey: match?.groupKey};
         })
         return m;
@@ -43,7 +53,7 @@ const BuildYourOwn = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <BuildYourOwnDevBar setData={setData} />
-            <BuildYourOwnPage model={model} modifiers={data.modifiers} />
+            <BuildYourOwnPage model={model} modifiers={data.modifiers} validation={validation}/>
         </>
     )
 };

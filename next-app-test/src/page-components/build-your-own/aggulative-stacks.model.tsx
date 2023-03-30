@@ -31,6 +31,9 @@ export class AggulativeStacks {
             setConfig: action.bound,
             addStack: action.bound,
             addToStack: action.bound,
+            findAndRemoveBlock: action.bound,
+            generatePiece: action.bound,
+            clearEmptyStacks: action.bound,
         })
     }
     get stacks() {

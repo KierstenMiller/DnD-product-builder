@@ -10,6 +10,12 @@ export enum groupKeyValues {
     unique = 'unique',
     global = 'global'
 } 
+export enum validationValues {
+    position = "position",
+    proximity = "proximity",
+    has = "has",
+    hasAll = "has-all",
+}
 export enum groupByValues {
     height = "height",
     width = "width",

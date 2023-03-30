@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 
-import { modifiersT, pieceI } from '-/page-components/build-your-own/build-your-own.types'
+import { modifiersT, pieceI, validationT } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes, generateBlock } from '../shared/shapes.util';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
 import { overrideConfig } from '-/page-components/build-your-own/build-your-own.util';
@@ -10,6 +10,7 @@ import { overrideConfig } from '-/page-components/build-your-own/build-your-own.
 interface propsI {
     build: AggulativeStacks,
     modifiers: modifiersT,
+    validation: validationT,
 }
 interface dragZonePropsI {
     piece: pieceI,
@@ -17,7 +18,7 @@ interface dragZonePropsI {
     children: React.ReactNode
 }
 
-export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
+export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI) => {
     const { isDraggingDndLayer, draggingPiece } = useDragLayer(monitor => ({
         isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
         draggingPiece: monitor.getItem()?.piece
@@ -25,6 +26,8 @@ export const WorkspaceAggulativeStacks = observer(({ build }: propsI) => {
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
     const [isDraggingWorkspacePiece, setIsDraggingWorkspacePiece] = useState(false);
     const isDragging = isDraggingWorkspacePiece || isDraggingDndLayer;
+    console.log('build', build);
+    console.log('GOT HERE', validation);
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, stackIndex) => <div
             key={stackIndex}
