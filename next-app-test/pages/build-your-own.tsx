@@ -20,7 +20,7 @@ const BuildYourOwn = () => {
     })
     // will be undefined if builder doesn't have data
     const builderDataWithGroupKeys = data.builder?.data?.map(d => d.map(m => {
-        if(m.piece?.config) m.piece.config = m?.piece?.config.map(pC => {
+        if(m.piece?.config) m.piece.config = m.piece.config.map(pC => {
             const match = config.find(gC => gC.id === pC.id);
             return {...pC, groupKey: match?.groupKey};
         })

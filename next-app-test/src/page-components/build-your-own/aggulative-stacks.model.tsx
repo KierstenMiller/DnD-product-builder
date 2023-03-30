@@ -11,7 +11,7 @@ const findIndex2D = (stacks: blockI[][], id: string) => {
     }) 
     return stack >= 0 ? {stack, block} : null;
 }
-const keepUniqueValues = ({pieceConfig, globalConfig}: {pieceConfig?: configT, globalConfig: configT}) => {
+const generatePieceConfig = ({pieceConfig, globalConfig}: {pieceConfig?: configT, globalConfig: configT}) => {
     // if pieceConfig passed, return non-observable version of each unique config item. For each global config item: override with the most updated global value or return current value if no matching id is found
     if(pieceConfig) return pieceConfig.map(c => c.groupKey === groupKeyValues.unique? {...c} : globalConfig?.find(o => o.id === c.id) || c);
     // otherwise, make sure unique configItems are non-observable
@@ -60,7 +60,7 @@ export class AggulativeStacks {
             globalConfig: this.config,
             ...config && {pieceConfig: config},
         }; 
-        return { id: id || generateId(), config: keepUniqueValues(values)}
+        return { id: id || generateId(), config: generatePieceConfig(values)}
     }
     clearEmptyStacks = () => {
         this.stacksData = this.stacksData.filter(s => s.length > 0);  
