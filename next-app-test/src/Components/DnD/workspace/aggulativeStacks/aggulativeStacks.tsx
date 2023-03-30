@@ -3,58 +3,50 @@ import { useState } from 'react';
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 
 import { modifiersT, pieceI, validationT } from '-/page-components/build-your-own/build-your-own.types'
-import { DnDItemTypes, generateBlock } from '../shared/shapes.util';
+import { DnDItemTypes } from '../shared/shapes.util';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
-import { overrideConfig } from '-/page-components/build-your-own/build-your-own.util';
+import { Stack } from './stack';
+
+export const canDrop = () => { /*TODO: implement*/}
 
 interface propsI {
     build: AggulativeStacks,
     modifiers: modifiersT,
     validation: validationT,
 }
+
+export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI) => {
+    // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
+    const [isDraggingWorkspace, setIsDraggingWorkspace] = useState(false);
+    const { isDraggingDndLayer, draggingPiece } = useDragLayer(monitor => ({
+        isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
+        draggingPiece: monitor.getItem()?.piece
+    })); 
+    const isDragging = isDraggingWorkspace || isDraggingDndLayer;
+    const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPiece)
+    const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPiece)
+    const onBlockDrag = (isDraggingState: boolean) => setIsDraggingWorkspace(isDraggingState);
+    return (<div className="flex a-i-end">
+        {build?.stacks?.map((stack, index) => <Stack
+            key={index}
+            index={index}
+            stack={stack}
+            isDragging={isDragging}
+            onStackDrop={onStackDrop}
+            onBlockDrop={onBlockDrop}
+            onBlockDrag={onBlockDrag}
+        />)}
+    </div>)
+})
+
+// TODO: move to another file
 interface dragZonePropsI {
     piece: pieceI,
     setIsDraggingState: (arg: boolean) => void,
     children: React.ReactNode
 }
-
-export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI) => {
-    const { isDraggingDndLayer, draggingPiece } = useDragLayer(monitor => ({
-        isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
-        draggingPiece: monitor.getItem()?.piece
-    }));
-    // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
-    const [isDraggingWorkspacePiece, setIsDraggingWorkspacePiece] = useState(false);
-    const isDragging = isDraggingWorkspacePiece || isDraggingDndLayer;
-    console.log('build', build);
-    console.log('GOT HERE', validation);
-    return (<div className="flex a-i-end">
-        {build?.stacks?.map((stack, stackIndex) => <div
-            key={stackIndex}
-            className="flex a-i-end"
-        >
-            {stackIndex}
-            {isDragging && stackIndex === 0 && <DropZone onDrop={() => build.addStack(stackIndex, draggingPiece)} />}
-            <div>
-                {stack.map((block, blockIndex) => <div key={block.piece.id}>
-                    {blockIndex === 0 && isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex, draggingPiece)} />}
-                    <DragZone
-                        piece={block.piece}
-                        setIsDraggingState={setIsDraggingWorkspacePiece}
-                    >
-                        {block.piece.id}<br/>
-                        {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br/>
-                        {generateBlock(overrideConfig(build.config, block.piece.config))}
-                    </DragZone>
-                    {isDragging && <DropZone onDrop={() => build.addToStack(stackIndex, blockIndex + 1, draggingPiece)} />}
-                </div>)}
-            </div>
-            {isDragging && <DropZone onDrop={() => build.addStack(stackIndex + 1, draggingPiece)} />}
-        </div>)}
-    </div>)
-})
 // TODO: generalize and share with freeformMatrix dropZone component
-const DragZone = observer(({ piece, setIsDraggingState, children }: dragZonePropsI) => {
+export const DragZone = observer(({ piece, setIsDraggingState, children }: dragZonePropsI) => {
     const [, drag] = useDrag(() => ({
         type: DnDItemTypes.WORKSPACE_ITEM,
         item: { piece },
@@ -66,7 +58,7 @@ const DragZone = observer(({ piece, setIsDraggingState, children }: dragZoneProp
     }), [])
     return <div ref={drag}>{children}</div>
 })
-const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
+export const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
     const [dropInfo, drop] = useDrop(() => ({
         accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
         drop: () => onDrop(),

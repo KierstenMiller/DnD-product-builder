@@ -9,6 +9,7 @@ export interface aggulativeStacksI {
     config: configT,
     data: aggulativeStacksT,
 }
+
 export interface blockI {
     piece: pieceI,
 }
@@ -86,7 +87,8 @@ export interface configItemI {
 ////////////////////////////////////////
 //      AGGULATIVE STACKS TYPES      //
 ///////////////////////////////////////
-export type aggulativeStacksT = blockI[][] | []
+export type aggulativeStacksT = stackI[] | []
+export type stackI = blockI[]
 export type validationT = {type: validationValues, values: string[]}[]
 
 /////////////////////////////////////

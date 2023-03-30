@@ -1,9 +1,9 @@
 import { groupKeyValues } from "-/Components/modifier/modifier.types";
 import { makeObservable, observable, computed, action} from "mobx"
-import { aggulativeStacksT, blockI, configT, pieceI } from "./build-your-own.types";
+import { aggulativeStacksT, configT, pieceI } from "./build-your-own.types";
 
 const generateId = () => 'id' + (new Date()).getTime();
-const findIndex2D = (stacks: blockI[][], id: string) => {
+const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
     let block = -1;
     const stack = stacks.findIndex(s => {
         block = s.findIndex(b => b.piece.id === id)
