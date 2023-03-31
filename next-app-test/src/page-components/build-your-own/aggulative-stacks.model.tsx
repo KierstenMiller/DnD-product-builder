@@ -12,6 +12,9 @@ const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
     })
     return stack >= 0 ? { stack, block } : null;
 }
+const findBlock = (stacks: aggulativeStacksT, id: string) => {
+    return stacks.flat().find(b=> b.piece.id === id);
+}
 
 class Piece {
     id
@@ -58,13 +61,17 @@ export class AggulativeStacks {
         return { id: id || generateId(), config: config || this.config.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : c) }
     }
     // adding actions
-    addStack = (stackIndex: number, piece?: pieceI) => {
-        console.log("stuff", {stackIndex, piece});
+    addStack = (stackIndex: number, pieceId?: string) => {
+        console.log("stuff", {stackIndex, pieceId});
+        let piece;
+        if (pieceId) piece = findBlock(this.stacksData, pieceId)?.piece;
         if (piece) this.findAndRemoveBlock(piece.id)
         this.stacksData.splice(stackIndex, 0, [{ piece: piece || this.generatePiece() }]);
         this.clearEmptyStacks();
     };
-    addToStack = (stackIndex: number, blockIndex: number, piece?: pieceI) => {
+    addToStack = (stackIndex: number, blockIndex: number, pieceId?: string) => {
+        let piece;
+        if (pieceId) piece = findBlock(this.stacksData, pieceId)?.piece;
         if (piece) this.findAndRemoveBlock(piece.id);
         this.stacksData[stackIndex].splice(blockIndex, 0, { piece: piece || this.generatePiece() });
         this.clearEmptyStacks();

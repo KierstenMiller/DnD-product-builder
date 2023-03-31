@@ -12,13 +12,14 @@ interface propsI {
     onDrag: (isDraggingState: boolean) => void
 }
 export const Block = observer(({ block, index, isDragging, onDrop, onDrag }: propsI) => {
+    console.log('Block rerender', block);
     const aboveDrop = () => onDrop(index);
     const belowDrop = () => onDrop(index + 1);
     const canDropAbove = index === 0 && isDragging && canDrop();
     const canDropBelow = isDragging && canDrop();
     return <div>
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
-        <DragZone piece={block.piece} setIsDraggingState={onDrag}>
+        <DragZone pieceId={block.piece.id} setIsDraggingState={onDrag}>
             <div className="text-small">
                 {block.piece.id}<br />
                 {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />
