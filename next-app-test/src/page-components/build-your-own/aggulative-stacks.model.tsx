@@ -30,10 +30,7 @@ class Piece {
             setConfig: action.bound,
         })
     }
-    setConfig = (newConfig: configT) => {
-        console.log('setting config with', newConfig);
-        this.config = newConfig;
-    };
+    setConfig = (newConfig: configT) => this.config = newConfig;
 }
 
 export class AggulativeStacks {
@@ -44,7 +41,7 @@ export class AggulativeStacks {
         this.config = config;
         this.stacksData = stacksData;
         makeAutoObservable(this, {
-            stacks: computed, // lower parts should decide observability
+            stacks: computed,
             setConfig: action.bound,
             addStack: action.bound,
             addToStack: action.bound,
@@ -52,22 +49,21 @@ export class AggulativeStacks {
             generatePiece: action.bound,
             clearEmptyStacks: action.bound,
         })
-        
-        // .map(s => s.map(b => ({...b, piece: new Piece({id: b.piece.id, config: 
-        //     this.config.map(c => c.groupKey === groupKeyValues.unique ? (b.piece.config.find(pC => pC.id === c.id) || c) : c)
-        // })})));
     }
     get stacks() {
-        console.log('CREATING STACKS', this.stacksData)
-        const newConfig = this.config;
-        const newStacks = this.stacksData.map(s => s.map(b => ({...b, piece: new Piece({id: b.piece.id, config: 
+        return this.stacksData.map(s => s.map(b => ({...b, piece: new Piece({id: b.piece.id, config: 
             this.config.map(c => c.groupKey === groupKeyValues.unique ? (b.piece.config.find(pC => pC.id === c.id) || c) : c)
         })})));
-        return newStacks;
     }
+    // setting actions
     setConfig = (newConfig: configT) => {
         this.config = newConfig;   
     };
+    // generating actions
+    generatePiece = (id?: string, config?: configT) => {
+        return { id: id || generateId(), config: config || this.config.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : c) }
+    }
+    // adding actions
     addStack = (stackIndex: number, piece: pieceI) => {
         if (piece) this.findAndRemoveBlock(piece.id)
         this.stacksData.splice(stackIndex, 0, [{ piece: piece || this.generatePiece() }]);
@@ -78,13 +74,10 @@ export class AggulativeStacks {
         this.stacksData[stackIndex].splice(blockIndex, 0, { piece: piece || this.generatePiece() });
         this.clearEmptyStacks();
     };
-    // util actions
+    // removal actions
     findAndRemoveBlock = (id: string) => {
         const foundIndex = findIndex2D(this.stacksData, id);
         if (foundIndex) this.stacksData[foundIndex.stack].splice(foundIndex.block, 1);
-    }
-    generatePiece = (id?: string, config?: configT) => {
-        return { id: id || generateId(), config: config || this.config.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : c) }
     }
     clearEmptyStacks = () => {
         this.stacksData = this.stacksData.filter(s => s.length > 0);

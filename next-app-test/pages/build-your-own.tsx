@@ -32,7 +32,6 @@ const BuildYourOwn = () => {
             const match = config.find(gC => gC.id === pC.id);
             return {...pC, groupKey: match?.groupKey};
         })
-        // console.log('m', m);
         return m;
     }))
     const builder = {
@@ -43,8 +42,6 @@ const BuildYourOwn = () => {
         config: config,
         builder: getBuilder({config, ...builder}),
     });
-
-    console.log('model', model);
     return (
         <>
             <Head>
