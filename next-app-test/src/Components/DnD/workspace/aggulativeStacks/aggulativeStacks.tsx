@@ -7,7 +7,7 @@ import { DnDItemTypes } from '../shared/shapes.util';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
 import { Stack } from './stack';
 
-export const canDrop = () => { /*TODO: implement*/}
+export const canDrop = () => { /*TODO: implement*/ return true; }
 
 interface propsI {
     build: AggulativeStacks,

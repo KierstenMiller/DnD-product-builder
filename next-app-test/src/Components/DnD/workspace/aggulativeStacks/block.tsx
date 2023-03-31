@@ -19,8 +19,11 @@ export const Block = observer(({ block, index, isDragging, onDrop, onDrag }: pro
     return <div>
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
         <DragZone piece={block.piece} setIsDraggingState={onDrag}>
-            {block.piece.id}<br />
-            {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />
+            <div className="text-small">
+                {block.piece.id}<br />
+                {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />
+            </div>
+
             {generateBlock(block.piece.config)}
         </DragZone>
         <>{canDropBelow && <DropZone onDrop={belowDrop} />}</>
