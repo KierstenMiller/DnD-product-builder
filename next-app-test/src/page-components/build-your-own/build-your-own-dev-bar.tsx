@@ -12,6 +12,8 @@ import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
 import { modifiers as rentalModifiers } from '-/data/aggulativeStacks/rental/modifiers.data'
 import { rentalStacksMock } from '-/data/aggulativeStacks/rental/stacks.data'
 
+// NOTE: ALL OPTION IDS MUST BE UNIQUE ACROSS WORKSPACES, OTHERWISE MOBX GETS CONFUSED
+
 // mock SINGLETON data
 const dataSingletonMock = {
     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],

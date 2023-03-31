@@ -18,10 +18,13 @@ interface propsI {
 export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI) => {
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
     const [isDraggingWorkspace, setIsDraggingWorkspace] = useState(false);
-    const { isDraggingDndLayer, draggingPiece } = useDragLayer(monitor => ({
-        isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
-        draggingPiece: monitor.getItem()?.piece
-    })); 
+    const { isDraggingDndLayer, draggingPiece } = useDragLayer(monitor => {
+        console.log('DND PIECE', monitor.getItem()?.piece);
+        return {
+            isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
+            draggingPiece: monitor.getItem()?.piece
+        }
+    }); 
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPiece)
     const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPiece)

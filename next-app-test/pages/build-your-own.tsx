@@ -8,6 +8,7 @@ import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-component
 
 const BuildYourOwn = () => {
     const [data, setData] = useState(dataAggulativeStacksRental);
+    console.log('render DATA', data);
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const config = data.modifiers.map(mod => {
         const selectedOption = mod.options.find(o => o.selected) || mod.options[0];

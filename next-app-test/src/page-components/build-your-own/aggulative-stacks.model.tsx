@@ -58,12 +58,13 @@ export class AggulativeStacks {
         return { id: id || generateId(), config: config || this.config.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : c) }
     }
     // adding actions
-    addStack = (stackIndex: number, piece: pieceI) => {
+    addStack = (stackIndex: number, piece?: pieceI) => {
+        console.log("stuff", {stackIndex, piece});
         if (piece) this.findAndRemoveBlock(piece.id)
         this.stacksData.splice(stackIndex, 0, [{ piece: piece || this.generatePiece() }]);
         this.clearEmptyStacks();
     };
-    addToStack = (stackIndex: number, blockIndex: number, piece: pieceI) => {
+    addToStack = (stackIndex: number, blockIndex: number, piece?: pieceI) => {
         if (piece) this.findAndRemoveBlock(piece.id);
         this.stacksData[stackIndex].splice(blockIndex, 0, { piece: piece || this.generatePiece() });
         this.clearEmptyStacks();
