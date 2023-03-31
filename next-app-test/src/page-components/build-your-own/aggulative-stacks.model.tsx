@@ -1,7 +1,7 @@
-import { groupKeyValues } from "-/Components/modifier/modifier.types";
 import { makeAutoObservable, makeObservable, observable, computed, action } from "mobx"
+
+import { groupKeyValues } from "-/Components/modifier/modifier.types";
 import { aggulativeStacksT, configT, pieceI } from "./build-your-own.types";
-import { overrideConfig } from "./build-your-own.util";
 
 const generateId = () => 'id' + (new Date()).getTime();
 const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
@@ -12,12 +12,6 @@ const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
     })
     return stack >= 0 ? { stack, block } : null;
 }
-// const generatePieceConfig = ({ pieceConfig, globalConfig }: { pieceConfig?: configT, globalConfig: configT }) => {
-//     // if pieceConfig passed, return non-observable version of each unique config item. For each global config item: override with the most updated global value or return current value if no matching id is found
-//     if (pieceConfig) return pieceConfig.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : globalConfig?.find(o => o.id === c.id) || c);
-//     // otherwise, make sure unique configItems are non-observable
-//     return globalConfig.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : c);
-// }
 
 class Piece {
     id
