@@ -43,6 +43,12 @@ const BuildYourOwn = () => {
         config: config,
         builder: getBuilder({config, ...builder}),
     });
+    const clearWorkspace = (newWorkspace) => {
+        // TODO: require every model to have setConfig and clearWorkspace actions
+        model?.builder?.build?.clearWorkspace();
+        console.log('CLEARED', model?.builder?.build);
+        setData(newWorkspace);
+    }
     return (
         <>
             <Head>
@@ -51,7 +57,7 @@ const BuildYourOwn = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <BuildYourOwnDevBar setData={setData} />
+            <BuildYourOwnDevBar setData={clearWorkspace} />
             <BuildYourOwnPage model={model} modifiers={data.modifiers} validation={validation}/>
         </>
     )

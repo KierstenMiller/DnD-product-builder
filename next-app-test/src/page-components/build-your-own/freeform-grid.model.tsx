@@ -56,4 +56,7 @@ export class Matrix {
     removeMatrixIndexPiece = (matrixIndex: matrixIndexCoordinatesI) => {
         this.matrix[matrixIndex.row][matrixIndex.column].removePiece();
     }
+    clearWorkspace = () => {
+        this.matrix = [];
+    }
 }

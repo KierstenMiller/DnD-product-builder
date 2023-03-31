@@ -64,15 +64,19 @@ export class AggulativeStacks {
     addStack = (stackIndex: number, pieceId?: string) => {
         console.log("stuff", {stackIndex, pieceId});
         let piece;
-        if (pieceId) piece = findBlock(this.stacksData, pieceId)?.piece;
-        if (piece) this.findAndRemoveBlock(piece.id)
+        if (pieceId) {
+            piece = findBlock(this.stacksData, pieceId)?.piece;
+            this.findAndRemoveBlock(pieceId);
+        } 
         this.stacksData.splice(stackIndex, 0, [{ piece: piece || this.generatePiece() }]);
         this.clearEmptyStacks();
     };
     addToStack = (stackIndex: number, blockIndex: number, pieceId?: string) => {
         let piece;
-        if (pieceId) piece = findBlock(this.stacksData, pieceId)?.piece;
-        if (piece) this.findAndRemoveBlock(piece.id);
+        if (pieceId) {
+            piece = findBlock(this.stacksData, pieceId)?.piece;
+            this.findAndRemoveBlock(pieceId);
+        }
         this.stacksData[stackIndex].splice(blockIndex, 0, { piece: piece || this.generatePiece() });
         this.clearEmptyStacks();
     };
@@ -83,5 +87,8 @@ export class AggulativeStacks {
     }
     clearEmptyStacks = () => {
         this.stacksData = this.stacksData.filter(s => s.length > 0);
+    }
+    clearWorkspace = () => {
+        this.stacksData = [];
     }
 }
