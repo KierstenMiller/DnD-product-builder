@@ -18,24 +18,17 @@ interface propsI {
 export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI) => {
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
     const [isDraggingWorkspace, setIsDraggingWorkspace] = useState(false);
-    // useing useState hook instead of React DnD item property as React DnD holds on to old workspace data (still not sure why)
-    const [draggingPieceId, setDraggingPieceId] = useState('')
-    const { isDraggingDndLayer } = useDragLayer(monitor => {
-        console.log('DND PIECE', monitor.getItem()?.pieceId);
+    const { isDraggingDndLayer, draggingPieceId } = useDragLayer(monitor => {
+        console.log('DND PIECE', monitor.getItem()?.id);
         return {
             isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
-            draggingPieceId: monitor.getItem()?.pieceId
+            draggingPieceId: monitor.getItem()?.id
         }
     }); 
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
     const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPieceId)
-    const onBlockDrag = (isDraggingState: boolean, pieceId?: string) => {
-        console.log('MY STATE: DRAGGING', pieceId);
-        if(pieceId) setDraggingPieceId(pieceId);
-        setIsDraggingWorkspace(isDraggingState);
-        
-    };
+    const onBlockDrag = (isDraggingState: boolean) => setIsDraggingWorkspace(isDraggingState);
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, index) => <Stack
             key={index}
@@ -52,7 +45,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI
 // TODO: move to another file
 interface dragZonePropsI {
     pieceId: string,
-    setIsDraggingState: (isDragging: boolean, pieceId: string) => void,
+    setIsDraggingState: (isDragging: boolean) => void,
     children: React.ReactNode
 }
 // TODO: generalize and share with freeformMatrix dropZone component
@@ -60,13 +53,15 @@ export const DragZone = observer(({ pieceId, setIsDraggingState, children }: dra
     console.log('----DragZone rerender', pieceId)
     const [, drag] = useDrag(() => ({
         type: DnDItemTypes.WORKSPACE_ITEM,
+        item: {id: pieceId},
         collect: (monitor) => {
+            console.log('monitor item', monitor.getItem());
             console.log('collect pieceId', pieceId);
-            if ( pieceId && monitor.isDragging()) setTimeout(() => setIsDraggingState(true, pieceId), 250);
+            if ( pieceId && pieceId === monitor.getItem()?.id) setTimeout(() => setIsDraggingState(true), 250);
             return { isDragging: !!monitor.isDragging() }
         },
         end: () => setTimeout(() => setIsDraggingState(false), 250)
-    }), [])
+    }), [pieceId])
     return <div ref={drag}>{children}</div>
 })
 

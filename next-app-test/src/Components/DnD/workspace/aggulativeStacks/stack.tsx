@@ -10,7 +10,7 @@ interface propsI {
     isDragging: boolean,
     onStackDrop: (stackIndex: number) => void,
     onBlockDrop: (stackIndex: number, blockIndex: number) => void,
-    onBlockDrag: (isDraggingState: boolean, pieceId?: string) => void,
+    onBlockDrag: (isDraggingState: boolean) => void,
 }
 export const Stack = observer(({ index, stack, isDragging, onStackDrop, onBlockDrop, onBlockDrag }: propsI) => {
     const canDropLeft = index === 0 && isDragging && canDrop();
