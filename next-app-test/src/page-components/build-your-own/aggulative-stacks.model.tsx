@@ -1,9 +1,10 @@
 import { makeAutoObservable, makeObservable, observable, computed, action } from "mobx"
 
 import { groupKeyValues, validationValues } from "-/Components/modifier/modifier.types";
-import { aggulativeStacksT, configT, stackI, validationT } from "./build-your-own.types";
+import { aggulativeStacksT, configT, pieceI, stackI, validationT } from "./build-your-own.types";
 import { isNum } from "-/util/helpers";
 
+/////////////////////////////// UTIL
 const generateId = () => 'id' + (new Date()).getTime();
 const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
     let block = -1;
@@ -13,6 +14,27 @@ const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
     })
     return stack >= 0 ? { stack, block } : null;
 }
+const findPiece = (id: string, stacksData: aggulativeStacksT) => {
+    const index = findIndex2D(stacksData, id);
+    const piece = (index && isNum(index.stack) && isNum(index.block)) ? (stacksData[index.stack][index.block])?.piece : null;
+    return { index, piece }; 
+}
+/////////////////////////////// GHOST
+const findAndRemoveBlock = (id: string, stacksData: aggulativeStacksT) => {
+    const {index, piece} = findPiece(id, stacksData);
+    if (index) stacksData[index.stack].splice(index.block, 1); // SLPICE EDITS ORIGINAL ARRAY
+    return piece;
+}
+const clearEmptyStacks = (stacksData: aggulativeStacksT) => {
+    return stacksData.filter(s => s.length > 0);
+}
+const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksT) => {
+    findAndRemoveBlock(piece.id, stacksData);
+    stacksData[stackIndex].splice(blockIndex, 0, { piece }); // SLPICE EDITS ORIGINAL ARRAY
+    return clearEmptyStacks(stacksData);
+};
+
+/////////////////////////////// VALIDATION
 const withinRange = ({dropPosition, proximity, values, stack}: {dropPosition: number, proximity: number, values: string[], stack: stackI}) => {
     const inRange = stack
     .slice(dropPosition - proximity, dropPosition + proximity)
@@ -21,8 +43,9 @@ const withinRange = ({dropPosition, proximity, values, stack}: {dropPosition: nu
     return inRange;
 };
 const validLevel = (blockIndex: number, values: string []) => {
-    console.log('VALIDLEVEL result:', Boolean(values.find(v => `level-${blockIndex}` === v)));
-    return Boolean(values.find(v => `level-${blockIndex}` === v));
+    const result = Boolean(values.find(v => `level-${blockIndex}` === v))
+    console.log('VALIDLEVEL result:', result);
+    return result;
 };
 const hasValue = () => true;
 const hasAllValues = () => true;
@@ -111,19 +134,15 @@ export class AggulativeStacks {
         this.clearEmptyStacks();
     };
     addToStack = (stackIndex: number, blockIndex: number, pieceId?: string) => {
-        const piece = pieceId ? this.findAndRemoveBlock(pieceId) : null;
-        this.stacksData[stackIndex].splice(blockIndex, 0, { piece: piece || this.generatePiece() });
-        this.clearEmptyStacks();
+        const {piece} = pieceId ? findPiece(pieceId, this.stacksData) : {piece: null};
+        this.stacksData = addPieceToStack(stackIndex, blockIndex, piece || this.generatePiece(), this.stacksData);
     };
     // removal actions
     findAndRemoveBlock = (id: string) => {
-        const i = findIndex2D(this.stacksData, id);
-        const piece = (i && isNum(i.stack) && isNum(i.block)) ? (this.stacksData[i.stack][i.block])?.piece : null;
-        if (i) this.stacksData[i.stack].splice(i.block, 1);
-        return piece;
+        return findAndRemoveBlock(id, this.stacksData);
     }
     clearEmptyStacks = () => {
-        this.stacksData = this.stacksData.filter(s => s.length > 0);
+        this.stacksData = clearEmptyStacks(this.stacksData);
     }
     clearWorkspace = () => {
         this.stacksData = [];

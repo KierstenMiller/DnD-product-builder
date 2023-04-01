@@ -33,6 +33,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
     const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPieceId)
     const onBlockDrag = (isDraggingState: boolean) => setIsDraggingWorkspace(isDraggingState);
+    console.log('build.stacks', build.stacks);
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, index) => <Stack
             key={index}
