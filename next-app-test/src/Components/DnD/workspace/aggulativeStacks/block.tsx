@@ -12,7 +12,6 @@ interface propsI {
     onDrag: (isDraggingState: boolean) => void
 }
 export const Block = observer(({ block, index, isDragging, onDrop, onDrag }: propsI) => {
-    console.log('Block rerender', block);
     const aboveDrop = () => onDrop(index);
     const belowDrop = () => onDrop(index + 1);
     const canDropAbove = index === 0 && isDragging && canDrop();

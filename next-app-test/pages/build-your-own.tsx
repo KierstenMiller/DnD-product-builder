@@ -8,7 +8,6 @@ import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-component
 
 const BuildYourOwn = () => {
     const [data, setData] = useState(dataAggulativeStacksRental);
-    console.log('render DATA', data);
     // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
     const config = data.modifiers.map(mod => {
         const selectedOption = mod.options.find(o => o.selected) || mod.options[0];
@@ -43,11 +42,11 @@ const BuildYourOwn = () => {
         config: config,
         builder: getBuilder({config, ...builder}),
     });
-    const clearWorkspace = (newWorkspace) => {
+    // TODO: make generic data typing
+    const clearWorkspace = (newData) => {
         // TODO: require every model to have setConfig and clearWorkspace actions
-        model?.builder?.build?.clearWorkspace();
-        console.log('CLEARED', model?.builder?.build);
-        setData(newWorkspace);
+        model?.builder?.build?.clearWorkspace(); // clearing to ensure there are no conflicts between workspace data
+        setData(newData);
     }
     return (
         <>
