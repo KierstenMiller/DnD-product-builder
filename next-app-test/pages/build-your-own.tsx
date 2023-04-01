@@ -5,6 +5,7 @@ import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-o
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
+import { validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
 
 const BuildYourOwn = () => {
     const [data, setData] = useState(dataAggulativeStacksRental);
@@ -19,11 +20,11 @@ const BuildYourOwn = () => {
         }
     })
     // want the validation data inside of modifier's option's data. Option data should be all in one place. So we need to extract the validation here
-    const validation = data.modifiers.map(mod => ({
+    const validationLibrary = data.modifiers.map(mod => ({
         id: mod.id,
         validation: mod.options.map(opt => ({
             id: opt.id,
-            validation: opt?.validation,
+            validation: opt.validation,
         })).filter(opt => Boolean(opt.validation))
     })).filter(mod => mod.validation.length > 0);
     // will be undefined if builder doesn't have data
@@ -57,7 +58,7 @@ const BuildYourOwn = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <BuildYourOwnDevBar setData={clearWorkspace} />
-            <BuildYourOwnPage model={model} modifiers={data.modifiers} validation={validation}/>
+            <BuildYourOwnPage model={model} modifiers={data.modifiers} validationLibrary={validationLibrary}/>
         </>
     )
 };

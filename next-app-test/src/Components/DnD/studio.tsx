@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
 import { ModifierGroups } from '-/Components/modifier/modifierGroups'
-import { modifiersT, validationT } from '-/page-components/build-your-own/build-your-own.types'
+import { modifiersT, validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
 import { builderKeys, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
 import { AddToWorkspace } from './workspace/shared/addToWorkspace'
 import { generateImage } from './workspace/shared/shapes.util'
@@ -14,10 +14,10 @@ import styles from '#/Home.module.scss'
 interface propsI {
     model: BuildYourOwnModel,
     modifiers: modifiersT,
-    validation: validationT,
+    validationLibrary: validationLibraryT,
 }
 
-export const Studio = observer(({ model, modifiers, validation }: propsI) => {
+export const Studio = observer(({ model, modifiers, validationLibrary }: propsI) => {
     const image = generateImage(model.config);
     const Workspace = getWorkspace(model.builder.type);
     // const addToWorkspace = getAddTo({builder: model.builder, })
@@ -25,7 +25,7 @@ export const Studio = observer(({ model, modifiers, validation }: propsI) => {
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    <Workspace build={model.builder.build} validation={validation}/>
+                    <Workspace build={model.builder.build} validationLibrary={validationLibrary}/>
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>

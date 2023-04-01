@@ -2,24 +2,34 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 
-import { modifiersT, pieceI, validationT } from '-/page-components/build-your-own/build-your-own.types'
+import { modifiersT, pieceI, stackI, validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../shared/shapes.util';
 import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
 import { Stack } from './stack';
-
-export const canDrop = () => { /*TODO: implement*/ return true; }
+import { validationValues } from '-/Components/modifier/modifier.types';
 
 interface propsI {
     build: AggulativeStacks,
     modifiers: modifiersT,
-    validation: validationT,
+    validationLibrary: validationLibraryT,
 }
 
-export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI) => {
+export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }: propsI) => {
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
     const [isDraggingWorkspace, setIsDraggingWorkspace] = useState(false);
+    // only passing pieceId at reccommendation of DnD Documentation
     const { draggingPieceId, isDraggingDndLayer } = useDragLayer(monitor => ({ draggingPieceId: monitor.getItem()?.id, isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM }));
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
+
+    const draggingPiece = build.findPiece(draggingPieceId);
+    const validDrop = (dropPosition: {stack: number, block: number}) => {
+        const applicableValidation = validationLibrary.map(modLevel => {
+            const options = draggingPiece?.config?.filter(c => c.id === modLevel.id);
+            return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
+        })[0][0];
+        return (applicableValidation?.validation) ? build.isValidDrop(dropPosition, applicableValidation.validation) : true;
+    }
+    
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
     const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPieceId)
     const onBlockDrag = (isDraggingState: boolean) => setIsDraggingWorkspace(isDraggingState);
@@ -29,6 +39,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validation }: propsI
             index={index}
             stack={stack}
             isDragging={isDragging}
+            validDrop={validDrop}
             onStackDrop={onStackDrop}
             onBlockDrop={onBlockDrop}
             onBlockDrag={onBlockDrag}

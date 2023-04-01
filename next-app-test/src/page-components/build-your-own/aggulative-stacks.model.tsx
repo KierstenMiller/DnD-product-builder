@@ -1,7 +1,7 @@
 import { makeAutoObservable, makeObservable, observable, computed, action } from "mobx"
 
-import { groupKeyValues } from "-/Components/modifier/modifier.types";
-import { aggulativeStacksT, configT } from "./build-your-own.types";
+import { groupKeyValues, validationValues } from "-/Components/modifier/modifier.types";
+import { aggulativeStacksT, configT, stackI, validationT } from "./build-your-own.types";
 import { isNum } from "-/util/helpers";
 
 const generateId = () => 'id' + (new Date()).getTime();
@@ -12,6 +12,40 @@ const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
         return block >= 0;
     })
     return stack >= 0 ? { stack, block } : null;
+}
+const withinRange = ({dropPosition, proximity, values, stack}: {dropPosition: number, proximity: number, values: string[], stack: stackI}) => {
+    const inRange = stack
+    .slice(dropPosition - proximity, dropPosition + proximity)
+    .some(b => values.some(v => v === b.piece.id))
+    console.log('INRANGE result:', inRange);
+    return inRange;
+};
+const validLevel = (blockIndex: number, values: string []) => {
+    console.log('VALIDLEVEL result:', Boolean(values.find(v => `level-${blockIndex}` === v)));
+    return Boolean(values.find(v => `level-${blockIndex}` === v));
+};
+const hasValue = () => true;
+const hasAllValues = () => true;
+export const validDrop = (dropPosition: number, validation: validationT, stack: stackI) => {
+    const isValid = validation.every(v => {
+        switch (v.type) {
+            case validationValues.proximity:
+                return withinRange({
+                    dropPosition,
+                    proximity: v.proximity || stack.length,
+                    values: v.values,
+                    stack: stack
+                });
+            case validationValues.position:
+                return validLevel(dropPosition, v.values);
+            case validationValues.has:
+                return hasValue();
+            case validationValues.hasAll:
+                return hasAllValues();
+            default: console.error(`Validation type ${v.type} does not exist`); return true;
+        }
+    })
+    return isValid
 }
 
 class Piece {
@@ -54,7 +88,12 @@ export class AggulativeStacks {
             })
         })));
     }
-    // model only util actions
+    // util actions
+    findPiece = (id: string) => {
+        const i = findIndex2D(this.stacksData, id);
+        const piece = (i && isNum(i.stack) && isNum(i.block)) ? (this.stacksData[i.stack][i.block])?.piece : null;
+        return piece;
+    }
     generatePiece = (id?: string, config?: configT) => {
         return { id: id || generateId(), config: config || this.config.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : c) }
     }
@@ -63,6 +102,9 @@ export class AggulativeStacks {
         this.config = newConfig;
     };
     // adding actions
+    isValidDrop = (dropPosition: { stack: number, block: number }, validation: validationT) => {
+        return validDrop(dropPosition.block, validation, this.stacks[dropPosition.block])
+    }
     addStack = (stackIndex: number, pieceId?: string) => {
         const piece = pieceId ? this.findAndRemoveBlock(pieceId) : null;
         this.stacksData.splice(stackIndex, 0, [{ piece: piece || this.generatePiece() }]);

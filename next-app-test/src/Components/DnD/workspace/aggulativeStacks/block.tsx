@@ -2,20 +2,24 @@ import { observer } from 'mobx-react-lite'
 
 import { blockI } from '-/page-components/build-your-own/build-your-own.types'
 import { generateBlock } from '../shared/shapes.util';
-import { canDrop, DragZone, DropZone } from './aggulativeStacks';
+import { DragZone, DropZone } from './aggulativeStacks';
 
 interface propsI {
     index: number,
     block: blockI,
     isDragging: boolean,
+    validDrop: (index: number) => boolean,
     onDrop: (index: number) => void,
     onDrag: (isDraggingState: boolean) => void
 }
-export const Block = observer(({ block, index, isDragging, onDrop, onDrag }: propsI) => {
+export const Block = observer(({ block, index, isDragging, validDrop, onDrop, onDrag }: propsI) => {
     const aboveDrop = () => onDrop(index);
     const belowDrop = () => onDrop(index + 1);
-    const canDropAbove = index === 0 && isDragging && canDrop();
-    const canDropBelow = isDragging && canDrop();
+    const isValidAbove = validDrop(index);
+    const isValidBelow = validDrop(index + 1);
+    console.log(`validity of ${index}`, {isValidAbove, isValidBelow});
+    const canDropAbove = index === 0 && isDragging && isValidAbove; // && validDrop();
+    const canDropBelow = isDragging && isValidBelow; // && validDrop();
     return <div>
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
         <DragZone pieceId={block.piece.id} setIsDraggingState={onDrag}>

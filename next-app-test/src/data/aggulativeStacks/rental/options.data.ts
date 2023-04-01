@@ -128,7 +128,7 @@ export const blockOptions = [
         validation: [
             {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: validationValues.hasAll, values: ['amenity-cafe', 'amenity-dinning']},
-            {type: validationValues.proximity, values: ['amenity-dinning']},
+            {type: validationValues.proximity, proximity: 1, values: ['amenity-dinning']},
             {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
@@ -141,6 +141,18 @@ export const blockOptions = [
         validation: [
             {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
             {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4']}
+        ]
+    },
+    {
+        id: 'amenity-locker',
+        label: 'Locker',
+        image: 'LOCKER',
+        value: 'amenity-locker',
+        rank: 3,
+        validation: [
+            {type: validationValues.proximity, proximity: 1, values: ['amenity-gym']},
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5']}
         ]
     },
 ]

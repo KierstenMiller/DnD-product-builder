@@ -14,6 +14,11 @@ export interface blockI {
     piece: pieceI,
 }
 
+export interface blockIndexI {
+    stack: number,
+    block: number,
+}
+
 ///////////////////////////////////////////
 //      FREEFORM MATRIX INTERFACES      //
 //////////////////////////////////////////
@@ -78,9 +83,9 @@ export interface modifierI {
     measurementUnit?: measurementValues,
 }
 export interface configItemI {
-    id: string,
-    selection: string,
-    value: string,
+    id: string, // corresponds to modifier id
+    selection: string, // corresponds to option id (from modifier with above id)
+    value: string, // ui value that is matched against
     groupKey?: groupKeyValues,
 };
 
@@ -89,7 +94,14 @@ export interface configItemI {
 ///////////////////////////////////////
 export type aggulativeStacksT = stackI[] | []
 export type stackI = blockI[]
-export type validationT = {type: validationValues, values: string[]}[]
+export type validationT = {type: validationValues, values: string[], proximity?: number}[]
+export type validationLibraryT = {
+    id: string,
+    validation: {
+        id: string,
+        validation: validationT
+    }[]
+}[]
 
 /////////////////////////////////////
 //      FREEFORM MATRIX TYPES     //
