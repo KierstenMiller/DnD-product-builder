@@ -9,7 +9,7 @@ interface propsI {
     block: blockI,
     isDragging: boolean,
     onDrop: (index: number) => void,
-    onDrag: (isDraggingState: boolean) => void
+    onDrag: (isDraggingState: boolean, pieceId?: string) => void
 }
 export const Block = observer(({ block, index, isDragging, onDrop, onDrag }: propsI) => {
     console.log('Block rerender', block);
