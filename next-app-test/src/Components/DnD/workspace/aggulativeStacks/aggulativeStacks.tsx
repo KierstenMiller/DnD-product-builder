@@ -2,9 +2,9 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
 import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 
-import { modifiersT, pieceI, stackI, validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
+import { blockIndexI, modifiersT, pieceI, stackI, validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../shared/shapes.util';
-import { AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
+import { addPieceToStack, AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
 import { Stack } from './stack';
 import { validationValues } from '-/Components/modifier/modifier.types';
 
@@ -22,18 +22,28 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
 
     const draggingPiece = build.findPiece(draggingPieceId);
-    const validDrop = (dropPosition: {stack: number, block: number}) => {
+    const isValidPositionForDraggingPieceValidationCriteria = (dropPosition: blockIndexI) => {
         const applicableValidation = validationLibrary.map(modLevel => {
             const options = draggingPiece?.config?.filter(c => c.id === modLevel.id);
             return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
-        })[0][0];
-        return (applicableValidation?.validation) ? build.isValidDrop(dropPosition, applicableValidation.validation) : true;
+        })[0][0]?.validation;
+        return (applicableValidation) ? build.isValidDrop(dropPosition, applicableValidation) : true;
     }
-    
+    const validDrop = (dropPosition: blockIndexI) => {
+        if (!draggingPiece) return true;
+        const validForPiece = isValidPositionForDraggingPieceValidationCriteria(dropPosition);
+        if (!validForPiece) return false;
+        const ghostStack = build.stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
+        const ghostPiece = {...draggingPiece, config: draggingPiece.config.map(c => ({...c}))};
+        console.log('ghosts', {ghostPiece, ghostStack});
+        const newGhostStack = addPieceToStack(dropPosition.stack, dropPosition.block, ghostPiece, ghostStack)
+        console.log('result', {validForPiece, newGhostStack, dropPosition})
+    }
+
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
     const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPieceId)
     const onBlockDrag = (isDraggingState: boolean) => setIsDraggingWorkspace(isDraggingState);
-    console.log('build.stacks', build.stacks);
+    // console.log('build.stacks', build.stacks);
     return (<div className="flex a-i-end">
         {build?.stacks?.map((stack, index) => <Stack
             key={index}

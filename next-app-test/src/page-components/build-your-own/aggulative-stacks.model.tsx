@@ -14,7 +14,7 @@ const findIndex2D = (stacks: aggulativeStacksT, id: string) => {
     })
     return stack >= 0 ? { stack, block } : null;
 }
-const findPiece = (id: string, stacksData: aggulativeStacksT) => {
+export const findPiece = (id: string, stacksData: aggulativeStacksT) => {
     const index = findIndex2D(stacksData, id);
     const piece = (index && isNum(index.stack) && isNum(index.block)) ? (stacksData[index.stack][index.block])?.piece : null;
     return { index, piece }; 
@@ -28,9 +28,12 @@ const findAndRemoveBlock = (id: string, stacksData: aggulativeStacksT) => {
 const clearEmptyStacks = (stacksData: aggulativeStacksT) => {
     return stacksData.filter(s => s.length > 0);
 }
-const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksT) => {
+export const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksT) => {
+    console.log(`adding ${piece.id} to stack ${stackIndex} - block ${blockIndex}`);
     findAndRemoveBlock(piece.id, stacksData);
+    console.log('removed', stacksData);
     stacksData[stackIndex].splice(blockIndex, 0, { piece }); // SLPICE EDITS ORIGINAL ARRAY
+    console.log('added', stacksData);
     return clearEmptyStacks(stacksData);
 };
 
