@@ -21,6 +21,7 @@ export const Block = observer(({ block, index, isDragging, validDrop, onDrop, on
     const canDropAbove = index === 0 && isDragging && isValidAbove; // && validDrop();
     const canDropBelow = isDragging && isValidBelow; // && validDrop();
     return <div>
+        {index} - {isValidAbove ? 'Valid-above': ''}
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
         <DragZone pieceId={block.piece.id} setIsDraggingState={onDrag}>
             <div className="text-small">
@@ -30,6 +31,7 @@ export const Block = observer(({ block, index, isDragging, validDrop, onDrop, on
 
             {generateBlock(block.piece.config)}
         </DragZone>
+        {index + 1} - {isValidBelow ? 'Valid-below': ''}
         <>{canDropBelow && <DropZone onDrop={belowDrop} />}</>
     </div>;
 })

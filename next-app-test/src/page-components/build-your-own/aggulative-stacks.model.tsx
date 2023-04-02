@@ -1,7 +1,7 @@
 import { makeAutoObservable, makeObservable, observable, computed, action } from "mobx"
 
 import { groupKeyValues, validationValues } from "-/Components/modifier/modifier.types";
-import { aggulativeStacksT, configT, pieceI, stackI, validationT } from "./build-your-own.types";
+import { aggulativeStacksT, blockIndexI, configT, pieceI, stackI, validationT } from "./build-your-own.types";
 import { isNum } from "-/util/helpers";
 
 /////////////////////////////// UTIL
@@ -31,9 +31,9 @@ const clearEmptyStacks = (stacksData: aggulativeStacksT) => {
 export const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksT) => {
     console.log(`adding ${piece.id} to stack ${stackIndex} - block ${blockIndex}`);
     findAndRemoveBlock(piece.id, stacksData);
-    console.log('removed', stacksData);
+    //console.log('removed', stacksData);
     stacksData[stackIndex].splice(blockIndex, 0, { piece }); // SLPICE EDITS ORIGINAL ARRAY
-    console.log('added', stacksData);
+    //console.log('added', stacksData);
     return clearEmptyStacks(stacksData);
 };
 
@@ -42,16 +42,39 @@ const withinRange = ({dropPosition, proximity, values, stack}: {dropPosition: nu
     const inRange = stack
     .slice(dropPosition - proximity, dropPosition + proximity)
     .some(b => values.some(v => v === b.piece.id))
-    console.log('INRANGE result:', inRange);
+    //console.log('INRANGE result:', inRange);
     return inRange;
 };
 const validLevel = (blockIndex: number, values: string []) => {
+    //console.log('-------', {blockIndex, values});
     const result = Boolean(values.find(v => `level-${blockIndex}` === v))
-    console.log('VALIDLEVEL result:', result);
+    //console.log('VALIDLEVEL result:', result);
     return result;
 };
 const hasValue = () => true;
 const hasAllValues = () => true;
+export const pieceInValidPosition = (piecePositionBlock: number, validation: validationT) => {
+    const isValid = validation.every(v => {
+        switch (v.type) {
+            // case validationValues.proximity:
+            //     return withinRange({
+            //         dropPosition,
+            //         proximity: v.proximity || stack.length,
+            //         values: v.values,
+            //         stack: stack
+            //     });
+            case validationValues.position:
+                return validLevel(piecePositionBlock, v.values);
+            case validationValues.has:
+                return hasValue();
+            case validationValues.hasAll:
+                return hasAllValues();
+            default: console.error(`Validation type ${v.type} does not exist`); return true;
+        }
+    })
+    return isValid;
+
+}
 export const validDrop = (dropPosition: number, validation: validationT, stack: stackI) => {
     const isValid = validation.every(v => {
         switch (v.type) {

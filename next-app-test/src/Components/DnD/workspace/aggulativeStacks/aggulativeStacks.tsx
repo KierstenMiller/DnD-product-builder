@@ -4,7 +4,7 @@ import { useDrag, useDragLayer, useDrop } from 'react-dnd';
 
 import { blockIndexI, modifiersT, pieceI, stackI, validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../shared/shapes.util';
-import { addPieceToStack, AggulativeStacks } from '-/page-components/build-your-own/aggulative-stacks.model';
+import { addPieceToStack, AggulativeStacks, pieceInValidPosition, validDrop } from '-/page-components/build-your-own/aggulative-stacks.model';
 import { Stack } from './stack';
 import { validationValues } from '-/Components/modifier/modifier.types';
 
@@ -12,6 +12,23 @@ interface propsI {
     build: AggulativeStacks,
     modifiers: modifiersT,
     validationLibrary: validationLibraryT,
+}
+
+const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => {
+    const result = validationLibrary.map(modLevel => {
+        const options = piece?.config?.filter(c => c.id === modLevel.id);
+        return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
+    })[0][0]?.validation
+    return result;
+}
+
+const isValidStack = (validationLibrary: validationLibraryT, stack: stackI) => {
+    const result = stack.map((b, index) => ({index, pieceValidation:getValidation(validationLibrary, b.piece)}))
+    return result.map(r => (pieceInValidPosition(r.index, r.pieceValidation))).every(r => r);
+    //console.log('RESULT: ', result);
+    //validDrop(dropPosition, getValidation(validationLibrary, b.piece), stack)
+    //console.log('valid position', result.map(r => (pieceInValidPosition(r.index, r.v))))
+    //const result2 = result.validDrop(result.inde, validation: validationT, stack: stackI)
 }
 
 export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }: propsI) => {
@@ -22,22 +39,29 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
 
     const draggingPiece = build.findPiece(draggingPieceId);
+    
     const isValidPositionForDraggingPieceValidationCriteria = (dropPosition: blockIndexI) => {
-        const applicableValidation = validationLibrary.map(modLevel => {
-            const options = draggingPiece?.config?.filter(c => c.id === modLevel.id);
-            return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
-        })[0][0]?.validation;
+        const applicableValidation = getValidation(validationLibrary, dropPosition.stack);
         return (applicableValidation) ? build.isValidDrop(dropPosition, applicableValidation) : true;
     }
-    const validDrop = (dropPosition: blockIndexI) => {
+    const validDrop2 = (dropPosition: blockIndexI) => {
         if (!draggingPiece) return true;
         const validForPiece = isValidPositionForDraggingPieceValidationCriteria(dropPosition);
         if (!validForPiece) return false;
-        const ghostStack = build.stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
+        const ghostStacks = build.stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
         const ghostPiece = {...draggingPiece, config: draggingPiece.config.map(c => ({...c}))};
-        console.log('ghosts', {ghostPiece, ghostStack});
-        const newGhostStack = addPieceToStack(dropPosition.stack, dropPosition.block, ghostPiece, ghostStack)
-        console.log('result', {validForPiece, newGhostStack, dropPosition})
+        const newGhostStacks = addPieceToStack(dropPosition.stack, dropPosition.block, ghostPiece, ghostStacks)
+        const ghostValidation1 = getValidation(validationLibrary, ghostPiece);
+        const allStacksAreValid = newGhostStacks.map(s => isValidStack(validationLibrary, s));
+        console.log('allStacksAreValid', allStacksAreValid);
+        // const ghostyValidStack = validDrop(dropPosition.block, ghostValidation, newGhostStacks[dropPosition.stack]) //ghostStacks.map(s => validDrop(dropPosition.block, ghostValidation, s)).every(i => i);
+        // console.log('testing', getValidation(validationLibrary, newGhostStacks[dropPosition.stack][1].piece), validDrop(
+        //     1,
+        //     getValidation(validationLibrary, newGhostStacks[dropPosition.stack][1].piece),
+        //     newGhostStacks[dropPosition.stack]
+        // ))
+        // console.log('result', {validForPiece, newGhostStacks, dropPosition})
+        return validForPiece && allStacksAreValid.every(s => s);
     }
 
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
@@ -50,7 +74,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
             index={index}
             stack={stack}
             isDragging={isDragging}
-            validDrop={validDrop}
+            validDrop={validDrop2}
             onStackDrop={onStackDrop}
             onBlockDrop={onBlockDrop}
             onBlockDrag={onBlockDrag}
