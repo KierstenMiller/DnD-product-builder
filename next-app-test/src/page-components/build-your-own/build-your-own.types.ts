@@ -14,7 +14,7 @@ export interface blockI {
     piece: pieceI,
 }
 
-export interface blockIndexI {
+export interface aggulativeStackIndexI {
     stack: number,
     block: number,
 }

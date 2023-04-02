@@ -1,4 +1,4 @@
-import { blockIndexI, stackI } from '-/page-components/build-your-own/build-your-own.types';
+import { aggulativeStackIndexI, stackI } from '-/page-components/build-your-own/build-your-own.types';
 import { observer } from 'mobx-react-lite'
 
 import { DropZone } from './aggulativeStacks';
@@ -8,7 +8,7 @@ interface propsI {
     index: number,
     stack: stackI,
     isDragging: boolean,
-    validDrop: (dropPosition: blockIndexI) => boolean,
+    validDrop: (dropPosition: aggulativeStackIndexI) => boolean,
     onStackDrop: (stackIndex: number) => void,
     onBlockDrop: (stackIndex: number, blockIndex: number) => void,
     onBlockDrag: (isDraggingState: boolean) => void,

@@ -17,9 +17,8 @@ export const Block = observer(({ block, index, isDragging, validDrop, onDrop, on
     const belowDrop = () => onDrop(index + 1);
     const isValidAbove = validDrop(index);
     const isValidBelow = validDrop(index + 1);
-    // console.log(`validity of ${index}`, {isValidAbove, isValidBelow});
-    const canDropAbove = index === 0 && isDragging && isValidAbove; // && validDrop();
-    const canDropBelow = isDragging && isValidBelow; // && validDrop();
+    const canDropAbove = index === 0 && isDragging && isValidAbove;
+    const canDropBelow = isDragging && isValidBelow;
     return <div>
         {index} - {isValidAbove ? 'Valid-above': ''}
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
