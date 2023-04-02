@@ -25,7 +25,7 @@ export const Block = observer(({ block, index, isDragging, validDrop, onDrop, on
         <DragZone pieceId={block.piece.id} setIsDraggingState={onDrag}>
             <div className="text-small">
                 {block.piece.id}<br />
-                {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />
+                {/* {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br /> */}
             </div>
 
             {generateBlock(block.piece.config)}

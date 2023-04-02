@@ -3,7 +3,7 @@ import { makeAutoObservable, makeObservable, observable, computed, action } from
 import { groupKeyValues, validationValues } from "-/Components/modifier/modifier.types";
 import { aggulativeStacksT, aggulativeStackIndexI, configT, pieceI, stackI, validationT } from "./build-your-own.types";
 import { isNum } from "-/util/helpers";
-import { addPieceToStack, clearEmptyStacks, findAndRemoveBlock, findIndex2D, findPiece, generateId, validDrop } from "-/Components/DnD/workspace/aggulativeStacks/builder.util";
+import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findIndex2D, findPiece, generateId, validDrop } from "-/Components/DnD/workspace/aggulativeStacks/builder.util";
 
 class Piece {
     id
@@ -55,9 +55,11 @@ export class AggulativeStacks {
     };
     // adding actions
     addStack = (stackIndex: number, pieceId?: string) => {
-        const piece = pieceId ? this.findAndRemoveBlock(pieceId) : null;
-        this.stacksData.splice(stackIndex, 0, [{ piece: piece || this.generatePiece() }]);
-        this.clearEmptyStacks();
+        const {piece} = pieceId ? findPiece(pieceId, this.stacksData) : {piece: null};
+        this.stacksData = addStack(stackIndex, piece || this.generatePiece(), this.stacksData)
+        // const piece = pieceId ? this.findAndRemoveBlock(pieceId) : null;
+        // this.stacksData.splice(stackIndex, 0, [{ piece: piece || this.generatePiece() }]);
+        // this.clearEmptyStacks();
     };
     addToStack = (stackIndex: number, blockIndex: number, pieceId?: string) => {
         const {piece} = pieceId ? findPiece(pieceId, this.stacksData) : {piece: null};

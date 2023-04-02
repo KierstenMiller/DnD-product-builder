@@ -21,14 +21,16 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
     const { draggingPieceId, isDraggingDndLayer } = useDragLayer(monitor => ({ draggingPieceId: monitor.getItem()?.id, isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM }));
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
     const {piece: draggingPiece} = findPiece(draggingPieceId, build.stacks);
-    const validateWorkspace = (dropPosition: aggulativeStackIndexI) => {
+    const validateWorkspace = (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => {
         if (!draggingPiece) return true;
+        console.log('creatingNewStackOnDrop', creatingNewStackOnDrop);
         console.log(`adding ${draggingPiece?.id} to ${dropPosition.stack}-${dropPosition.block}`);
+        console.log('target stack', build.stacks[dropPosition.stack]);
         // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
         const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, draggingPiece), build.stacks[dropPosition.stack])
         if (!validForPiece) return false;
         // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
-        const validForStack = allStacksRemainValid(build.stacks, draggingPiece, dropPosition, validationLibrary)
+        const validForStack = allStacksRemainValid(build.stacks, draggingPiece, dropPosition, validationLibrary, creatingNewStackOnDrop)
         return validForPiece && validForStack;
     }
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)

@@ -22,13 +22,19 @@ export const findPiece = (id: string, stacksData: aggulativeStacksT) => {
 /////////////////////////////// Modify
 export const findAndRemoveBlock = (id: string, stacksData: aggulativeStacksT) => {
     const {index, piece} = findPiece(id, stacksData);
-    if (index) stacksData[index.stack].splice(index.block, 1); // SLPICE EDITS ORIGINAL ARRAY
+    if (index && stacksData[index.stack]) stacksData[index.stack].splice(index.block, 1); // SLPICE EDITS ORIGINAL ARRAY
     return piece;
 }
 export const clearEmptyStacks = (stacksData: aggulativeStacksT) => {
     return stacksData.filter(s => s.length > 0);
 }
+export const addStack = (stackIndex: number, piece: pieceI, stacksData: aggulativeStacksT) => {
+    findAndRemoveBlock(piece.id, stacksData);
+    stacksData.splice(stackIndex, 0, [{ piece }]);
+    return clearEmptyStacks(stacksData);
+}
 export const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksT) => {
+    console.log('RUNNING addPieceToStack');
     findAndRemoveBlock(piece.id, stacksData);
     stacksData[stackIndex].splice(blockIndex, 0, { piece }); // SLPICE EDITS ORIGINAL ARRAY
     return clearEmptyStacks(stacksData);
@@ -46,10 +52,12 @@ export const getValidation = (validationLibrary: validationLibraryT, piece: piec
     })[0][0]?.validation;
     return result;
 }
-export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT) => {
+export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT, creatingNewStackOnDrop: boolean) => {
     const ghostStacks = stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
     const ghostPiece = {...draggingPiece, config: draggingPiece.config.map(c => ({...c}))};
-    const newGhostStacks = addPieceToStack(dropPosition.stack, dropPosition.block, ghostPiece, ghostStacks)
+    const newGhostStacks = creatingNewStackOnDrop
+    ? addStack(dropPosition.stack, ghostPiece, ghostStacks)
+    : addPieceToStack(dropPosition.stack, dropPosition.block, ghostPiece, ghostStacks)
     const allStacksAreValid = newGhostStacks.map(s => isValidStack(validationLibrary, s)).every(s => s);
     return allStacksAreValid;
 }
