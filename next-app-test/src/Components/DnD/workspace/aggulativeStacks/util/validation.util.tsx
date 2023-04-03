@@ -31,10 +31,12 @@ export const validDrop = (blockIndex: number, validation: validationT, stack: st
     });
 }
 export const isValidStack = (validationLibrary: validationLibraryT, stack: stackI) => {
-    const result = stack.map((b, index) => ({index, pieceValidation:getValidation(validationLibrary, b.piece)}))
+    const result = stack.map((b, index) => ({index, pieceValidation: getValidation(validationLibrary, b.piece)}))
     return result.map(r => (validDrop(r.index, r.pieceValidation, stack))).every(r => r);
 }
 export const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => {
+    console.log('validationLibrary', validationLibrary);
+    if(validationLibrary.length <= 0) return [];
     return validationLibrary.map(modLevel => {
         const options = piece?.config?.filter(c => c.id === modLevel.id);
         return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
