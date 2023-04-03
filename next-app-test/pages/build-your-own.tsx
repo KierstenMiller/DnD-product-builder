@@ -5,7 +5,6 @@ import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-o
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
-import { validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
 
 const BuildYourOwn = () => {
     const [data, setData] = useState(dataAggulativeStacksRental);

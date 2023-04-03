@@ -15,22 +15,18 @@ interface propsI {
 export const Block = observer(({ block, index, isDragging, validDrop, onDrop, onDrag }: propsI) => {
     const aboveDrop = () => onDrop(index);
     const belowDrop = () => onDrop(index + 1);
-    const isValidAbove = validDrop(index);
-    const isValidBelow = validDrop(index + 1);
-    const canDropAbove = index === 0 && isDragging && isValidAbove;
-    const canDropBelow = isDragging && isValidBelow;
+    const canDropAbove = index === 0 && isDragging && validDrop(index);
+    const canDropBelow = isDragging && validDrop(index + 1);
     return <div>
-        {index} - {isValidAbove ? 'Valid-above': ''}
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
         <DragZone pieceId={block.piece.id} setIsDraggingState={onDrag}>
-            <div className="text-small">
+            <div className="text-xx-small">
                 {block.piece.id}<br />
-                {/* {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br /> */}
+                {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />
             </div>
 
             {generateBlock(block.piece.config)}
         </DragZone>
-        {index + 1} - {isValidBelow ? 'Valid-below': ''}
         <>{canDropBelow && <DropZone onDrop={belowDrop} />}</>
     </div>;
 })

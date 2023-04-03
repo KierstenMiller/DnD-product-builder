@@ -1,8 +1,8 @@
-import { aggulativeStackIndexI, stackI } from '-/page-components/build-your-own/build-your-own.types';
 import { observer } from 'mobx-react-lite'
 
 import { DropZone } from './aggulativeStacks';
 import { Block } from './block';
+import { aggulativeStackIndexI, stackI } from '-/page-components/build-your-own/build-your-own.types';
 
 interface propsI {
     index: number,
@@ -14,13 +14,10 @@ interface propsI {
     onBlockDrag: (isDraggingState: boolean) => void,
 }
 export const Stack = observer(({ index, stack, isDragging, validDrop, onStackDrop, onBlockDrop, onBlockDrag }: propsI) => {
-    const isValidLeft = validDrop({stack: index, block: 0}, true);
-    const isValidRight = validDrop({stack: index + 1, block: 0}, true);
-    const canDropLeft = index === 0 && isDragging && isValidLeft;
-    const canDropRight = isDragging && isValidRight;
+    const canDropLeft = index === 0 && isDragging && validDrop({stack: index, block: 0}, true);
+    const canDropRight = isDragging && validDrop({stack: index + 1, block: 0}, true);
     // TODO: figure out why I need to wrap conditional jsx with <></> to not see children error
     return (<div className="flex a-i-end">
-        {/* {index} - {isValidLeft ? 'isValidLeft' : ''} */}
         <>{canDropLeft && <DropZone onDrop={() => onStackDrop(index)} />}</>
         <div>
             {stack.map((block, blockIndex) => <Block
@@ -33,7 +30,6 @@ export const Stack = observer(({ index, stack, isDragging, validDrop, onStackDro
                 isDragging={isDragging}
             />)}
         </div>
-        {/* {index + 1} - {isValidLeft ? 'isValidRigh' : ''} */}
         <>{canDropRight && <DropZone onDrop={() => onStackDrop(index + 1)} />}</>
     </div>);
 });

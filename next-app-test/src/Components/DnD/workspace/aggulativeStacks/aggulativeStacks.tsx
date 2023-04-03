@@ -6,7 +6,8 @@ import { aggulativeStackIndexI, modifiersT, validationLibraryT, } from '-/page-c
 import { DnDItemTypes } from '../shared/shapes.util';
 import { AggulativeStacks} from '-/page-components/build-your-own/aggulative-stacks.model';
 import { Stack } from './stack';
-import { allStacksRemainValid, findPiece, getValidation, validDrop } from './builder.util';
+import { findPiece } from './builder.util';
+import { allStacksRemainValid, getValidation, validDrop } from './util/validation.util';
 
 interface propsI {
     build: AggulativeStacks,
@@ -23,9 +24,6 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
     const {piece: draggingPiece} = findPiece(draggingPieceId, build.stacks);
     const validateWorkspace = (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => {
         if (!draggingPiece) return true;
-        console.log('creatingNewStackOnDrop', creatingNewStackOnDrop);
-        console.log(`adding ${draggingPiece?.id} to ${dropPosition.stack}-${dropPosition.block}`);
-        console.log('target stack', build.stacks[dropPosition.stack]);
         // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
         const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, draggingPiece), build.stacks[dropPosition.stack])
         if (!validForPiece) return false;
