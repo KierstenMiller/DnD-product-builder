@@ -20,7 +20,10 @@ export const ModifierGroups = observer(({ model, modifiers }: BuildYourOwnPageI)
         if (!match) throw new Error(`${selectionId} was not found as a value in modifier ${modId}`)
         return match;
     }
-    const onChange = ({ newSelection }: onChangeI, mod: modifierI) => model.updateConfigSelection({ id: mod.id, selection: newSelection, value: getOptionValue(mod.id, newSelection) })
+    const onChange = ({ newSelection }: onChangeI, mod: modifierI) => {
+        model.updateConfigSelection({ id: mod.id, selection: newSelection, value: getOptionValue(mod.id, newSelection) })
+
+    }
     return <>
         {[...sortedGroupedModifiers.entries()].map(([category, modifierGroup]) => <BasicAccordionGroup key={category} className="mt-large">
             {modifierGroup.map(mod => <ModifierInstance key={mod.id} mod={mod} onChange={(args) => onChange(args, mod)} />)}

@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite'
 
 import { blockI } from '-/page-components/build-your-own/build-your-own.types'
-import { generateBlock } from '../shared/shapes.util';
-import { DragZone, DropZone } from './aggulativeStacks';
+import { DnDItemTypes, generateBlock } from '../shared/shapes.util';
+import { DropZone } from './aggulativeStacks';
+import { DragZone } from '../../dragZone';
 
 interface propsI {
     index: number,
@@ -19,7 +20,11 @@ export const Block = observer(({ block, index, isDragging, validDrop, onDrop, on
     const canDropBelow = isDragging && validDrop(index + 1);
     return <div>
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
-        <DragZone pieceId={block.piece.id} setIsDraggingState={onDrag}>
+        <DragZone
+            type={DnDItemTypes.WORKSPACE_ITEM}
+            id={block.piece.id}
+            setIsDraggingState={onDrag}
+        >
             <div className="text-xx-small">
                 {block.piece.id}<br />
                 {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
-import { useDrag, useDragLayer, useDrop } from 'react-dnd';
+import { useDragLayer, useDrop } from 'react-dnd';
 
 import { aggulativeStackIndexI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../shared/shapes.util';
@@ -19,7 +19,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
     const [isDraggingWorkspace, setIsDraggingWorkspace] = useState(false);
     // only passing pieceId at reccommendation of DnD Documentation
-    const { draggingPieceId, isDraggingDndLayer } = useDragLayer(monitor => ({ draggingPieceId: monitor.getItem()?.id, isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM }));
+    const { draggingPieceId, isDraggingDndLayer, itemType } = useDragLayer(monitor => ({ draggingPieceId: monitor.getItem()?.id, isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM, itemType: monitor.getItemType() }));
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
     const {piece: draggingPiece} = findPiece(draggingPieceId, build.stacks);
     const validateWorkspace = (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => {
@@ -28,7 +28,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
         const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, draggingPiece), build.stacks[dropPosition.stack])
         if (!validForPiece) return false;
         // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
-        const validForStack = allStacksRemainValid(build.stacks, draggingPiece, dropPosition, validationLibrary, creatingNewStackOnDrop)
+        const validForStack = allStacksRemainValid(build.stacks, draggingPiece, dropPosition, validationLibrary, creatingNewStackOnDrop)    
         return validForPiece && validForStack;
     }
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
@@ -48,25 +48,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
     </div>)
 })
 
-// TODO: move to another file
-interface dragZonePropsI {
-    pieceId: string,
-    setIsDraggingState: (isDragging: boolean) => void,
-    children: React.ReactNode
-}
 // TODO: generalize and share with freeformMatrix dropZone component
-export const DragZone = observer(({ pieceId, setIsDraggingState, children }: dragZonePropsI) => {
-    const [, drag] = useDrag(() => ({
-        type: DnDItemTypes.WORKSPACE_ITEM,
-        item: { id: pieceId },
-        collect: (monitor) => {
-            if (pieceId && pieceId === monitor.getItem()?.id) setTimeout(() => setIsDraggingState(true), 250);
-            return { isDragging: !!monitor.isDragging() }
-        },
-        end: () => setTimeout(() => setIsDraggingState(false), 250)
-    }), [pieceId])
-    return <div ref={drag}>{children}</div>
-})
 export const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
     const [dropInfo, drop] = useDrop(() => ({
         accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],

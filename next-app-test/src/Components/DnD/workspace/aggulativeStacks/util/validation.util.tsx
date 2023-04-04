@@ -35,7 +35,6 @@ export const isValidStack = (validationLibrary: validationLibraryT, stack: stack
     return result.map(r => (validDrop(r.index, r.pieceValidation, stack))).every(r => r);
 }
 export const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => {
-    console.log('validationLibrary', validationLibrary);
     if(validationLibrary.length <= 0) return [];
     return validationLibrary.map(modLevel => {
         const options = piece?.config?.filter(c => c.id === modLevel.id);
