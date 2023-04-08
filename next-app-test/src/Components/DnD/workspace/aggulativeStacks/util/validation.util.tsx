@@ -2,6 +2,14 @@ import { validationValues } from "-/Components/modifier/modifier.types";
 import { aggulativeStackIndexI, aggulativeStacksT, pieceI, stackI, validationLibraryT, validationT } from "-/page-components/build-your-own/build-your-own.types";
 import { addPieceToStack, addStack } from "../builder.util";
 
+interface validateWorkspace {
+    dropPosition: aggulativeStackIndexI,
+    creatingNewStackOnDrop: boolean,
+    piece: pieceI,
+    validationLibrary: validationLibraryT,
+    stacks: aggulativeStacksT
+}
+
 const withinRange = ({blockIndex, proximity, values, stack}: {blockIndex: number, proximity: number, values: string[], stack: stackI}) => {
     return stack.slice(blockIndex - proximity, blockIndex + proximity).some(b => values.some(v => v === b.piece.id));
 };
@@ -40,7 +48,9 @@ export const getValidation = (validationLibrary: validationLibraryT, piece: piec
         const options = piece?.config?.filter(c => c.id === modLevel.id);
         return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
     })[0][0]?.validation;
-}
+} 
+
+// TODO: change to object being passed for all args
 export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT, creatingNewStackOnDrop: boolean) => {
     const simulatedStacks = stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
     const simulatedPiece = {...draggingPiece, config: draggingPiece.config.map(c => ({...c}))};
@@ -48,4 +58,13 @@ export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: p
     ? addStack(dropPosition.stack, simulatedPiece, simulatedStacks)
     : addPieceToStack(dropPosition.stack, dropPosition.block, simulatedPiece, simulatedStacks)
     return newSimulatedStacks.map(s => isValidStack(validationLibrary, s)).every(s => s);
+}
+
+export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, validationLibrary, stacks}: validateWorkspace) => {
+    // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
+    // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
+    const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, piece), stacks[dropPosition.stack])
+    if (!validForPiece) return false;
+    const validForStack = allStacksRemainValid(stacks, piece, dropPosition, validationLibrary, creatingNewStackOnDrop)    
+    return validForPiece && validForStack;
 }

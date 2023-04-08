@@ -7,7 +7,7 @@ import { DnDItemTypes } from '../shared/shapes.util';
 import { AggulativeStacks} from '-/page-components/build-your-own/aggulative-stacks.model';
 import { Stack } from './stack';
 import { findPiece } from './builder.util';
-import { allStacksRemainValid, getValidation, validDrop } from './util/validation.util';
+import { validateWorkspace, } from './util/validation.util';
 
 interface propsI {
     build: AggulativeStacks,
@@ -17,20 +17,18 @@ interface propsI {
 
 export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }: propsI) => {
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
+    // only passing pieceId trhough DnD layer at reccommendation of DnD Documentation
+    // if DND layer doesn't have an id to provide, then validation was not set up for that workspace. validate() should always return true if no validation exists for the workspace
+    // passing build.config in validate() function so observer() picks up that we need the latest config and rerenders this component
     const [isDraggingWorkspace, setIsDraggingWorkspace] = useState(false);
-    // only passing pieceId at reccommendation of DnD Documentation
-    const { draggingPieceId, isDraggingDndLayer, itemType } = useDragLayer(monitor => ({ draggingPieceId: monitor.getItem()?.id, isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM, itemType: monitor.getItemType() }));
+    const { draggingPieceId, isDraggingDndLayer, itemType } = useDragLayer(monitor => ({
+        draggingPieceId: monitor.getItem()?.id,
+        isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
+        itemType: monitor.getItemType()
+    }));
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
-    const {piece: draggingPiece} = findPiece(draggingPieceId, build.stacks);
-    const validateWorkspace = (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => {
-        if (!draggingPiece) return true;
-        // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
-        const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, draggingPiece), build.stacks[dropPosition.stack])
-        if (!validForPiece) return false;
-        // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
-        const validForStack = allStacksRemainValid(build.stacks, draggingPiece, dropPosition, validationLibrary, creatingNewStackOnDrop)    
-        return validForPiece && validForStack;
-    }
+    const {piece: draggingPiece} = findPiece(draggingPieceId, build.stacks)
+    const validiate =  (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => (!draggingPieceId && !draggingPiece) ? true : validateWorkspace({dropPosition, creatingNewStackOnDrop, piece: draggingPiece || build.generatePiece('simulated-piece', build.config), validationLibrary, stacks: build.stacks})
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
     const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPieceId)
     const onBlockDrag = (isDraggingState: boolean) => setIsDraggingWorkspace(isDraggingState);
@@ -40,7 +38,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }:
             index={index}
             stack={stack}
             isDragging={isDragging}
-            validDrop={validateWorkspace}
+            validDrop={validiate}
             onStackDrop={onStackDrop}
             onBlockDrop={onBlockDrop}
             onBlockDrag={onBlockDrag}
