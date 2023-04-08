@@ -49,7 +49,6 @@ export const getValidation = (validationLibrary: validationLibraryT, piece: piec
         return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
     })[0][0]?.validation;
 } 
-
 // TODO: change to object being passed for all args
 export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT, creatingNewStackOnDrop: boolean) => {
     const simulatedStacks = stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
@@ -59,7 +58,6 @@ export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: p
     : addPieceToStack(dropPosition.stack, dropPosition.block, simulatedPiece, simulatedStacks)
     return newSimulatedStacks.map(s => isValidStack(validationLibrary, s)).every(s => s);
 }
-
 export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, validationLibrary, stacks}: validateWorkspace) => {
     // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
     // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
