@@ -9,14 +9,16 @@ export interface aggulativeStacksI {
     config: configT,
     data: aggulativeStacksT,
 }
-
 export interface blockI {
     piece: pieceI,
 }
-
 export interface aggulativeStackIndexI {
     stack: number,
     block: number,
+}
+export interface globalRulesI { // TODO: make this more generalized
+    maxStackHeight: number,
+    maxStackCount: number,
 }
 
 ///////////////////////////////////////////

@@ -58,7 +58,7 @@ const BuildYourOwn = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <BuildYourOwnDevBar setData={clearWorkspace} />
-            <BuildYourOwnPage model={model} modifiers={data.modifiers} validationLibrary={validationLibrary}/>
+            <BuildYourOwnPage model={model} modifiers={data.modifiers} globalValidation={data.builder?.rules} validationLibrary={validationLibrary}/>
         </>
     )
 };

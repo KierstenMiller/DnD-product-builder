@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
 import { useDragLayer, useDrop } from 'react-dnd';
 
-import { aggulativeStackIndexI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
+import { aggulativeStackIndexI, globalRulesI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../shared/shapes.util';
 import { AggulativeStacks} from '-/page-components/build-your-own/aggulative-stacks.model';
 import { Stack } from './stack';
@@ -12,10 +12,11 @@ import { validateWorkspace, } from './util/validation.util';
 interface propsI {
     build: AggulativeStacks,
     modifiers: modifiersT,
+    globalValidation: globalRulesI,
     validationLibrary: validationLibraryT,
 }
 
-export const WorkspaceAggulativeStacks = observer(({ build, validationLibrary }: propsI) => {
+export const WorkspaceAggulativeStacks = observer(({ build, globalValidation, validationLibrary }: propsI) => {
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
     // only passing pieceId trhough DnD layer at reccommendation of DnD Documentation
     // if DND layer doesn't have an id to provide, then validation was not set up for that workspace. validate() should always return true if no validation exists for the workspace

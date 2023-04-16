@@ -69,7 +69,7 @@ export const BuildYourOwnDevBar = ({setData}: {setData: (data: any) => void}) =>
                 headerText="Dev Bar"
                 headerLevel={2}
             >
-                <span className="mr-medium"><b>UP NEXT:</b> Create rules for aggulative stacks and implement those rules </span>
+                <span className="mr-medium"><b>UP NEXT:</b> Implement global rules for rental aggulative stacks and make it generalized </span>
                 <div>
                     <button onClick={() => setData(dataSingletonMock)}>Singleton Mock</button>
                     <button onClick={() => setData(dataSingletonRobot)}>Singleton Robots</button>
