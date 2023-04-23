@@ -16,10 +16,7 @@ export interface aggulativeStackIndexI {
     stack: number,
     block: number,
 }
-export interface globalRulesI { // TODO: make this more generalized
-    maxStackHeight: number,
-    maxStacksCount: number,
-}
+export type globalRulesI = validationT // TODO consolidate type
 
 ///////////////////////////////////////////
 //      FREEFORM MATRIX INTERFACES      //

@@ -11,6 +11,7 @@ import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
 import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
 import { modifiers as rentalModifiers } from '-/data/aggulativeStacks/rental/modifiers.data'
 import { rentalStacksMock } from '-/data/aggulativeStacks/rental/stacks.data'
+import { validationValues } from '-/Components/modifier/modifier.types'
 
 // NOTE: ALL OPTION IDS MUST BE UNIQUE ACROSS WORKSPACES, OTHERWISE MOBX GETS CONFUSED
 
@@ -56,7 +57,11 @@ export const dataAggulativeStacksRental = {
     modifiers: rentalModifiers, 
     builder: {
         type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
-        rules: {maxStackHeight: 8, maxStacksCount: 4},
+        // rules: {maxStackHeight: 8, maxStacksCount: 4},
+        rules: [
+            {type: validationValues.maxStackHeight, values: ['8']},
+            {type: validationValues.maxStacksCount, values: ['4']}
+        ],
         data: rentalStacksMock
     },
 }

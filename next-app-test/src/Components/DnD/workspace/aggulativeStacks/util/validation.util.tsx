@@ -1,11 +1,12 @@
 import { validationValues } from "-/Components/modifier/modifier.types";
-import { aggulativeStackIndexI, aggulativeStacksT, pieceI, stackI, validationLibraryT, validationT } from "-/page-components/build-your-own/build-your-own.types";
+import { aggulativeStackIndexI, aggulativeStacksT, globalRulesI, pieceI, stackI, validationLibraryT, validationT } from "-/page-components/build-your-own/build-your-own.types";
 import { addPieceToStack, addStack } from "../builder.util";
 
 interface validateWorkspace {
     dropPosition: aggulativeStackIndexI,
     creatingNewStackOnDrop: boolean,
     piece: pieceI,
+    globalValidation: globalRulesI,
     validationLibrary: validationLibraryT,
     stacks: aggulativeStacksT
 }
@@ -18,17 +19,26 @@ const withinRange = ({blockIndex, proximity, values, stack}: {blockIndex: number
 const validLevel = (blockIndex: number, values: string []) => Boolean(values.find(v => `level-${blockIndex}` === v));
 const hasValue = () => true; // TODO: implement
 const hasAllValues = () => true; // TODO implement
-const maxStackHeight = () =>  true; // TODO implement
-const maxStacksCount = () => true; // TODO implement
-export const validDrop = (blockIndex: number, validation: validationT, stack: stackI) => {
+const belowMaxHeight = ({values, stack}: {values: string[], stack: stackI}) =>  {
+    const max = Number(values[0]); // TODO: should only be one value. Maybe rethink how I define this?
+    if (!max || !stack) return true;
+    return stack.length < max;
+};
+const belowMaxCount = ({values, stacks}: {values: string[], stacks:aggulativeStacksT}) =>  {
+    const max = Number(values[0]); // TODO: should only be one value. Maybe rethink how I define this?
+    if (!max || !stacks) return true;
+    return stacks.length < max;
+};
+export const validDrop = (blockIndex: number, validation: validationT, stack: stackI, stacks?: aggulativeStacksT, creatingNewStackOnDrop?: boolean) => {
     return validation.every(v => {
         let result;
         switch (v.type) {
             case validationValues.maxStackHeight:
-                result = maxStackHeight();
+                result = belowMaxHeight({values: v.values, stack});
                 break;
             case validationValues.maxStacksCount:
-                result = maxStacksCount();
+                if (!creatingNewStackOnDrop || !stacks) return true;
+                result = belowMaxCount({values: v.values, stacks});
                 break;
             case validationValues.proximity:
                 result = withinRange({
@@ -74,10 +84,13 @@ export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: p
     : addPieceToStack(dropPosition.stack, dropPosition.block, simulatedPiece, simulatedStacks)
     return newSimulatedStacks.map(s => isValidStack(validationLibrary, s)).every(s => s);
 }
-export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, validationLibrary, stacks}: validateWorkspace) => {
+export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, globalValidation, validationLibrary, stacks}: validateWorkspace) => {
     // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
     // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
     if (stacks?.length === 0) return false;
+    console.log('stuff', {globalValidation, pieceValidation: getValidation(validationLibrary, piece)});
+    const validGlobal = validDrop(dropPosition.block, globalValidation, stacks[dropPosition.stack], stacks, creatingNewStackOnDrop);
+    if (!validGlobal) return false;
     const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, piece), stacks[dropPosition.stack])
     if (!validForPiece) return false;
     const validForStack = allStacksRemainValid(stacks, piece, dropPosition, validationLibrary, creatingNewStackOnDrop)  
