@@ -56,7 +56,7 @@ export const dataAggulativeStacksRental = {
     modifiers: rentalModifiers, 
     builder: {
         type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
-        rules: {maxStackHeight: 8, maxStackCount: 4},
+        rules: {maxStackHeight: 8, maxStacksCount: 4},
         data: rentalStacksMock
     },
 }

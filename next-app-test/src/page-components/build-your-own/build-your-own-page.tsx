@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 
 import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
-import { globalRulesI, modifiersT, validationLibraryT, validationT } from './build-your-own.types'
+import { globalRulesI, modifiersT, validationLibraryT } from './build-your-own.types'
 import { Studio } from '-/Components/DnD/studio'
 
 import styles from '#/Home.module.scss'
@@ -14,7 +14,6 @@ interface BuildYourOwnPageI {
 }
 
 export const BuildYourOwnPage = observer(({ model, modifiers, globalValidation, validationLibrary }: BuildYourOwnPageI) => {
-    console.log('validation', {globalValidation, validationLibrary});
     return (<>
         <div className={styles.app}>
             <div className={styles.container}>

@@ -11,6 +11,8 @@ export enum groupKeyValues {
     global = 'global'
 } 
 export enum validationValues {
+    maxStackHeight = "max-stack-height",
+    maxStacksCount = "max-stacks-count",
     position = "position",
     proximity = "proximity",
     has = "has",

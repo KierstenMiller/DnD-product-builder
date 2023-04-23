@@ -11,36 +11,52 @@ interface validateWorkspace {
 }
 
 const withinRange = ({blockIndex, proximity, values, stack}: {blockIndex: number, proximity: number, values: string[], stack: stackI}) => {
-    return stack.slice(blockIndex - proximity, blockIndex + proximity).some(b => values.some(v => v === b.piece.id));
+    // NOTE: adding +1 to last slice param as .slice() is not inclusive
+    if (!stack || stack.length === 0) return false;
+    return stack.slice(blockIndex - proximity, blockIndex + proximity + 1).some(b => values.some(v => b.piece.config.some(c => v === c.value)));
 };
-const validLevel = (blockIndex: number, values: string []) => {
-    return Boolean(values.find(v => `level-${blockIndex}` === v))
-};
-const hasValue = () => true;
-const hasAllValues = () => true;
+const validLevel = (blockIndex: number, values: string []) => Boolean(values.find(v => `level-${blockIndex}` === v));
+const hasValue = () => true; // TODO: implement
+const hasAllValues = () => true; // TODO implement
+const maxStackHeight = () =>  true; // TODO implement
+const maxStacksCount = () => true; // TODO implement
 export const validDrop = (blockIndex: number, validation: validationT, stack: stackI) => {
     return validation.every(v => {
+        let result;
         switch (v.type) {
+            case validationValues.maxStackHeight:
+                result = maxStackHeight();
+                break;
+            case validationValues.maxStacksCount:
+                result = maxStacksCount();
+                break;
             case validationValues.proximity:
-                return withinRange({
+                result = withinRange({
                     blockIndex,
                     proximity: v.proximity || stack.length,
                     values: v.values,
                     stack: stack
                 });
+                break;
             case validationValues.position:
-                return validLevel(blockIndex, v.values);
+                result = validLevel(blockIndex, v.values);
+                break;
             case validationValues.has:
-                return hasValue();
+                result = hasValue();
+                break; 
             case validationValues.hasAll:
-                return hasAllValues();
-            default: console.error(`Validation type ${v.type} does not exist`); return true;
+                result = hasAllValues();
+                break;
+            default:
+                console.error(`Validation type ${v.type} does not exist`);
+                result = true;
         }
+        return result;
     });
 }
 export const isValidStack = (validationLibrary: validationLibraryT, stack: stackI) => {
-    const result = stack.map((b, index) => ({index, pieceValidation: getValidation(validationLibrary, b.piece)}))
-    return result.map(r => (validDrop(r.index, r.pieceValidation, stack))).every(r => r);
+    const stackValidation = stack.map((b, index) => ({index, pieceValidation: getValidation(validationLibrary, b.piece)}))
+    return stackValidation.map(r => (validDrop(r.index, r.pieceValidation, stack))).every(r => r);
 }
 export const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => {
     if(validationLibrary.length <= 0) return [];
@@ -61,8 +77,9 @@ export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: p
 export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, validationLibrary, stacks}: validateWorkspace) => {
     // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
     // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
+    if (stacks?.length === 0) return false;
     const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, piece), stacks[dropPosition.stack])
     if (!validForPiece) return false;
-    const validForStack = allStacksRemainValid(stacks, piece, dropPosition, validationLibrary, creatingNewStackOnDrop)    
+    const validForStack = allStacksRemainValid(stacks, piece, dropPosition, validationLibrary, creatingNewStackOnDrop)  
     return validForPiece && validForStack;
 }

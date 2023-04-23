@@ -18,7 +18,7 @@ export interface aggulativeStackIndexI {
 }
 export interface globalRulesI { // TODO: make this more generalized
     maxStackHeight: number,
-    maxStackCount: number,
+    maxStacksCount: number,
 }
 
 ///////////////////////////////////////////
