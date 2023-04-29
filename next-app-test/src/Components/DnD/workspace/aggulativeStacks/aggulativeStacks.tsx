@@ -29,7 +29,7 @@ export const WorkspaceAggulativeStacks = observer(({ build, globalValidation, va
     }));
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
     const {piece: draggingPiece} = findPiece(draggingPieceId, build.stacks)
-    const validiate =  (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => (!draggingPieceId && !draggingPiece)
+    const validiate =  (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => (validationLibrary?.length === 0 || (!draggingPieceId && !draggingPiece))
     ? true
     : validateWorkspace({
         dropPosition,

@@ -74,7 +74,7 @@ export const BuildYourOwnDevBar = ({setData}: {setData: (data: any) => void}) =>
                 headerText="Dev Bar"
                 headerLevel={2}
             >
-                <span className="mr-medium"><b>UP NEXT:</b> Implement global rules for rental aggulative stacks and make it generalized </span>
+                <span className="mr-medium"><b>UP NEXT:</b> Clean up code - do all TODOs </span>
                 <div>
                     <button onClick={() => setData(dataSingletonMock)}>Singleton Mock</button>
                     <button onClick={() => setData(dataSingletonRobot)}>Singleton Robots</button>
@@ -136,6 +136,7 @@ export const BuildYourOwnDevBar = ({setData}: {setData: (data: any) => void}) =>
                         <p>Goal: Allow api to decide presentation of the modifier component.</p>
                         <p>Goal: Allow api to decide presentation of the workspace component</p>
                         <p>Goal: Make MobX model agnostic of configuration</p>
+                        <p>Goal: Implement unit, integrated, and functional (end to end) testing</p>
                         <p>Goal: Shallow update (do not effect browser's history) url on config change</p>
                         <p>Goal: Include error handling</p>
                         <ul>

@@ -29,7 +29,7 @@ const belowMaxCount = ({values, stacks}: {values: string[], stacks:aggulativeSta
     if (!max || !stacks) return true;
     return stacks.length < max;
 };
-export const validDrop = (blockIndex: number, validation: validationT, stack: stackI, stacks?: aggulativeStacksT, creatingNewStackOnDrop?: boolean) => {
+const validDrop = (blockIndex: number, validation: validationT, stack: stackI, stacks?: aggulativeStacksT, creatingNewStackOnDrop?: boolean) => {
     return validation.every(v => {
         let result;
         switch (v.type) {
@@ -64,11 +64,11 @@ export const validDrop = (blockIndex: number, validation: validationT, stack: st
         return result;
     });
 }
-export const isValidStack = (validationLibrary: validationLibraryT, stack: stackI) => {
+const isValidStack = (validationLibrary: validationLibraryT, stack: stackI) => {
     const stackValidation = stack.map((b, index) => ({index, pieceValidation: getValidation(validationLibrary, b.piece)}))
     return stackValidation.map(r => (validDrop(r.index, r.pieceValidation, stack))).every(r => r);
 }
-export const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => {
+const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => {
     if(validationLibrary.length <= 0) return [];
     return validationLibrary.map(modLevel => {
         const options = piece?.config?.filter(c => c.id === modLevel.id);
@@ -76,7 +76,7 @@ export const getValidation = (validationLibrary: validationLibraryT, piece: piec
     })[0][0]?.validation;
 } 
 // TODO: change to object being passed for all args
-export const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT, creatingNewStackOnDrop: boolean) => {
+const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT, creatingNewStackOnDrop: boolean) => {
     const simulatedStacks = stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
     const simulatedPiece = {...draggingPiece, config: draggingPiece.config.map(c => ({...c}))};
     const newSimulatedStacks = creatingNewStackOnDrop
@@ -88,7 +88,6 @@ export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, 
     // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
     // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
     if (stacks?.length === 0) return false;
-    console.log('stuff', {globalValidation, pieceValidation: getValidation(validationLibrary, piece)});
     const validGlobal = validDrop(dropPosition.block, globalValidation, stacks[dropPosition.stack], stacks, creatingNewStackOnDrop);
     if (!validGlobal) return false;
     const validForPiece = validDrop(dropPosition.block, getValidation(validationLibrary, piece), stacks[dropPosition.stack])
