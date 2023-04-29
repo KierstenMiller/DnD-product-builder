@@ -2,15 +2,25 @@ import { observer } from 'mobx-react-lite'
 import { useDrag } from 'react-dnd'
 import { DnDItemTypes } from './workspace/shared/shapes.util'
 
-export const DragZone = observer(({ onDrag, children }: { onDrag?: () => void, children: React.ReactNode }) => {
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: DnDItemTypes.ITEM,
+interface dragZonePropsI {
+    type: DnDItemTypes,
+    children: React.ReactNode
+    // optional
+    id?: string,
+    onDrag?: () => void,
+    setIsDraggingState?: (isDragging: boolean) => void,
+    
+}
+
+export const DragZone = observer(({type, id, setIsDraggingState, onDrag, children }: dragZonePropsI) => {
+    const [, drag] = useDrag(() => ({
+        type: type,
+        item: { id },
         collect: (monitor) => {
-            if (onDrag && monitor.isDragging()) onDrag();
-            return { isDragging: !!monitor.isDragging() };
+            if (setIsDraggingState && id && id === monitor.getItem()?.id) setTimeout(() => setIsDraggingState(true), 250);
+            if (onDrag && !!monitor.isDragging()) onDrag();
         },
-    }), [])
-    return (<div ref={drag} style={{opacity: isDragging ? 0.5 : 1}}>
-        {children}
-    </div>)
+        end: () => setTimeout(() => setIsDraggingState && setIsDraggingState(false), 250)
+    }), [id])
+    return <div ref={drag}>{children}</div>
 })

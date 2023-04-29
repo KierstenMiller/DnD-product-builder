@@ -1,3 +1,5 @@
+import { validationValues } from "-/Components/modifier/modifier.types"
+
 export const blockOptions = [
     {
         id: 'simple-entry',
@@ -6,7 +8,7 @@ export const blockOptions = [
         value: 'simple-entry',
         rank: 1,
         validation: [
-            {type: 'position', values: ['level-0']}
+            {type: validationValues.position, values: ['level-0']}
         ]
     },
     {
@@ -16,7 +18,7 @@ export const blockOptions = [
         value: 'fancy-entry',
         rank: 1,
         validation: [
-            {type: 'position', values: ['level-0']}
+            {type: validationValues.position, values: ['level-0']}
         ]
     },
     {
@@ -26,7 +28,7 @@ export const blockOptions = [
         value: 'raised-entry',
         rank: 1,
         validation: [
-            {type: 'position', values: ['level-0']}
+            {type: validationValues.position, values: ['level-0']}
         ]
     },
     {
@@ -36,8 +38,8 @@ export const blockOptions = [
         value: 'apartment-single-studio',
         rank: 2,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -47,8 +49,8 @@ export const blockOptions = [
         value: 'apartment-double-studio',
         rank: 2,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -58,8 +60,8 @@ export const blockOptions = [
         value: 'apartment-single-one',
         rank: 2,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -69,8 +71,8 @@ export const blockOptions = [
         value: 'apartment-double-one',
         rank: 2,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -80,8 +82,8 @@ export const blockOptions = [
         value: 'amenity-pool',
         rank: 3,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1']}
         ]
     },
     {
@@ -91,8 +93,8 @@ export const blockOptions = [
         value: 'amenity-observatory',
         rank: 3,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -102,8 +104,8 @@ export const blockOptions = [
         value: 'amenity-cafe',
         rank: 3,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -113,8 +115,8 @@ export const blockOptions = [
         value: 'amenity-dinning',
         rank: 3,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -124,10 +126,10 @@ export const blockOptions = [
         value: 'amenity-kitchen',
         rank: 3,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'has-all', values: ['amenity-cafe', 'amenity-dinning']},
-            {type: 'proximity', values: ['amenity-dinning']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.hasAll, values: ['amenity-cafe', 'amenity-dinning']},
+            {type: validationValues.proximity, proximity: 1, values: ['amenity-dinning']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8']}
         ]
     },
     {
@@ -137,8 +139,20 @@ export const blockOptions = [
         value: 'amenity-gym',
         rank: 3,
         validation: [
-            {type: 'has', values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
-            {type: 'position', values: ['level-1', 'level-2', 'level-3', 'level-4']}
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4']}
+        ]
+    },
+    {
+        id: 'amenity-locker',
+        label: 'Locker',
+        image: 'LOCKER',
+        value: 'amenity-locker',
+        rank: 3,
+        validation: [
+            {type: validationValues.proximity, proximity: 1, values: ['amenity-gym']},
+            {type: validationValues.has, values: ['entryway-simple', 'entryway-fancy', 'entryway-raised']},
+            {type: validationValues.position, values: ['level-1', 'level-2', 'level-3', 'level-4', 'level-5']}
         ]
     },
 ]

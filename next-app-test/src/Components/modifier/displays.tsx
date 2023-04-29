@@ -1,6 +1,7 @@
 import { optionI } from '-/page-components/build-your-own/build-your-own.types'
 import { DragZone } from '../DnD/dragZone'
 import { AddModal } from '../DnD/workspace/shared/addModal'
+import { DnDItemTypes } from '../DnD/workspace/shared/shapes.util'
 import { onChangeI } from '../form-controls/radioInput'
 import cardStyles from './card-styles.module.scss'
 import imageFirstStyles from './image-first-styles.module.scss'
@@ -11,7 +12,7 @@ export const displays = {
     [adderDisplayValues.card]: {
         styles: cardStyles,
         view: (opt: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => <div className={cardStyles.option}>
-        <DragZone onDrag={() => onClick({event: null, newSelection: opt.id})}>
+        <DragZone type={DnDItemTypes.ITEM} id={opt.id} onDrag={() => onClick({event: null, newSelection: opt.id})}>
             <div aria-hidden={true} className={cardStyles.image}>{opt.image}</div>
         </DragZone>
         <div>
@@ -24,7 +25,7 @@ export const displays = {
     [adderDisplayValues.imageFirst]: {
         styles: imageFirstStyles,
         view: (opt: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => <div className={imageFirstStyles.option}>
-        <DragZone onDrag={() => onClick({event: null, newSelection: opt.id})}>
+        <DragZone type={DnDItemTypes.ITEM} id={opt.id} onDrag={() => onClick({event: null, newSelection: opt.id})}>
             <div aria-hidden={true} className={imageFirstStyles.image}>{opt.image}</div>
         </DragZone>
         <div>{opt.label}</div>

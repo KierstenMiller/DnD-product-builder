@@ -109,6 +109,7 @@ export const robotPersonalityOptions = [
         id: 'default',
         label: 'Default',
         image: 'STOCK_default_personality',
+        value: 'default',
         insured: true,
         selected: true,
     },
@@ -116,12 +117,14 @@ export const robotPersonalityOptions = [
         id: 'kind',
         label: 'Kind',
         image: 'STOCK_kind_personality',
+        value: 'kind',
         insured: true,
     },
     {
         id: 'smart',
         label: 'Smart',
         image: 'STOCK_smart_personality',
+        value: 'smart',
         insured: true,
     },
 ]

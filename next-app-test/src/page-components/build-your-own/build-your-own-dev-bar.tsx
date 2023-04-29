@@ -11,6 +11,9 @@ import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
 import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
 import { modifiers as rentalModifiers } from '-/data/aggulativeStacks/rental/modifiers.data'
 import { rentalStacksMock } from '-/data/aggulativeStacks/rental/stacks.data'
+import { validationValues } from '-/Components/modifier/modifier.types'
+
+// NOTE: ALL OPTION IDS MUST BE UNIQUE ACROSS WORKSPACES, OTHERWISE MOBX GETS CONFUSED
 
 // mock SINGLETON data
 const dataSingletonMock = {
@@ -54,7 +57,11 @@ export const dataAggulativeStacksRental = {
     modifiers: rentalModifiers, 
     builder: {
         type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
-        rules: {maxStackHeight: 8, maxStackCount: 4},
+        // rules: {maxStackHeight: 8, maxStacksCount: 4},
+        rules: [
+            {type: validationValues.maxStackHeight, values: ['8']},
+            {type: validationValues.maxStacksCount, values: ['4']}
+        ],
         data: rentalStacksMock
     },
 }
@@ -67,7 +74,7 @@ export const BuildYourOwnDevBar = ({setData}: {setData: (data: any) => void}) =>
                 headerText="Dev Bar"
                 headerLevel={2}
             >
-                <span className="mr-medium"><b>UP NEXT:</b> Create rules for aggulative stacks and implement those rules </span>
+                <span className="mr-medium"><b>UP NEXT:</b> Clean up code - do all TODOs </span>
                 <div>
                     <button onClick={() => setData(dataSingletonMock)}>Singleton Mock</button>
                     <button onClick={() => setData(dataSingletonRobot)}>Singleton Robots</button>
@@ -129,6 +136,7 @@ export const BuildYourOwnDevBar = ({setData}: {setData: (data: any) => void}) =>
                         <p>Goal: Allow api to decide presentation of the modifier component.</p>
                         <p>Goal: Allow api to decide presentation of the workspace component</p>
                         <p>Goal: Make MobX model agnostic of configuration</p>
+                        <p>Goal: Implement unit, integrated, and functional (end to end) testing</p>
                         <p>Goal: Shallow update (do not effect browser's history) url on config change</p>
                         <p>Goal: Include error handling</p>
                         <ul>

@@ -18,9 +18,18 @@ const BuildYourOwn = () => {
             groupKey: mod.groupKey
         }
     })
+    // want the validation data inside of modifier's option's data. Option data should be all in one place. So we need to extract the validation here
+    const validationLibrary = data.modifiers.map(mod => ({
+        id: mod.id,
+        validation: mod.options.map(opt => ({
+            id: opt.id,
+            validation: opt.validation,
+        })).filter(opt => Boolean(opt.validation))
+    })).filter(mod => mod.validation.length > 0);
     // will be undefined if builder doesn't have data
     const builderDataWithGroupKeys = data.builder?.data?.map(d => d.map(m => {
-        if(m.piece?.config) m.piece.config = m.piece.config.map(pC => {
+        if(!m.piece?.config) return m;
+        m.piece.config = m.piece?.config.map(pC => {
             const match = config.find(gC => gC.id === pC.id);
             return {...pC, groupKey: match?.groupKey};
         })
@@ -34,6 +43,12 @@ const BuildYourOwn = () => {
         config: config,
         builder: getBuilder({config, ...builder}),
     });
+    // TODO: make generic data typing
+    const clearWorkspace = (newData) => {
+        // TODO: require every model to have setConfig and clearWorkspace actions
+        model?.builder?.build?.clearWorkspace(); // clearing to ensure there are no conflicts between workspace data
+        setData(newData);
+    }
     return (
         <>
             <Head>
@@ -42,8 +57,8 @@ const BuildYourOwn = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <BuildYourOwnDevBar setData={setData} />
-            <BuildYourOwnPage model={model} modifiers={data.modifiers} />
+            <BuildYourOwnDevBar setData={clearWorkspace} />
+            <BuildYourOwnPage model={model} modifiers={data.modifiers} globalValidation={data.builder?.rules} validationLibrary={validationLibrary}/>
         </>
     )
 };

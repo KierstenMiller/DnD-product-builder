@@ -1,11 +1,31 @@
-import { displayValuesT, filterDisplayValues, groupByValues, groupKeyValues, measurementValues, sortByValues } from '-/Components/modifier/modifier.types'
+import { displayValuesT, filterDisplayValues, groupByValues, groupKeyValues, measurementValues, sortByValues, validationValues } from '-/Components/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
 
-// AGGULATIVE-STACKS
+////////////////////////////////////////////
+//      AGGULATIVE STACKS INTERFACES      //
+////////////////////////////////////////////
+export interface aggulativeStacksI {
+    type: builderKeys.aggulativeStacks,
+    config: configT,
+    data: aggulativeStacksT,
+}
 export interface blockI {
     piece: pieceI,
 }
-// FREEFORM-MATRIX
+export interface aggulativeStackIndexI {
+    stack: number,
+    block: number,
+}
+export type globalRulesI = validationT // TODO consolidate type
+
+///////////////////////////////////////////
+//      FREEFORM MATRIX INTERFACES      //
+//////////////////////////////////////////
+export interface freeformMatrixI {
+    type: builderKeys.freeformMatrix,
+    config: configT,
+    data: matrixT,
+}
 export interface matrixIndexCoordinatesI {
     row: number,
     column: number,
@@ -14,7 +34,19 @@ export interface matrixIndexI {
     matrixIndex: matrixIndexCoordinatesI;
     piece?: pieceI;
 }
-// BOTH
+
+/////////////////////////////////////
+//      SINGLETON INTERFACES      //
+////////////////////////////////////
+export interface singletonI {
+    type: builderKeys.singleton,
+    config: configT,
+    data: undefined,
+}
+
+//////////////////////////////////
+//      SHARED INTERFACES      //
+/////////////////////////////////
 export interface pieceI {
     id: string,
     config: configT,
@@ -23,15 +55,15 @@ export interface pieceI {
 export interface optionI { // todo: make more specific to workspace type
     id: string, // id to identify option
     value: string, // value to match against library of keys
-    label: string,
-    image: string,
+    label: string, // ui label
+    image: string, // url of image
     // optional
     selected?: boolean,
     productId?: string | number,
+    validation?: validationT,
     height?: number,
     width?: number,
-    insured?: boolean,
-    
+    insured?: boolean,   
 }
 export interface filterI {
     display: filterDisplayValues,
@@ -50,32 +82,36 @@ export interface modifierI {
     measurementUnit?: measurementValues,
 }
 export interface configItemI {
-    id: string,
-    selection: string,
-    value: string,
+    id: string, // corresponds to modifier id
+    selection: string, // corresponds to option id (from modifier with above id)
+    value: string, // ui value that is matched against
     groupKey?: groupKeyValues,
 };
-export interface singletonI {
-    type: builderKeys.singleton,
-    config: configT,
-    data: undefined,
-}
-export interface freeformMatrixI {
-    type: builderKeys.freeformMatrix,
-    config: configT,
-    data: matrixT,
-}
-export interface aggulativeStacksI {
-    type: builderKeys.aggulativeStacks,
-    config: configT,
-    data: aggulativeStacksT,
-}
 
-// TYPES
-export type aggulativeStacksT = blockI[][] | []
+////////////////////////////////////////
+//      AGGULATIVE STACKS TYPES      //
+///////////////////////////////////////
+export type aggulativeStacksT = stackI[] | []
+export type stackI = blockI[]
+export type validationT = {type: validationValues, values: string[], proximity?: number}[]
+export type validationLibraryT = {
+    id: string,
+    validation: {
+        id: string,
+        validation: validationT
+    }[]
+}[]
+
+/////////////////////////////////////
+//      FREEFORM MATRIX TYPES     //
+////////////////////////////////////
 export type matrixT = matrixIndexI[][];
-export type builderTypesT = builderKeys;
+
+////////////////////////////
+//      SHARED TYPES     //
+///////////////////////////
 export type builderT = singletonI | freeformMatrixI | aggulativeStacksI;
-export type optionsT = optionI[];
+export type builderTypesT = builderKeys;
 export type modifiersT = modifierI[];
+export type optionsT = optionI[];
 export type configT = configItemI[];
