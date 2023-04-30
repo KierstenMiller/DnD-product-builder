@@ -49,7 +49,6 @@ export class AggulativeStacksBuildModel {
     }
     // setting actions
     setConfig = (newConfig: configT) => {
-        console.log('AGG SETCONFIG');
         this.config = newConfig;
     };
     // adding actions
