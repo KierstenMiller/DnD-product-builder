@@ -1,6 +1,7 @@
 import classNames from "classnames";
 
 import defaultStyles from './categorized-radio-input-group-styles.module.scss'
+import { sassStylesI } from "-/util/typing-util";
 
 export interface onChangeI {
     event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLDivElement>,
@@ -15,7 +16,7 @@ interface propsI {
     ariaLabelledBy?: string,
     selected?: boolean,
     hideInput?: boolean,
-    stylesOverride?: any, // TODO: typescript
+    stylesOverride?: sassStylesI,
     mirage?: (props: any) => React.ReactNode, // TODO: look up how to not make this any
 }
 

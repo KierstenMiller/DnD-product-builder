@@ -1,8 +1,9 @@
 import { closeButtonContent, closeButtons } from "./modal.util";
-import { mouseButtonClickT } from "-/util/interactionTyping";
+import { mouseButtonClickT } from "-/util/interaction-typing";
 import defaultStyles from './modal.module.scss'
 import FocusTrap from "focus-trap-react";
 import { useEffect } from "react";
+import { sassStylesI } from "-/util/typing-util";
 
 //////////////////////
 //      TYPING      //
@@ -29,7 +30,7 @@ export interface ModalI {
     footer?: {
         buttons?: ButtonI[];
     };
-    stylesOverride?: any; // TODO: better typing
+    stylesOverride?: sassStylesI;
 }
 
 ///////////////////////////

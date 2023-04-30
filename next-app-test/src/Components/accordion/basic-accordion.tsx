@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Header, headerLevelT } from "../atoms/header";
 
 import defaultStyles from './basic-accordion-styles.module.scss'
+import { sassStylesI } from "-/util/typing-util";
 
 interface Props {
     children: React.ReactNode;
@@ -12,7 +13,7 @@ interface Props {
     // optional
     drawerOpen?: boolean;
     disableCollapse?: boolean;
-    stylesOverride?: any; // TODO: look up typing for sass module
+    stylesOverride?: sassStylesI;
 }
 
 export const BasicAccordion = ({

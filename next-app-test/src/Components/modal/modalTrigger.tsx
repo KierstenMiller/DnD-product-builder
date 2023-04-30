@@ -2,7 +2,8 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import defaultStyles from './modal.module.scss'
 import { Modal, ModalI, modalToggleCallbackT } from "./modal";
-import { mouseButtonClickT } from "-/util/interactionTyping";
+import { mouseButtonClickT } from "-/util/interaction-typing";
+import { sassStylesI } from "-/util/typing-util";
 
 interface ModalTriggerI {
     triggerConfig: {
@@ -10,11 +11,11 @@ interface ModalTriggerI {
         openCallback?: modalToggleCallbackT;
     };
     modalConfig: Omit<ModalI, 'closeCallback'> & {
-        closeCallback?: modalToggleCallbackT // making optional
+        closeCallback?: modalToggleCallbackT
     };
     // optional
     isGlobal?: boolean;
-    stylesOverride?: any; // TODO better typing
+    stylesOverride?: sassStylesI;
 }
 
 export const ModalTrigger = ({ triggerConfig, modalConfig, isGlobal = true, stylesOverride = {} }: ModalTriggerI) => {

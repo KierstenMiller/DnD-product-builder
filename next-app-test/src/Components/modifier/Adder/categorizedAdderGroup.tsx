@@ -1,4 +1,5 @@
 import { onChangeI } from "-/Components/form-controls/radioInput";
+import { sassStylesI } from "-/util/typing-util";
 import { AdderGroup } from "./AdderGroup";
 
 interface propsOptionI {
@@ -17,7 +18,7 @@ interface propsI {
     }[],
     view: (props: any) => React.ReactNode,
     // optional
-    styles?: any, // TODO: typescript
+    styles?: sassStylesI,
 }
 
 export const CategorizedAdderGroup = ({heading, categorizedOptions, onChange, styles = {}, view }: propsI) => {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { onChangeI, RadioInput } from "./radioInput";
+import { sassStylesI } from "-/util/typing-util";
 
 interface propsOptionI {
     id: string,
@@ -12,7 +13,7 @@ interface propsI {
     onChange: ({event, newSelection}: onChangeI) => any;
     options: propsOptionI[],
     // optional
-    styles?: any, // TODO: look up styles typing
+    styles?: sassStylesI,
     mirage?: (props: any) => React.ReactNode, // TODO: look up how to not make this any
 }
 
