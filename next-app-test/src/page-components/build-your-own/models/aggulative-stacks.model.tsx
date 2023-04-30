@@ -1,7 +1,7 @@
 import { makeAutoObservable, makeObservable, observable, computed, action } from "mobx"
 
 import { groupKeyValues } from "-/Components/modifier/modifier.types";
-import { aggulativeStacksT, configT } from "../build-your-own.types";
+import { aggulativeStacksListT, configT } from "../build-your-own.types";
 import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findPiece, generateId } from "-/Components/DnD/workspace/aggulativeStacks/builder.util";
 
 class Piece {
@@ -17,10 +17,10 @@ class Piece {
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
 }
-export class AggulativeStacksModel {
+export class AggulativeStacksBuildModel {
     config
     stacksData
-    constructor({ config, stacks: stacksData }: { config: configT, stacks: aggulativeStacksT }) {
+    constructor({ config, stacks: stacksData }: { config: configT, stacks: aggulativeStacksListT }) {
         this.config = config;
         this.stacksData = stacksData;
         makeAutoObservable(this, {
@@ -49,6 +49,7 @@ export class AggulativeStacksModel {
     }
     // setting actions
     setConfig = (newConfig: configT) => {
+        console.log('AGG SETCONFIG');
         this.config = newConfig;
     };
     // adding actions

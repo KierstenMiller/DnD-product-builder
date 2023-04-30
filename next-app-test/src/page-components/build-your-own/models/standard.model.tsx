@@ -1,20 +1,6 @@
 import { makeObservable, observable, action } from "mobx"
-import { AggulativeStacksModel } from "./aggulative-stacks.model";
-import { aggulativeStacksT, configItemI, configT, matrixT, pieceI } from "../build-your-own.types";
-import { builderKeys } from "../build-your-own.util";
-import { FreeformMatrixModel } from "./freeform-grid.model";
+import { builderT, configItemI, configT, pieceI } from "../build-your-own.types";
 
-export type BuilderDataT = {type: builderKeys.singleton, data: undefined}
-| {type: builderKeys.freeformMatrix, data: matrixT}
-| {type: builderKeys.aggulativeStacks, data: aggulativeStacksT}
-export type BuilderT = {type: builderKeys.singleton, build: undefined}
-| {type: builderKeys.freeformMatrix, build: FreeformMatrixModel}
-| {type: builderKeys.aggulativeStacks, build: AggulativeStacksModel}
-export type BuildT = FreeformMatrixModel | AggulativeStacksModel | null
-export interface BuildYourOwnModelI {
-    config: configT
-    builder: BuilderT
-}
 export class buildPiece {
     id
     config
@@ -30,13 +16,12 @@ export class buildPiece {
         this.config = config;
     }
 }
-export class SingletonModel {
+export class StandardModel {
     config: configT
-    builder: BuilderT
-    constructor({config, builder}: BuildYourOwnModelI) {
+    builder: builderT
+    constructor({config, builder}: {config: configT, builder: builderT}) {
         this.config = config;
         this.builder = builder
-        // TODO: make builder a computed?
         makeObservable(this, {
             config: observable,
             builder: observable.ref, // allow children to decide what is observable

@@ -2,9 +2,9 @@ import { observer } from 'mobx-react-lite'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
-import { SingletonModel } from '-/page-components/build-your-own/models/singleton.model'
+import { StandardModelT } from '-/page-components/build-your-own/models/standard.model'
 import { ModifierGroups } from '-/Components/modifier/modifierGroups'
-import { globalRulesI, modifiersT, validationLibraryT, validationT } from '-/page-components/build-your-own/build-your-own.types'
+import { globalRulesI, modifiersT, validationLibraryT } from '-/page-components/build-your-own/build-your-own.types'
 import { builderKeys, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
 import { AddToWorkspace } from './workspace/shared/addToWorkspace'
 import { generateImage } from './workspace/shared/shapes.util'
@@ -12,7 +12,7 @@ import { generateImage } from './workspace/shared/shapes.util'
 import styles from '#/Home.module.scss'
 
 interface propsI {
-    model: SingletonModel,
+    model: StandardModelT,
     modifiers: modifiersT,
     globalValidation: globalRulesI,
     validationLibrary: validationLibraryT,

@@ -1,13 +1,18 @@
 import { displayValuesT, filterDisplayValues, groupByValues, groupKeyValues, measurementValues, sortByValues, validationValues } from '-/Components/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
+import { AggulativeStacksBuildModel } from './models/aggulative-stacks.model';
+import { FreeformMatrixBuildModel } from './models/freeform-grid.model';
+import { StandardModel } from './models/standard.model';
 
 //////////////////////////////////
 //      AGGULATIVE STACKS      //
 /////////////////////////////////
-export interface aggulativeStacksI {
+export type aggulativeStacksBuildT = AggulativeStacksBuildModel;
+export interface aggulativeStacksI { type: builderKeys.aggulativeStacks, build: aggulativeStacksBuildT }
+export interface aggulativeStacksRawDataI {
     type: builderKeys.aggulativeStacks,
     config: configT,
-    data: aggulativeStacksT,
+    data: aggulativeStacksListT,
 }
 export interface blockI {
     piece: pieceI,
@@ -16,10 +21,11 @@ export interface aggulativeStackIndexI {
     stack: number,
     block: number,
 }
-export type globalRulesI = validationT
-export type aggulativeStacksT = stackI[] | []
 export type stackI = blockI[]
+export type aggulativeStacksListT = stackI[] | []
+/*---START: validation---*/
 export type validationT = {type: validationValues, values: string[], proximity?: number}[]
+export type globalRulesI = validationT
 export type validationLibraryT = {
     id: string,
     validation: {
@@ -27,11 +33,14 @@ export type validationLibraryT = {
         validation: validationT
     }[]
 }[]
+/*---END: validation---*/
 
 ////////////////////////////////
 //      FREEFORM MATRIX      //
 ///////////////////////////////
-export interface freeformMatrixI {
+export type freeformMatrixBuildT = FreeformMatrixBuildModel;
+export interface freeformMatrixI { type: builderKeys.freeformMatrix, build: freeformMatrixBuildT }
+export interface freeformMatrixRawDataI {
     type: builderKeys.freeformMatrix,
     config: configT,
     data: matrixT,
@@ -49,7 +58,9 @@ export type matrixT = matrixIndexI[][];
 //////////////////////////
 //      SINGLETON      //
 /////////////////////////
-export interface singletonI {
+// note: singletons do not need a build
+export interface singletonI { type: builderKeys.singleton, build: undefined }
+export interface singletonRawDataI {
     type: builderKeys.singleton,
     config: configT,
     data: undefined,
@@ -58,10 +69,23 @@ export interface singletonI {
 //////////////////////
 //      SHARED      //
 //////////////////////
+export type StandardModelT = StandardModel;
+export type builderT =  singletonI | freeformMatrixI | aggulativeStacksI
+export type builderRawDataT = singletonRawDataI | freeformMatrixRawDataI | aggulativeStacksRawDataI;
+export type builderTypesT = builderKeys;
 export interface pieceI {
     id: string,
     config: configT,
 }
+export interface buildYourOwnRawDataI {
+    modifiers: modifiersT,
+    builder: {
+        type: builderKeys,
+        rules?: globalRulesI,
+        data?: any[][],
+    }
+}
+/*---START: Modifier/Config---*/
 export interface optionI { // todo: make more specific to workspace type
     id: string, // id to identify option
     value: string, // value to match against library of keys
@@ -84,7 +108,7 @@ export interface modifierI {
     label: string,
     display: displayValuesT,
     options: optionsT,
-    //optional
+    // optional
     filter?: filterI,
     groupKey?: groupKeyValues, // TODO: think though is we want a defined list of groupKeys or just any string can be used
     groupBy?: groupByValues, // TODO: rename to optionsGroupByProp
@@ -97,16 +121,7 @@ export interface configItemI {
     value: string, // ui value that is matched against
     groupKey?: groupKeyValues,
 };
-export interface buildYourOwnData {
-    modifiers: modifiersT,
-    builder: {
-        type: builderKeys,
-        rules?: globalRulesI,
-        data?: any[][],
-    }
-}
-export type builderT = singletonI | freeformMatrixI | aggulativeStacksI;
-export type builderTypesT = builderKeys;
 export type modifiersT = modifierI[];
 export type optionsT = optionI[];
 export type configT = configItemI[];
+/*---END: Modifier/Config---*/

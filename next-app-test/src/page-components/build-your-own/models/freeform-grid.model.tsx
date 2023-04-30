@@ -1,6 +1,6 @@
 import { makeObservable, observable, action } from "mobx"
 
-import { buildPiece } from "./singleton.model";
+import { buildPiece } from "./standard.model";
 import { configT, matrixIndexCoordinatesI, matrixT, pieceI } from "../build-your-own.types";
 
 class MatrixIndex {
@@ -22,7 +22,7 @@ class MatrixIndex {
         this.piece = undefined;
     }
 }
-export class FreeformMatrixModel {
+export class FreeformMatrixBuildModel {
     config
     matrix
     constructor({config, matrix}: {config: configT, matrix: matrixT}) {

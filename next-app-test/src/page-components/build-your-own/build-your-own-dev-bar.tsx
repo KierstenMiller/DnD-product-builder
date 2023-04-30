@@ -6,7 +6,7 @@ import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifie
 import { robotModifiers } from '-/data/singleton/robots/modifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
 import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/testingMocks/stacks.data'
-import { buildYourOwnData } from '-/page-components/build-your-own/build-your-own.types'
+import { buildYourOwnRawDataI } from '-/page-components/build-your-own/build-your-own.types'
 import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
 import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
 import { modifiers as rentalModifiers } from '-/data/aggulativeStacks/rental/modifiers.data'
@@ -17,7 +17,7 @@ import { validationValues } from '-/Components/modifier/modifier.types'
 // NOTE: Not using subclassing to standardize models as MobX has major subclassing limitations - https://mobx.js.org/subclassing.html
 
 // mock SINGLETON data
-const dataSingletonMock: buildYourOwnData = {
+const dataSingletonMock: buildYourOwnRawDataI = {
     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
     builder: {
         type: builderKeys.singleton,
@@ -25,7 +25,7 @@ const dataSingletonMock: buildYourOwnData = {
     }
 }
 // robot SINGLETON data
-const dataSingletonRobot: buildYourOwnData = {
+const dataSingletonRobot: buildYourOwnRawDataI = {
     modifiers: robotModifiers,
     builder: {
         type: builderKeys.singleton,
@@ -33,7 +33,7 @@ const dataSingletonRobot: buildYourOwnData = {
     }
 }
 // mock FREEFORM MATRIX data
-const dataFreeformMatrix: buildYourOwnData = {
+const dataFreeformMatrix: buildYourOwnRawDataI = {
     modifiers: shapeModifiers,
     builder: {
         type: builderKeys.freeformMatrix,
@@ -41,7 +41,7 @@ const dataFreeformMatrix: buildYourOwnData = {
     }
 }
 // mock AGGULATIVE STACKS data
-const dataAggulativeStacks: buildYourOwnData = {
+const dataAggulativeStacks: buildYourOwnRawDataI = {
     modifiers: modifiers,
     builder: {
         type: builderKeys.aggulativeStacks,
@@ -49,7 +49,7 @@ const dataAggulativeStacks: buildYourOwnData = {
     },
 }
 // rental AGGULATIVE STACKS data
-export const dataAggulativeStacksRental: buildYourOwnData = {
+export const dataAggulativeStacksRental: buildYourOwnRawDataI = {
     modifiers: rentalModifiers, 
     builder: {
         type: builderKeys.aggulativeStacks,

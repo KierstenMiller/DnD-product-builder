@@ -2,15 +2,14 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
 import { useDragLayer, useDrop } from 'react-dnd';
 
-import { aggulativeStackIndexI, globalRulesI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
+import { aggulativeStacksBuildT, aggulativeStackIndexI, globalRulesI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../shared/shapes.util';
-import { AggulativeStacksModel} from '-/page-components/build-your-own/models/aggulative-stacks.model';
 import { Stack } from './stack';
 import { findPiece } from './builder.util';
 import { validateWorkspace, } from './util/validation.util';
 
 interface propsI {
-    build: AggulativeStacksModel,
+    build: aggulativeStacksBuildT,
     modifiers: modifiersT,
     globalValidation: globalRulesI,
     validationLibrary: validationLibraryT,

@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import { useState } from 'react'
 
-import { SingletonModel } from '-/page-components/build-your-own/models/singleton.model'
+import { StandardModel } from '-/page-components/build-your-own/models/standard.model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
-import { buildYourOwnData } from '-/page-components/build-your-own/build-your-own.types'
+import { buildYourOwnRawDataI } from '-/page-components/build-your-own/build-your-own.types'
 
 const BuildYourOwn = () => {
     const [data, setData] = useState(dataAggulativeStacksRental);
@@ -40,11 +40,11 @@ const BuildYourOwn = () => {
         ...data.builder,
         ...builderDataWithGroupKeys && {data: builderDataWithGroupKeys}
     } 
-    const model = new SingletonModel({
+    const model = new StandardModel({
         config: config,
         builder: getBuilder({config, ...builder}),
     });
-    const clearWorkspace = (newData: buildYourOwnData) => {
+    const clearWorkspace = (newData: buildYourOwnRawDataI) => {
         model?.builder?.build?.clearWorkspace(); // clearing to ensure there are no conflicts between workspace data
         setData(newData);
     }

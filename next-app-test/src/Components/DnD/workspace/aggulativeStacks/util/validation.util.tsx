@@ -1,5 +1,5 @@
 import { validationValues } from "-/Components/modifier/modifier.types";
-import { aggulativeStackIndexI, aggulativeStacksT, globalRulesI, pieceI, stackI, validationLibraryT, validationT } from "-/page-components/build-your-own/build-your-own.types";
+import { aggulativeStackIndexI, aggulativeStacksListT, globalRulesI, pieceI, stackI, validationLibraryT, validationT } from "-/page-components/build-your-own/build-your-own.types";
 import { addPieceToStack, addStack } from "../builder.util";
 
 interface validateWorkspace {
@@ -8,7 +8,7 @@ interface validateWorkspace {
     piece: pieceI,
     globalValidation: globalRulesI,
     validationLibrary: validationLibraryT,
-    stacks: aggulativeStacksT
+    stacks: aggulativeStacksListT
 }
 
 const withinRange = ({blockIndex, proximity, values, stack}: {blockIndex: number, proximity: number, values: string[], stack: stackI}) => {
@@ -24,12 +24,12 @@ const belowMaxHeight = ({values, stack}: {values: string[], stack: stackI}) =>  
     if (!max || !stack) return true;
     return stack.length < max;
 };
-const belowMaxCount = ({values, stacks}: {values: string[], stacks:aggulativeStacksT}) =>  {
+const belowMaxCount = ({values, stacks}: {values: string[], stacks:aggulativeStacksListT}) =>  {
     const max = Number(values[0]); // TODO: should only be one value. Maybe rethink how I define this?
     if (!max || !stacks) return true;
     return stacks.length < max;
 };
-const validDrop = (blockIndex: number, validation: validationT, stack: stackI, stacks?: aggulativeStacksT, creatingNewStackOnDrop?: boolean) => {
+const validDrop = (blockIndex: number, validation: validationT, stack: stackI, stacks?: aggulativeStacksListT, creatingNewStackOnDrop?: boolean) => {
     return validation.every(v => {
         let result;
         switch (v.type) {
@@ -76,7 +76,7 @@ const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => 
     })[0][0]?.validation;
 } 
 // TODO: change to object being passed for all args
-const allStacksRemainValid = (stacks: aggulativeStacksT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT, creatingNewStackOnDrop: boolean) => {
+const allStacksRemainValid = (stacks: aggulativeStacksListT, draggingPiece: pieceI, dropPosition: aggulativeStackIndexI, validationLibrary: validationLibraryT, creatingNewStackOnDrop: boolean) => {
     const simulatedStacks = stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
     const simulatedPiece = {...draggingPiece, config: draggingPiece.config.map(c => ({...c}))};
     const newSimulatedStacks = creatingNewStackOnDrop
