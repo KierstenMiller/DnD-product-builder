@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import defaultStyles from './categorized-radio-input-group-styles.module.scss'
+import { sassStylesI } from "-/util/typing-util";
 
 export interface onChangeI {
     event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLDivElement>,
@@ -14,7 +15,7 @@ interface propsI {
     defaultValue?: string,
     ariaDescribedBy?: string,
     helpText?: string
-    stylesOverride?: any, // TODO: typescript
+    stylesOverride?: sassStylesI,
 }
 
 export const TextInput = ({ id, label, onChange, defaultValue, ariaDescribedBy, helpText, stylesOverride = {} }: propsI) => {

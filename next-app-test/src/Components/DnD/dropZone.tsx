@@ -22,7 +22,7 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}
     const [dropInfo, drop] = useDrop(
         () => ({
             accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
-            drop: ({dragStartIndex}: any) => { // TODO: figure out better typing
+            drop: ({dragStartIndex}: {dragStartIndex: matrixIndexCoordinatesI}) => {
                 onDrop(matrixIndex, dragStartIndex)
             },
             collect: (monitor) => ({

@@ -14,6 +14,7 @@ import { rentalStacksMock } from '-/data/aggulativeStacks/rental/stacks.data'
 import { validationValues } from '-/Components/modifier/modifier.types'
 
 // NOTE: ALL OPTION IDS MUST BE UNIQUE ACROSS WORKSPACES, OTHERWISE MOBX GETS CONFUSED
+// NOTE: Not using subclassing to standardize models as MobX has major subclassing limitations - https://mobx.js.org/subclassing.html
 
 // mock SINGLETON data
 const dataSingletonMock: buildYourOwnData = {

@@ -5,6 +5,7 @@ import { SingletonModel } from '-/page-components/build-your-own/models/singleto
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
+import { buildYourOwnData } from '-/page-components/build-your-own/build-your-own.types'
 
 const BuildYourOwn = () => {
     const [data, setData] = useState(dataAggulativeStacksRental);
@@ -43,9 +44,7 @@ const BuildYourOwn = () => {
         config: config,
         builder: getBuilder({config, ...builder}),
     });
-    // TODO: make generic data typing
-    const clearWorkspace = (newData) => {
-        // TODO: require every model to have setConfig and clearWorkspace actions
+    const clearWorkspace = (newData: buildYourOwnData) => {
         model?.builder?.build?.clearWorkspace(); // clearing to ensure there are no conflicts between workspace data
         setData(newData);
     }

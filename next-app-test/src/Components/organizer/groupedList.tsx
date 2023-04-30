@@ -12,7 +12,7 @@ interface props {
     groupByKey: string,
     itemsToGroup: {[key: string]: any}[],
     // optional
-    className?: any, // K-TODO: look into className type
+    className?: classNames.ArgumentArray,
     groupHeaderLevel?: headerLevelT,
 }
 
@@ -23,7 +23,7 @@ export const GroupedList = ({ groupByKey, itemsToGroup, className, groupHeaderLe
         return { ...acc, [key]: [...curGroup, obj] };
       }, {});
     return (
-        <div className={classNames(`grouped-list-container`, className && className)}>
+        <div className={classNames(`grouped-list-container`, className)}>
             GROUPS
         </div>
     )

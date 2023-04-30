@@ -1,9 +1,9 @@
 export type headerLevelT = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6';
 interface HeaderProps {
     headerLevel: headerLevelT;
-    children: React.ReactNode; // why ReactNode is the best for children https://www.arahansen.com/how-children-types-work-in-react-18-and-typescript-4/
+    children: React.ReactNode;
     // optional
-    className?: any; // K-TODO: Look into classname type
+    className?: string;
 }
 
 export const Header = ({ headerLevel, children, className }: HeaderProps) => {

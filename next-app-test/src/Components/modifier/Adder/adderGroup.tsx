@@ -1,6 +1,7 @@
 
 import { onChangeI } from '-/Components/form-controls/radioInput';
 import { optionI } from '-/page-components/build-your-own/build-your-own.types'
+import { sassStylesI } from '-/util/typing-util';
 
 interface propsOptionI {
     id: string,
@@ -15,7 +16,7 @@ interface propsI {
     options: propsOptionI[],
     view: (option: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => React.ReactNode,
     // optional
-    styles?: any, // TODO: look up styles typing
+    styles?: sassStylesI,
 
 }
 

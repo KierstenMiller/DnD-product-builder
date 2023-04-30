@@ -8,7 +8,7 @@ import { sassStylesI } from "-/util/typing-util";
 //////////////////////
 //      TYPING      //
 //////////////////////
-export type modalToggleCallbackT = (event: mouseButtonClickT, isOpen: boolean) => void
+export type modalToggleCallbackT = (event: mouseButtonClickT | KeyboardEvent, isOpen: boolean) => void
 interface ButtonI {
     text: string;
     // optional
@@ -53,9 +53,9 @@ export const Modal = ({
     stylesOverride = {},
 }: ModalI) => {
     const styles = { ...defaultStyles, ...stylesOverride };
-    const close = (event: mouseButtonClickT) => closeCallback(event, false);
+    const close = (event: mouseButtonClickT | KeyboardEvent) => closeCallback(event, false);
     useEffect(() => {
-        const handleEsc = (event: any) => event.key === "Escape" && close(event); // TODO: better typing
+        const handleEsc = (event: KeyboardEvent) => event.key === "Escape" && close(event);
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
     }, []);
