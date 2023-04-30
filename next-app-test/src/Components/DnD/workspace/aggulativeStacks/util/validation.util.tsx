@@ -2,14 +2,14 @@ import { aggulativeStackIndexI, aggulativeStacksListT, globalRulesI, pieceI, sta
 import { addPieceToStack, addStack } from "../builder.util";
 import { validDrop } from "./validDrop";
 
-interface allStacksRemainValid {
+interface allStacksRemainValidI {
     stacks: aggulativeStacksListT,
     draggingPiece: pieceI,
     dropPosition: aggulativeStackIndexI,
     validationLibrary: validationLibraryT,
     creatingNewStackOnDrop: boolean
 }
-interface validateWorkspace {
+interface validateWorkspaceI {
     dropPosition: aggulativeStackIndexI,
     creatingNewStackOnDrop: boolean,
     piece: pieceI,
@@ -28,7 +28,7 @@ const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => 
         return modLevel.validation.filter(v => options?.some(o => o.selection === v.id));
     })[0][0]?.validation;
 } 
-const allStacksRemainValid = ({stacks, draggingPiece, dropPosition, validationLibrary, creatingNewStackOnDrop}:) => {
+const allStacksRemainValid = ({stacks, draggingPiece, dropPosition, validationLibrary, creatingNewStackOnDrop}: allStacksRemainValidI) => {
     const simulatedStacks = stacks.map(s => s.map(b => ({piece: {...b.piece, config: b.piece.config.map(c => ({...c}))}}))).slice(); // MAKE NON-OBSERVABLE COPY
     const simulatedPiece = {...draggingPiece, config: draggingPiece.config.map(c => ({...c}))};
     const newSimulatedStacks = creatingNewStackOnDrop
@@ -36,7 +36,7 @@ const allStacksRemainValid = ({stacks, draggingPiece, dropPosition, validationLi
     : addPieceToStack(dropPosition.stack, dropPosition.block, simulatedPiece, simulatedStacks)
     return newSimulatedStacks.map(s => isValidStack(validationLibrary, s)).every(s => s);
 }
-export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, globalValidation, validationLibrary, stacks}: validateWorkspace) => {
+export const validateWorkspace = ({dropPosition, creatingNewStackOnDrop, piece, globalValidation, validationLibrary, stacks}: validateWorkspaceI) => {
     // validForPiece is true if the current draggingPiece is added to a position ([stack][block]) that is valid for it's validation criteria
     // validForStack is true if all other pieces in the stack are still valid after *hypothetically* adding the current draggingPiece to the stack
     if (stacks?.length === 0) return false;
