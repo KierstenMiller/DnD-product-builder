@@ -1,10 +1,10 @@
 import { WorkspaceAggulativeStacks } from "-/Components/DnD/workspace/aggulativeStacks/aggulativeStacks";
 import { WorkspaceFreeformMatrix } from "-/Components/DnD/workspace/freeformMatrix/freeformMatrix";
 import { WorkspaceSingleton } from "-/Components/DnD/workspace/singleton/singleton";
-import { AggulativeStacks } from "./aggulative-stacks.model";
-import { BuilderT } from "./build-your-own-model";
+import { AggulativeStacksModel } from "./models/aggulative-stacks.model";
+import { BuilderT } from "./models/singleton.model";
 import { builderT, configT } from "./build-your-own.types";
-import { Matrix } from "./freeform-grid.model";
+import { FreeformMatrixModel } from "./models/freeform-grid.model";
 
 export enum builderKeys {
     singleton= 'singleton',
@@ -31,9 +31,9 @@ export const getBuilder = ({type, config, data}: builderT): BuilderT => {
         case builderKeys.singleton:
             return {type, build: undefined};
         case builderKeys.freeformMatrix:
-            return {type, build: new Matrix({config, matrix: data})};
+            return {type, build: new FreeformMatrixModel({config, matrix: data})};
         case builderKeys.aggulativeStacks:
-            return {type, build: new AggulativeStacks({config, stacks: data})}
+            return {type, build: new AggulativeStacksModel({config, stacks: data})}
         default: throw new Error(`Builder type is not valid: ${type}`);
     }
 }

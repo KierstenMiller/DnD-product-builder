@@ -4,13 +4,13 @@ import { useDragLayer, useDrop } from 'react-dnd';
 
 import { aggulativeStackIndexI, globalRulesI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../shared/shapes.util';
-import { AggulativeStacks} from '-/page-components/build-your-own/aggulative-stacks.model';
+import { AggulativeStacksModel} from '-/page-components/build-your-own/models/aggulative-stacks.model';
 import { Stack } from './stack';
 import { findPiece } from './builder.util';
 import { validateWorkspace, } from './util/validation.util';
 
 interface propsI {
-    build: AggulativeStacks,
+    build: AggulativeStacksModel,
     modifiers: modifiersT,
     globalValidation: globalRulesI,
     validationLibrary: validationLibraryT,

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useState } from 'react'
 
-import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
+import { SingletonModel } from '-/page-components/build-your-own/models/singleton.model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'
@@ -39,7 +39,7 @@ const BuildYourOwn = () => {
         ...data.builder,
         ...builderDataWithGroupKeys && {data: builderDataWithGroupKeys}
     } 
-    const model = new BuildYourOwnModel({
+    const model = new SingletonModel({
         config: config,
         builder: getBuilder({config, ...builder}),
     });

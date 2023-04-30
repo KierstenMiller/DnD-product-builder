@@ -1,9 +1,9 @@
 import { displayValuesT, filterDisplayValues, groupByValues, groupKeyValues, measurementValues, sortByValues, validationValues } from '-/Components/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
 
-////////////////////////////////////////////
-//      AGGULATIVE STACKS INTERFACES      //
-////////////////////////////////////////////
+//////////////////////////////////
+//      AGGULATIVE STACKS      //
+/////////////////////////////////
 export interface aggulativeStacksI {
     type: builderKeys.aggulativeStacks,
     config: configT,
@@ -16,11 +16,21 @@ export interface aggulativeStackIndexI {
     stack: number,
     block: number,
 }
-export type globalRulesI = validationT // TODO consolidate type
+export type globalRulesI = validationT
+export type aggulativeStacksT = stackI[] | []
+export type stackI = blockI[]
+export type validationT = {type: validationValues, values: string[], proximity?: number}[]
+export type validationLibraryT = {
+    id: string,
+    validation: {
+        id: string,
+        validation: validationT
+    }[]
+}[]
 
-///////////////////////////////////////////
-//      FREEFORM MATRIX INTERFACES      //
-//////////////////////////////////////////
+////////////////////////////////
+//      FREEFORM MATRIX      //
+///////////////////////////////
 export interface freeformMatrixI {
     type: builderKeys.freeformMatrix,
     config: configT,
@@ -34,24 +44,24 @@ export interface matrixIndexI {
     matrixIndex: matrixIndexCoordinatesI;
     piece?: pieceI;
 }
+export type matrixT = matrixIndexI[][];
 
-/////////////////////////////////////
-//      SINGLETON INTERFACES      //
-////////////////////////////////////
+//////////////////////////
+//      SINGLETON      //
+/////////////////////////
 export interface singletonI {
     type: builderKeys.singleton,
     config: configT,
     data: undefined,
 }
 
-//////////////////////////////////
-//      SHARED INTERFACES      //
-/////////////////////////////////
+//////////////////////
+//      SHARED      //
+//////////////////////
 export interface pieceI {
     id: string,
     config: configT,
 }
-// MODIFIER
 export interface optionI { // todo: make more specific to workspace type
     id: string, // id to identify option
     value: string, // value to match against library of keys
@@ -87,29 +97,14 @@ export interface configItemI {
     value: string, // ui value that is matched against
     groupKey?: groupKeyValues,
 };
-
-////////////////////////////////////////
-//      AGGULATIVE STACKS TYPES      //
-///////////////////////////////////////
-export type aggulativeStacksT = stackI[] | []
-export type stackI = blockI[]
-export type validationT = {type: validationValues, values: string[], proximity?: number}[]
-export type validationLibraryT = {
-    id: string,
-    validation: {
-        id: string,
-        validation: validationT
-    }[]
-}[]
-
-/////////////////////////////////////
-//      FREEFORM MATRIX TYPES     //
-////////////////////////////////////
-export type matrixT = matrixIndexI[][];
-
-////////////////////////////
-//      SHARED TYPES     //
-///////////////////////////
+export interface buildYourOwnData {
+    modifiers: modifiersT,
+    builder: {
+        type: builderKeys,
+        rules?: globalRulesI,
+        data?: any[][],
+    }
+}
 export type builderT = singletonI | freeformMatrixI | aggulativeStacksI;
 export type builderTypesT = builderKeys;
 export type modifiersT = modifierI[];

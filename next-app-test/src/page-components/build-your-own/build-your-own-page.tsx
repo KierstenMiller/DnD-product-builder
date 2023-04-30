@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react-lite'
 
-import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
+import { SingletonModel } from '-/page-components/build-your-own/models/singleton.model'
 import { globalRulesI, modifiersT, validationLibraryT } from './build-your-own.types'
 import { Studio } from '-/Components/DnD/studio'
 
 import styles from '#/Home.module.scss'
 
 interface BuildYourOwnPageI {
-    model: BuildYourOwnModel,
+    model: SingletonModel,
     modifiers: modifiersT,
     globalValidation: globalRulesI,
     validationLibrary: validationLibraryT,

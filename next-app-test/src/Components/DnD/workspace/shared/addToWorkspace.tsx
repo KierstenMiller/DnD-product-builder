@@ -2,11 +2,11 @@ import { observer } from 'mobx-react-lite'
 
 import { DragZone } from '-/Components/DnD/dragZone'
 import { AddModal, AddModalOnClickI } from './addModal'
-import { Matrix } from '-/page-components/build-your-own/freeform-grid.model'
+import { FreeformMatrixModel } from '-/page-components/build-your-own/models/freeform-grid.model'
 import { DnDItemTypes } from './shapes.util'
 
 interface propsI {
-    matrix: Matrix,
+    matrix: FreeformMatrixModel,
     image: JSX.Element,
 }
 

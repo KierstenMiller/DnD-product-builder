@@ -6,7 +6,7 @@ import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifie
 import { robotModifiers } from '-/data/singleton/robots/modifiers.data'
 import { matrixMock } from '-/data/freeformMatrix/matrix.data'
 import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/testingMocks/stacks.data'
-import { matrixT } from '-/page-components/build-your-own/build-your-own.types'
+import { buildYourOwnData } from '-/page-components/build-your-own/build-your-own.types'
 import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
 import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
 import { modifiers as rentalModifiers } from '-/data/aggulativeStacks/rental/modifiers.data'
@@ -16,48 +16,42 @@ import { validationValues } from '-/Components/modifier/modifier.types'
 // NOTE: ALL OPTION IDS MUST BE UNIQUE ACROSS WORKSPACES, OTHERWISE MOBX GETS CONFUSED
 
 // mock SINGLETON data
-const dataSingletonMock = {
+const dataSingletonMock: buildYourOwnData = {
     modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
     builder: {
         type: builderKeys.singleton,
         data: undefined,
     }
 }
-
 // robot SINGLETON data
-const dataSingletonRobot = {
+const dataSingletonRobot: buildYourOwnData = {
     modifiers: robotModifiers,
     builder: {
         type: builderKeys.singleton,
         data: undefined,
     }
 }
-
 // mock FREEFORM MATRIX data
-const dataFreeformMatrix = {
+const dataFreeformMatrix: buildYourOwnData = {
     modifiers: shapeModifiers,
     builder: {
-        // TODO: figure out how to clean up this typing? Maybe not though, this stuff should come back from API
-        type: builderKeys.freeformMatrix as builderKeys.freeformMatrix,
-        data: matrixMock as matrixT,
+        type: builderKeys.freeformMatrix,
+        data: matrixMock,
     }
 }
-
 // mock AGGULATIVE STACKS data
-const dataAggulativeStacks = {
+const dataAggulativeStacks: buildYourOwnData = {
     modifiers: modifiers,
     builder: {
-        type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
+        type: builderKeys.aggulativeStacks,
         data: aggulativeStacksMock1
     },
 }
-
 // rental AGGULATIVE STACKS data
-export const dataAggulativeStacksRental = {
+export const dataAggulativeStacksRental: buildYourOwnData = {
     modifiers: rentalModifiers, 
     builder: {
-        type: builderKeys.aggulativeStacks as builderKeys.aggulativeStacks,
-        // rules: {maxStackHeight: 8, maxStacksCount: 4},
+        type: builderKeys.aggulativeStacks,
         rules: [
             {type: validationValues.maxStackHeight, values: ['8']},
             {type: validationValues.maxStacksCount, values: ['4']}

@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite'
 import { DropZone } from '../../dropZone'
 import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
-import { Matrix } from '-/page-components/build-your-own/freeform-grid.model';
+import { FreeformMatrixModel } from '-/page-components/build-your-own/models/freeform-grid.model';
 
 interface propsI {
-    build: Matrix,
+    build: FreeformMatrixModel,
 }
 
 export const WorkspaceFreeformMatrix = observer(({build}: propsI) => { 

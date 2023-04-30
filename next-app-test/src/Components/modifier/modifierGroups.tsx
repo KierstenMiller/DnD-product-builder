@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
-import { BuildYourOwnModel } from '-/page-components/build-your-own/build-your-own-model'
+import { SingletonModel } from '-/page-components/build-your-own/models/singleton.model'
 import { modifierI, modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { ModifierInstance } from './modifier'
 import { onChangeI } from '../form-controls/radioInput'
@@ -9,7 +9,7 @@ import { assembleModifierMap } from './modifier.util'
 import { sortByValues } from './modifier.types'
 
 interface BuildYourOwnPageI {
-    model: BuildYourOwnModel,
+    model: SingletonModel,
     modifiers: modifiersT,
 }
 
