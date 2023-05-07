@@ -1,6 +1,6 @@
 import { makeAutoObservable, makeObservable, observable, computed, action } from "mobx"
 
-import { groupKeyValues } from "-/Components/modifier/modifier.types";
+import { modifierChunkKeyValues } from "-/Components/modifier/modifier.types";
 import { aggulativeStacksListT, configT } from "../build-your-own.types";
 import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findPiece, generateId } from "-/Components/DnD/workspace/aggulativeStacks/builder.util";
 
@@ -39,13 +39,13 @@ export class AggulativeStacksBuildModel {
             piece: new Piece({
                 id: b.piece.id,
                 config:
-                    this.config.map(c => c.groupKey === groupKeyValues.unique ? (b.piece.config.find(pC => pC.id === c.id) || c) : c)
+                    this.config.map(c => c.modifierChunkKey === modifierChunkKeyValues.unique ? (b.piece.config.find(pC => pC.id === c.id) || c) : c)
             })
         })));
     }
     // util actions
     generatePiece = (id?: string, config?: configT) => {
-        return { id: id || generateId(), config: config || this.config.map(c => c.groupKey === groupKeyValues.unique ? { ...c } : c) }
+        return { id: id || generateId(), config: config || this.config.map(c => c.modifierChunkKey === modifierChunkKeyValues.unique ? { ...c } : c) }
     }
     // setting actions
     setConfig = (newConfig: configT) => {

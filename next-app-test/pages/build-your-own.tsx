@@ -16,7 +16,7 @@ const BuildYourOwn = () => {
             id: mod.id,
             selection: selectedOption.id,
             value: selectedOption.value || selectedOption.label,
-            groupKey: mod.groupKey
+            modifierChunkKey: mod.modifierChunkKey
         }
     })
     // want the validation data inside of modifier's option's data. Option data should be all in one place. So we need to extract the validation here
@@ -28,17 +28,17 @@ const BuildYourOwn = () => {
         })).filter(opt => Boolean(opt.validation))
     })).filter(mod => mod.validation.length > 0);
     // will be undefined if builder doesn't have data
-    const builderDataWithGroupKeys = data.builder?.data?.map(d => d.map(m => {
+    const builderDataWithmodifierChunkKeys = data.builder?.data?.map(d => d.map(m => {
         if(!m.piece?.config) return m;
         m.piece.config = m.piece?.config.map(pC => {
             const match = config.find(gC => gC.id === pC.id);
-            return {...pC, groupKey: match?.groupKey};
+            return {...pC, modifierChunkKey: match?.modifierChunkKey};
         })
         return m;
     }))
     const builder = {
         ...data.builder,
-        ...builderDataWithGroupKeys && {data: builderDataWithGroupKeys}
+        ...builderDataWithmodifierChunkKeys && {data: builderDataWithmodifierChunkKeys}
     } 
     const model = new StandardModel({
         config: config,

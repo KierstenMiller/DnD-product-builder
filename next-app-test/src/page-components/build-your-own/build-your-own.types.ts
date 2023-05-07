@@ -1,4 +1,4 @@
-import { displayValuesT, filterDisplayValues, groupByValues, groupKeyValues, measurementValues, sortByValues, validationValues } from '-/Components/modifier/modifier.types'
+import { displayValuesT, filterDisplayValues, groupByValues, modifierChunkKeyValues, measurementValues, sortByValues, validationValues } from '-/Components/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
 import { AggulativeStacksBuildModel } from './models/aggulative-stacks.model';
 import { FreeformMatrixBuildModel } from './models/freeform-grid.model';
@@ -110,16 +110,16 @@ export interface modifierI {
     options: optionsT,
     // optional
     filter?: filterI,
-    groupKey?: groupKeyValues, // TODO: think though is we want a defined list of groupKeys or just any string can be used
-    groupBy?: groupByValues, // TODO: rename to optionsGroupByProp
-    sortBy?: sortByValues | sortByValues[],
+    modifierChunkKey?: modifierChunkKeyValues, // groups modifiers by key
+    groupBy?: groupByValues, // determines how options are grouped
+    sortBy?: sortByValues | sortByValues[], // determines how grouped options are sorted
     measurementUnit?: measurementValues,
 }
 export interface configItemI {
     id: string, // corresponds to modifier id
     selection: string, // corresponds to option id (from modifier with above id)
     value: string, // ui value that is matched against
-    groupKey?: groupKeyValues,
+    modifierChunkKey?: modifierChunkKeyValues, // groups modifiers by key
 };
 export type modifiersT = modifierI[];
 export type optionsT = optionI[];

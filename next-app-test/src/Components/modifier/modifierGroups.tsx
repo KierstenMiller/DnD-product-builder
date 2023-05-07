@@ -13,7 +13,7 @@ interface BuildYourOwnPageI {
 }
 
 export const ModifierGroups = observer(({ model, modifiers }: BuildYourOwnPageI) => {
-    const sortedGroupedModifiers = assembleModifierMap(modifiers, 'groupKey', sortByValues.descending)
+    const sortedGroupedModifiers = assembleModifierMap(modifiers, 'modifierChunkKey', sortByValues.descending)
     const getOptionValue = (modId: string, selectionId: string) => {
         const match = modifiers.find(mod => mod.id === modId)?.options.find(o => o.id === selectionId)?.value;
         if (!match) throw new Error(`${selectionId} was not found as a value in modifier ${modId}`)

@@ -6,7 +6,7 @@ export interface sortAlphaI {
     toSort: string[],
     sortBy: sortByValues,
 }
-export enum groupKeyValues {
+export enum modifierChunkKeyValues {
     unique = 'unique',
     global = 'global'
 } 
