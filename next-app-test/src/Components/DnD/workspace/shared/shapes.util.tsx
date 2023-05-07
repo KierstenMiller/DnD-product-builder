@@ -89,14 +89,13 @@ export const blocks = {
 ////////////////////////
 //      METHODS      //
 ///////////////////////
-// TODO: generalize this, dont hardcode ids
 export const getImage = (shapeKey: string, fillColorKey: string, strokeColorKey: string) => {
     const shapeIcon = shapeKey && Object.values(shapeKeys).includes(shapeKey as shapeKeys) && icons[(shapeKey as shapeKeys)];
     const fill = fillColorKey && Object.values(colorKeys).includes(fillColorKey as colorKeys) && colors[(fillColorKey as colorKeys)];
     const stroke = strokeColorKey && Object.values(colorKeys).includes(strokeColorKey as colorKeys) && colors[(strokeColorKey as colorKeys)];
     return shapeIcon && fill && stroke
         ? shapeIcon({ fill, stroke })
-        : icons.circle({ fill: colorCodes.defaultGreen, stroke: colorCodes.defaultBlue }) // TODO: FAIL HARD
+        : icons.circle({ fill: colorCodes.defaultGreen, stroke: colorCodes.defaultBlue })
 }
 export const generateImage = (config: configT) => {
     const shapeSelection = config.find(c => c.id === 'mod-shape')?.value;
@@ -106,7 +105,6 @@ export const generateImage = (config: configT) => {
         ? getImage(shapeSelection, fill, stroke)
         : getImage(shapeKeys.circle, colorKeys.defaultRed, colorKeys.defaultRed);
 }
-
 export const getBlock = (blockKey: blockKeys, fillColorKey: colorKeys, strokeColorKey: colorKeys) => {
     const blockIcon = blocks[(blockKey)];
     const fill = colors[(fillColorKey)];

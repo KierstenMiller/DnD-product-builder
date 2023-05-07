@@ -7,13 +7,11 @@ interface propsI {
     build: FreeformMatrixBuildModel,
 }
 
-export const WorkspaceFreeformMatrix = observer(({build}: propsI) => { 
-    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => {
-        swapIndex ? build.swapPieces(matrixIndex, swapIndex) : build.setMatrixIndexPiece({matrixIndex});  
-    };
+export const WorkspaceFreeformMatrix = observer(({build}: propsI) => {
+    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => { swapIndex ? build.swapPieces(matrixIndex, swapIndex) : build.setMatrixIndexPiece({matrixIndex}); };
     const onRemove = (matrixIndex: matrixIndexCoordinatesI) => build.removeMatrixIndexPiece(matrixIndex);
+    // NOTE: using the map method's index is ok here as the matrix indices should never change.
     return (<div className="flex">
-        {/* TODO: make a index that isn't from the iterator index */}
         {build.matrix.map((r, i) => <div key={i}>
             {r.map(c => <DropZone
                 key={`${c.matrixIndex.row}-${c.matrixIndex.column}`}

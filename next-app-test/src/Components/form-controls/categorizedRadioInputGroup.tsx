@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-import { onChangeI, RadioInput } from "./radioInput";
+import { mirageT, onChangeI, RadioInput } from "./radioInput";
 import { sassStylesI } from "-/util/typing-util";
 
 interface propsOptionI {
     id: string,
     label: string,
+    image: string,
     // optional
     selected?: boolean,
 }
@@ -19,7 +20,7 @@ interface propsI {
     }[],
     hideInput?: boolean,
     styles?: sassStylesI,
-    mirage?: (props: any) => React.ReactNode, // TODO: look up how to not make this any
+    mirage?: mirageT,
 }
 
 export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChange, styles = {}, mirage, hideInput }: propsI) => {
@@ -39,7 +40,7 @@ export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChang
                     name={heading}
                     onChange={onChangeToUse}
                     stylesOverride={styles}
-                    mirage={mirage}
+                    {...mirage && {mirage: () => mirage(opt)}}
                     hideInput={hideInput}
                     selected={opt.id === selection}
                     ariaLabelledBy={cat.id.toString()}

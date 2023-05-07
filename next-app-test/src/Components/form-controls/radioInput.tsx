@@ -7,20 +7,28 @@ export interface onChangeI {
     event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLDivElement>,
     newSelection: string
 }
+export interface mirageI {
+    id: string,
+    label: string,
+    image: string,
+    onClick?: ({ event, newSelection }: onChangeI) => void,
+}
+export type mirageT = (props: mirageI) => JSX.Element
 interface propsI {
     id: string,
-    name: string,
     label: string,
+    name: string,
     onChange: ({event, newSelection}: onChangeI) => any;
     // optional
     ariaLabelledBy?: string,
     selected?: boolean,
     hideInput?: boolean,
     stylesOverride?: sassStylesI,
-    mirage?: (props: any) => React.ReactNode, // TODO: look up how to not make this any
+    image?: string,
+    mirage?: () => JSX.Element,
 }
 
-export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected, hideInput, stylesOverride: stylesOverride = {}, mirage }: propsI) => {
+export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected, hideInput, stylesOverride: stylesOverride = {}, mirage, image }: propsI) => {
     const styles = {...defaultStyles, ...stylesOverride};
     return <div
         key={id}
@@ -46,7 +54,7 @@ export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected
         >{label}</label>
          {/* NOTE: In forms mode (which we are forced into in a fieldset) any text in the mirage wouldn't be read - Including aria-hidden just in case */}
          {mirage && <div aria-hidden={true} className={styles.label} onClick={event => {onChange({event, newSelection: id})}}>
-            {mirage({id, label, selected})}
+            {mirage()}
         </div>}
     </div>
 }

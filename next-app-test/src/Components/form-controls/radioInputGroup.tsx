@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { onChangeI, RadioInput } from "./radioInput";
+import { mirageI, onChangeI, RadioInput } from "./radioInput";
 import { sassStylesI } from "-/util/typing-util";
 
 interface propsOptionI {
     id: string,
     label: string,
+    image: string,
     // optional
     selected?: boolean,
 }
@@ -14,7 +15,7 @@ interface propsI {
     options: propsOptionI[],
     // optional
     styles?: sassStylesI,
-    mirage?: (props: any) => React.ReactNode, // TODO: look up how to not make this any
+    mirage?: ((props: mirageI) => JSX.Element)
 }
 
 export const RadioInputGroup = ({heading, options, onChange, styles = {}, mirage}: propsI) => {
@@ -33,7 +34,7 @@ export const RadioInputGroup = ({heading, options, onChange, styles = {}, mirage
                 onChange={onChangeToUse}
                 selected={opt.id === selection}
                 stylesOverride={styles}
-                mirage={mirage}
+                {...mirage && {mirage: () => mirage(opt)}}
             />)}
         </div>
     </fieldset>
