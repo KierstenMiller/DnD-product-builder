@@ -1,32 +1,32 @@
 
-import { onChangeI } from '-/Components/form-controls/radioInput';
-import { optionI } from '-/page-components/build-your-own/build-your-own.types'
+import { mirageI, onChangeI } from '-/Components/form-controls/radioInput';
 import { sassStylesI } from '-/util/typing-util';
 
 interface propsOptionI {
     id: string,
     label: string,
+    image: string,
     // optional
     selected?: boolean,
 }
 
 interface propsI {
     heading: string | number,
-    onChange: ({ event, newSelection }: onChangeI) => any;
+    onClick: ({ event, newSelection }: onChangeI) => any;
     options: propsOptionI[],
-    view: (option: optionI, onClick: ({ event, newSelection }: onChangeI) => void) => React.ReactNode,
+    view: (props: mirageI) => React.ReactNode,
     // optional
     styles?: sassStylesI,
 
 }
 
-export const AdderGroup = ({ heading, options, onChange, styles = {}, view }: propsI) => {
+export const AdderGroup = ({ heading, options, onClick, styles = {}, view }: propsI) => {
     return <div className={styles.fieldset}>
         <div className={styles.legend}>{heading}</div>
         <div className={styles.optionsContainer}>
             {options.map(opt => <div key={opt.id}>
                 <div aria-hidden={true} className={styles.label}>
-                    {view(opt, onChange)}
+                    {view({id: opt.id, image: opt.image, label: opt.label, onClick})}
                 </div>
             </div>)}
         </div>

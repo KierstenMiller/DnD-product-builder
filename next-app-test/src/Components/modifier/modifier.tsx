@@ -9,7 +9,7 @@ import { assembleOptionsMap } from './modifier.util'
 import { onChangeI } from '../form-controls/radioInput'
 import { adderDisplayValues } from './modifier.types'
 import { CategorizedAdderGroup } from './Adder/categorizedAdderGroup'
-import { AdderGroup } from './Adder/AdderGroup'
+import { AdderGroup } from './Adder/adderGroup'
 
 import BYOStyles from '#/build-your-own.module.scss'
 
@@ -36,7 +36,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
             ? newModifier.composedOptions
                 ? <CategorizedAdderGroup
                     heading={`${mod.label} ${mod.groupBy}`}
-                    onChange={onChange}
+                    onClick={onChange}
                     categorizedOptions={[...newModifier.composedOptions.entries()].map(([category, options]) => ({ id: `${mod.id}_${category}`, category, options }))}
                     styles={displays[mod.display]?.styles}
                     view={displays[mod.display]?.view}
@@ -44,7 +44,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
                 : <AdderGroup
                     heading={mod.label}
                     options={mod.options}
-                    onChange={onChange}
+                    onClick={onChange}
                     styles={displays[mod.display]?.styles}
                     view={displays[mod.display]?.view}
                 />

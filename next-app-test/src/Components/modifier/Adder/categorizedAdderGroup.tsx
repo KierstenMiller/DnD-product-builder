@@ -1,16 +1,17 @@
 import { onChangeI } from "-/Components/form-controls/radioInput";
 import { sassStylesI } from "-/util/typing-util";
-import { AdderGroup } from "./AdderGroup";
+import { AdderGroup } from "./adderGroup";
 
 interface propsOptionI {
     id: string,
     label: string,
+    image: string,
     // optional
     selected?: boolean,
 }
 interface propsI {
     heading: string,
-    onChange: ({event, newSelection }: onChangeI) => any;
+    onClick: ({event, newSelection }: onChangeI) => any;
     categorizedOptions: {
         id: string | number,
         category: string | number,
@@ -21,7 +22,7 @@ interface propsI {
     styles?: sassStylesI,
 }
 
-export const CategorizedAdderGroup = ({heading, categorizedOptions, onChange, styles = {}, view }: propsI) => {
+export const CategorizedAdderGroup = ({heading, categorizedOptions, onClick, styles = {}, view }: propsI) => {
     return <div className={styles.fieldset}>
         <div className={styles.legend}>{heading}</div>
         {categorizedOptions.map(cat => <div key={cat.id}>
@@ -29,7 +30,7 @@ export const CategorizedAdderGroup = ({heading, categorizedOptions, onChange, st
                 <AdderGroup
                     heading={cat.category}
                     options={cat.options}
-                    onChange={onChange}
+                    onClick={onClick}
                     styles={styles}
                     view={view}
                 />

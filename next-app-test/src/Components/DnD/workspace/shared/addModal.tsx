@@ -7,9 +7,10 @@ import { Select } from '../../../form-controls/select'
 import { noop } from '-/util/helpers'
 import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
 
+// TODO: abstract addModal to be used by all environments
 export interface AddModalOnClickI {event: mouseButtonClickT, matrixIndex: matrixIndexCoordinatesI}
 interface propsI {
-    image: JSX.Element,
+    image: string | JSX.Element,
     onSubmit: ({event, matrixIndex}: AddModalOnClickI) => void,
     // optional
     onCancel?: ({event, matrixIndex}: AddModalOnClickI) => void,
