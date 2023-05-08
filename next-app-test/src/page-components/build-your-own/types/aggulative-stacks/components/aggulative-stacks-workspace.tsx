@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { useDragLayer, useDrop } from 'react-dnd';
 
 import { aggulativeStacksBuildT, aggulativeStackIndexI, globalRulesI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
-import { DnDItemTypes } from '../shared/shapes.util';
+import { DnDItemTypes } from '../../freeform-matrix/utils/shapes.util';
 import { Stack } from './stack';
-import { findPiece } from './builder.util';
-import { validateWorkspace, } from './util/validation.util';
+import { findPiece } from '../utils/builder.util';
+import { validateWorkspace, } from '../utils/validation.util';
 
 interface propsI {
     build: aggulativeStacksBuildT,
@@ -15,7 +15,7 @@ interface propsI {
     validationLibrary: validationLibraryT,
 }
 
-export const WorkspaceAggulativeStacks = observer(({ build, globalValidation, validationLibrary }: propsI) => {
+export const AggulativeStacksWorkspace = observer(({ build, globalValidation, validationLibrary }: propsI) => {
     // using useState hook to track workspace piece dragging. BIG WHY: show/hiding <DropZone /> component shifts the DOM/mouse position of drag action, canceling React DnD's drag. FIX: Setting a timeout to let DnD's onDrag state 'solidify' before show/hiding
     // only passing pieceId trhough DnD layer at reccommendation of DnD Documentation
     // if DND layer doesn't have an id to provide, then validation was not set up for that workspace. validate() should always return true if no validation exists for the workspace

@@ -1,6 +1,6 @@
 import { mockFilterDoubleDropDown, mockFilterSingleTabbed } from "./mockFilters.data";
 import { mockOptions2D, mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3DStockedPriced } from "./options.data";
-import { groupByValues, modifierChunkKeyValues, measurementValues, radioDisplayValues, sortByValues } from "../../../Components/modifier/modifier.types";
+import { groupByValues, modifierChunkKeyValues, measurementValues, radioDisplayValues, sortByValues } from "../../../page-components/build-your-own/shared/modifier/modifier.types";
 
 export const mockModifierA = {
     id: 'mod-A',

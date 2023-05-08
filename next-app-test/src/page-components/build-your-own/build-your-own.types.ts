@@ -1,8 +1,8 @@
-import { displayValuesT, filterDisplayValues, groupByValues, modifierChunkKeyValues, measurementValues, sortByValues, validationValues } from '-/Components/modifier/modifier.types'
+import { displayValuesT, filterDisplayValues, groupByValues, modifierChunkKeyValues, measurementValues, sortByValues, validationValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
 import { builderKeys } from './build-your-own.util';
-import { AggulativeStacksBuildModel } from './models/aggulative-stacks.model';
-import { FreeformMatrixBuildModel } from './models/freeform-grid.model';
-import { StandardModel } from './models/standard.model';
+import { AggulativeStacksBuildModel } from './types/aggulative-stacks/models/aggulative-stacks.model';
+import { FreeformMatrixBuildModel } from './types/freeform-matrix/models/freeform-grid.model';
+import { StandardModel } from './shared/standard.model';
 
 //////////////////////////////////
 //      AGGULATIVE STACKS      //

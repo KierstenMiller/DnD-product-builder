@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 
-import { DropZone } from './aggulativeStacks';
+import { DropZone } from './aggulative-stacks-workspace';
 import { Block } from './block';
 import { aggulativeStackIndexI, stackI } from '-/page-components/build-your-own/build-your-own.types';
 

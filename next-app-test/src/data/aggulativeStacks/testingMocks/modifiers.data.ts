@@ -1,4 +1,4 @@
-import { adderDisplayValues, modifierChunkKeyValues, radioDisplayValues } from "../../../Components/modifier/modifier.types";
+import { adderDisplayValues, modifierChunkKeyValues, radioDisplayValues } from "../../../page-components/build-your-own/shared/modifier/modifier.types";
 import { fillOptions, heightOptions, strokeOptions } from "./options.data";
 
 export const modifiers = [

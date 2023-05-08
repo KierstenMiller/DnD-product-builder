@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite'
 
 import { blockI } from '-/page-components/build-your-own/build-your-own.types'
-import { DnDItemTypes, generateBlock } from '../shared/shapes.util';
-import { DropZone } from './aggulativeStacks';
-import { DragZone } from '../../dragZone';
+import { DnDItemTypes, generateBlock } from '../../freeform-matrix/utils/shapes.util';
+import { DropZone } from './aggulative-stacks-workspace';
+import { DragZone } from '../../../shared/DnD/dragZone';
 
 interface propsI {
     index: number,

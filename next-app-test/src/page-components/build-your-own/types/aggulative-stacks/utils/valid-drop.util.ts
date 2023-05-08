@@ -1,4 +1,4 @@
-import { validationValues } from "-/Components/modifier/modifier.types";
+import { validationValues } from "-/page-components/build-your-own/shared/modifier/modifier.types";
 import { aggulativeStacksListT, stackI } from "-/page-components/build-your-own/build-your-own.types";
 
 const withinRange = ({blockIndex, proximity, values, stack}: {blockIndex: number, proximity: number, values: string[], stack: stackI}) => {

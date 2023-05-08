@@ -1,4 +1,4 @@
-import { filterDisplayValues } from "../../../Components/modifier/modifier.types";
+import { filterDisplayValues } from "../../../page-components/build-your-own/shared/modifier/modifier.types";
 
 // filter arrays
 const singleFilter = ['filter A', 'filter B', 'filter C', 'filter D'];

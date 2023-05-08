@@ -1,7 +1,7 @@
 import { makeObservable, observable, action } from "mobx"
 
-import { buildPiece } from "./standard.model";
-import { configT, matrixIndexCoordinatesI, matrixT, pieceI } from "../build-your-own.types";
+import { buildPiece } from "../../../shared/standard.model";
+import { configT, matrixIndexCoordinatesI, matrixT, pieceI } from "../../../build-your-own.types";
 
 class MatrixIndex {
     matrixIndex

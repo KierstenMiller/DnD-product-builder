@@ -1,4 +1,4 @@
-import { groupByValues, modifierChunkKeyValues, sortAlphaI, sortByValues, sortNumI } from '-/Components/modifier/modifier.types';
+import { groupByValues, modifierChunkKeyValues, sortAlphaI, sortByValues, sortNumI } from '-/page-components/build-your-own/shared/modifier/modifier.types';
 import { modifiersT, optionsT } from '-/page-components/build-your-own/build-your-own.types';
 
 //////////////////////////

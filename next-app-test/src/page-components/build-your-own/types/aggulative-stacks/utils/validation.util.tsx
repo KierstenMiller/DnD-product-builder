@@ -1,6 +1,6 @@
 import { aggulativeStackIndexI, aggulativeStacksListT, globalRulesI, pieceI, stackI, validationLibraryT, validationT } from "-/page-components/build-your-own/build-your-own.types";
-import { addPieceToStack, addStack } from "../builder.util";
-import { validDrop } from "./validDrop";
+import { addPieceToStack, addStack } from "./builder.util";
+import { validDrop } from "./valid-drop.util";
 
 interface allStacksRemainValidI {
     stacks: aggulativeStacksListT,

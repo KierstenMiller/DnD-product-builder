@@ -1,8 +1,8 @@
 import { makeAutoObservable, makeObservable, observable, computed, action } from "mobx"
 
-import { modifierChunkKeyValues } from "-/Components/modifier/modifier.types";
-import { aggulativeStacksListT, configT } from "../build-your-own.types";
-import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findPiece, generateId } from "-/Components/DnD/workspace/aggulativeStacks/builder.util";
+import { modifierChunkKeyValues } from "-/page-components/build-your-own/shared/modifier/modifier.types";
+import { aggulativeStacksListT, configT } from "../../../build-your-own.types";
+import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findPiece, generateId } from "-/page-components/build-your-own/types/aggulative-stacks/utils/builder.util";
 
 class Piece {
     id

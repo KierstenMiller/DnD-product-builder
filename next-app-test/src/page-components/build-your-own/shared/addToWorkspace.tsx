@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite'
 
-import { DragZone } from '-/Components/DnD/dragZone'
+import { DragZone } from '-/page-components/build-your-own/shared/DnD/dragZone'
 import { AddModal, AddModalOnClickI } from './addModal'
-import { FreeformMatrixBuildModel } from '-/page-components/build-your-own/models/freeform-grid.model'
-import { DnDItemTypes } from './shapes.util'
+import { FreeformMatrixBuildModel } from '-/page-components/build-your-own/types/freeform-matrix/models/freeform-grid.model'
+import { DnDItemTypes } from '../types/freeform-matrix/utils/shapes.util'
 
 interface propsI {
     matrix: FreeformMatrixBuildModel,

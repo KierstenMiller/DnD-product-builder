@@ -1,10 +1,10 @@
 // typing
-import { DnDItemTypes } from '../DnD/workspace/shared/shapes.util'
-import { mirageI } from '../form-controls/radioInput'
+import { DnDItemTypes } from '../../types/freeform-matrix/utils/shapes.util'
+import { mirageI } from '../../../../Components/form-controls/radioInput'
 import { adderDisplayValues, radioDisplayValues } from './modifier.types'
 // components
 import { DragZone } from '../DnD/dragZone'
-import { AddModal } from '../DnD/workspace/shared/addModal'
+import { AddModal } from '../addModal'
 // styles
 import titledStyles from './titled-styles.module.scss'
 import cardStyles from './card-styles.module.scss'

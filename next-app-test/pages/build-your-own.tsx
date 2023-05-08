@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useState } from 'react'
 
-import { StandardModel } from '-/page-components/build-your-own/models/standard.model'
+import { StandardModel } from '-/page-components/build-your-own/shared/standard.model'
 import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
 import { getBuilder } from '-/page-components/build-your-own/build-your-own.util'
 import { BuildYourOwnDevBar, dataAggulativeStacksRental } from '-/page-components/build-your-own/build-your-own-dev-bar'

@@ -6,8 +6,8 @@ interface propsI {
     modifiers: modifiersT,
 }
 
-export const WorkspaceSingleton = observer(({builder, modifiers}: propsI) => { 
+export const SingletonDisplay = observer(({builder, modifiers}: propsI) => { 
     return (<div className="flex">
-        SINGLETON TODO
+        SINGLETON DISPLAY
     </div>)
 })
