@@ -2,10 +2,11 @@ import { AggulativeStacksWorkspace } from "-/page-components/build-your-own/type
 import { FreeformMatrixWorkspace } from "-/page-components/build-your-own/types/freeform-matrix/components/freeform-matrix-workspace";
 import { SingletonWorkspace } from "-/page-components/build-your-own/types/singleton/singleton-workspace";
 import { AggulativeStacksBuildModel } from "./types/aggulative-stacks/models/aggulative-stacks.model";
-import { BuilderT } from "./shared/standard.model";
-import { builderRawDataT, configT } from "./build-your-own.types";
+import { builderRawDataT, builderT, configT } from "./build-your-own.types";
 import { FreeformMatrixBuildModel } from "./types/freeform-matrix/models/freeform-grid.model";
 import { SingletonDisplay } from "./types/singleton/singleton-display";
+import { FreeformMatrixDisplay } from "./types/freeform-matrix/components/freeform-matrix-display";
+import { AggulativeStacksDisplay } from "./types/aggulative-stacks/components/aggulative-stacks-display";
 
 export enum builderKeys {
     singleton= 'singleton',
@@ -27,7 +28,7 @@ export const getWorkspace = (type: builderKeys) => {
         default: throw new Error(`Workspace does not exist for provided builder type: ${type}`);
     }
 }
-export const getBuilder = ({type, config, data}: builderRawDataT): BuilderT => {
+export const getBuilder = ({type, config, data}: builderRawDataT): builderT => {
     switch (type) {
         case builderKeys.singleton:
             return {type, build: undefined};
@@ -41,11 +42,11 @@ export const getBuilder = ({type, config, data}: builderRawDataT): BuilderT => {
 export const getDisplay = (type: builderKeys) => {
     switch (type) {
         case builderKeys.singleton:
-            return () => SingletonDisplay;
+            return SingletonDisplay;
         case builderKeys.freeformMatrix:
-            return () => <div>FREEFORM MATRIX DISPLAY</div>;
+            return FreeformMatrixDisplay;
         case builderKeys.aggulativeStacks:
-            return () => <div>AGGULATIVE STACKS DISPLAY</div>;
+            return AggulativeStacksDisplay;
         default: throw new Error(`Builder type is not valid: ${type}`);
     }
 }

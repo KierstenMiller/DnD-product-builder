@@ -1,3 +1,5 @@
+ @import '/src/styles/design-system';
+
 .trigger {
     background: red;
 }
@@ -19,7 +21,7 @@
     z-index: 9999;
     width: 484px;
     margin: 0px auto;
-    margin-top: 64px; // TODO import spacing
+    margin-top: getSpace(huge);
     background: lightblue;
     height: fit-content;
 }
