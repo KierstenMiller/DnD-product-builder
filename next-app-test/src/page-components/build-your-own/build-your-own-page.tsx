@@ -17,7 +17,7 @@ export const BuildYourOwnPage = observer(({ model, modifiers, globalValidation, 
     return (<>
         <div className={styles.app}>
             <div className={styles.container}>
-                <Studio model={model} modifiers={modifiers} globalValidation={globalValidation} validationLibrary={validationLibrary}/>
+                <Studio model={model} modifiers={modifiers} globalValidation={globalValidation} validationLibrary={validationLibrary} />
                 <div className={styles.row}>
                     <div className={styles.column}>
                         blank

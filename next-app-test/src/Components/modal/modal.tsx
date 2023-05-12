@@ -58,7 +58,7 @@ export const Modal = ({
         const handleEsc = (event: KeyboardEvent) => event.key === "Escape" && close(event);
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
-    }, []);
+    });
     return <div className={styles.container}>
         <div className={styles.backdrop} />
         <FocusTrap>

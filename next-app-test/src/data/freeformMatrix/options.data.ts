@@ -1,4 +1,3 @@
-// TODO: make image dynamic???
 export const shapeOptions = [
     {
         id: 'circle',

@@ -11,13 +11,13 @@ interface propsI {
 }
 
 export const AddToWorkspace = observer(({ matrix, image }: propsI) => {
-    const onModalAdd = ({matrixIndex}: AddModalOnClickI) => {
-        matrix.setMatrixIndexPiece({matrixIndex});
+    const onModalAdd = ({ matrixIndex }: AddModalOnClickI) => {
+        matrix.setMatrixIndexPiece({ matrixIndex });
     }
     return (<>
         <DragZone type={DnDItemTypes.ITEM}>
             {image}
         </DragZone>
-        <AddModal image={image} onSubmit={onModalAdd}/>
+        <AddModal image={image} onSubmit={onModalAdd} />
     </>)
 })

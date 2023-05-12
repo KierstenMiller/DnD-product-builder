@@ -8,26 +8,26 @@ import { noop } from '-/util/helpers'
 import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
 
 // TODO: abstract addModal to be used by all environments
-export interface AddModalOnClickI {event: mouseButtonClickT, matrixIndex: matrixIndexCoordinatesI}
+export interface AddModalOnClickI { event: mouseButtonClickT, matrixIndex: matrixIndexCoordinatesI }
 interface propsI {
     image: string | JSX.Element,
-    onSubmit: ({event, matrixIndex}: AddModalOnClickI) => void,
+    onSubmit: ({ event, matrixIndex }: AddModalOnClickI) => void,
     // optional
-    onCancel?: ({event, matrixIndex}: AddModalOnClickI) => void,
+    onCancel?: ({ event, matrixIndex }: AddModalOnClickI) => void,
 }
 
-const defaultMatrixIndex = {row: '0', column: '0'};
-const selectOptions = [{id: '0', text: '0'}, {id: '1', text: '1'}, {id: '2', text: '2'}, {id: '3', text: '3'}];
-const convertStringIndex = (matrixIndex: {row: string, column: string}) => ({row: parseInt(matrixIndex.row), column: parseInt(matrixIndex.column)})
+const defaultMatrixIndex = { row: '0', column: '0' };
+const selectOptions = [{ id: '0', text: '0' }, { id: '1', text: '1' }, { id: '2', text: '2' }, { id: '3', text: '3' }];
+const convertStringIndex = (matrixIndex: { row: string, column: string }) => ({ row: parseInt(matrixIndex.row), column: parseInt(matrixIndex.column) })
 
-export const AddModal = observer(({ image, onSubmit, onCancel=noop}: propsI) => {
-    const [matrixIndex, setMatrixIndex] = useState(defaultMatrixIndex); 
+export const AddModal = observer(({ image, onSubmit, onCancel = noop }: propsI) => {
+    const [matrixIndex, setMatrixIndex] = useState(defaultMatrixIndex);
     const submit = (event: mouseButtonClickT) => {
-        onSubmit({event, matrixIndex: convertStringIndex(matrixIndex)});
+        onSubmit({ event, matrixIndex: convertStringIndex(matrixIndex) });
         setMatrixIndex(defaultMatrixIndex);
     };
     const cancel = (event: mouseButtonClickT) => {
-        onCancel({event, matrixIndex: convertStringIndex(matrixIndex)});
+        onCancel({ event, matrixIndex: convertStringIndex(matrixIndex) });
         setMatrixIndex(defaultMatrixIndex);
     };
     return <ModalTrigger
@@ -41,20 +41,22 @@ export const AddModal = observer(({ image, onSubmit, onCancel=noop}: propsI) => 
                 <Select
                     id="row"
                     label="Row"
-                    options={selectOptions.map(o => ({...o, selected: o.id === matrixIndex.row}))}
-                    onChange={({ newSelection }) => setMatrixIndex({row: newSelection, column:matrixIndex.column})}
+                    options={selectOptions.map(o => ({ ...o, selected: o.id === matrixIndex.row }))}
+                    onChange={({ newSelection }) => setMatrixIndex({ row: newSelection, column: matrixIndex.column })}
                 />
                 <Select
                     id="column"
                     label="Column"
-                    options={selectOptions.map(o => ({...o, selected: o.id === matrixIndex.column}))}
-                    onChange={({ newSelection }) => setMatrixIndex({row: matrixIndex.row, column: newSelection})}
-                />  
+                    options={selectOptions.map(o => ({ ...o, selected: o.id === matrixIndex.column }))}
+                    onChange={({ newSelection }) => setMatrixIndex({ row: matrixIndex.row, column: newSelection })}
+                />
             </div>,
-            footer: {buttons: [
-                { text: 'Cancel', onClick: cancel },
-                { text: 'Ok', onClick: submit }
-            ]}
+            footer: {
+                buttons: [
+                    { text: 'Cancel', onClick: cancel },
+                    { text: 'Ok', onClick: submit }
+                ]
+            }
         }}
 
     />

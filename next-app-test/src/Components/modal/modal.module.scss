@@ -1,37 +1,42 @@
  @import '/src/styles/design-system';
 
-.trigger {
-    background: red;
-}
-.container {
-    z-index: 999;
-    position: fixed;
-    inset: 0;
-    overflow-y: scroll;
-    display: flex;
-}
-.backdrop {
-    position: fixed;
-    inset: 0;
-    background: black;
-    opacity: 0.6;
-}
-.modal {
-    padding: 32px 24px;
-    z-index: 9999;
-    width: 484px;
-    margin: 0px auto;
-    margin-top: getSpace(huge);
-    background: lightblue;
-    height: fit-content;
-}
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-bottom: 16px;
-}
-.footer {
-    display: flex;
-    justify-content: flex-end;
-}
+ .trigger {
+     background: red;
+ }
+
+ .container {
+     z-index: 999;
+     position: fixed;
+     inset: 0;
+     overflow-y: scroll;
+     display: flex;
+ }
+
+ .backdrop {
+     position: fixed;
+     inset: 0;
+     background: black;
+     opacity: 0.6;
+ }
+
+ .modal {
+     padding: 32px 24px;
+     z-index: 9999;
+     width: 484px;
+     margin: 0px auto;
+     margin-top: getSpace(huge);
+     background: lightblue;
+     height: fit-content;
+ }
+
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-end;
+     padding-bottom: 16px;
+ }
+
+ .footer {
+     display: flex;
+     justify-content: flex-end;
+ }

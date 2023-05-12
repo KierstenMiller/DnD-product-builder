@@ -27,17 +27,17 @@ export const AggulativeStacksWorkspace = observer(({ build, globalValidation, va
         itemType: monitor.getItemType()
     }));
     const isDragging = isDraggingWorkspace || isDraggingDndLayer;
-    const {piece: draggingPiece} = findPiece(draggingPieceId, build.stacks)
-    const validiate =  (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => (validationLibrary?.length === 0 || (!draggingPieceId && !draggingPiece))
-    ? true
-    : validateWorkspace({
-        dropPosition,
-        creatingNewStackOnDrop,
-        piece: draggingPiece || build.generatePiece('simulated-piece', build.config),
-        globalValidation,
-        validationLibrary,
-        stacks: build.stacks
-    })
+    const { piece: draggingPiece } = findPiece(draggingPieceId, build.stacks)
+    const validiate = (dropPosition: aggulativeStackIndexI, creatingNewStackOnDrop: boolean) => (validationLibrary?.length === 0 || (!draggingPieceId && !draggingPiece))
+        ? true
+        : validateWorkspace({
+            dropPosition,
+            creatingNewStackOnDrop,
+            piece: draggingPiece || build.generatePiece('simulated-piece', build.config),
+            globalValidation,
+            validationLibrary,
+            stacks: build.stacks
+        })
     const onStackDrop = (stackIndex: number) => build.addStack(stackIndex, draggingPieceId)
     const onBlockDrop = (stackIndex: number, blockIndex: number) => build.addToStack(stackIndex, blockIndex, draggingPieceId)
     const onBlockDrag = (isDraggingState: boolean) => setIsDraggingWorkspace(isDraggingState);

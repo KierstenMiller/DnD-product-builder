@@ -5,7 +5,7 @@ interface props {
     className?: string;
 }
 
-export const BasicAccordionGroup = ({children, className}: props) => {
+export const BasicAccordionGroup = ({ children, className }: props) => {
     return (
         <div className={classNames(`basic-accordion-group`, className && className)}>
             {children}

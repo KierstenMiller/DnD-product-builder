@@ -26,7 +26,7 @@ export const AdderGroup = ({ heading, options, onClick, styles = {}, view }: pro
         <div className={styles.optionsContainer}>
             {options.map(opt => <div key={opt.id}>
                 <div aria-hidden={true} className={styles.label}>
-                    {view({id: opt.id, image: opt.image, label: opt.label, onClick})}
+                    {view({ id: opt.id, image: opt.image, label: opt.label, onClick })}
                 </div>
             </div>)}
         </div>

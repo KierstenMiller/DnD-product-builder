@@ -19,7 +19,7 @@ interface Props {
 export const BasicAccordion = ({
     id, headerText, headerLevel, drawerOpen = false, disableCollapse = false, children, stylesOverride = {},
 }: Props) => {
-    const styles = {...defaultStyles, ...stylesOverride} ;
+    const styles = { ...defaultStyles, ...stylesOverride };
     const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse);
     const toggleDrawerVisibility = () => !disableCollapse && setIsOpen(!isOpen);
     return <div className={styles.container}>
@@ -34,7 +34,7 @@ export const BasicAccordion = ({
             >
                 {headerText}{' '}
                 {!disableCollapse && <span className={styles.arrowContainer}>
-                    <span className={classNames(defaultStyles.arrow, isOpen ? defaultStyles.up : defaultStyles.down)}/>
+                    <span className={classNames(defaultStyles.arrow, isOpen ? defaultStyles.up : defaultStyles.down)} />
                 </span>}
             </button>
         </Header>

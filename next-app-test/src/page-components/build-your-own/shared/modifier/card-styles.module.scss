@@ -1,25 +1,20 @@
-
 .fieldset {
     background: lightblue;
 }
-// .legend {
-//     background: darkblue;
-//     color: white;
-// }
-// .label {
-//     color: aqua;
-// }
+
 .option {
     border: 1px solid black;
     display: flex;
     margin-right: 8px;
 }
+
 .image {
     background: lightgrey;
     height: 100px;
     width: 100px;
-    margin-right:8px;
+    margin-right: 8px;
 }
+
 .optionsContainer {
     display: flex;
     flex-wrap: wrap;

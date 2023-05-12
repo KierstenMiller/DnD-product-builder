@@ -24,7 +24,7 @@ export interface aggulativeStackIndexI {
 export type stackI = blockI[]
 export type aggulativeStacksListT = stackI[] | []
 /*---START: validation---*/
-export type validationT = {type: validationValues, values: string[], proximity?: number}[]
+export type validationT = { type: validationValues, values: string[], proximity?: number }[]
 export type globalRulesI = validationT
 export type validationLibraryT = {
     id: string,
@@ -70,7 +70,7 @@ export interface singletonRawDataI {
 //      SHARED      //
 //////////////////////
 export type StandardModelT = StandardModel;
-export type builderT =  singletonI | freeformMatrixI | aggulativeStacksI
+export type builderT = singletonI | freeformMatrixI | aggulativeStacksI
 export type builderRawDataT = singletonRawDataI | freeformMatrixRawDataI | aggulativeStacksRawDataI;
 export type builderTypesT = builderKeys;
 export interface pieceI {
@@ -86,7 +86,7 @@ export interface buildYourOwnRawDataI {
     }
 }
 /*---START: Modifier/Config---*/
-export interface optionI { // todo: make more specific to workspace type
+export interface optionI {
     id: string, // id to identify option
     value: string, // value to match against library of keys
     label: string, // ui label
@@ -95,9 +95,6 @@ export interface optionI { // todo: make more specific to workspace type
     selected?: boolean,
     productId?: string | number,
     validation?: validationT,
-    height?: number,
-    width?: number,
-    insured?: boolean,   
 }
 export interface filterI {
     display: filterDisplayValues,

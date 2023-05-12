@@ -7,7 +7,7 @@ export const mockModifierA = {
     label: 'modifier A',
     modifierChunkKey: modifierChunkKeyValues.global,
     groupBy: groupByValues.height,
-    sortBy:sortByValues.ascending,
+    sortBy: sortByValues.ascending,
     measurementUnit: measurementValues.inches,
     display: radioDisplayValues.card,
     filter: mockFilterDoubleDropDown, // TODO: implement ability to filter modifier's options
@@ -23,7 +23,7 @@ export const mockModifierB = {
     measurementUnit: measurementValues.inches,
     display: radioDisplayValues.imageFirst,
     // no filter
-    options:mockOptions3DStocked,
+    options: mockOptions3DStocked,
 }
 
 export const mockModifierC = {
@@ -55,7 +55,7 @@ export const mockModifierE = {
     label: 'modifier E',
     modifierChunkKey: modifierChunkKeyValues.global,
     groupBy: groupByValues.height,
-    sortBy:sortByValues.descending,
+    sortBy: sortByValues.descending,
     measurementUnit: measurementValues.inches,
     display: radioDisplayValues.card,
     filter: mockFilterDoubleDropDown,

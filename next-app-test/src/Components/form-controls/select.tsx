@@ -17,17 +17,17 @@ interface propsI {
     id: string,
     label: string,
     options: propsOptionI[],
-    onChange: ({event, newSelection}: onChangeI) => any;
+    onChange: ({ event, newSelection }: onChangeI) => any;
     // optional
     stylesOverride?: sassStylesI,
 }
 
 export const Select = ({ id, label, options, onChange, stylesOverride: stylesOverride = {}, }: propsI) => {
-    const styles = {...defaultStyles, ...stylesOverride};
+    const styles = { ...defaultStyles, ...stylesOverride };
     const [selection, setSelection] = useState(options.find(o => o.selected)?.id);
-    const onChangeToUse = ({event, newSelection}: onChangeI) => {
+    const onChangeToUse = ({ event, newSelection }: onChangeI) => {
         setSelection(newSelection);
-        onChange({event, newSelection})
+        onChange({ event, newSelection })
     }
     return <div className={styles.container}>
         <label htmlFor={id}>{label}</label>
@@ -36,7 +36,7 @@ export const Select = ({ id, label, options, onChange, stylesOverride: stylesOve
             name={id}
             value={selection}
             className={styles.input}
-            onChange={event => {onChangeToUse({event, newSelection: event.target.value})}}
+            onChange={event => { onChangeToUse({ event, newSelection: event.target.value }) }}
         >
             {options.map(o => <option key={o.id} value={o.id}>{o.text}</option>)}
         </select>

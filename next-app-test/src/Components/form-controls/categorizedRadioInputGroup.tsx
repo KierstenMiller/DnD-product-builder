@@ -12,7 +12,7 @@ interface propsOptionI {
 }
 interface propsI {
     heading: string,
-    onChange: ({event, newSelection }: onChangeI) => any;
+    onChange: ({ event, newSelection }: onChangeI) => any;
     categorizedOptions: {
         id: string | number,
         category: string | number,
@@ -23,11 +23,11 @@ interface propsI {
     mirage?: mirageT,
 }
 
-export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChange, styles = {}, mirage, hideInput }: propsI) => {
+export const CategorizedRadioInputGroup = ({ heading, categorizedOptions, onChange, styles = {}, mirage, hideInput }: propsI) => {
     const [selection, setSelection] = useState(categorizedOptions.flatMap(cat => cat.options).find(opt => opt.selected)?.id);
-    const onChangeToUse = ({event, newSelection}: onChangeI) => {
+    const onChangeToUse = ({ event, newSelection }: onChangeI) => {
         setSelection(newSelection);
-        onChange({event, newSelection,})
+        onChange({ event, newSelection, })
     }
     return <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>
@@ -40,12 +40,12 @@ export const CategorizedRadioInputGroup = ({heading, categorizedOptions, onChang
                     name={heading}
                     onChange={onChangeToUse}
                     stylesOverride={styles}
-                    {...mirage && {mirage: () => mirage(opt)}}
+                    {...mirage && { mirage: () => mirage(opt) }}
                     hideInput={hideInput}
                     selected={opt.id === selection}
                     ariaLabelledBy={cat.id.toString()}
                 />)}
-            </div>  
+            </div>
         </div>)}
     </fieldset>
 }

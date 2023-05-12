@@ -1,11 +1,12 @@
-
 .app {
   overflow: hidden;
 }
+
 .container {
   overflow-x: auto;
   height: 100vh;
 }
+
 .row {
   display: flex;
   align-items: flex-start;
@@ -38,6 +39,7 @@
 
 .description {
   padding: 16px;
+
   .header {
     margin-bottom: 8px;
   }

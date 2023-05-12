@@ -27,7 +27,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
                 <div className={styles.image}>
-                    <Workspace build={model.builder.build} globalValidation={globalValidation} validationLibrary={validationLibrary}/>
+                    <Workspace build={model.builder.build} globalValidation={globalValidation} validationLibrary={validationLibrary} />
                 </div>
             </div>
             <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
@@ -38,7 +38,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
                     <div>
                         <h2>Current Selections</h2>
                         {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-                        {model.builder.type === builderKeys.freeformMatrix && <AddToWorkspace matrix={model.builder.build} image={image}/>}
+                        {model.builder.type === builderKeys.freeformMatrix && <AddToWorkspace matrix={model.builder.build} image={image} />}
                         <Display />
                     </div>
                 </div>

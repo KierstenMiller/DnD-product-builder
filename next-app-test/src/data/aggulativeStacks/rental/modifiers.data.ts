@@ -7,7 +7,7 @@ export const modifiers = [
         label: 'Blocks',
         modifierChunkKey: modifierChunkKeyValues.unique,
         groupBy: groupByValues.rank,
-        sortBy:sortByValues.ascending,
+        sortBy: sortByValues.ascending,
         display: adderDisplayValues.imageFirst,
         options: blockOptions,
     },
@@ -26,4 +26,4 @@ export const modifiers = [
         options: strokeOptions,
     },
 ]
-    
+

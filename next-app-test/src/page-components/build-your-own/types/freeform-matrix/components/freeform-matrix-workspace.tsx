@@ -7,8 +7,8 @@ interface propsI {
     build: FreeformMatrixBuildModel,
 }
 
-export const FreeformMatrixWorkspace = observer(({build}: propsI) => {
-    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => { swapIndex ? build.swapPieces(matrixIndex, swapIndex) : build.setMatrixIndexPiece({matrixIndex}); };
+export const FreeformMatrixWorkspace = observer(({ build }: propsI) => {
+    const onDrop = (matrixIndex: matrixIndexCoordinatesI, swapIndex?: matrixIndexCoordinatesI) => { swapIndex ? build.swapPieces(matrixIndex, swapIndex) : build.setMatrixIndexPiece({ matrixIndex }); };
     const onRemove = (matrixIndex: matrixIndexCoordinatesI) => build.removeMatrixIndexPiece(matrixIndex);
     // NOTE: using the map method's index is ok here as the matrix indices should never change.
     return (<div className="flex">

@@ -9,10 +9,10 @@ interface dragZonePropsI {
     id?: string,
     onDrag?: () => void,
     setIsDraggingState?: (isDragging: boolean) => void,
-    
+
 }
 
-export const DragZone = observer(({type, id, setIsDraggingState, onDrag, children }: dragZonePropsI) => {
+export const DragZone = observer(({ type, id, setIsDraggingState, onDrag, children }: dragZonePropsI) => {
     const [, drag] = useDrag(() => ({
         type: type,
         item: { id },

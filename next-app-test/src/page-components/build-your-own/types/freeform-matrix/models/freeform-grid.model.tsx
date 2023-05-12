@@ -6,7 +6,7 @@ import { configT, matrixIndexCoordinatesI, matrixT, pieceI } from "../../../buil
 class MatrixIndex {
     matrixIndex
     piece
-    constructor({matrixIndex, piece}: {matrixIndex: matrixIndexCoordinatesI, piece?: pieceI}) {
+    constructor({ matrixIndex, piece }: { matrixIndex: matrixIndexCoordinatesI, piece?: pieceI }) {
         this.matrixIndex = matrixIndex;
         this.piece = piece ? new buildPiece(piece) : undefined;
         makeObservable(this, {
@@ -25,7 +25,7 @@ class MatrixIndex {
 export class FreeformMatrixBuildModel {
     config
     matrix
-    constructor({config, matrix}: {config: configT, matrix: matrixT}) {
+    constructor({ config, matrix }: { config: configT, matrix: matrixT }) {
         this.config = config
         this.matrix = matrix?.map(r => r.map(c => (new MatrixIndex({
             matrixIndex: c.matrixIndex,
@@ -38,20 +38,20 @@ export class FreeformMatrixBuildModel {
             setMatrixIndexPiece: action.bound,
             swapPieces: action.bound,
             removeMatrixIndexPiece: action.bound,
-        }) 
+        })
     }
     setConfig = (newConfig: configT) => this.config = newConfig;
-    setMatrixIndexPiece = ({matrixIndex, piece, image}: {matrixIndex: matrixIndexCoordinatesI, piece?: pieceI, image?: JSX.Element}) => {
+    setMatrixIndexPiece = ({ matrixIndex, piece, image }: { matrixIndex: matrixIndexCoordinatesI, piece?: pieceI, image?: JSX.Element }) => {
         const index = this.matrix[matrixIndex.row][matrixIndex.column];
-        const nonObservableConfigCopy = [...this.config.map(i => ({...i}))];
-        const newPiece = piece || {id:'addedPiece', config: nonObservableConfigCopy}
+        const nonObservableConfigCopy = [...this.config.map(i => ({ ...i }))];
+        const newPiece = piece || { id: 'addedPiece', config: nonObservableConfigCopy }
         index.setPiece(newPiece);
     }
     swapPieces = (indexA: matrixIndexCoordinatesI, indexB: matrixIndexCoordinatesI) => {
         const pieceA = this.matrix[indexA.row][indexA.column].piece;
         const pieceB = this.matrix[indexB.row][indexB.column].piece
-        pieceB ? this.setMatrixIndexPiece({matrixIndex: indexA, piece: pieceB}) : this.removeMatrixIndexPiece(indexA);
-        pieceA ? this.setMatrixIndexPiece({matrixIndex: indexB, piece: pieceA}) : this.removeMatrixIndexPiece(indexB);
+        pieceB ? this.setMatrixIndexPiece({ matrixIndex: indexA, piece: pieceB }) : this.removeMatrixIndexPiece(indexA);
+        pieceA ? this.setMatrixIndexPiece({ matrixIndex: indexB, piece: pieceA }) : this.removeMatrixIndexPiece(indexB);
     }
     removeMatrixIndexPiece = (matrixIndex: matrixIndexCoordinatesI) => {
         this.matrix[matrixIndex.row][matrixIndex.column].removePiece();

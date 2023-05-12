@@ -16,13 +16,13 @@ interface propsI {
     onMove?: onMoveI,
 }
 
-export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}: propsI) => {
+export const DropZone = observer(({ matrixIndex, piece, onDrop, onRemove, onMove }: propsI) => {
     const zoneRef = useRef();
     const image = piece ? generateImage(piece.config) : null;
     const [dropInfo, drop] = useDrop(
         () => ({
             accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
-            drop: ({dragStartIndex}: {dragStartIndex: matrixIndexCoordinatesI}) => {
+            drop: ({ dragStartIndex }: { dragStartIndex: matrixIndexCoordinatesI }) => {
                 onDrop(matrixIndex, dragStartIndex)
             },
             collect: (monitor) => ({
@@ -35,7 +35,7 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}
     const [dragInfo, drag, preview] = useDrag(
         () => ({
             type: DnDItemTypes.WORKSPACE_ITEM,
-            item: {dragStartIndex: matrixIndex},
+            item: { dragStartIndex: matrixIndex },
             collect: (monitor) => ({
                 isDragging: !!monitor.isDragging(),
             }),
@@ -43,7 +43,7 @@ export const DropZone = observer(({matrixIndex, piece, onDrop, onRemove, onMove}
         [],
     )
     drop(drag(zoneRef));
-   return (<div
+    return (<div
         ref={zoneRef}
         style={{
             width: '100px',

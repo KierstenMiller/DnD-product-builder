@@ -9,9 +9,9 @@ import { FreeformMatrixDisplay } from "./types/freeform-matrix/components/freefo
 import { AggulativeStacksDisplay } from "./types/aggulative-stacks/components/aggulative-stacks-display";
 
 export enum builderKeys {
-    singleton= 'singleton',
-    freeformMatrix= 'freeform-matrix',
-    aggulativeStacks= 'aggulative-stacks',
+    singleton = 'singleton',
+    freeformMatrix = 'freeform-matrix',
+    aggulativeStacks = 'aggulative-stacks',
 
 }
 export const overrideConfig = (config: configT, overrideConfig: configT) => {
@@ -28,14 +28,14 @@ export const getWorkspace = (type: builderKeys) => {
         default: throw new Error(`Workspace does not exist for provided builder type: ${type}`);
     }
 }
-export const getBuilder = ({type, config, data}: builderRawDataT): builderT => {
+export const getBuilder = ({ type, config, data }: builderRawDataT): builderT => {
     switch (type) {
         case builderKeys.singleton:
-            return {type, build: undefined};
+            return { type, build: undefined };
         case builderKeys.freeformMatrix:
-            return {type, build: new FreeformMatrixBuildModel({config, matrix: data})};
+            return { type, build: new FreeformMatrixBuildModel({ config, matrix: data }) };
         case builderKeys.aggulativeStacks:
-            return {type, build: new AggulativeStacksBuildModel({config, stacks: data})}
+            return { type, build: new AggulativeStacksBuildModel({ config, stacks: data }) }
         default: throw new Error(`Builder type is not valid: ${type}`);
     }
 }

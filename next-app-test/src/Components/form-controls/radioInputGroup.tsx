@@ -11,18 +11,18 @@ interface propsOptionI {
 }
 interface propsI {
     heading: string,
-    onChange: ({event, newSelection}: onChangeI) => any;
+    onChange: ({ event, newSelection }: onChangeI) => any;
     options: propsOptionI[],
     // optional
     styles?: sassStylesI,
     mirage?: ((props: mirageI) => JSX.Element)
 }
 
-export const RadioInputGroup = ({heading, options, onChange, styles = {}, mirage}: propsI) => {
+export const RadioInputGroup = ({ heading, options, onChange, styles = {}, mirage }: propsI) => {
     const [selection, setSelection] = useState(options.find(opt => opt.selected)?.id);
-    const onChangeToUse = ({event, newSelection}: onChangeI) => {
+    const onChangeToUse = ({ event, newSelection }: onChangeI) => {
         setSelection(newSelection);
-        onChange({event, newSelection})
+        onChange({ event, newSelection })
     }
     return <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>
@@ -34,7 +34,7 @@ export const RadioInputGroup = ({heading, options, onChange, styles = {}, mirage
                 onChange={onChangeToUse}
                 selected={opt.id === selection}
                 stylesOverride={styles}
-                {...mirage && {mirage: () => mirage(opt)}}
+                {...mirage && { mirage: () => mirage(opt) }}
             />)}
         </div>
     </fieldset>

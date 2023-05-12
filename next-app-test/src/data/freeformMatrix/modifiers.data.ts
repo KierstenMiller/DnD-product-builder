@@ -24,4 +24,4 @@ export const shapeModifiers = [
         options: strokeOptions,
     },
 ]
-    
+

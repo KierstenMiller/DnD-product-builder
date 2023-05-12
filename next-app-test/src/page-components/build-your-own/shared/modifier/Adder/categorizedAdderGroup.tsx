@@ -11,7 +11,7 @@ interface propsOptionI {
 }
 interface propsI {
     heading: string,
-    onClick: ({event, newSelection }: onChangeI) => any;
+    onClick: ({ event, newSelection }: onChangeI) => any;
     categorizedOptions: {
         id: string | number,
         category: string | number,
@@ -22,7 +22,7 @@ interface propsI {
     styles?: sassStylesI,
 }
 
-export const CategorizedAdderGroup = ({heading, categorizedOptions, onClick, styles = {}, view }: propsI) => {
+export const CategorizedAdderGroup = ({ heading, categorizedOptions, onClick, styles = {}, view }: propsI) => {
     return <div className={styles.fieldset}>
         <div className={styles.legend}>{heading}</div>
         {categorizedOptions.map(cat => <div key={cat.id}>
@@ -34,7 +34,7 @@ export const CategorizedAdderGroup = ({heading, categorizedOptions, onClick, sty
                     styles={styles}
                     view={view}
                 />
-            </div>  
+            </div>
         </div>)}
     </div>
 }

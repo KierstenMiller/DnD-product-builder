@@ -13,10 +13,10 @@ export const findIndex2D = (stacks: aggulativeStacksListT, id: string) => {
 export const findPiece = (id: string, stacksData: aggulativeStacksListT) => {
     const index = findIndex2D(stacksData, id);
     const piece = (index && isNum(index.stack) && isNum(index.block)) ? (stacksData[index.stack][index.block])?.piece : null;
-    return { index, piece }; 
+    return { index, piece };
 }
 export const findAndRemoveBlock = (id: string, stacksData: aggulativeStacksListT) => {
-    const {index, piece} = findPiece(id, stacksData);
+    const { index, piece } = findPiece(id, stacksData);
     if (index && stacksData[index.stack]) stacksData[index.stack].splice(index.block, 1);
     return piece;
 }

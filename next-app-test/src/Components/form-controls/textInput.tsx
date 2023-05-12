@@ -20,7 +20,7 @@ interface propsI {
 
 export const TextInput = ({ id, label, onChange, defaultValue, ariaDescribedBy, helpText, stylesOverride = {} }: propsI) => {
     const [value, setValue] = useState(defaultValue || '');
-    const styles = {...defaultStyles, ...stylesOverride};
+    const styles = { ...defaultStyles, ...stylesOverride };
     return <div className={styles.container}>
         <label className={styles.label} htmlFor={id}>{label}</label>
         <input
@@ -31,9 +31,9 @@ export const TextInput = ({ id, label, onChange, defaultValue, ariaDescribedBy, 
             value={value}
             onChange={event => {
                 setValue(event.target.value)
-                onChange({event, newValue: event.target.value})
+                onChange({ event, newValue: event.target.value })
             }}
-            {...ariaDescribedBy && helpText && {ariaDescribedBy: ariaDescribedBy}}
+            {...ariaDescribedBy && helpText && { ariaDescribedBy: ariaDescribedBy }}
         />
         {ariaDescribedBy && helpText && <div id={ariaDescribedBy}>{helpText}</div>}
     </div>;

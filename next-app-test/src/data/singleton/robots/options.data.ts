@@ -81,7 +81,7 @@ export const robotColorOptions = [
         selected: true,
         value: 'default-blue',
     },
-    
+
 ]
 export const robotSupportOptions = [
     {

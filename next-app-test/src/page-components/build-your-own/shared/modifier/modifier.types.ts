@@ -9,7 +9,7 @@ export interface sortAlphaI {
 export enum modifierChunkKeyValues {
     unique = 'unique',
     global = 'global'
-} 
+}
 export enum validationValues {
     maxStackHeight = "max-stack-height",
     maxStacksCount = "max-stacks-count",
@@ -25,7 +25,7 @@ export enum groupByValues {
     stocked = "stocked",
     price = "price",
     rank = "rank"
-} 
+}
 export enum sortByValues {
     ascending = "ascending",
     descending = "descending",

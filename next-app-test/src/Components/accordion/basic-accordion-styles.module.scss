@@ -1,37 +1,37 @@
 .accordionTrigger {
-    background: pink;
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
+  background: pink;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .arrowContainer {
-    margin-left: 16px;
+  margin-left: 16px;
 }
 
 .arrow {
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 
-    &.right {
-        transform: rotate(-45deg);
-    }
+  &.right {
+    transform: rotate(-45deg);
+  }
 
-    &.left {
-        transform: rotate(135deg);
-    }
+  &.left {
+    transform: rotate(135deg);
+  }
 
-    &.up {
-        transform: rotate(-135deg);
-    }
+  &.up {
+    transform: rotate(-135deg);
+  }
 
-    &.down {
-        transform: rotate(45deg);
-    }
+  &.down {
+    transform: rotate(45deg);
+  }
 }

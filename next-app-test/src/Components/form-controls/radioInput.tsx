@@ -18,7 +18,7 @@ interface propsI {
     id: string,
     label: string,
     name: string,
-    onChange: ({event, newSelection}: onChangeI) => any;
+    onChange: ({ event, newSelection }: onChangeI) => any;
     // optional
     ariaLabelledBy?: string,
     selected?: boolean,
@@ -29,7 +29,7 @@ interface propsI {
 }
 
 export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected, hideInput, stylesOverride: stylesOverride = {}, mirage, image }: propsI) => {
-    const styles = {...defaultStyles, ...stylesOverride};
+    const styles = { ...defaultStyles, ...stylesOverride };
     return <div
         key={id}
         className={classNames(
@@ -44,16 +44,16 @@ export const RadioInput = ({ id, name, label, onChange, ariaLabelledBy, selected
             type="radio"
             value={label}
             name={name}
-            onChange={event => {onChange({event, newSelection: id})}}
+            onChange={event => { onChange({ event, newSelection: id }) }}
             checked={selected}
-            {...ariaLabelledBy && {'aria-labelledby':`${name}_${id} ${ariaLabelledBy}`}}
+            {...ariaLabelledBy && { 'aria-labelledby': `${name}_${id} ${ariaLabelledBy}` }}
         />
         <label
             className={classNames({ 'visually-hidden': mirage })}
-            {...(ariaLabelledBy ? {id:`${name}_${id}`} : {htmlFor: id})} 
+            {...(ariaLabelledBy ? { id: `${name}_${id}` } : { htmlFor: id })}
         >{label}</label>
-         {/* NOTE: In forms mode (which we are forced into in a fieldset) any text in the mirage wouldn't be read - Including aria-hidden just in case */}
-         {mirage && <div aria-hidden={true} className={styles.label} onClick={event => {onChange({event, newSelection: id})}}>
+        {/* NOTE: In forms mode (which we are forced into in a fieldset) any text in the mirage wouldn't be read - Including aria-hidden just in case */}
+        {mirage && <div aria-hidden={true} className={styles.label} onClick={event => { onChange({ event, newSelection: id }) }}>
             {mirage()}
         </div>}
     </div>

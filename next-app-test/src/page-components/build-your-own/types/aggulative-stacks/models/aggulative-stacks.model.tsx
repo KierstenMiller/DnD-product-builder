@@ -53,11 +53,11 @@ export class AggulativeStacksBuildModel {
     };
     // adding actions
     addStack = (stackIndex: number, pieceId?: string) => {
-        const {piece} = pieceId ? findPiece(pieceId, this.stacksData) : {piece: null};
+        const { piece } = pieceId ? findPiece(pieceId, this.stacksData) : { piece: null };
         this.stacksData = addStack(stackIndex, piece || this.generatePiece(), this.stacksData)
     };
     addToStack = (stackIndex: number, blockIndex: number, pieceId?: string) => {
-        const {piece} = pieceId ? findPiece(pieceId, this.stacksData) : {piece: null};
+        const { piece } = pieceId ? findPiece(pieceId, this.stacksData) : { piece: null };
         this.stacksData = addPieceToStack(stackIndex, blockIndex, piece || this.generatePiece(), this.stacksData);
     };
     // removal actions
