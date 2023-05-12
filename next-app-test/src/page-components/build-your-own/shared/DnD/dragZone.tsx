@@ -7,7 +7,7 @@ interface dragZonePropsI {
     children: React.ReactNode
     // optional
     id?: string,
-    onDrag?: () => void,
+    onDrag?: () => void | undefined,
     setIsDraggingState?: (isDragging: boolean) => void,
 
 }

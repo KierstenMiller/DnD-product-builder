@@ -1,23 +1,24 @@
 import { closeButtonContent, closeButtons } from "./modal.util";
-import { mouseButtonClickT } from "-/util/interaction-typing";
+import { inclusiveClickEventT, mouseClickT, keyboardEventT } from "-/util/interaction-typing";
 import defaultStyles from './modal.module.scss'
 import FocusTrap from "focus-trap-react";
 import { useEffect } from "react";
 import { sassStylesI } from "-/util/typing-util";
+import { isKeyboardEvent } from "-/util/helpers";
 
 //////////////////////
 //      TYPING      //
 //////////////////////
-export type modalToggleCallbackT = (event: mouseButtonClickT | KeyboardEvent, isOpen: boolean) => void
+export type modalToggleCallbackT = (event: inclusiveClickEventT, isOpen: boolean) => void
 interface ButtonI {
     text: string;
     // optional
-    onClick?: (event: mouseButtonClickT) => void;
+    onClick?: (event: mouseClickT) => void;
     closeModalOnClick?: boolean;
     className?: string;
 }
 interface FooterButtonI extends ButtonI {
-    close: (event: mouseButtonClickT) => void;
+    close: (event: mouseClickT) => void;
 }
 export interface ModalI {
     header: {
@@ -37,7 +38,7 @@ export interface ModalI {
 //      COMPONENTs      //
 //////////////////////////
 const FooterButton = ({ text, closeModalOnClick = true, onClick, close, className }: FooterButtonI) => {
-    const clickHandler = (event: mouseButtonClickT) => {
+    const clickHandler = (event: mouseClickT) => {
         onClick && onClick(event);
         closeModalOnClick && close(event);
     }
@@ -53,9 +54,9 @@ export const Modal = ({
     stylesOverride = {},
 }: ModalI) => {
     const styles = { ...defaultStyles, ...stylesOverride };
-    const close = (event: mouseButtonClickT | KeyboardEvent) => closeCallback(event, false);
+    const close = (event: inclusiveClickEventT) => closeCallback(event, false);
     useEffect(() => {
-        const handleEsc = (event: KeyboardEvent) => event.key === "Escape" && close(event);
+        const handleEsc = (event: KeyboardEvent) => isKeyboardEvent(event) && event.key === "Escape" && close(event);
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
     });

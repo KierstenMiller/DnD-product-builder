@@ -1,2 +1,3 @@
-export type mouseButtonClickT = React.MouseEvent<HTMLButtonElement, MouseEvent>
-export type keyboardDivEventT = React.KeyboardEvent<HTMLDivElement>
+export type mouseClickT = React.MouseEvent<any, MouseEvent>
+export type keyboardEventT = React.KeyboardEvent<any> | KeyboardEvent
+export type inclusiveClickEventT = mouseClickT | keyboardEventT

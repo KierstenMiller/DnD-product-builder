@@ -16,7 +16,7 @@ import BYOStyles from '#/build-your-own.module.scss'
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
 
 export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
-    const isAdder = Object.values(adderDisplayValues).includes(mod.display); //mod.display in adderDisplayValues;
+    const isAdder = Object.values(adderDisplayValues).some(aDV => aDV === mod.display);
     const theSort = Array.isArray(mod.sortBy) ? mod.sortBy[0] : mod.sortBy;
     const newModifier = {
         ...mod,

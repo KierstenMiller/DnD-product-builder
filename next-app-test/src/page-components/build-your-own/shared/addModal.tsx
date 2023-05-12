@@ -2,13 +2,13 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
 import { ModalTrigger } from '../../../Components/modal/modalTrigger'
-import { mouseButtonClickT } from '-/util/interaction-typing'
+import { mouseClickT } from '-/util/interaction-typing'
 import { Select } from '../../../Components/form-controls/select'
 import { noop } from '-/util/helpers'
 import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
 
 // TODO: abstract addModal to be used by all environments
-export interface AddModalOnClickI { event: mouseButtonClickT, matrixIndex: matrixIndexCoordinatesI }
+export interface AddModalOnClickI { event: mouseClickT, matrixIndex: matrixIndexCoordinatesI }
 interface propsI {
     image: string | JSX.Element,
     onSubmit: ({ event, matrixIndex }: AddModalOnClickI) => void,
@@ -22,11 +22,11 @@ const convertStringIndex = (matrixIndex: { row: string, column: string }) => ({ 
 
 export const AddModal = observer(({ image, onSubmit, onCancel = noop }: propsI) => {
     const [matrixIndex, setMatrixIndex] = useState(defaultMatrixIndex);
-    const submit = (event: mouseButtonClickT) => {
+    const submit = (event: mouseClickT) => {
         onSubmit({ event, matrixIndex: convertStringIndex(matrixIndex) });
         setMatrixIndex(defaultMatrixIndex);
     };
-    const cancel = (event: mouseButtonClickT) => {
+    const cancel = (event: mouseClickT) => {
         onCancel({ event, matrixIndex: convertStringIndex(matrixIndex) });
         setMatrixIndex(defaultMatrixIndex);
     };

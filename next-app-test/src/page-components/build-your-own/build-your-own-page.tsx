@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
 
-import { StandardModelT } from '-/page-components/build-your-own/shared/standard.model'
-import { globalRulesI, modifiersT, validationLibraryT } from './build-your-own.types'
+import { StandardModelT, globalRulesI, modifiersT, validationLibraryT } from './build-your-own.types'
 import { Studio } from '-/page-components/build-your-own/shared/studio'
 
 import styles from '#/Home.module.scss'

@@ -8,16 +8,13 @@ import { SingletonDisplay } from "./types/singleton/singleton-display";
 import { FreeformMatrixDisplay } from "./types/freeform-matrix/components/freeform-matrix-display";
 import { AggulativeStacksDisplay } from "./types/aggulative-stacks/components/aggulative-stacks-display";
 
-export enum builderKeys {
-    singleton = 'singleton',
-    freeformMatrix = 'freeform-matrix',
-    aggulativeStacks = 'aggulative-stacks',
+type functionalComponentT = (((props: any) => JSX.Element) & { displayName: string; })
+export enum builderKeys { singleton = 'singleton', freeformMatrix = 'freeform-matrix', aggulativeStacks = 'aggulative-stacks', }
 
-}
 export const overrideConfig = (config: configT, overrideConfig: configT) => {
     return config.map(c => (overrideConfig.find(o => o.id === c.id) || c));
 }
-export const getWorkspace = (type: builderKeys) => {
+export const getWorkspace = (type: builderKeys): functionalComponentT => {
     switch (type) {
         case builderKeys.singleton:
             return SingletonWorkspace;
@@ -28,6 +25,17 @@ export const getWorkspace = (type: builderKeys) => {
         default: throw new Error(`Workspace does not exist for provided builder type: ${type}`);
     }
 }
+export const getDisplay = (type: builderKeys): functionalComponentT => {
+    switch (type) {
+        case builderKeys.singleton:
+            return SingletonDisplay;
+        case builderKeys.freeformMatrix:
+            return FreeformMatrixDisplay;
+        case builderKeys.aggulativeStacks:
+            return AggulativeStacksDisplay;
+        default: throw new Error(`Builder type is not valid: ${type}`);
+    }
+}
 export const getBuilder = ({ type, config, data }: builderRawDataT): builderT => {
     switch (type) {
         case builderKeys.singleton:
@@ -36,17 +44,6 @@ export const getBuilder = ({ type, config, data }: builderRawDataT): builderT =>
             return { type, build: new FreeformMatrixBuildModel({ config, matrix: data }) };
         case builderKeys.aggulativeStacks:
             return { type, build: new AggulativeStacksBuildModel({ config, stacks: data }) }
-        default: throw new Error(`Builder type is not valid: ${type}`);
-    }
-}
-export const getDisplay = (type: builderKeys) => {
-    switch (type) {
-        case builderKeys.singleton:
-            return SingletonDisplay;
-        case builderKeys.freeformMatrix:
-            return FreeformMatrixDisplay;
-        case builderKeys.aggulativeStacks:
-            return AggulativeStacksDisplay;
         default: throw new Error(`Builder type is not valid: ${type}`);
     }
 }

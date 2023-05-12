@@ -4,8 +4,8 @@ import defaultStyles from './categorized-radio-input-group-styles.module.scss'
 import { sassStylesI } from "-/util/typing-util";
 
 export interface onChangeI {
-    event: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLDivElement>,
     newSelection: string
+    event?: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLDivElement>,
 }
 export interface mirageI {
     id: string,

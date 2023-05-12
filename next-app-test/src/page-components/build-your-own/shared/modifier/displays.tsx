@@ -14,25 +14,25 @@ export const displays = {
     [adderDisplayValues.card]: {
         styles: cardStyles,
         view: ({ id, image, label, onClick }: mirageI) => <div className={cardStyles.option}>
-            <DragZone type={DnDItemTypes.ITEM} id={id} onDrag={(event) => onClick && onClick({ event, newSelection: id })}>
+            <DragZone type={DnDItemTypes.ITEM} id={id} onDrag={() => onClick && onClick({ newSelection: id })}>
                 <div aria-hidden={true} className={cardStyles.image}>{image}</div>
             </DragZone>
             <div>
                 <div>{label}</div>
                 <div>{id}</div>
-                <AddModal image={image} onSubmit={(event) => onClick && onClick({ event, newSelection: id })} />
+                <AddModal image={image} onSubmit={() => onClick && onClick({ newSelection: id })} />
             </div>
         </div>
     },
     [adderDisplayValues.imageFirst]: {
         styles: imageFirstStyles,
         view: ({ id, image, label, onClick }: mirageI) => <div className={imageFirstStyles.option}>
-            <DragZone type={DnDItemTypes.ITEM} id={id} onDrag={(event) => onClick && onClick({ event, newSelection: id })}>
+            <DragZone type={DnDItemTypes.ITEM} id={id} onDrag={() => onClick && onClick({ newSelection: id })}>
                 <div aria-hidden={true} className={imageFirstStyles.image}>{image}</div>
             </DragZone>
             <div>{label}</div>
             <div>{id}</div>
-            <AddModal image={image} onSubmit={(event) => onClick && onClick({ event, newSelection: id })} />
+            <AddModal image={image} onSubmit={() => onClick && onClick({ newSelection: id })} />
         </div>
     },
     [radioDisplayValues.card]: {
