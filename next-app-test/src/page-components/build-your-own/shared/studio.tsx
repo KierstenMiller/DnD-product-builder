@@ -4,9 +4,7 @@ import { DndProvider } from 'react-dnd'
 
 import { ModifierGroups } from '-/page-components/build-your-own/shared/modifier/modifierGroups'
 import { StandardModelT, globalRulesI, modifiersT, validationLibraryT } from '-/page-components/build-your-own/build-your-own.types'
-import { builderKeys, getDisplay, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
-import { AddToWorkspace } from './addToWorkspace'
-import { generateImage } from '../types/freeform-matrix/utils/shapes.util'
+import { getDisplay, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
 
 import styles from '#/Home.module.scss'
 
@@ -17,11 +15,7 @@ interface propsI {
     validationLibrary: validationLibraryT,
 }
 
-
-
-
 export const Studio = observer(({ model, modifiers, globalValidation, validationLibrary }: propsI) => {
-    const image = generateImage(model.config);
     const Workspace = getWorkspace(model.builder.type);
     const Display = getDisplay(model.builder.type);
     return (<DndProvider backend={HTML5Backend}>
@@ -37,10 +31,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
                         <h1 className={styles.header}>Build Your Own</h1>
                     </div>
                     <div>
-                        <h2>Current Selections</h2>
-                        {model.config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-                        {model.builder.type === builderKeys.freeformMatrix && <AddToWorkspace matrix={model.builder.build} image={image} />}
-                        <Display />
+                        <Display build={model.builder.build} config={model.config} />
                     </div>
                 </div>
                 <ModifierGroups model={model} modifiers={modifiers} />

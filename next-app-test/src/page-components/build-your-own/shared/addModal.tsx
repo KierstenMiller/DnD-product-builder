@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
 import { ModalTrigger } from '../../../Components/modal/modalTrigger'
-import { mouseClickT } from '-/util/interaction-typing'
 import { Select } from '../../../Components/form-controls/select'
 import { noop } from '-/util/helpers'
 import { matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
+import { mouseClickT } from '-/util/interaction-typing'
 
 // TODO: abstract addModal to be used by all environments
 export interface AddModalOnClickI { event: mouseClickT, matrixIndex: matrixIndexCoordinatesI }

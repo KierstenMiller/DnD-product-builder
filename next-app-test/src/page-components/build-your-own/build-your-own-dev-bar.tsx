@@ -69,7 +69,7 @@ export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }
                 headerText="Dev Bar"
                 headerLevel={2}
             >
-                <span className="mr-medium"><b>UP NEXT:</b> Clean up code - do all TODOs </span>
+                <span className="mr-medium"><b>UP NEXT:</b> Clean up code - do all TO DOs </span>
                 <div>
                     <button onClick={() => setData(dataSingletonMock)}>Singleton Mock</button>
                     <button onClick={() => setData(dataSingletonRobot)}>Singleton Robots</button>
