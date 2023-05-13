@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
 
-import { DropZone } from './aggulative-stacks-workspace';
 import { Block } from './block';
 import { aggulativeStackIndexI, stackI } from '-/page-components/build-your-own/build-your-own.types';
+import { DropZone } from './DropZone';
 
 interface propsI {
     index: number,

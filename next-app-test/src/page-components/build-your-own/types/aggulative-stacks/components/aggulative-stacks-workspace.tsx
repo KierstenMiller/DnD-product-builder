@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react';
-import { useDragLayer, useDrop } from 'react-dnd';
+import { useDragLayer } from 'react-dnd';
 
 import { aggulativeStacksBuildT, aggulativeStackIndexI, globalRulesI, modifiersT, validationLibraryT, } from '-/page-components/build-your-own/build-your-own.types'
 import { DnDItemTypes } from '../../freeform-matrix/utils/shapes.util';
@@ -21,7 +21,7 @@ export const AggulativeStacksWorkspace = observer(({ build, globalValidation, va
     // if DND layer doesn't have an id to provide, then validation was not set up for that workspace. validate() should always return true if no validation exists for the workspace
     // passing build.config in validate() function so observer() picks up that we need the latest config and rerenders this component
     const [isDraggingWorkspace, setIsDraggingWorkspace] = useState(false);
-    const { draggingPieceId, isDraggingDndLayer, itemType } = useDragLayer(monitor => ({
+    const { draggingPieceId, isDraggingDndLayer } = useDragLayer(monitor => ({
         draggingPieceId: monitor.getItem()?.id,
         isDraggingDndLayer: monitor.isDragging() && monitor.getItemType() === DnDItemTypes.ITEM,
         itemType: monitor.getItemType()
@@ -52,17 +52,5 @@ export const AggulativeStacksWorkspace = observer(({ build, globalValidation, va
             onBlockDrop={onBlockDrop}
             onBlockDrag={onBlockDrag}
         />)}
-    </div>)
-})
-
-// TODO: generalize and share with freeformMatrix dropZone component
-export const DropZone = observer(({ onDrop }: { onDrop: () => void }) => {
-    const [dropInfo, drop] = useDrop(() => ({
-        accept: [DnDItemTypes.ITEM, DnDItemTypes.WORKSPACE_ITEM],
-        drop: () => onDrop(),
-        collect: (monitor) => ({ isOver: !!monitor.isOver(), canDrop: !!monitor.canDrop(), }),
-    }), []);
-    return (<div ref={drop} style={{ background: dropInfo.isOver ? 'yellow' : 'white', color: dropInfo.canDrop ? 'blue' : 'red' }}>
-        + Add item
     </div>)
 })
