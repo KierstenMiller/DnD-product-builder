@@ -39,3 +39,5 @@ Useful Resources
 - https://webdesign.tutsplus.com/tutorials/an-introduction-to-sass-maps-usage-and-examples--cms-22184
 - https://gist.github.com/sarahdayan/4d2cc04a636e8039f10a889a0e29fbd9
 - https://dev.to/ivadyhabimana/setup-jest-and-react-testing-library-in-a-react-project-a-step-by-step-guide-1mf0
+- https://www.pluralsight.com/guides/how-to-test-react-components-in-typescript
+- https://nextjs.org/docs/pages/building-your-application/optimizing/testing
