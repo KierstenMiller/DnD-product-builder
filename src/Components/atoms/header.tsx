@@ -4,22 +4,25 @@ interface HeaderProps {
     children: React.ReactNode;
     // optional
     className?: string;
+    testId?: string;
 }
 
-export const Header = ({ headerLevel, children, className }: HeaderProps) => {
+export const Header = ({ headerLevel, children, className, testId: rawTestId = '' }: HeaderProps) => {
+    const testId = `header-${headerLevel}` + rawTestId;
+    const props = { className, 'data-testId': testId }
     switch (headerLevel) {
         case 1:
-            return <h1 className={className}>{children}</h1>
+            return <h1 {...props}>{children}</h1>
         case 2:
-            return <h2 className={className}>{children}</h2>
+            return <h2 {...props}>{children}</h2>
         case 3:
-            return <h3 className={className}>{children}</h3>
+            return <h3 {...props}>{children}</h3>
         case 4:
-            return <h4 className={className}>{children}</h4>
+            return <h4 {...props}>{children}</h4>
         case 5:
-            return <h5 className={className}>{children}</h5>
+            return <h5 {...props}>{children}</h5>
         case 6:
-            return <h6 className={className}>{children}</h6>
+            return <h6 {...props}>{children}</h6>
         default: throw new Error('Please provide valid header level (1-6)')
     }
 }
