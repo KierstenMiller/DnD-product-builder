@@ -12,16 +12,17 @@ interface propsI {
     label: string,
     onChange: ({ event, newValue }: onChangeI) => any;
     // optional
+    testId?: string
     defaultValue?: string,
     ariaDescribedBy?: string,
     helpText?: string
     stylesOverride?: sassStylesI,
 }
 
-export const TextInput = ({ id, label, onChange, defaultValue, ariaDescribedBy, helpText, stylesOverride = {} }: propsI) => {
+export const TextInput = ({ id, label, onChange, testId, defaultValue, ariaDescribedBy, helpText, stylesOverride = {} }: propsI) => {
     const [value, setValue] = useState(defaultValue || '');
     const styles = { ...defaultStyles, ...stylesOverride };
-    return <div className={styles.container}>
+    return <div data-testId={testId || id} className={styles.container}>
         <label className={styles.label} htmlFor={id}>{label}</label>
         <input
             className={styles.input}
