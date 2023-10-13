@@ -32,7 +32,7 @@ describe('<TextInput />', () => {
         .find('input')
         .should('have.attr', 'id', id);
     })
-    it('onChange should be called when input value is changed', () => {
+    it('should update the input value when the user types in a value', () => {
       const typedValue = 'test value';
       cy.getByTestId(testId)
         .find('input')
@@ -63,7 +63,7 @@ describe('<TextInput />', () => {
         .find(`#${ariaDescribedById}`)
         .contains(helpText);
     })
-    it('spy onChange should be called when input value is changed', () => {
+    it('should spy on onChange and be called when input value is changed', () => {
       const spy = cy.spy();
       const typedValue = '123';
       cy.mount(<TextInput id={id} testId={testId} label={label} onChange={spy} />);

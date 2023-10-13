@@ -19,22 +19,23 @@ interface propsI {
     options: propsOptionI[],
     onChange: ({ event, newSelection }: onChangeI) => any;
     // optional
+    testId?: string,
     stylesOverride?: sassStylesI,
 }
 
-export const Select = ({ id, label, options, onChange, stylesOverride: stylesOverride = {}, }: propsI) => {
+export const Select = ({ id, label, options, onChange, testId, stylesOverride: stylesOverride = {}, }: propsI) => {
     const styles = { ...defaultStyles, ...stylesOverride };
     const [selection, setSelection] = useState(options.find(o => o.selected)?.id);
     const onChangeToUse = ({ event, newSelection }: onChangeI) => {
         setSelection(newSelection);
         onChange({ event, newSelection })
     }
-    return <div className={styles.container}>
+    return <div className={styles.container} data-testId={testId}>
         <label htmlFor={id}>{label}</label>
         <select
             id={id}
             name={id}
-            value={selection}
+            defaultValue={selection} // In the html spec. a select element doesn't have a 'defaultValue' attribute. However, React uses it to make the select a controlled component. See: https://react.dev/reference/react-dom/components/select
             className={styles.input}
             onChange={event => { onChangeToUse({ event, newSelection: event.target.value }) }}
         >
