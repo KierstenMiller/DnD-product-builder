@@ -12,15 +12,16 @@ interface propsI {
     label: string,
     onChange: ({ event, newValue }: onChangeI) => any;
     // optional
-    testId?: string
+    testId?: string // made optional to prevent DOM bloat
     defaultValue?: string,
-    ariaDescribedBy?: string,
-    helpText?: string
+    ariaDescribedById?: string, // TODO: make this a union type with helpText
+    helpText?: string // TODO: make this a union type with ariaDescribedById
     stylesOverride?: sassStylesI,
 }
 
-export const TextInput = ({ id, label, onChange, testId, defaultValue, ariaDescribedBy, helpText, stylesOverride = {} }: propsI) => {
+export const TextInput = ({ id, label, onChange, testId, defaultValue, ariaDescribedById, helpText, stylesOverride = {} }: propsI) => {
     const [value, setValue] = useState(defaultValue || '');
+    // TODO: make styles combining function that is backed by unit test that confirms output of modularized styles
     const styles = { ...defaultStyles, ...stylesOverride };
     return <div data-testId={testId || id} className={styles.container}>
         <label className={styles.label} htmlFor={id}>{label}</label>
@@ -34,8 +35,8 @@ export const TextInput = ({ id, label, onChange, testId, defaultValue, ariaDescr
                 setValue(event.target.value)
                 onChange({ event, newValue: event.target.value })
             }}
-            {...ariaDescribedBy && helpText && { ariaDescribedBy: ariaDescribedBy }}
+            {...ariaDescribedById && helpText && { 'aria-describedby': ariaDescribedById }}
         />
-        {ariaDescribedBy && helpText && <div id={ariaDescribedBy}>{helpText}</div>}
+        {ariaDescribedById && helpText && <div id={ariaDescribedById}>{helpText}</div>}
     </div>;
 }
