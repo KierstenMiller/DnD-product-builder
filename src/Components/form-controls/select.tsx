@@ -19,7 +19,7 @@ interface propsI {
     options: propsOptionI[],
     onChange: ({ event, newSelection }: onChangeI) => any;
     // optional
-    testId?: string,
+    testId?: string, // made optional to prevent DOM bloat
     stylesOverride?: sassStylesI,
 }
 

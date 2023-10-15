@@ -1,5 +1,5 @@
 
-import { mirageI, onChangeI } from '-/Components/form-controls/radioInput';
+import { mirageCallbackPropsI, onChangeI } from '-/Components/form-controls/radioInput';
 import { sassStylesI } from '-/util/typing-util';
 
 interface propsOptionI {
@@ -14,7 +14,7 @@ interface propsI {
     heading: string | number,
     onClick: ({ event, newSelection }: onChangeI) => any;
     options: propsOptionI[],
-    view: (props: mirageI) => React.ReactNode,
+    view: (props: mirageCallbackPropsI) => React.ReactNode,
     // optional
     styles?: sassStylesI,
 

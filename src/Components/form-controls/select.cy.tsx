@@ -32,7 +32,15 @@ describe('<Select />', () => {
                     expect($option).to.have.attr('value', options[index].id);
                 });
         })
-        it('select should update when the user selects a value', () => {
+        it('should render so that the label and select have corresponding values (label.for === select.id)', () => {
+            cy.getByTestId(testId)
+                .find('label')
+                .should('have.attr', 'for', id);
+            cy.getByTestId(testId)
+                .find('select')
+                .should('have.attr', 'id', id);
+        })
+        it('should update when the user selects a value', () => {
             cy.getByTestId(testId)
                 .find('select')
                 .should('have.value', '1')

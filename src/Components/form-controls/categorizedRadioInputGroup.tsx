@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { mirageT, onChangeI, RadioInput } from "./radioInput";
+import { mirageCallbackT, onChangeI, RadioInput } from "./radioInput";
 import { sassStylesI } from "-/util/typing-util";
 
 interface propsOptionI {
@@ -20,7 +20,7 @@ interface propsI {
     }[],
     hideInput?: boolean,
     styles?: sassStylesI,
-    mirage?: mirageT,
+    mirage?: mirageCallbackT,
 }
 
 export const CategorizedRadioInputGroup = ({ heading, categorizedOptions, onChange, styles = {}, mirage, hideInput }: propsI) => {

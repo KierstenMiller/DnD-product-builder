@@ -1,6 +1,6 @@
 // typing
 import { DnDItemTypes } from '../../types/freeform-matrix/utils/shapes.util'
-import { mirageI } from '../../../../Components/form-controls/radioInput'
+import { mirageCallbackPropsI } from '../../../../Components/form-controls/radioInput'
 import { adderDisplayValues, radioDisplayValues } from './modifier.types'
 // components
 import { DragZone } from '../DnD/dragZone'
@@ -13,7 +13,7 @@ import imageFirstStyles from './image-first-styles.module.scss'
 export const displays = {
     [adderDisplayValues.card]: {
         styles: cardStyles,
-        view: ({ id, image, label, onClick }: mirageI) => <div className={cardStyles.option}>
+        view: ({ id, image, label, onClick }: mirageCallbackPropsI) => <div className={cardStyles.option}>
             <DragZone type={DnDItemTypes.ITEM} id={id} onDrag={() => onClick && onClick({ newSelection: id })}>
                 <div aria-hidden={true} className={cardStyles.image}>{image}</div>
             </DragZone>
@@ -26,7 +26,7 @@ export const displays = {
     },
     [adderDisplayValues.imageFirst]: {
         styles: imageFirstStyles,
-        view: ({ id, image, label, onClick }: mirageI) => <div className={imageFirstStyles.option}>
+        view: ({ id, image, label, onClick }: mirageCallbackPropsI) => <div className={imageFirstStyles.option}>
             <DragZone type={DnDItemTypes.ITEM} id={id} onDrag={() => onClick && onClick({ newSelection: id })}>
                 <div aria-hidden={true} className={imageFirstStyles.image}>{image}</div>
             </DragZone>
@@ -37,7 +37,7 @@ export const displays = {
     },
     [radioDisplayValues.card]: {
         styles: cardStyles,
-        view: ({ id, image, label }: mirageI) => <div className={cardStyles.option}>
+        view: ({ id, image, label }: mirageCallbackPropsI) => <div className={cardStyles.option}>
             <div aria-hidden={true} className={cardStyles.image}>{image}</div>
             <div>
                 <div>{label}</div>
@@ -47,7 +47,7 @@ export const displays = {
     },
     [radioDisplayValues.titled]: {
         styles: titledStyles,
-        view: ({ id, image, label }: mirageI) => <div className={titledStyles.option}>
+        view: ({ id, image, label }: mirageCallbackPropsI) => <div className={titledStyles.option}>
             <div>{label}</div>
             <div aria-hidden={true} className={titledStyles.image}>{image}</div>
             <div>{id}</div>
@@ -55,7 +55,7 @@ export const displays = {
     },
     [radioDisplayValues.imageFirst]: {
         styles: imageFirstStyles,
-        view: ({ id, image, label }: mirageI) => <div className={imageFirstStyles.option}>
+        view: ({ id, image, label }: mirageCallbackPropsI) => <div className={imageFirstStyles.option}>
             <div aria-hidden={true} className={imageFirstStyles.image}>{image}</div>
             <div>{label}</div>
             <div>{id}</div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { mirageI, onChangeI, RadioInput } from "./radioInput";
+import { mirageCallbackPropsI, onChangeI, RadioInput } from "./radioInput";
 import { sassStylesI } from "-/util/typing-util";
 
 interface propsOptionI {
@@ -15,7 +15,7 @@ interface propsI {
     options: propsOptionI[],
     // optional
     styles?: sassStylesI,
-    mirage?: ((props: mirageI) => JSX.Element)
+    mirage?: ((props: mirageCallbackPropsI) => JSX.Element)
 }
 
 export const RadioInputGroup = ({ heading, options, onChange, styles = {}, mirage }: propsI) => {
