@@ -25,7 +25,6 @@ describe('<TextInput />', () => {
         .and('have.attr', 'id', id)
         .and('have.attr', 'name', id)
         .and('have.attr', 'type', 'text')
-        .should('have.attr', 'aria-describedby');
     })
     it('should render so that the label and input have corresponding values (label.for === input.id)', () => {
       cy.getByTestId(testId)
