@@ -23,7 +23,7 @@ export const TextInput = ({ id, label, onChange, testId, defaultValue, ariaDescr
     const [value, setValue] = useState(defaultValue || '');
     // TODO: make styles combining function that is backed by unit test that confirms output of modularized styles
     const styles = { ...defaultStyles, ...stylesOverride };
-    return <div data-testId={testId || id} className={styles.container}>
+    return <div data-testid={testId || id} className={styles.container}>
         <label className={styles.label} htmlFor={id}>{label}</label>
         <input
             className={styles.input}

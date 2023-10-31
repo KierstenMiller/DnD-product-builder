@@ -1,5 +1,6 @@
 import { RadioInput, onChangeI } from "./radioInput";
 
+// TODO: Add tests to ensue onChange is called when the user clicks the radio
 describe('<RadioInput />', () => {
     const id = "select-id";
     const name = "test-name";
@@ -35,7 +36,7 @@ describe('<RadioInput />', () => {
         });
         it('should render with no mirage when not given a mirage', () => {
             cy.getByTestId(testId)
-                .find('[data-testId="mirage-container"]')
+                .find('[data-testid="mirage-container"]')
                 .should('not.exist');
         })
         it('should update when the user clicks the radio', () => {
@@ -48,8 +49,11 @@ describe('<RadioInput />', () => {
                 .should('be.checked');
         });
     });
-    context('optional props', () => {
+    context('optional props and unique renders', () => {
         const standardProps = { id, testId, name, label, onChange: ({ event, newSelection }: onChangeI) => console.log('newSelection', newSelection) };
+        // TESTING NOTE: if a RadioInput inside a fieldset is passed a selected prop with a true value, then the RadioInput's input will have a 'checked' attribute
+        // but, if a Radio Input is NOT inside of a fieldset and is passed a selected prop with a true value, then the RadioInput's input will NOT have a 'checked' attribute
+        // this seems like a React implementation discrepancy (10/11/2023)
         it('should render as selected when given a selected prop with a true value', () => {
             cy.mount(<RadioInput {...standardProps} selected={true} />);
             cy.getByTestId(testId)
@@ -75,7 +79,7 @@ describe('<RadioInput />', () => {
                 .should('not.have.class', 'visually-hidden');
         });
         it('should render a mirage when given a mirage prop and visually hide the input and label elements', () => {
-            const mirage = () => <div data-testId="mirage">mirage</div>;
+            const mirage = () => <div data-testid="mirage">mirage</div>;
             cy.mount(<RadioInput {...standardProps} mirage={mirage} />);
             cy.getByTestId(testId)
                 .find('input')
@@ -84,10 +88,10 @@ describe('<RadioInput />', () => {
                 .find('label')
                 .should('have.class', 'visually-hidden')
             cy.getByTestId(testId)
-                .find('[data-testId="mirage-container"]')
+                .find('[data-testid="mirage-container"]')
                 .should('exist');
             cy.getByTestId(testId)
-                .find('[data-testId="mirage"]')
+                .find('[data-testid="mirage"]')
                 .should('exist');
         });
         it('should not render a mirage when not given a mirage prop', () => {
@@ -99,10 +103,10 @@ describe('<RadioInput />', () => {
                 .find('label')
                 .should('not.have.class', 'visually-hidden');
             cy.getByTestId(testId)
-                .find('[data-testId="mirage-container"]')
+                .find('[data-testid="mirage-container"]')
                 .should('not.exist');
             cy.getByTestId(testId)
-                .find('[data-testId="mirage"]')
+                .find('[data-testid="mirage"]')
                 .should('not.exist');
         });
         it('should render with aria attributes when given ariaLabelledBy values', () => {

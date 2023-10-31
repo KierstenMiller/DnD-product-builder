@@ -30,7 +30,7 @@ export const Select = ({ id, label, options, onChange, testId, stylesOverride: s
         setSelection(newSelection);
         onChange({ event, newSelection })
     }
-    return <div className={styles.container} data-testId={testId}>
+    return <div className={styles.container} data-testid={testId}>
         <label htmlFor={id}>{label}</label>
         <select
             id={id}

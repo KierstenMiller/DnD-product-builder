@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export const Header = ({ headerLevel, children, className, testId: rawTestId = '' }: HeaderProps) => {
     const testId = `header-${headerLevel}` + rawTestId;
-    const props = { className, 'data-testId': testId }
+    const props = { className, 'data-testid': testId }
     switch (headerLevel) {
         case 1:
             return <h1 {...props}>{children}</h1>

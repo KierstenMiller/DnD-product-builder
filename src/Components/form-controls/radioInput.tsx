@@ -30,9 +30,10 @@ interface propsI {
 
 export const RadioInput = ({ id, testId, name, label, onChange, ariaLabelledBy, selected, hideInput, stylesOverride: stylesOverride = {}, mirage }: propsI) => {
     const styles = { ...defaultStyles, ...stylesOverride };
+    const ariaLabelId = `${name}_${id}`;
     return <div
         key={id}
-        data-testId={testId}
+        data-testid={testId}
         className={classNames(
             defaultStyles.focus,
             styles.inputContainer,
@@ -46,15 +47,15 @@ export const RadioInput = ({ id, testId, name, label, onChange, ariaLabelledBy, 
             value={label}
             name={name}
             onChange={event => { onChange({ event, newSelection: id }) }}
-            defaultChecked={selected} // In the html spec. a input element doesn't have a 'defaultValue' attribute. However, React uses it to make the input a controlled component. See: https://react.dev/reference/react-dom/components/input
-            {...ariaLabelledBy && { 'aria-labelledby': `${name}_${id} ${ariaLabelledBy}` }}
+            defaultChecked={selected} // NOTE: In the html spec. a input element doesn't have a 'defaultValue' attribute. However, React uses it to make the input a controlled component. See: https://react.dev/reference/react-dom/components/input
+            {...ariaLabelledBy && { 'aria-labelledby': `${ariaLabelId} ${ariaLabelledBy}` }}
         />
         <label
             className={classNames({ 'visually-hidden': mirage })}
-            {...(ariaLabelledBy ? { id: `${name}_${id}` } : { htmlFor: id })}
+            {...(ariaLabelledBy ? { id: ariaLabelId } : { htmlFor: id })}
         >{label}</label>
         {/* NOTE: In forms mode (which we are forced into in a fieldset) any text in the mirage wouldn't be read - Including aria-hidden just in case */}
-        {mirage && <div data-testId="mirage-container" aria-hidden={true} className={styles.label} onClick={event => { onChange({ event, newSelection: id }) }}>
+        {mirage && <div data-testid="mirage-container" aria-hidden={true} className={styles.label} onClick={event => { onChange({ event, newSelection: id }) }}>
             {mirage()}
         </div>}
     </div>

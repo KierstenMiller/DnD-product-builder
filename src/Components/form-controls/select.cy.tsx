@@ -1,5 +1,6 @@
 import { Select } from "./select";
 
+// TODO: Add tests to ensue onChange is called when the user clicks the radio
 describe('<Select />', () => {
     const id = "select-id";
     const testId = "test-id";
@@ -48,7 +49,7 @@ describe('<Select />', () => {
                 .should('have.value', '2');
         })
     })
-    context('optional props', () => {
+    context('optional props and unique renders', () => {
         const options = [
             { id: '1', text: 'one' },
             { id: '2', text: 'two' },

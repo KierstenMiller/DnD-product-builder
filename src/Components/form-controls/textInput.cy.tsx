@@ -51,7 +51,7 @@ describe('<TextInput />', () => {
         .and('have.attr', 'value', typedValue);
     })
   })
-  context('optional props', () => {
+  context('optional props and unique renders', () => {
     const defaultValue = 'default value';
     const standardProps = { id, testId, label, onChange: ({ event, newValue }: onChangeI) => console.log('newValue', newValue) };
     it('should render with the provided defaultValue in input when defaultValue is provided', () => {
