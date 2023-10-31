@@ -19,19 +19,23 @@ interface ModalTriggerI {
 }
 
 export const ModalTrigger = ({ triggerConfig, modalConfig, isGlobal = true, stylesOverride = {} }: ModalTriggerI) => {
+    // functions
     const toggle = (openModal: boolean, event: inclusiveClickEventT, callback?: modalToggleCallbackT) => {
         setIsOpen(openModal);
         callback && callback(event, openModal);
     }
-    const modalCloseClick: modalToggleCallbackT = (event) => toggle(false, event, modalConfig.closeCallback);
-    const triggerClick = (event: mouseClickT) => toggle(true, event, triggerConfig.openCallback);
-    const styles = { ...defaultStyles, ...stylesOverride }
+    const closeOnClick: modalToggleCallbackT = (event) => toggle(false, event, modalConfig.closeCallback);
+    const openOnClick = (event: mouseClickT) => toggle(true, event, triggerConfig.openCallback);
+    // state/ variables
     const [isOpen, setIsOpen] = useState(false);
-    const css = `body {overflow: hidden;}`
+    const styles = { ...defaultStyles, ...stylesOverride }
+    const css = `body {overflow: hidden;}`; // adding styling to prevent body from scrolling, allowing modal to scroll instead
     const modal = <>
         <style>{css}</style>
-        <Modal {...modalConfig} closeCallback={modalCloseClick} stylesOverride={stylesOverride} />
+        <Modal {...modalConfig} closeCallback={closeOnClick} stylesOverride={stylesOverride} />
     </>;
+    // if modal isGlobal, use createPortal to render modal as a child of the body element
+    // else render modal as sibling to ModalTrigger
     return <>
         {isOpen && <>
             {isGlobal
@@ -39,6 +43,6 @@ export const ModalTrigger = ({ triggerConfig, modalConfig, isGlobal = true, styl
                 : modal
             }
         </>}
-        <button className={styles.trigger} onClick={triggerClick}>{triggerConfig.text}</button>
+        <button className={styles.trigger} onClick={openOnClick}>{triggerConfig.text}</button>
     </>
 }
