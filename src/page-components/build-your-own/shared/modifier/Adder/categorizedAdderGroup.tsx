@@ -1,4 +1,4 @@
-import { onChangeI } from "-/Components/form-controls/radioInput";
+import { onChangeI } from "-/Components/form-controls/radioInput/radioInput";
 import { sassStylesI } from "-/util/typing-util";
 import { AdderGroup } from "./adderGroup";
 

@@ -1,7 +1,8 @@
 import classNames from "classnames";
 
-import defaultStyles from './categorized-radio-input-group-styles.module.scss'
 import { sassStylesI } from "-/util/typing-util";
+
+import defaultStyles from '-/Components/form-controls/shared/input-styles.module.scss'
 
 export interface onChangeI {
     newSelection: string

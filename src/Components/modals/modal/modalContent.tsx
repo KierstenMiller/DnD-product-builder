@@ -3,9 +3,9 @@ import FocusTrap from "focus-trap-react";
 import { mouseClickT } from "-/util/interaction-typing";
 import { sassStylesI } from "-/util/typing-util";
 
-import { closeButtonContent, closeButtons } from "./modal.util";
+import { closeButtonContent, closeButtons } from "../modals.util";
 
-import defaultStyles from './modal.module.scss'
+import defaultStyles from '-/Components/modals/default-modals-styling.module.scss';
 
 //////////////////////
 //      TYPING      //

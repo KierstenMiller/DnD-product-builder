@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { mirageCallbackPropsI, onChangeI, RadioInput } from "./radioInput";
+
+import { mirageCallbackPropsI, onChangeI, RadioInput } from "-/Components/form-controls/radioInput/radioInput";
 import { sassStylesI } from "-/util/typing-util";
 
 export interface propsOptionI {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import defaultStyles from './categorized-radio-input-group-styles.module.scss'
+import defaultStyles from '-/Components/form-controls/shared/input-styles.module.scss'
 import { sassStylesI } from "-/util/typing-util";
 
 export interface onChangeI {

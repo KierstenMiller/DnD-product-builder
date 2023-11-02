@@ -1,9 +1,10 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { Header, headerLevelT } from "../atoms/header";
+
+import { Header, headerLevelT } from "-/Components/atoms/header/header";
+import { sassStylesI } from "-/util/typing-util";
 
 import defaultStyles from './basic-accordion-styles.module.scss'
-import { sassStylesI } from "-/util/typing-util";
 
 interface Props {
     children: React.ReactNode;

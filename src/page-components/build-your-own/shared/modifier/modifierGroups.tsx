@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { StandardModelT, modifierI, modifiersT } from '-/page-components/build-your-own/build-your-own.types'
 import { ModifierInstance } from './modifier'
-import { onChangeI } from '../../../../Components/form-controls/radioInput'
+import { onChangeI } from '../../../../Components/form-controls/radioInput/radioInput'
 import { assembleModifierMap } from './modifier.util'
 import { sortByValues } from './modifier.types'
 

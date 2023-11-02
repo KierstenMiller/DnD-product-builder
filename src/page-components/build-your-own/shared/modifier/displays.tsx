@@ -1,6 +1,6 @@
 // typing
 import { DnDItemTypes } from '../../types/freeform-matrix/utils/shapes.util'
-import { mirageCallbackPropsI } from '../../../../Components/form-controls/radioInput'
+import { mirageCallbackPropsI } from '../../../../Components/form-controls/radioInput/radioInput'
 import { adderDisplayValues, radioDisplayValues } from './modifier.types'
 // components
 import { DragZone } from '../DnD/dragZone'
