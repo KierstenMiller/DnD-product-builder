@@ -1,10 +1,11 @@
 import { action, makeObservable, observable } from 'mobx'
-import { type builderT, type configItemI, type configT, type pieceI } from '../build-your-own.types'
+
+import { type builderT, type configItemI, type configT, type pieceI } from '-/page-components/build-your-own/build-your-own.types'
 
 export class BuildPiece {
   id
   config
-  constructor ({ id, config }: pieceI) {
+  constructor({ id, config }: pieceI) {
     this.id = id
     this.config = config
     makeObservable(this, {
@@ -13,14 +14,14 @@ export class BuildPiece {
     })
   }
 
-  setConfig (config: configT) {
+  setConfig(config: configT) {
     this.config = config
   }
 }
 export class StandardModel {
   config: configT
   builder: builderT
-  constructor ({ config, builder }: { config: configT, builder: builderT }) {
+  constructor({ config, builder }: { config: configT, builder: builderT }) {
     this.config = config
     this.builder = builder
     makeObservable(this, {

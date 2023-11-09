@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { useDrag } from 'react-dnd'
-import { type DnDItemTypes } from '../../types/freeform-matrix/utils/shapes.util'
+
+import { type DnDItemTypes } from '-/page-components/build-your-own/types/freeform-matrix/utils/shapes.util'
 
 interface dragZonePropsI {
   type: DnDItemTypes

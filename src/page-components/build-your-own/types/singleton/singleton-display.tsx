@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite'
 
-import { type configT } from '../../build-your-own.types'
+import { type configT } from '-/page-components/build-your-own/build-your-own.types'
 
 export const SingletonDisplay = observer(({ config }: { config: configT }) => {
   return (<div className="flex">
-        <h2>Current Selections</h2>
-        {config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
-    </div>)
+    <h2>Current Selections</h2>
+    {config.map(c => <div key={c.id}>Selected {c.id}: {c.selection}</div>)}
+  </div>)
 })

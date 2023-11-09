@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
+import { Modal, type ModalI, type modalToggleCallbackT } from '-/Components/modals/modal/modal'
 import { type inclusiveClickEventT, type mouseClickT } from '-/util/interaction-typing'
 import { type sassStylesI } from '-/util/typing-util'
-import { Modal, type ModalI, type modalToggleCallbackT } from '../modal/modal'
 
 import defaultStyles from '-/Components/modals/default-modals-styling.module.scss'
 
@@ -29,7 +29,7 @@ export const ModalTrigger = ({ triggerConfig, modalConfig, isGlobal = true, styl
   const closeOnClick: modalToggleCallbackT = (event) => { toggle(false, event, modalConfig.closeCallback) }
   const openOnClick = (event: mouseClickT) => { toggle(true, event, triggerConfig.openCallback) }
   return <>
-        {isOpen && <Modal {...modalConfig} closeCallback={closeOnClick} stylesOverride={stylesOverride} />}
-        <button className={styles.trigger} onClick={openOnClick}>{triggerConfig.text}</button>
-    </>
+    {isOpen && <Modal {...modalConfig} closeCallback={closeOnClick} stylesOverride={stylesOverride} />}
+    <button className={styles.trigger} onClick={openOnClick}>{triggerConfig.text}</button>
+  </>
 }

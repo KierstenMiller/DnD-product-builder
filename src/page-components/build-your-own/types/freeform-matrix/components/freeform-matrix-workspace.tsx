@@ -1,6 +1,7 @@
+import { observer } from 'mobx-react-lite'
+
 import { type matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
 import { type FreeformMatrixBuildModel } from '-/page-components/build-your-own/types/freeform-matrix/models/freeform-grid.model'
-import { observer } from 'mobx-react-lite'
 import { DropZone } from './dropZone'
 
 interface propsI {
@@ -12,14 +13,14 @@ export const FreeformMatrixWorkspace = observer(({ build }: propsI) => {
   const onRemove = (matrixIndex: matrixIndexCoordinatesI) => { build.removeMatrixIndexPiece(matrixIndex) }
   // NOTE: using the map method's index is ok here as the matrix indices should never change.
   return (<div className="flex">
-        {build.matrix.map((r, i) => <div key={i}>
-            {r.map(c => <DropZone
-                key={`${c.matrixIndex.row}-${c.matrixIndex.column}`}
-                matrixIndex={c.matrixIndex}
-                onDrop={onDrop}
-                piece={c.piece}
-                onRemove={onRemove}
-            />)}
-        </div>)}
-    </div>)
+    {build.matrix.map((r, i) => <div key={i}>
+      {r.map(c => <DropZone
+        key={`${c.matrixIndex.row}-${c.matrixIndex.column}`}
+        matrixIndex={c.matrixIndex}
+        onDrop={onDrop}
+        piece={c.piece}
+        onRemove={onRemove}
+      />)}
+    </div>)}
+  </div>)
 })

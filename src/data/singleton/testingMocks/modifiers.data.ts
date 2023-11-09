@@ -1,4 +1,4 @@
-import { groupByValues, measurementValues, modifierChunkKeyValues, radioDisplayValues, sortByValues } from '../../../page-components/build-your-own/shared/modifier/modifier.types'
+import { groupByValues, measurementValues, modifierChunkKeyValues, radioDisplayValues, sortByValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
 import { mockFilterDoubleDropDown, mockFilterSingleTabbed } from './mockFilters.data'
 import { mockOptions2D, mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3DStockedPriced } from './options.data'
 

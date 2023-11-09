@@ -1,13 +1,13 @@
 import { action, computed, makeAutoObservable, makeObservable, observable } from 'mobx'
 
+import { type aggulativeStacksListT, type configT } from '-/page-components/build-your-own/build-your-own.types'
 import { modifierChunkKeyValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
 import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findPiece, generateId } from '-/page-components/build-your-own/types/aggulative-stacks/utils/builder.util'
-import { type aggulativeStacksListT, type configT } from '../../../build-your-own.types'
 
 class Piece {
   id
   config
-  constructor ({ id, config }: { id: string, config: configT }) {
+  constructor({ id, config }: { id: string, config: configT }) {
     this.id = id
     this.config = config
     makeObservable(this, {
@@ -21,7 +21,7 @@ class Piece {
 export class AggulativeStacksBuildModel {
   config
   stacksData
-  constructor ({ config, stacks: stacksData }: { config: configT, stacks: aggulativeStacksListT }) {
+  constructor({ config, stacks: stacksData }: { config: configT, stacks: aggulativeStacksListT }) {
     this.config = config
     this.stacksData = stacksData
     makeAutoObservable(this, {
@@ -35,13 +35,13 @@ export class AggulativeStacksBuildModel {
     })
   }
 
-  get stacks () {
+  get stacks() {
     return this.stacksData.map(s => s.map(b => ({
       ...b,
       piece: new Piece({
         id: b.piece.id,
         config:
-                    this.config.map(c => c.modifierChunkKey === modifierChunkKeyValues.unique ? (b.piece.config.find(pC => pC.id === c.id) ?? c) : c)
+          this.config.map(c => c.modifierChunkKey === modifierChunkKeyValues.unique ? (b.piece.config.find(pC => pC.id === c.id) ?? c) : c)
       })
     })))
   }

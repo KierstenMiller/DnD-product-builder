@@ -7,23 +7,23 @@ import { type sassStylesI } from '-/util/typing-util'
 import defaultStyles from './basic-accordion-styles.module.scss'
 
 interface Props {
-  children: React.ReactNode
-  headerText: string
-  headerLevel: headerLevelT
-  id: string
-  // optional
-  drawerOpen?: boolean
-  disableCollapse?: boolean
-  stylesOverride?: sassStylesI
+    children: React.ReactNode
+    headerText: string
+    headerLevel: headerLevelT
+    id: string
+    // optional
+    drawerOpen?: boolean
+    disableCollapse?: boolean
+    stylesOverride?: sassStylesI
 }
 
 export const BasicAccordion = ({
-  id, headerText, headerLevel, drawerOpen = false, disableCollapse = false, children, stylesOverride = {}
+    id, headerText, headerLevel, drawerOpen = false, disableCollapse = false, children, stylesOverride = {}
 }: Props) => {
-  const styles = { ...defaultStyles, ...stylesOverride }
-  const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse)
-  const toggleDrawerVisibility = () => { !disableCollapse && setIsOpen(!isOpen) }
-  return <div className={styles.container}>
+    const styles = { ...defaultStyles, ...stylesOverride }
+    const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse)
+    const toggleDrawerVisibility = () => { !disableCollapse && setIsOpen(!isOpen) }
+    return <div className={styles.container}>
         <Header headerLevel={headerLevel} className={styles.accordionTriggerContainer}>
             <button
                 aria-expanded={isOpen}

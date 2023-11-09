@@ -1,12 +1,12 @@
+import { AggulativeStacksDisplay } from '-/page-components/build-your-own/types/aggulative-stacks/components/aggulative-stacks-display'
 import { AggulativeStacksWorkspace } from '-/page-components/build-your-own/types/aggulative-stacks/components/aggulative-stacks-workspace'
+import { AggulativeStacksBuildModel } from '-/page-components/build-your-own/types/aggulative-stacks/models/aggulative-stacks.model'
+import { FreeformMatrixDisplay } from '-/page-components/build-your-own/types/freeform-matrix/components/freeform-matrix-display'
 import { FreeformMatrixWorkspace } from '-/page-components/build-your-own/types/freeform-matrix/components/freeform-matrix-workspace'
+import { FreeformMatrixBuildModel } from '-/page-components/build-your-own/types/freeform-matrix/models/freeform-grid.model'
+import { SingletonDisplay } from '-/page-components/build-your-own/types/singleton/singleton-display'
 import { SingletonWorkspace } from '-/page-components/build-your-own/types/singleton/singleton-workspace'
 import { type builderRawDataT, type builderT, type configT } from './build-your-own.types'
-import { AggulativeStacksDisplay } from './types/aggulative-stacks/components/aggulative-stacks-display'
-import { AggulativeStacksBuildModel } from './types/aggulative-stacks/models/aggulative-stacks.model'
-import { FreeformMatrixDisplay } from './types/freeform-matrix/components/freeform-matrix-display'
-import { FreeformMatrixBuildModel } from './types/freeform-matrix/models/freeform-grid.model'
-import { SingletonDisplay } from './types/singleton/singleton-display'
 
 type functionalComponentT = (((props: any) => JSX.Element) & { displayName: string })
 export enum builderKeys { singleton = 'singleton', freeformMatrix = 'freeform-matrix', aggulativeStacks = 'aggulative-stacks', }

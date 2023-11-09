@@ -1,12 +1,12 @@
 import { action, makeObservable, observable } from 'mobx'
 
-import { type configT, type matrixIndexCoordinatesI, type matrixT, type pieceI } from '../../../build-your-own.types'
-import { BuildPiece } from '../../../shared/standard.model'
+import { type configT, type matrixIndexCoordinatesI, type matrixT, type pieceI } from '-/page-components/build-your-own/build-your-own.types'
+import { BuildPiece } from '-/page-components/build-your-own/shared/standard.model'
 
 class MatrixIndex {
   matrixIndex
   piece
-  constructor ({ matrixIndex, piece }: { matrixIndex: matrixIndexCoordinatesI, piece?: pieceI }) {
+  constructor({ matrixIndex, piece }: { matrixIndex: matrixIndexCoordinatesI, piece?: pieceI }) {
     this.matrixIndex = matrixIndex
     this.piece = piece ? new BuildPiece(piece) : undefined
     makeObservable(this, {
@@ -27,7 +27,7 @@ class MatrixIndex {
 export class FreeformMatrixBuildModel {
   config
   matrix
-  constructor ({ config, matrix }: { config: configT, matrix: matrixT }) {
+  constructor({ config, matrix }: { config: configT, matrix: matrixT }) {
     this.config = config
     this.matrix = matrix?.map(r => r.map(c => (new MatrixIndex({
       matrixIndex: c.matrixIndex,

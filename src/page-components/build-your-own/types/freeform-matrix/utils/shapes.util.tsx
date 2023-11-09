@@ -55,35 +55,35 @@ const colors = {
 }
 const icons = {
   [shapeKeys.circle]: ({ fill, stroke }: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
-        <circle style={{ fill, stroke }} cx="38.05" cy="38.05" r="28" />
-    </svg>,
+    <circle style={{ fill, stroke }} cx="38.05" cy="38.05" r="28" />
+  </svg>,
   [shapeKeys.square]: ({ fill, stroke }: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
-        <rect style={{ fill, stroke }} x="10.05" y="10.05" width="56" height="56" />
-    </svg>,
+    <rect style={{ fill, stroke }} x="10.05" y="10.05" width="56" height="56" />
+  </svg>,
   [shapeKeys.star]: ({ fill, stroke }: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
-        <polygon style={{ fill, stroke }} points="38.05 10.05 45 31.44 67.5 31.44 49.3 44.66 56.25 66.05 38.05 52.83 19.86 66.05 26.81 44.66 8.61 31.44 31.1 31.44 38.05 10.05" />
-    </svg>,
+    <polygon style={{ fill, stroke }} points="38.05 10.05 45 31.44 67.5 31.44 49.3 44.66 56.25 66.05 38.05 52.83 19.86 66.05 26.81 44.66 8.61 31.44 31.1 31.44 38.05 10.05" />
+  </svg>,
   [shapeKeys.triangle]: ({ fill, stroke }: iconColoringI) => <svg height={40} width={40} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.11 76.11">
-        <polygon style={{ fill, stroke }} points="38.05 10.05 54.22 38.05 70.39 66.05 38.05 66.05 5.72 66.05 21.89 38.05 38.05 10.05" />
-    </svg>
+    <polygon style={{ fill, stroke }} points="38.05 10.05 54.22 38.05 70.39 66.05 38.05 66.05 5.72 66.05 21.89 38.05 38.05 10.05" />
+  </svg>
 }
 
 export const blockSize = 60
 
 export const blocks = {
   [blockKeys.oneBlock]: ({ fill, stroke }: iconColoringI) => <svg width={blockSize} style={{ display: 'block', marginBottom: '-2px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.01 57.99">
-        <rect style={{ fill, stroke }} x="1" y="1" width="56" height="56" />
-    </svg>,
+    <rect style={{ fill, stroke }} x="1" y="1" width="56" height="56" />
+  </svg>,
   [blockKeys.twoBlock]: ({ fill, stroke }: iconColoringI) => <svg width={blockSize} style={{ display: 'block', marginBottom: '-2px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 114">
-        <rect style={{ fill, stroke }} x="1" y="1" width="56" height="56" />
-        <rect style={{ fill, stroke }} x="1" y="57" width="56" height="56" />
-    </svg>,
+    <rect style={{ fill, stroke }} x="1" y="1" width="56" height="56" />
+    <rect style={{ fill, stroke }} x="1" y="57" width="56" height="56" />
+  </svg>,
   [blockKeys.fourBlock]: ({ fill, stroke }: iconColoringI) => <svg width={blockSize} style={{ display: 'block', marginBottom: '-2px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.06 225.98">
-        <rect style={{ fill, stroke }} x="1.04" y=".98" width="56" height="56" />
-        <rect style={{ fill, stroke }} x="1.04" y="56.98" width="56" height="56" />
-        <rect style={{ fill, stroke }} x="1.04" y="112.98" width="56" height="56" />
-        <rect style={{ fill, stroke }} x="1.04" y="168.98" width="56" height="56" />
-    </svg>
+    <rect style={{ fill, stroke }} x="1.04" y=".98" width="56" height="56" />
+    <rect style={{ fill, stroke }} x="1.04" y="56.98" width="56" height="56" />
+    <rect style={{ fill, stroke }} x="1.04" y="112.98" width="56" height="56" />
+    <rect style={{ fill, stroke }} x="1.04" y="168.98" width="56" height="56" />
+  </svg>
 }
 
 /// /////////////////////

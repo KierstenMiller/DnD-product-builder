@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { useDragLayer } from 'react-dnd'
 
 import { type aggulativeStackIndexI, type aggulativeStacksBuildT, type globalRulesI, type modifiersT, type validationLibraryT } from '-/page-components/build-your-own/build-your-own.types'
-import { DnDItemTypes } from '../../freeform-matrix/utils/shapes.util'
-import { findPiece } from '../utils/builder.util'
-import { validateWorkspace } from '../utils/validation.util'
+import { findPiece } from '-/page-components/build-your-own/types/aggulative-stacks/utils/builder.util'
+import { validateWorkspace } from '-/page-components/build-your-own/types/aggulative-stacks/utils/validation.util'
+import { DnDItemTypes } from '-/page-components/build-your-own/types/freeform-matrix/utils/shapes.util'
 import { Stack } from './stack'
 
 interface propsI {
@@ -42,15 +42,15 @@ export const AggulativeStacksWorkspace = observer(({ build, globalValidation, va
   const onBlockDrop = (stackIndex: number, blockIndex: number) => { build.addToStack(stackIndex, blockIndex, draggingPieceId) }
   const onBlockDrag = (isDraggingState: boolean) => { setIsDraggingWorkspace(isDraggingState) }
   return (<div className="flex a-i-end">
-        {build?.stacks?.map((stack, index) => <Stack
-            key={index}
-            index={index}
-            stack={stack}
-            isDragging={isDragging}
-            validDrop={validiate}
-            onStackDrop={onStackDrop}
-            onBlockDrop={onBlockDrop}
-            onBlockDrag={onBlockDrag}
-        />)}
-    </div>)
+    {build?.stacks?.map((stack, index) => <Stack
+      key={index}
+      index={index}
+      stack={stack}
+      isDragging={isDragging}
+      validDrop={validiate}
+      onStackDrop={onStackDrop}
+      onBlockDrop={onBlockDrop}
+      onBlockDrag={onBlockDrag}
+    />)}
+  </div>)
 })

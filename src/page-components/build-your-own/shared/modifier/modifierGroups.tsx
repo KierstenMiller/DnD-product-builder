@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
 
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
+import { type onChangeI } from '-/Components/form-controls/radioInput/radioInput'
 import { type StandardModelT, type modifierI, type modifiersT } from '-/page-components/build-your-own/build-your-own.types'
-import { type onChangeI } from '../../../../Components/form-controls/radioInput/radioInput'
 import { ModifierInstance } from './modifier'
 import { sortByValues } from './modifier.types'
 import { assembleModifierMap } from './modifier.util'
@@ -23,9 +23,9 @@ export const ModifierGroups = observer(({ model, modifiers }: BuildYourOwnPageI)
     model.updateConfigSelection({ id: mod.id, selection: newSelection, value: getOptionValue(mod.id, newSelection) })
   }
   return <>
-        {[...sortedGroupedModifiers.entries()].map(([category, modifierGroup]) => <BasicAccordionGroup key={category} className="mt-large">
-            {modifierGroup.map((mod: modifierI) => <ModifierInstance key={mod.id} mod={mod} onChange={(args) => { onChange(args, mod) }} />)}
-        </BasicAccordionGroup>)
-        }
-    </>
+    {[...sortedGroupedModifiers.entries()].map(([category, modifierGroup]) => <BasicAccordionGroup key={category} className="mt-large">
+      {modifierGroup.map((mod: modifierI) => <ModifierInstance key={mod.id} mod={mod} onChange={(args) => { onChange(args, mod) }} />)}
+    </BasicAccordionGroup>)
+    }
+  </>
 })

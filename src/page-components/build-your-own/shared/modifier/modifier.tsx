@@ -5,9 +5,8 @@ import { CategorizedRadioInputGroup } from '-/Components/form-controls/categoriz
 import { type onChangeI } from '-/Components/form-controls/radioInput/radioInput'
 import { RadioInputGroup } from '-/Components/form-controls/radioInputGroup/radioInputGroup'
 import { type modifierI } from '-/page-components/build-your-own/build-your-own.types'
-
-import { AdderGroup } from './Adder/adderGroup'
-import { CategorizedAdderGroup } from './Adder/categorizedAdderGroup'
+import { AdderGroup } from '-/page-components/build-your-own/shared/modifier/Adder/adderGroup'
+import { CategorizedAdderGroup } from '-/page-components/build-your-own/shared/modifier/Adder/categorizedAdderGroup'
 import { displays } from './displays'
 import { adderDisplayValues } from './modifier.types'
 import { assembleOptionsMap } from './modifier.util'
@@ -27,43 +26,43 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
     }
   }
   return <BasicAccordion
-        key={mod.id}
-        stylesOverride={BYOStyles}
-        headerText={mod.label}
-        headerLevel={3}
-        id={mod.id}
-    >
-        {isAdder
-          ? newModifier.composedOptions
-            ? <CategorizedAdderGroup
-                    heading={`${mod.label} ${mod.groupBy}`}
-                    onClick={onChange}
-                    categorizedOptions={[...newModifier.composedOptions.entries()].map(([category, options]) => ({ id: `${mod.id}_${category}`, category, options }))}
-                    styles={displays[mod.display]?.styles}
-                    view={displays[mod.display]?.view}
-                />
-            : <AdderGroup
-                    heading={mod.label}
-                    options={mod.options}
-                    onClick={onChange}
-                    styles={displays[mod.display]?.styles}
-                    view={displays[mod.display]?.view}
-                />
-          : newModifier.composedOptions
-            ? <CategorizedRadioInputGroup
-                    heading={`${mod.label} ${mod.groupBy}`}
-                    onChange={onChange}
-                    categorizedOptions={[...newModifier.composedOptions.entries()].map(([category, options]) => ({ id: `${mod.id}_${category}`, category, options }))}
-                    styles={displays[mod.display]?.styles}
-                    mirage={displays[mod.display]?.view}
-                />
-            : <RadioInputGroup
-                    heading={mod.label}
-                    options={mod.options}
-                    onChange={onChange}
-                    styles={displays[mod.display]?.styles}
-                    mirage={displays[mod.display]?.view}
-                />
-        }
-    </BasicAccordion>
+    key={mod.id}
+    stylesOverride={BYOStyles}
+    headerText={mod.label}
+    headerLevel={3}
+    id={mod.id}
+  >
+    {isAdder
+      ? newModifier.composedOptions
+        ? <CategorizedAdderGroup
+          heading={`${mod.label} ${mod.groupBy}`}
+          onClick={onChange}
+          categorizedOptions={[...newModifier.composedOptions.entries()].map(([category, options]) => ({ id: `${mod.id}_${category}`, category, options }))}
+          styles={displays[mod.display]?.styles}
+          view={displays[mod.display]?.view}
+        />
+        : <AdderGroup
+          heading={mod.label}
+          options={mod.options}
+          onClick={onChange}
+          styles={displays[mod.display]?.styles}
+          view={displays[mod.display]?.view}
+        />
+      : newModifier.composedOptions
+        ? <CategorizedRadioInputGroup
+          heading={`${mod.label} ${mod.groupBy}`}
+          onChange={onChange}
+          categorizedOptions={[...newModifier.composedOptions.entries()].map(([category, options]) => ({ id: `${mod.id}_${category}`, category, options }))}
+          styles={displays[mod.display]?.styles}
+          mirage={displays[mod.display]?.view}
+        />
+        : <RadioInputGroup
+          heading={mod.label}
+          options={mod.options}
+          onChange={onChange}
+          styles={displays[mod.display]?.styles}
+          mirage={displays[mod.display]?.view}
+        />
+    }
+  </BasicAccordion>
 })

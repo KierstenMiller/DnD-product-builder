@@ -1,9 +1,8 @@
 import FocusTrap from 'focus-trap-react'
 
+import { closeButtonContent, closeButtons } from '-/Components/modals/modals.util'
 import { type mouseClickT } from '-/util/interaction-typing'
 import { type sassStylesI } from '-/util/typing-util'
-
-import { closeButtonContent, closeButtons } from '../modals.util'
 
 import defaultStyles from '-/Components/modals/default-modals-styling.module.scss'
 
@@ -46,26 +45,26 @@ const FooterButton = ({ text, closeModalOnClick = true, onClick, close, classNam
     closeModalOnClick && close(event)
   }
   return <button className={className} onClick={clickHandler}>
-        {text}
-    </button>
+    {text}
+  </button>
 }
 export const ModalContent = ({ body, header, footer, testId, close, stylesOverride }: ModalStandardI) => {
   const styles = { ...defaultStyles, ...stylesOverride }
   return <div data-testid={testId} className={styles.container}>
-        <div data-testid="backdrop" className={styles.backdrop} />
-        <FocusTrap>
-            <div data-testid="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-label" className={styles.modal}>
-                <div data-testid="header-container" className={styles.header}>
-                    <h2 id="dialog-label">{header.content}</h2>
-                    <button data-testid="close" className={styles.close} onClick={close}>{closeButtonContent[header.closeType ?? closeButtons.ex]}</button>
-                </div>
-                <div className={styles.body}>
-                    {body}
-                </div>
-                {footer?.buttons && <div className={styles.footer}>
-                    {footer.buttons.map(b => <FooterButton key={b.text} {...b} close={close} />)}
-                </div>}
-            </div>
-        </FocusTrap>
-    </div>
+    <div data-testid="backdrop" className={styles.backdrop} />
+    <FocusTrap>
+      <div data-testid="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-label" className={styles.modal}>
+        <div data-testid="header-container" className={styles.header}>
+          <h2 id="dialog-label">{header.content}</h2>
+          <button data-testid="close" className={styles.close} onClick={close}>{closeButtonContent[header.closeType ?? closeButtons.ex]}</button>
+        </div>
+        <div className={styles.body}>
+          {body}
+        </div>
+        {footer?.buttons && <div className={styles.footer}>
+          {footer.buttons.map(b => <FooterButton key={b.text} {...b} close={close} />)}
+        </div>}
+      </div>
+    </FocusTrap>
+  </div>
 }

@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
+import { Select } from '-/Components/form-controls/select/select'
+import { ModalTrigger } from '-/Components/modals/modalTrigger/modalTrigger'
 import { type matrixIndexCoordinatesI } from '-/page-components/build-your-own/build-your-own.types'
 import { noop } from '-/util/helpers'
 import { type mouseClickT } from '-/util/interaction-typing'
-import { Select } from '../../../Components/form-controls/select/select'
-import { ModalTrigger } from '../../../Components/modals/modalTrigger/modalTrigger'
 
 export interface AddModalOnClickI { event: mouseClickT, matrixIndex: matrixIndexCoordinatesI }
 interface propsI {
@@ -30,33 +30,33 @@ export const AddModal = observer(({ image, onSubmit, onCancel = noop }: propsI) 
     setMatrixIndex(defaultMatrixIndex)
   }
   return <ModalTrigger
-        triggerConfig={{
-          text: 'Add to workspace'
-        }}
-        modalConfig={{
-          header: { content: 'Add Piece to Workspace' },
-          body: <div>
-                <div>{image}</div>
-                <Select
-                    id="row"
-                    label="Row"
-                    options={selectOptions.map(o => ({ ...o, selected: o.id === matrixIndex.row }))}
-                    onChange={({ newSelection }) => { setMatrixIndex({ row: newSelection, column: matrixIndex.column }) }}
-                />
-                <Select
-                    id="column"
-                    label="Column"
-                    options={selectOptions.map(o => ({ ...o, selected: o.id === matrixIndex.column }))}
-                    onChange={({ newSelection }) => { setMatrixIndex({ row: matrixIndex.row, column: newSelection }) }}
-                />
-            </div>,
-          footer: {
-            buttons: [
-              { text: 'Cancel', onClick: cancel },
-              { text: 'Ok', onClick: submit }
-            ]
-          }
-        }}
+    triggerConfig={{
+      text: 'Add to workspace'
+    }}
+    modalConfig={{
+      header: { content: 'Add Piece to Workspace' },
+      body: <div>
+        <div>{image}</div>
+        <Select
+          id="row"
+          label="Row"
+          options={selectOptions.map(o => ({ ...o, selected: o.id === matrixIndex.row }))}
+          onChange={({ newSelection }) => { setMatrixIndex({ row: newSelection, column: matrixIndex.column }) }}
+        />
+        <Select
+          id="column"
+          label="Column"
+          options={selectOptions.map(o => ({ ...o, selected: o.id === matrixIndex.column }))}
+          onChange={({ newSelection }) => { setMatrixIndex({ row: matrixIndex.row, column: newSelection }) }}
+        />
+      </div>,
+      footer: {
+        buttons: [
+          { text: 'Cancel', onClick: cancel },
+          { text: 'Ok', onClick: submit }
+        ]
+      }
+    }}
 
-    />
+  />
 })
