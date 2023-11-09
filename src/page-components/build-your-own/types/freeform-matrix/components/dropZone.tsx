@@ -17,7 +17,7 @@ interface propsI {
 }
 
 export const DropZone = observer(({ matrixIndex, piece, onDrop, onRemove, onMove }: propsI) => {
-  const zoneRef = useRef()
+  const zoneRef = useRef(null)
   const image = piece ? generateImage(piece.config) : null
   const [dropInfo, drop] = useDrop(
     () => ({
@@ -44,7 +44,7 @@ export const DropZone = observer(({ matrixIndex, piece, onDrop, onRemove, onMove
   )
   drop(drag(zoneRef))
   return (<div
-        ref={zoneRef} // TODO: fix this with null in useState
+        ref={zoneRef}
         style={{
           width: '100px',
           height: '100px',
