@@ -1,37 +1,37 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { sassStylesI } from "-/util/typing-util";
-import { mirageCallbackT, onChangeI, RadioInput } from "-/Components/form-controls/radioInput/radioInput";
+import { RadioInput, type mirageCallbackT, type onChangeI } from '-/Components/form-controls/radioInput/radioInput'
+import { type sassStylesI } from '-/util/typing-util'
 
 interface propsOptionI {
-    id: string,
-    label: string,
-    image: string,
-    // optional
-    selected?: boolean,
+  id: string
+  label: string
+  image: string
+  // optional
+  selected?: boolean
 }
 interface propsI {
-    heading: string,
-    onChange: ({ event, newSelection }: onChangeI) => any;
-    categorizedOptions: {
-        id: string | number,
-        category: string | number,
-        options: propsOptionI[],
-    }[],
-    // optional
-    testId?: string, // made optional to prevent DOM bloat
-    hideInput?: boolean,
-    styles?: sassStylesI,
-    mirage?: mirageCallbackT,
+  heading: string
+  onChange: ({ event, newSelection }: onChangeI) => any
+  categorizedOptions: Array<{
+    id: string | number
+    category: string | number
+    options: propsOptionI[]
+  }>
+  // optional
+  testId?: string // made optional to prevent DOM bloat
+  hideInput?: boolean
+  styles?: sassStylesI
+  mirage?: mirageCallbackT
 }
 
 export const CategorizedRadioInputGroup = ({ heading, categorizedOptions, onChange, styles = {}, mirage, testId, hideInput }: propsI) => {
-    const [selection, setSelection] = useState(categorizedOptions.flatMap(cat => cat.options).find(opt => opt.selected)?.id);
-    const onChangeToUse = ({ event, newSelection }: onChangeI) => {
-        setSelection(newSelection);
-        onChange({ event, newSelection, })
-    }
-    return <fieldset data-testid={testId} className={styles.fieldset}>
+  const [selection, setSelection] = useState(categorizedOptions.flatMap(cat => cat.options).find(opt => opt.selected)?.id)
+  const onChangeToUse = ({ event, newSelection }: onChangeI) => {
+    setSelection(newSelection)
+    onChange({ event, newSelection })
+  }
+  return <fieldset data-testid={testId} className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>
         {categorizedOptions.map(cat => <div data-testid={`${cat.id.toString()}-group`} key={cat.id}>
             <div

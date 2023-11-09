@@ -1,124 +1,124 @@
-import { displayValuesT, filterDisplayValues, groupByValues, modifierChunkKeyValues, measurementValues, sortByValues, validationValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
-import { builderKeys } from './build-your-own.util';
-import { AggulativeStacksBuildModel } from './types/aggulative-stacks/models/aggulative-stacks.model';
-import { FreeformMatrixBuildModel } from './types/freeform-matrix/models/freeform-grid.model';
-import { StandardModel } from './shared/standard.model';
+import { type displayValuesT, type filterDisplayValues, type groupByValues, type measurementValues, type modifierChunkKeyValues, type sortByValues, type validationValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { type builderKeys } from './build-your-own.util'
+import { type StandardModel } from './shared/standard.model'
+import { type AggulativeStacksBuildModel } from './types/aggulative-stacks/models/aggulative-stacks.model'
+import { type FreeformMatrixBuildModel } from './types/freeform-matrix/models/freeform-grid.model'
 
-//////////////////////////////////
+/// ///////////////////////////////
 //      AGGULATIVE STACKS      //
-/////////////////////////////////
-export type aggulativeStacksBuildT = AggulativeStacksBuildModel;
+/// //////////////////////////////
+export type aggulativeStacksBuildT = AggulativeStacksBuildModel
 export interface aggulativeStacksI { type: builderKeys.aggulativeStacks, build: aggulativeStacksBuildT }
 export interface aggulativeStacksRawDataI {
-    type: builderKeys.aggulativeStacks,
-    config: configT,
-    data: aggulativeStacksListT,
+  type: builderKeys.aggulativeStacks
+  config: configT
+  data: aggulativeStacksListT
 }
 export interface blockI {
-    piece: pieceI,
+  piece: pieceI
 }
 export interface aggulativeStackIndexI {
-    stack: number,
-    block: number,
+  stack: number
+  block: number
 }
 export type stackI = blockI[]
 export type aggulativeStacksListT = stackI[] | []
-/*---START: validation---*/
-export type validationT = { type: validationValues, values: string[], proximity?: number }[]
+/* ---START: validation--- */
+export type validationT = Array<{ type: validationValues, values: string[], proximity?: number }>
 export type globalRulesI = validationT
-export type validationLibraryT = {
-    id: string,
-    validation: {
-        id: string,
-        validation: validationT
-    }[]
-}[]
-/*---END: validation---*/
+export type validationLibraryT = Array<{
+  id: string
+  validation: Array<{
+    id: string
+    validation: validationT
+  }>
+}>
+/* ---END: validation--- */
 
-////////////////////////////////
+/// /////////////////////////////
 //      FREEFORM MATRIX      //
-///////////////////////////////
-export type freeformMatrixBuildT = FreeformMatrixBuildModel;
+/// ////////////////////////////
+export type freeformMatrixBuildT = FreeformMatrixBuildModel
 export interface freeformMatrixI { type: builderKeys.freeformMatrix, build: freeformMatrixBuildT }
 export interface freeformMatrixRawDataI {
-    type: builderKeys.freeformMatrix,
-    config: configT,
-    data: matrixT,
+  type: builderKeys.freeformMatrix
+  config: configT
+  data: matrixT
 }
 export interface matrixIndexCoordinatesI {
-    row: number,
-    column: number,
+  row: number
+  column: number
 }
 export interface matrixIndexI {
-    matrixIndex: matrixIndexCoordinatesI;
-    piece?: pieceI;
+  matrixIndex: matrixIndexCoordinatesI
+  piece?: pieceI
 }
-export type matrixT = matrixIndexI[][];
+export type matrixT = matrixIndexI[][]
 
-//////////////////////////
+/// ///////////////////////
 //      SINGLETON      //
-/////////////////////////
+/// //////////////////////
 // note: singletons do not need a build
 export interface singletonI { type: builderKeys.singleton, build: undefined }
 export interface singletonRawDataI {
-    type: builderKeys.singleton,
-    config: configT,
-    data: undefined,
+  type: builderKeys.singleton
+  config: configT
+  data: undefined
 }
 
-//////////////////////
+/// ///////////////////
 //      SHARED      //
-//////////////////////
-export type StandardModelT = StandardModel;
+/// ///////////////////
+export type StandardModelT = StandardModel
 export type builderT = singletonI | freeformMatrixI | aggulativeStacksI
-export type builderRawDataT = singletonRawDataI | freeformMatrixRawDataI | aggulativeStacksRawDataI;
-export type builderTypesT = builderKeys;
+export type builderRawDataT = singletonRawDataI | freeformMatrixRawDataI | aggulativeStacksRawDataI
+export type builderTypesT = builderKeys
 export interface pieceI {
-    id: string,
-    config: configT,
+  id: string
+  config: configT
 }
 export interface buildYourOwnRawDataI {
-    modifiers: modifiersT,
-    builder: {
-        type: builderKeys,
-        rules?: globalRulesI,
-        data?: any[][],
-    }
+  modifiers: modifiersT
+  builder: {
+    type: builderKeys
+    rules?: globalRulesI
+    data?: any[][]
+  }
 }
-/*---START: Modifier/Config---*/
+/* ---START: Modifier/Config--- */
 export interface optionI {
-    id: string, // id to identify option
-    value: string, // value to match against library of keys
-    label: string, // ui label
-    image: string, // url of image
-    // optional
-    selected?: boolean,
-    productId?: string | number,
-    validation?: validationT,
+  id: string // id to identify option
+  value: string // value to match against library of keys
+  label: string // ui label
+  image: string // url of image
+  // optional
+  selected?: boolean
+  productId?: string | number
+  validation?: validationT
 }
 export interface filterI {
-    display: filterDisplayValues,
-    values: string[] | string[][],
+  display: filterDisplayValues
+  values: string[] | string[][]
 }
 export interface modifierI {
-    id: string,
-    label: string,
-    display: displayValuesT,
-    options: optionsT,
-    // optional
-    filter?: filterI,
-    modifierChunkKey?: modifierChunkKeyValues, // groups modifiers by key
-    groupBy?: groupByValues, // determines how options are grouped
-    sortBy?: sortByValues | sortByValues[], // determines how grouped options are sorted
-    measurementUnit?: measurementValues,
+  id: string
+  label: string
+  display: displayValuesT
+  options: optionsT
+  // optional
+  filter?: filterI
+  modifierChunkKey?: modifierChunkKeyValues // groups modifiers by key
+  groupBy?: groupByValues // determines how options are grouped
+  sortBy?: sortByValues | sortByValues[] // determines how grouped options are sorted
+  measurementUnit?: measurementValues
 }
 export interface configItemI {
-    id: string, // corresponds to modifier id
-    selection: string, // corresponds to option id (from modifier with above id)
-    value: string, // ui value that is matched against
-    modifierChunkKey?: modifierChunkKeyValues, // groups modifiers by key
+  id: string // corresponds to modifier id
+  selection: string // corresponds to option id (from modifier with above id)
+  value: string // ui value that is matched against
+  modifierChunkKey?: modifierChunkKeyValues // groups modifiers by key
 };
-export type modifiersT = modifierI[];
-export type optionsT = optionI[];
-export type configT = configItemI[];
-/*---END: Modifier/Config---*/
+export type modifiersT = modifierI[]
+export type optionsT = optionI[]
+export type configT = configItemI[]
+/* ---END: Modifier/Config--- */

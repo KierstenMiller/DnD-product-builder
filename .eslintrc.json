@@ -18,6 +18,8 @@
         // return type should be inferred easily most of the time. Helpful to only include when it's not clear or specification is needed.
         "@typescript-eslint/explicit-function-return-type": "off",
         // as of React 17, this is no longer needed. Also, Next.js imports React globally, so this rule is not needed.
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        // falsy and truthy checks are fine in my book
+        "@typescript-eslint/strict-boolean-expressions": "off"
     }
 }

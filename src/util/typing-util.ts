@@ -1,3 +1,1 @@
-export interface sassStylesI {
-    readonly [key: string]: string;
-}
+export type sassStylesI = Readonly<Record<string, string>>

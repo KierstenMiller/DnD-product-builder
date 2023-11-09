@@ -2,15 +2,15 @@ import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { builderKeys } from '-/page-components/build-your-own/build-your-own.util'
 
 // MOCK DATA IMPORTS
-import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/modifiers.data'
-import { robotModifiers } from '-/data/singleton/robots/modifiers.data'
-import { matrixMock } from '-/data/freeformMatrix/matrix.data'
-import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/testingMocks/stacks.data'
-import { buildYourOwnRawDataI } from '-/page-components/build-your-own/build-your-own.types'
-import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
-import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
 import { modifiers as rentalModifiers } from '-/data/aggulativeStacks/rental/modifiers.data'
 import { rentalStacksMock } from '-/data/aggulativeStacks/rental/stacks.data'
+import { modifiers } from '-/data/aggulativeStacks/testingMocks/modifiers.data'
+import { aggulativeStacksMock1 } from '-/data/aggulativeStacks/testingMocks/stacks.data'
+import { matrixMock } from '-/data/freeformMatrix/matrix.data'
+import { shapeModifiers } from '-/data/freeformMatrix/modifiers.data'
+import { robotModifiers } from '-/data/singleton/robots/modifiers.data'
+import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/data/singleton/testingMocks/modifiers.data'
+import { type buildYourOwnRawDataI } from '-/page-components/build-your-own/build-your-own.types'
 import { validationValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
 
 // NOTE: ALL OPTION IDS MUST BE UNIQUE ACROSS WORKSPACES, OTHERWISE MOBX GETS CONFUSED
@@ -18,51 +18,51 @@ import { validationValues } from '-/page-components/build-your-own/shared/modifi
 
 // mock SINGLETON data
 const dataSingletonMock: buildYourOwnRawDataI = {
-    modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
-    builder: {
-        type: builderKeys.singleton,
-        data: undefined,
-    }
+  modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
+  builder: {
+    type: builderKeys.singleton,
+    data: undefined
+  }
 }
 // robot SINGLETON data
 const dataSingletonRobot: buildYourOwnRawDataI = {
-    modifiers: robotModifiers,
-    builder: {
-        type: builderKeys.singleton,
-        data: undefined,
-    }
+  modifiers: robotModifiers,
+  builder: {
+    type: builderKeys.singleton,
+    data: undefined
+  }
 }
 // mock FREEFORM MATRIX data
 const dataFreeformMatrix: buildYourOwnRawDataI = {
-    modifiers: shapeModifiers,
-    builder: {
-        type: builderKeys.freeformMatrix,
-        data: matrixMock,
-    }
+  modifiers: shapeModifiers,
+  builder: {
+    type: builderKeys.freeformMatrix,
+    data: matrixMock
+  }
 }
 // mock AGGULATIVE STACKS data
 const dataAggulativeStacks: buildYourOwnRawDataI = {
-    modifiers: modifiers,
-    builder: {
-        type: builderKeys.aggulativeStacks,
-        data: aggulativeStacksMock1
-    },
+  modifiers,
+  builder: {
+    type: builderKeys.aggulativeStacks,
+    data: aggulativeStacksMock1
+  }
 }
 // rental AGGULATIVE STACKS data
 export const dataAggulativeStacksRental: buildYourOwnRawDataI = {
-    modifiers: rentalModifiers,
-    builder: {
-        type: builderKeys.aggulativeStacks,
-        rules: [
-            { type: validationValues.maxStackHeight, values: ['8'] },
-            { type: validationValues.maxStacksCount, values: ['4'] }
-        ],
-        data: rentalStacksMock
-    },
+  modifiers: rentalModifiers,
+  builder: {
+    type: builderKeys.aggulativeStacks,
+    rules: [
+      { type: validationValues.maxStackHeight, values: ['8'] },
+      { type: validationValues.maxStacksCount, values: ['4'] }
+    ],
+    data: rentalStacksMock
+  }
 }
 
 export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }) => {
-    return (
+  return (
         <div>
             <BasicAccordion
                 id="workspace-goals"
@@ -71,11 +71,11 @@ export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }
             >
                 <span className="mr-medium"><b>UP NEXT:</b> Clean up code - do all TO DOs </span>
                 <div>
-                    <button onClick={() => setData(dataSingletonMock)}>Singleton Mock</button>
-                    <button onClick={() => setData(dataSingletonRobot)}>Singleton Robots</button>
-                    <button onClick={() => setData(dataFreeformMatrix)}>Freeform Matrix Mock</button>
-                    <button onClick={() => setData(dataAggulativeStacks)}>Aggulative Stacks Mock</button>
-                    <button onClick={() => setData(dataAggulativeStacksRental)}>Aggulative Stacks Rental</button>
+                    <button onClick={() => { setData(dataSingletonMock) }}>Singleton Mock</button>
+                    <button onClick={() => { setData(dataSingletonRobot) }}>Singleton Robots</button>
+                    <button onClick={() => { setData(dataFreeformMatrix) }}>Freeform Matrix Mock</button>
+                    <button onClick={() => { setData(dataAggulativeStacks) }}>Aggulative Stacks Mock</button>
+                    <button onClick={() => { setData(dataAggulativeStacksRental) }}>Aggulative Stacks Rental</button>
                 </div>
                 <BasicAccordion
                     id="workspace-goals"
@@ -141,5 +141,5 @@ export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }
                 </BasicAccordion>
             </BasicAccordion>
         </div>
-    )
-};
+  )
+}

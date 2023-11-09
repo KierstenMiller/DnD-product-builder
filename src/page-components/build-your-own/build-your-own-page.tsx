@@ -1,19 +1,19 @@
 import { observer } from 'mobx-react-lite'
 
-import { StandardModelT, globalRulesI, modifiersT, validationLibraryT } from './build-your-own.types'
 import { Studio } from '-/page-components/build-your-own/shared/studio'
+import { type StandardModelT, type globalRulesI, type modifiersT, type validationLibraryT } from './build-your-own.types'
 
 import styles from '#/Home.module.scss'
 
 interface BuildYourOwnPageI {
-    model: StandardModelT,
-    modifiers: modifiersT,
-    globalValidation: globalRulesI,
-    validationLibrary: validationLibraryT,
+  model: StandardModelT
+  modifiers: modifiersT
+  globalValidation: globalRulesI
+  validationLibrary: validationLibraryT
 }
 
 export const BuildYourOwnPage = observer(({ model, modifiers, globalValidation, validationLibrary }: BuildYourOwnPageI) => {
-    return (<>
+  return (<>
         <div className={styles.app}>
             <div className={styles.container}>
                 <Studio model={model} modifiers={modifiers} globalValidation={globalValidation} validationLibrary={validationLibrary} />
@@ -33,5 +33,5 @@ export const BuildYourOwnPage = observer(({ model, modifiers, globalValidation, 
             </div>
         </div>
     </>
-    )
+  )
 })
