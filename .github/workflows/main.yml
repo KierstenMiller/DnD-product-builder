@@ -1,12 +1,13 @@
 name: Cypress Tests
 on: [push]
 jobs:
-  Jest-Test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npx jest
+  # TODO: RUN WHEN JEST TESTS ARE IMPLEMENTED
+  # Jest-Test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: npm install
+  #     - run: npx jest
   Cypress-Test:
     runs-on: ubuntu-latest
     steps:
