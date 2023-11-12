@@ -1,16 +1,16 @@
 // @ts-check
-///<reference path="../global.d.ts" />
+/// <reference path="../global.d.ts" />
 
-import '../../src/styles/globals.scss'
+// import '../../src/styles/globals.scss'
 
-Cypress.Commands.add("getByTestId", (selector, ...args) => {
-  return cy.get(`[data-testid=${selector}]`, ...args);
-});
+Cypress.Commands.add('getByTestId', (selector, ...args) => {
+  return cy.get(`[data-testid=${selector}]`, ...args)
+})
 
-Cypress.Commands.add("getByTestIdLike", (selector, ...args) => {
-  return cy.get(`[data-testid*=${selector}]`, ...args);
-});
+Cypress.Commands.add('getByTestIdLike', (selector, ...args) => {
+  return cy.get(`[data-testid*=${selector}]`, ...args)
+})
 
-Cypress.Commands.add("findByTestId", { prevSubject: true }, (subject, id) => {
+Cypress.Commands.add('findByTestId', { prevSubject: true }, (subject, id) => {
   return subject.find(`[data-cy=${id}]`)
 })
