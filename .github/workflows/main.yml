@@ -1,6 +1,13 @@
 name: Cypress Tests
 on: [push]
 jobs:
+  # TODO: RUN WHEN JEST TESTS ARE IMPLEMENTED
+  # Jest-Test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: npm install
+  #     - run: npx jest
   cypress-e2e-testing:
     runs-on: ubuntu-22.04
     steps:
@@ -13,7 +20,7 @@ jobs:
         with:
           build: npm run build
           start: npm start
-  cypress-run:
+  cypress-component-testing:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -22,23 +29,4 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
-
-# jobs:
-#   # TODO: RUN WHEN JEST TESTS ARE IMPLEMENTED
-#   # Jest-Test:
-#   #   runs-on: ubuntu-latest
-#   #   steps:
-#   #     - uses: actions/checkout@v2
-#   #     - run: npm install
-#   #     - run: npx jest
-#   Cypress-Test:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout GitCode
-#         uses: actions/checkout@v2
-#       - name: Run Cypress Test
-#         uses: cypress-io/github-action@v4
-#         with:
-#           command: npx cypress run
-#           browser: chrome
-#           name: CI
+          
