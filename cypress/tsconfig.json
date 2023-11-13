@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "strict": true,
+    "strictNullChecks": true,
     "lib": [
       "es5",
       "dom"
     ],
     "types": [
       "cypress",
-      "./support"
+      "node"
     ]
   },
   "include": [
