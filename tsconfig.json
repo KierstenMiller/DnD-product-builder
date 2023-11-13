@@ -36,12 +36,12 @@
     "types.d.ts",
     "jest.config.js",
     "jest.setup.js",
-    "next.config.js"
+    "next.config.js",
+    "cypress"
   ],
   "exclude": [
     "node_modules",
     "**/*.yml",
     "**/*.json",
-    "cypress",
   ]
 }
