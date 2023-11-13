@@ -11,8 +11,8 @@ import styles from '#/Home.module.scss'
 interface propsI {
   model: StandardModelT
   modifiers: modifiersT
-  globalValidation: globalRulesI
-  validationLibrary: validationLibraryT
+  globalValidation?: globalRulesI
+  validationLibrary?: validationLibraryT
 }
 
 export const Studio = observer(({ model, modifiers, globalValidation, validationLibrary }: propsI) => {

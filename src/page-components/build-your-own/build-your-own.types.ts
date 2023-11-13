@@ -9,11 +9,7 @@ import { type FreeformMatrixBuildModel } from './types/freeform-matrix/models/fr
 /// //////////////////////////////
 export type aggulativeStacksBuildT = AggulativeStacksBuildModel
 export interface aggulativeStacksI { type: builderKeys.aggulativeStacks, build: aggulativeStacksBuildT }
-export interface aggulativeStacksRawDataI {
-  type: builderKeys.aggulativeStacks
-  config: configT
-  data: aggulativeStacksListT
-}
+export type aggulativeStacksRawDataI = builderRawDataShapeI<{ type: builderKeys.aggulativeStacks }>
 export interface blockI {
   piece: pieceI
 }
@@ -40,11 +36,7 @@ export type validationLibraryT = Array<{
 /// ////////////////////////////
 export type freeformMatrixBuildT = FreeformMatrixBuildModel
 export interface freeformMatrixI { type: builderKeys.freeformMatrix, build: freeformMatrixBuildT }
-export interface freeformMatrixRawDataI {
-  type: builderKeys.freeformMatrix
-  config: configT
-  data: matrixT
-}
+export type freeformMatrixRawDataI = builderRawDataShapeI<{ type: builderKeys.freeformMatrix }>
 export interface matrixIndexCoordinatesI {
   row: number
   column: number
@@ -60,17 +52,26 @@ export type matrixT = matrixIndexI[][]
 /// //////////////////////
 // note: singletons do not need a build
 export interface singletonI { type: builderKeys.singleton, build: undefined }
-export interface singletonRawDataI {
-  type: builderKeys.singleton
-  config: configT
-  data: undefined
-}
+export type singletonRawDataI = builderRawDataShapeI<{ type: builderKeys.singleton }>
 
 /// ///////////////////
 //      SHARED      //
 /// ///////////////////
 export type StandardModelT = StandardModel
 export type builderT = singletonI | freeformMatrixI | aggulativeStacksI
+interface shapeMapI {
+  [builderKeys.aggulativeStacks]: aggulativeStacksListT
+  [builderKeys.freeformMatrix]: matrixT
+  [builderKeys.singleton]: undefined
+}
+export interface builderRawDataShapeI<T extends { type: builderKeys }> {
+  type: T['type']
+  config: configT
+  data: T['type'] extends keyof shapeMapI
+    ? shapeMapI[T['type']]
+    : never
+}
+// export interface builderRawDataT { type: builderKeys, config: configT, data?: any[][] }
 export type builderRawDataT = singletonRawDataI | freeformMatrixRawDataI | aggulativeStacksRawDataI
 export type builderTypesT = builderKeys
 export interface pieceI {

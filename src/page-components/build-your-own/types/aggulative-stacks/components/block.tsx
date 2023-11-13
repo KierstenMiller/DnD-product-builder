@@ -6,19 +6,19 @@ import { DnDItemTypes, generateBlock } from '-/page-components/build-your-own/ty
 import { DropZone } from './DropZone'
 
 interface propsI {
-    index: number
-    block: blockI
-    isDragging: boolean
-    validDrop: (index: number) => boolean
-    onDrop: (index: number) => void
-    onDrag: (isDraggingState: boolean) => void
+  index: number
+  block: blockI
+  isDragging: boolean
+  validDrop: (index: number) => boolean
+  onDrop: (index: number) => void
+  onDrag: (isDraggingState: boolean) => void
 }
 export const Block = observer(({ block, index, isDragging, validDrop, onDrop, onDrag }: propsI) => {
-    const aboveDrop = () => { onDrop(index) }
-    const belowDrop = () => { onDrop(index + 1) }
-    const canDropAbove = index === 0 && isDragging && validDrop(index)
-    const canDropBelow = isDragging && validDrop(index + 1)
-    return <div>
+  const aboveDrop = () => { onDrop(index) }
+  const belowDrop = () => { onDrop(index + 1) }
+  const canDropAbove = index === 0 && isDragging && validDrop(index)
+  const canDropBelow = isDragging && validDrop(index + 1)
+  return <div>
         <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
         <DragZone
             type={DnDItemTypes.WORKSPACE_ITEM}

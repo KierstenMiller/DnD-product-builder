@@ -43,7 +43,7 @@ export const RadioInput = ({ id, testId, name, label, onChange, ariaLabelledBy, 
     >
         <input
             id={id}
-            className={classNames(styles.input, { 'visually-hidden': hideInput || mirage })}
+            className={classNames(styles.input, { 'visually-hidden': Boolean(hideInput) || Boolean(mirage) })}
             type="radio"
             value={label}
             name={name}

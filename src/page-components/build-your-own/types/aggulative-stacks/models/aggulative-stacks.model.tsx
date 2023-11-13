@@ -7,7 +7,7 @@ import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findPi
 class Piece {
   id
   config
-  constructor({ id, config }: { id: string, config: configT }) {
+  constructor ({ id, config }: { id: string, config: configT }) {
     this.id = id
     this.config = config
     makeObservable(this, {
@@ -21,7 +21,7 @@ class Piece {
 export class AggulativeStacksBuildModel {
   config
   stacksData
-  constructor({ config, stacks: stacksData }: { config: configT, stacks: aggulativeStacksListT }) {
+  constructor ({ config, stacks: stacksData }: { config: configT, stacks: aggulativeStacksListT }) {
     this.config = config
     this.stacksData = stacksData
     makeAutoObservable(this, {
@@ -35,7 +35,7 @@ export class AggulativeStacksBuildModel {
     })
   }
 
-  get stacks() {
+  get stacks () {
     return this.stacksData.map(s => s.map(b => ({
       ...b,
       piece: new Piece({

@@ -7,9 +7,9 @@ import { type FreeformMatrixBuildModel } from '-/page-components/build-your-own/
 import { DnDItemTypes, generateImage } from '-/page-components/build-your-own/types/freeform-matrix/utils/shapes.util'
 
 export const FreeformMatrixDisplay = observer(({ config, build }: { config: configT, build: FreeformMatrixBuildModel }) => {
-    const image = generateImage(config)
-    const onModalAdd = ({ matrixIndex }: AddModalOnClickI) => { build.setMatrixIndexPiece({ matrixIndex }) }
-    return (<div className="flex">
+  const image = generateImage(config)
+  const onModalAdd = ({ matrixIndex }: AddModalOnClickI) => { build.setMatrixIndexPiece({ matrixIndex }) }
+  return (<div className="flex">
         <DragZone type={DnDItemTypes.ITEM}>
             {image}
         </DragZone>

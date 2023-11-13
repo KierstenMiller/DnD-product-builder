@@ -6,7 +6,7 @@ import { BuildPiece } from '-/page-components/build-your-own/shared/standard.mod
 class MatrixIndex {
   matrixIndex
   piece
-  constructor({ matrixIndex, piece }: { matrixIndex: matrixIndexCoordinatesI, piece?: pieceI }) {
+  constructor ({ matrixIndex, piece }: { matrixIndex: matrixIndexCoordinatesI, piece?: pieceI }) {
     this.matrixIndex = matrixIndex
     this.piece = piece ? new BuildPiece(piece) : undefined
     makeObservable(this, {
@@ -27,7 +27,7 @@ class MatrixIndex {
 export class FreeformMatrixBuildModel {
   config
   matrix
-  constructor({ config, matrix }: { config: configT, matrix: matrixT }) {
+  constructor ({ config, matrix }: { config: configT, matrix: matrixT }) {
     this.config = config
     this.matrix = matrix?.map(r => r.map(c => (new MatrixIndex({
       matrixIndex: c.matrixIndex,

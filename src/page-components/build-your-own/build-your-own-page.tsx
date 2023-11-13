@@ -8,8 +8,8 @@ import styles from '#/Home.module.scss'
 interface BuildYourOwnPageI {
   model: StandardModelT
   modifiers: modifiersT
-  globalValidation: globalRulesI
-  validationLibrary: validationLibraryT
+  globalValidation?: globalRulesI
+  validationLibrary?: validationLibraryT
 }
 
 export const BuildYourOwnPage = observer(({ model, modifiers, globalValidation, validationLibrary }: BuildYourOwnPageI) => {

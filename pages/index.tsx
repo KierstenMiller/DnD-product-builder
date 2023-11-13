@@ -1,7 +1,7 @@
-import Head from 'next/head'
 import styles from '#/Home.module.scss'
+import Head from 'next/head'
 
-export default function Home() {
+export default function Home () {
   return (
     <>
       <Head>

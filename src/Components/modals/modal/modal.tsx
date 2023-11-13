@@ -29,7 +29,7 @@ export const Modal = ({
   const close = closeCallback ? (event: inclusiveClickEventT) => { closeCallback(event, false) } : () => { setIsOpen(false) }
   const ModalToRender = <ModalContent body={body} header={header} footer={footer} close={close} testId={testId} stylesOverride={stylesOverride} />
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => isKeyboardEvent(event) && event.key === 'Escape' && close(event)
+    const handleEsc = (event: KeyboardEvent) => { isKeyboardEvent(event) && event.key === 'Escape' && close(event) }
     window.addEventListener('keydown', handleEsc)
     return () => { window.removeEventListener('keydown', handleEsc) }
   })

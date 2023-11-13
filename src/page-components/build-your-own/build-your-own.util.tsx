@@ -6,11 +6,10 @@ import { FreeformMatrixWorkspace } from '-/page-components/build-your-own/types/
 import { FreeformMatrixBuildModel } from '-/page-components/build-your-own/types/freeform-matrix/models/freeform-grid.model'
 import { SingletonDisplay } from '-/page-components/build-your-own/types/singleton/singleton-display'
 import { SingletonWorkspace } from '-/page-components/build-your-own/types/singleton/singleton-workspace'
-import { type builderRawDataT, type builderT, type configT } from './build-your-own.types'
+import { type builderRawDataShapeI, type builderT, type configT } from './build-your-own.types'
 
 type functionalComponentT = (((props: any) => JSX.Element) & { displayName: string })
 export enum builderKeys { singleton = 'singleton', freeformMatrix = 'freeform-matrix', aggulativeStacks = 'aggulative-stacks', }
-
 export const overrideConfig = (config: configT, overrideConfig: configT) => {
   return config.map(c => (overrideConfig.find(o => o.id === c.id) ?? c))
 }
@@ -40,7 +39,7 @@ export const getDisplay = (type: builderKeys): functionalComponentT => {
     default: throw new Error(`Builder type is not valid: ${type}`)
   }
 }
-export const getBuilder = ({ type, config, data }: builderRawDataT): builderT => {
+export const getBuilder = ({ type, config, data }: builderRawDataShapeI<any>): builderT => {
   switch (type) {
     case builderKeys.singleton:
       return { type, build: undefined }
