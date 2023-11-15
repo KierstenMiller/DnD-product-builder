@@ -15,11 +15,12 @@ interface ModalTriggerI {
     closeCallback?: modalToggleCallbackT
   }
   // optional
+  testId?: string // made optional to prevent DOM bloat
   isGlobal?: boolean
   stylesOverride?: sassStylesI
 }
 
-export const ModalTrigger = ({ triggerConfig, modalConfig, isGlobal = true, stylesOverride = {} }: ModalTriggerI) => {
+export const ModalTrigger = ({ triggerConfig, modalConfig, testId, isGlobal = true, stylesOverride = {} }: ModalTriggerI) => {
   const [isOpen, setIsOpen] = useState(false)
   const styles = { ...defaultStyles, ...stylesOverride }
   const toggle = (openModal: boolean, event: inclusiveClickEventT, callback?: modalToggleCallbackT) => {
@@ -29,7 +30,13 @@ export const ModalTrigger = ({ triggerConfig, modalConfig, isGlobal = true, styl
   const closeOnClick: modalToggleCallbackT = (event) => { toggle(false, event, modalConfig.closeCallback) }
   const openOnClick = (event: mouseClickT) => { toggle(true, event, triggerConfig.openCallback) }
   return <>
-    {isOpen && <Modal {...modalConfig} closeCallback={closeOnClick} stylesOverride={stylesOverride} />}
-    <button className={styles.trigger} onClick={openOnClick}>{triggerConfig.text}</button>
+    {isOpen && <Modal {...modalConfig} testId={testId} isGlobal={isGlobal} closeCallback={closeOnClick} stylesOverride={stylesOverride} />}
+    <button
+      className={styles.trigger}
+      onClick={openOnClick}
+      {...testId && { 'data-testid': `${testId}-trigger` }}
+    >
+        {triggerConfig.text}
+    </button>
   </>
 }

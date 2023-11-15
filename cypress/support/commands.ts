@@ -8,7 +8,7 @@ Cypress.Commands.add('getByTestId', (selector, ...args) => {
 Cypress.Commands.add('getByTestIdLike', (selector, ...args) => {
   return cy.get(`[data-testid*=${selector}]`, ...args)
 })
-
-Cypress.Commands.add('findByTestId', { prevSubject: true }, (subject, id) => {
-  return subject.find(`[data-cy=${id}]`)
-})
+// TODO: make this work
+// Cypress.Commands.add('findByTestId', { prevSubject: true }, (subject, id) => {
+//   return subject.find(`[data-cy=${id}]`)
+// })
