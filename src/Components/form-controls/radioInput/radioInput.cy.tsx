@@ -1,6 +1,5 @@
 import { RadioInput, type onChangeI } from './radioInput'
 
-// TODO: Add tests to ensue onChange is called when the user clicks the radio
 describe('<RadioInput />', () => {
   const id = 'select-id'
   const name = 'test-name'
@@ -119,6 +118,14 @@ describe('<RadioInput />', () => {
         .find('label')
         .should('have.attr', 'id', `${name}_${id}`)
         .and('not.have.attr', 'for')
+    })
+    it('should have called onChange with the expected values when the user clicks a radio input', () => {
+      const spy = cy.stub()
+      cy.mount(<RadioInput {...standardProps} onChange={spy} />)
+      cy.getByTestId(testId)
+        .find('input')
+        .check()
+      cy.wrap(spy).should('be.calledOnce')
     })
   })
 })

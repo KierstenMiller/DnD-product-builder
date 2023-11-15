@@ -1,6 +1,5 @@
 import { Select } from './select'
 
-// TODO: Add tests to ensue onChange is called when the user clicks the radio
 describe('<Select />', () => {
   const id = 'select-id'
   const testId = 'test-id'
@@ -62,6 +61,14 @@ describe('<Select />', () => {
       cy.getByTestId(testId)
         .find('select')
         .should('have.value', '4')
+    })
+    it('should call onChange when the user selects a value', () => {
+      const spy = cy.stub()
+      cy.mount(<Select id={id} testId={testId} label={label} options={options} onChange={spy} />)
+      cy.getByTestId(testId)
+        .find('select')
+        .select('2')
+      cy.wrap(spy).should('be.calledOnce')
     })
   })
 })
