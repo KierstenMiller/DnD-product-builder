@@ -136,16 +136,6 @@ describe('CategorizedRadioInputGroup', () => {
           expect($input).to.not.have.attr('checked')
         })
     })
-    it('should have called onChange with the expected values when the user clicks a radio input', () => {
-      const spy = cy.spy()
-      cy.mount(<CategorizedRadioInputGroup testId={testId} heading={heading} categorizedOptions={categorizedOptions} onChange={spy} />)
-      cy.getByTestId(testId)
-        .find('input')
-        .eq(1)
-        .should('not.be.checked')
-        .check()
-      cy.wrap(spy).should('be.calledOnce')
-    })
   })
   context('optional props and unique renders', () => {
     const categorizedOptionsWithSelected = [
@@ -192,6 +182,16 @@ describe('CategorizedRadioInputGroup', () => {
         .each(($mirage, index) => {
           expect($mirage).to.contain('mirage')
         })
+    })
+    it('should have called onChange with the expected values when the user clicks a radio input', () => {
+      const spy = cy.spy()
+      cy.mount(<CategorizedRadioInputGroup testId={testId} heading={heading} categorizedOptions={categorizedOptionsWithSelected} onChange={spy} />)
+      cy.getByTestId(testId)
+        .find('input')
+        .eq(1)
+        .should('not.be.checked')
+        .check()
+      cy.wrap(spy).should('be.calledOnce')
     })
   })
 })
