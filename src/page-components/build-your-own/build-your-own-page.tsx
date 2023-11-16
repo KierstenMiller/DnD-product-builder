@@ -9,7 +9,7 @@ import { formatBuilderData } from './shared/compilePageData'
 export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
   const [viewData, setData] = useState(data)
   const { model, validationLibrary } = formatBuilderData(viewData) // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
-  const clearWorkspace = (newData: buildYourOwnRawDataI) => {
+  const setDataCallback = (newData: buildYourOwnRawDataI) => {
     model?.builder?.build?.clearWorkspace() // clearing to ensure there are no conflicts between workspace data
     setData(newData)
   }
@@ -21,7 +21,7 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <BuildYourOwnDevBar setData={clearWorkspace} />
+            <BuildYourOwnDevBar setData={setDataCallback} />
             <BuildYourOwnLayout model={model} modifiers={viewData.modifiers} globalValidation={viewData.builder?.rules} { ...validationLibrary.length > 0 && { validationLibrary }}/>
         </>
   )

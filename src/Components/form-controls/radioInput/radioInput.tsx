@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 
+import { makeId } from '-/util/helpers'
 import { type sassStylesI } from '-/util/typing-util'
 
 import defaultStyles from '-/Components/form-controls/shared/input-styles.module.scss'
@@ -31,7 +32,8 @@ interface propsI {
 
 export const RadioInput = ({ id, testId, name, label, onChange, ariaLabelledBy, selected, hideInput, stylesOverride = {}, mirage }: propsI) => {
   const styles = { ...defaultStyles, ...stylesOverride }
-  const ariaLabelId = `${name}_${id}`
+  const nameId = makeId(name)
+  const ariaLabelId = `${nameId}_${id}`
   return <div
         key={id}
         data-testid={testId}
@@ -46,7 +48,7 @@ export const RadioInput = ({ id, testId, name, label, onChange, ariaLabelledBy, 
             className={classNames(styles.input, { 'visually-hidden': Boolean(hideInput) || Boolean(mirage) })}
             type="radio"
             value={label}
-            name={name}
+            name={nameId}
             onChange={event => { onChange({ event, newSelection: id }) }}
             defaultChecked={selected} // NOTE: In the html spec. a input element doesn't have a 'defaultValue' attribute. However, React uses it to make the input a controlled component. See: https://react.dev/reference/react-dom/components/input
             {...ariaLabelledBy && { 'aria-labelledby': `${ariaLabelId} ${ariaLabelledBy}` }}
