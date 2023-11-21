@@ -1,7 +1,7 @@
 import { CategorizedRadioInputGroup } from './categorizedRadioInputGroup'
 
 describe('CategorizedRadioInputGroup', () => {
-  const heading = 'test heading'
+  const heading = 'test-heading'
   const testId = 'test-id'
   const categoryPrefix = 'category'
   const radioInputIdPrefix = 'radio-input'
