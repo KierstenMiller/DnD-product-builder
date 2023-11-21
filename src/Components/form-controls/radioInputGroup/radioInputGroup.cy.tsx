@@ -1,7 +1,7 @@
 import { RadioInputGroup, type propsOptionI } from './radioInputGroup'
 
 describe('RadioInputGroup', () => {
-  const heading = 'test heading'
+  const heading = 'test-heading'
   const testId = 'test-id'
   const radioTestId = 'radio-input'
   context('minimal props (only required props given)', () => {
