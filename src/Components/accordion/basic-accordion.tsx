@@ -12,18 +12,20 @@ interface Props {
   headerLevel: headerLevelT
   id: string
   // optional
+  testId?: string // made optional to prevent DOM bloat
   drawerOpen?: boolean
   disableCollapse?: boolean
   stylesOverride?: sassStylesI
 }
 
+// TODO: Make cypress component test
 export const BasicAccordion = ({
-  id, headerText, headerLevel, drawerOpen = false, disableCollapse = false, children, stylesOverride = {}
+  id, headerText, headerLevel, testId, drawerOpen = false, disableCollapse = false, children, stylesOverride = {}
 }: Props) => {
   const styles = { ...defaultStyles, ...stylesOverride }
   const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse)
   const toggleDrawerVisibility = () => { !disableCollapse && setIsOpen(!isOpen) }
-  return <div className={styles.container}>
+  return <div data-testid={testId} className={styles.container}>
         <Header headerLevel={headerLevel} className={styles.accordionTriggerContainer}>
             <button
                 aria-expanded={isOpen}

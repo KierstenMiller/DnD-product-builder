@@ -38,9 +38,9 @@ export const RadioInput = ({ id, testId, name, label, onChange, ariaLabelledBy, 
         key={id}
         data-testid={testId}
         className={classNames(
-          defaultStyles.focus,
+          styles.focus,
           styles.inputContainer,
-          { [defaultStyles.selected || styles.selected]: selected }
+          { [styles.selected]: selected }
         )}
     >
         <input

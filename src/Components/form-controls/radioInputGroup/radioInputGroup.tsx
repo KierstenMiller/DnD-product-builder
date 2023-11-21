@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { RadioInput, type mirageCallbackPropsI, type onChangeI } from '-/Components/form-controls/radioInput/radioInput'
+import { makeId } from '-/util/helpers'
 import { type sassStylesI } from '-/util/typing-util'
 
 export interface propsOptionI {
@@ -29,8 +30,9 @@ export const RadioInputGroup = ({ heading, options, onChange, testId, styles = {
   }
   return <fieldset data-testid={testId} className={styles.fieldset}>
         <legend className={styles.legend}>{heading}</legend>
-        <div {...testId && { 'data-testid': `${testId}-options` }} className={styles.optionsContainer}>
+        <div data-testid={`${testId}-options`} className={styles.optionsContainer}>
             {options.map(opt => <RadioInput
+                testId={`${makeId(heading)}_${opt.id}`}
                 key={opt.id}
                 {...opt}
                 name={heading}

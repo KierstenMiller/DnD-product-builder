@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { RadioInput, type mirageCallbackT, type onChangeI } from '-/Components/form-controls/radioInput/radioInput'
+import { makeId } from '-/util/helpers'
 import { type sassStylesI } from '-/util/typing-util'
 
 interface propsOptionI {
@@ -41,11 +42,11 @@ export const CategorizedRadioInputGroup = ({ heading, categorizedOptions, onChan
                 {cat.category}
             </div>
             <div
-                data-testid={`${cat.id.toString()}-inputs-container`}
+                data-testid={`${cat.id.toString()}-options`}
                 className={styles.optionsContainer}
             >
                 {cat.options.map((opt) => <RadioInput
-                    testId={`${heading}_${cat.id.toString()}_${opt.id}`}
+                    testId={`${makeId(heading)}_${cat.id.toString()}_${opt.id}`}
                     key={opt.id}
                     {...opt}
                     name={heading}

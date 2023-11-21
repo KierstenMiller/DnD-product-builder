@@ -38,7 +38,7 @@ export const assembleOptionsMap = (options: optionsT, groupBy?: groupByValues, s
   const groupedMap = groupByMap(options, opt => {
     const [, value] = Object.entries(opt).find(([key]) => key === groupBy) ?? []
     // can group by boolean values, as well as string keys
-    const groupLabel = typeof value === 'boolean' ? `${groupBy}: ${value.toString()}` : value
+    const groupLabel = typeof value === 'boolean' ? `${groupBy}-${value.toString()}` : value
     return groupLabel
   })
   return (!sortBy || sortBy === sortByValues.having)

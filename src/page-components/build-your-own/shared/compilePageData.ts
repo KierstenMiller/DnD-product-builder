@@ -5,11 +5,11 @@ import { StandardModel } from './standard.model'
 // TODO: refactor and jest test
 export const formatBuilderData = (data: buildYourOwnRawDataI) => {
   const config = data.modifiers.map(mod => {
-    const selectedOption = mod.options.find(o => o.selected) ?? mod.options[0]
+    const selectedOption = mod.options.find(o => o.selected)
     return {
       id: mod.id,
-      selection: selectedOption.id,
-      value: selectedOption.value || selectedOption.label,
+      selection: selectedOption?.id ?? 'NA',
+      value: selectedOption?.value ?? selectedOption?.label ?? 'NA',
       modifierChunkKey: mod.modifierChunkKey
     }
   })

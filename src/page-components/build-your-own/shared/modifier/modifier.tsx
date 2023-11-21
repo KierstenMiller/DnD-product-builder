@@ -30,6 +30,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
     stylesOverride={BYOStyles}
     headerText={mod.label}
     headerLevel={3}
+    testId={`${mod.id}-modifier`}
     id={mod.id}
   >
     {isAdder

@@ -7,7 +7,7 @@ describe('CategorizedRadioInputGroup', () => {
   const radioInputIdPrefix = 'radio-input'
   const catGroupSelector = `[data-testid^="${categoryPrefix}"][data-testid$="-group"]`
   const catGroupLabelSelector = `[data-testid^="${categoryPrefix}"][data-testid$="-label"]`
-  const catInputContainerSelector = `[data-testid^="${categoryPrefix}"][data-testid$="-inputs-container"]`
+  const catInputContainerSelector = `[data-testid^="${categoryPrefix}"][data-testid$="-options"]`
   context('minimal props (only required props given)', () => {
     const categorizedOptions = [
       {
