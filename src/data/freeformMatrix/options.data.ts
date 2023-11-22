@@ -69,7 +69,8 @@ export const strokeOptions = [
     id: 'stroke-blue',
     label: 'Blue',
     image: 'BLUE_COLOR',
-    value: 'default-blue'
+    value: 'default-blue',
+    selected: true
   },
   {
     id: 'stroke-green',

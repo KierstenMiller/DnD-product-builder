@@ -9,7 +9,7 @@ import { DnDItemTypes, generateImage } from '-/page-components/build-your-own/ty
 export const FreeformMatrixDisplay = observer(({ config, build }: { config: configT, build: FreeformMatrixBuildModel }) => {
   const image = generateImage(config)
   const onModalAdd = ({ matrixIndex }: AddModalOnClickI) => { build.setMatrixIndexPiece({ matrixIndex }) }
-  return (<div className="flex">
+  return (<div data-testid="freeform-dragzone" className="flex">
         <DragZone type={DnDItemTypes.ITEM}>
             {image}
         </DragZone>

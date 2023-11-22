@@ -21,7 +21,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
   return (<DndProvider backend={HTML5Backend}>
         <div className={styles.row}>
             <div className={`${styles.column} ${styles.columnLeft}`}>
-                {model.builder.build && <div className={styles.image}>
+                {model.builder.build && <div data-testid="workspace" className={styles.image}>
                     <Workspace build={model.builder.build} globalValidation={globalValidation} validationLibrary={validationLibrary} />
                 </div>}
             </div>
@@ -29,6 +29,13 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
                 <div className="flex">
                     <div className={styles.description}>
                         <h1 className={styles.header}>Build Your Own</h1>
+                        <h2>Current Selections</h2>
+                        <div>
+                            {model.config.map(c => <div key={c.id} data-testid={`${c.id}-selection-group`}>
+                                <span data-testid="selection-id">{c.id}</span>:
+                                <span data-testid="selection-value">{c.selection}</span>
+                            </div>)}
+                        </div>
                     </div>
                     <div>
                         <Display build={model.builder.build} config={model.config} />

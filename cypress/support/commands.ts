@@ -1,6 +1,8 @@
 // @ts-check
 /// <reference path="../global.d.ts" />
 
+import { DndSimulatorDataTransfer } from './util/DnD-test.util'
+
 export interface testModifierI {
   mod: string
   group: string
@@ -14,6 +16,41 @@ Cypress.Commands.add('getByTestId', (selector, ...args) => {
 
 Cypress.Commands.add('getByTestIdLike', (selector, ...args) => {
   return cy.get(`[data-testid*=${selector}]`, ...args)
+})
+
+// solution from: https://github.com/cypress-io/cypress/issues/1752
+Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, targetSelector) => {
+  const dataTransfer = new DndSimulatorDataTransfer()
+  cy.wrap(sourceSelector.get(0))
+    .trigger('mousedown', { which: 1 })
+    .trigger('dragstart', { dataTransfer })
+    .trigger('drag', {})
+  cy.getByTestId(targetSelector)
+    .trigger('dragover', { dataTransfer })
+    .trigger('drop', { dataTransfer })
+    .trigger('dragend', { dataTransfer })
+    .trigger('mouseup', { which: 1 })
+})
+
+Cypress.Commands.add('changeSelections', (modifiers: testModifiersT) => {
+  const workspaceValues: string[] = []
+  cy.getByTestId('workspace')
+    .get('[data-testid^="dropzone_"]')
+    .each(el => {
+      cy.wrap(el).find('[data-testid="config"]').invoke('text').then(text => {
+        workspaceValues.push(text)
+      })
+    })
+  modifiers.forEach(m => {
+    // open [i] modifier accordion
+    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+    // click on the mirage to check the input
+    cy.getByTestId(m.group).find('[data-testid="mirage-container"]').click()
+    // make sure NEW input is now checked
+    cy.getByTestId(m.group).find(`#${m.input}`).should('to.have.attr', 'checked')
+    // close the modifier accordion we just tested
+    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+  })
 })
 
 Cypress.Commands.add('testChangingSelections', (modifiers: testModifiersT, defaultValues?: testModifiersT) => {

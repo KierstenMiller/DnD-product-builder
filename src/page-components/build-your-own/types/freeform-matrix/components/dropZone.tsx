@@ -45,6 +45,7 @@ export const DropZone = observer(({ matrixIndex, piece, onDrop, onRemove, onMove
   )
   drop(drag(zoneRef))
   return (<div
+    data-testid={`dropzone_${matrixIndex.row}-${matrixIndex.column}`}
     ref={zoneRef}
     style={{
       width: '100px',
@@ -53,10 +54,10 @@ export const DropZone = observer(({ matrixIndex, piece, onDrop, onRemove, onMove
       color: dropInfo.canDrop ? 'blue' : 'red'
     }}
   >
-    <div className="text-small">{piece?.config.map(c => <div key={c.value}>{c.value}</div>)}</div>
+    <div data-testid="config" className="text-small">{piece?.config.map(c => <div key={c.selection}>{c.selection}</div>)}</div>
     {matrixIndex.row} - {matrixIndex.column}
     {image}
-    {image && onRemove && <button onClick={() => { onRemove(matrixIndex) }}>Clear</button>}
-    {image && onMove && <button onClick={() => { onMove(matrixIndex) }}>Move</button>}
+    {image && onRemove && <button data-testid="clear" onClick={() => { onRemove(matrixIndex) }}>Clear</button>}
+    {image && onMove && <button data-testid="move" onClick={() => { onMove(matrixIndex) }}>Move</button>}
   </div>)
 })
