@@ -22,7 +22,7 @@ const isValidStack = (validationLibrary: validationLibraryT, stack: stackI) => {
   return stackValidation.map(r => (validDrop({ blockIndex: r.index, validation: r.pieceValidation, stack }))).every(r => r)
 }
 const getValidation = (validationLibrary: validationLibraryT, piece: pieceI) => {
-  if (validationLibrary.length <= 0) return []
+  if (!validationLibrary || validationLibrary.length <= 0) return []
   return validationLibrary.map(modLevel => {
     const options = piece?.config?.filter(c => c.id === modLevel.id)
     return modLevel.validation.filter(v => options?.some(o => o.selection === v.id))

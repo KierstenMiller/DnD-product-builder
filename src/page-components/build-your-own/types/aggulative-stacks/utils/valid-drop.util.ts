@@ -35,9 +35,11 @@ const belowMaxCount = ({ stacks, values }: belowMaxCountI) => {
   if (!max || !stacks) return true
   return stacks.length < max
 }
-export const validDrop = ({ blockIndex, validation, stack, stacks, creatingNewStackOnDrop }: validDropI) => {
-  return validation.every(v => {
-    let result
+export const validDrop = ({ blockIndex, validation, stack, stacks, creatingNewStackOnDrop }: validDropI): boolean => {
+  console.log('validation', validation)
+  if (!validation) return true
+  return validation?.every(v => {
+    let result: boolean
     switch (v.type) {
       case validationValues.maxStackHeight:
         result = belowMaxHeight({ values: v.values, stack })
