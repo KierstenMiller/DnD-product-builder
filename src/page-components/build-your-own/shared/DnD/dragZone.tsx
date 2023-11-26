@@ -23,5 +23,5 @@ export const DragZone = observer(({ type, id, setIsDraggingState, onDrag, childr
     },
     end: () => setTimeout(() => { setIsDraggingState && setIsDraggingState(false) }, 250)
   }), [id])
-  return <div ref={drag}>{children}</div>
+  return <div data-testid={`dragzone_${id}`} ref={drag}>{children}</div>
 })

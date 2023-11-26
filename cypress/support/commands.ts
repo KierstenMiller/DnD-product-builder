@@ -19,7 +19,7 @@ Cypress.Commands.add('getByTestIdLike', (selector, ...args) => {
 })
 
 // solution from: https://github.com/cypress-io/cypress/issues/1752
-Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, targetSelector) => {
+Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, targetSelector, skipCleanup) => {
   const dataTransfer = new DndSimulatorDataTransfer()
   cy.wrap(sourceSelector.get(0))
     .trigger('mousedown', { which: 1 })
@@ -28,19 +28,16 @@ Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, target
   cy.getByTestId(targetSelector)
     .trigger('dragover', { dataTransfer })
     .trigger('drop', { dataTransfer })
-    .trigger('dragend', { dataTransfer })
-    .trigger('mouseup', { which: 1 })
+    .then(el => {
+      if (!skipCleanup) {
+        cy.wrap(el)
+          .trigger('dragend', { dataTransfer })
+          .trigger('mouseup', { which: 1 })
+      }
+    })
 })
 
 Cypress.Commands.add('changeSelections', (modifiers: testModifiersT) => {
-  const workspaceValues: string[] = []
-  cy.getByTestId('workspace')
-    .get('[data-testid^="dropzone_"]')
-    .each(el => {
-      cy.wrap(el).find('[data-testid="config"]').invoke('text').then(text => {
-        workspaceValues.push(text)
-      })
-    })
   modifiers.forEach(m => {
     // open [i] modifier accordion
     cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()

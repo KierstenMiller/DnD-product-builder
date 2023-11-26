@@ -36,7 +36,6 @@ const belowMaxCount = ({ stacks, values }: belowMaxCountI) => {
   return stacks.length < max
 }
 export const validDrop = ({ blockIndex, validation, stack, stacks, creatingNewStackOnDrop }: validDropI): boolean => {
-  console.log('validation', validation)
   if (!validation) return true
   return validation?.every(v => {
     let result: boolean

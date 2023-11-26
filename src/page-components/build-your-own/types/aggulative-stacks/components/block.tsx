@@ -18,20 +18,20 @@ export const Block = observer(({ block, index, isDragging, validDrop, onDrop, on
   const belowDrop = () => { onDrop(index + 1) }
   const canDropAbove = index === 0 && isDragging && validDrop(index)
   const canDropBelow = isDragging && validDrop(index + 1)
-  return <div>
-        <>{canDropAbove && <DropZone onDrop={aboveDrop} />}</>
+  return <div data-testid={`block-container_${block.piece.id}`}>
+        <>{canDropAbove && <DropZone testId={`${block.piece.id}-above`} onDrop={aboveDrop} />}</>
         <DragZone
             type={DnDItemTypes.WORKSPACE_ITEM}
             id={block.piece.id}
             setIsDraggingState={onDrag}
         >
-            <div className="text-xx-small">
+            <div data-testid="config" className="text-xx-small">
                 {block.piece.id}<br />
                 {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />
             </div>
 
             {generateBlock(block.piece.config)}
         </DragZone>
-        <>{canDropBelow && <DropZone onDrop={belowDrop} />}</>
+        <>{canDropBelow && <DropZone testId={`${block.piece.id}-below`} onDrop={belowDrop} />}</>
     </div>
 })

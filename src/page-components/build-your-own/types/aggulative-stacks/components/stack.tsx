@@ -18,7 +18,7 @@ export const Stack = observer(({ index, stack, isDragging, validDrop, onStackDro
   const canDropRight = isDragging && validDrop({ stack: index + 1, block: 0 }, true)
   return (<div className="flex a-i-end">
         {canDropLeft && <DropZone onDrop={() => { onStackDrop(index) }} />}
-        <div>
+        <div data-testid={`stack-container_${index}`}>
             {stack.map((block, blockIndex) => <Block
                 key={blockIndex}
                 block={block}

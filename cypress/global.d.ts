@@ -9,7 +9,7 @@ declare global{
       getByTestIdLike(dataTestPrefixAttribute: string, args?: any): Chainable<JQuery<HTMLElement>>
       findByTestId(dataTestAttribute: string, args?: any): Chainable<JQuery<HTMLElement>>
       // react dnd actions
-      drag(targetSelector: string): Chainable<JQuery<HTMLElement>>
+      drag(targetSelector: string, skipCleanup?: boolean): Chainable<JQuery<HTMLElement>>
       // modifier actions
       changeSelections(modifiers: testModifiersT): Chainable<JQuery<HTMLElement>>
       testChangingSelections(modifiers: testModifiersT, defaultValues?: testModifiersT): Chainable<JQuery<HTMLElement>>
