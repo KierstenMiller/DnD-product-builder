@@ -43,15 +43,19 @@ const verifyWorkspace = ({ stacksConfig, modifiers }: { stacksConfig: TestBlockI
     verifyStack({ index: i, blocksConfig: stack, modifiers })
   })
 }
-
-const verifyWorkspaceAfterAction = ({ currentWorkspaceState, modifiers, action }: { currentWorkspaceState: TestBlockI[][], modifiers: testModifiersT, action: () => void }) => {
-  const newWorkspace = updateWorkspace({ workspaceToUpdate: currentWorkspaceState, newBlockInfo: { location: { stackIndex: 0, blockIndex: 1 }, block: { height: 1, index: 0 } } })
-  verifyWorkspace({ stacksConfig: currentWorkspaceState, modifiers })
-  action()
-  verifyWorkspace({ stacksConfig: newWorkspace, modifiers })
+interface verifyWorkspaceAfterActionI {
+  currentState: { workspace: TestBlockI[][], modifiers: testModifiersT }
+  newState: { workspace: TestBlockI[][], modifiers: testModifiersT }
+  action: () => void
 }
-
-const dragDropNewBlock = ({ blockCount, landmarkPieceId, direction, modifiers, changeSelections = false }: { blockCount: number, landmarkPieceId: string, direction: 'above' | 'below', modifiers: testModifiersT, changeSelections?: boolean }) => {
+const verifyWorkspaceAfterAction = ({ currentState, newState, action }: verifyWorkspaceAfterActionI) => {
+  verifyWorkspace({ stacksConfig: currentState.workspace, modifiers: currentState.modifiers })
+  action()
+  verifyWorkspace({ stacksConfig: newState.workspace, modifiers: newState.modifiers })
+}
+interface drapDropNewBlockI { blockCount: number, landmarkPieceId: string, direction: 'above' | 'below', modifiers: testModifiersT, changeSelections?: boolean }
+interface relativeDragDropNewBlockI extends drapDropNewBlockI { distance: number }
+const dragDropNewBlock = ({ blockCount, landmarkPieceId, direction, modifiers, changeSelections = false }: drapDropNewBlockI) => {
   changeSelections && cy.changeSelections(modifiers)
   cy.getByTestId('mod-height-modifier').find('button#mod-height').click() // open height modifier accordion
   cy.getByTestId(`dragzone_${blockCount}`).drag(`dropzone_${landmarkPieceId}-${direction}`, true)
@@ -76,8 +80,7 @@ const dragDropNewBlock = ({ blockCount, landmarkPieceId, direction, modifiers, c
   })
   cy.getByTestId('mod-height-modifier').find('button#mod-height').click() // close height modifier accordion
 }
-
-const relativeDragDropNewBlock = ({ blockCount, landmarkPieceId, direction, distance, modifiers, changeSelections = false }: { blockCount: number, landmarkPieceId: string, direction: 'above' | 'below', distance: number, modifiers: testModifiersT, changeSelections?: boolean }) => {
+const relativeDragDropNewBlock = ({ blockCount, landmarkPieceId, direction, distance, modifiers, changeSelections = false }: relativeDragDropNewBlockI) => {
   const eqId = distance - 1
   changeSelections && cy.changeSelections(modifiers)
   cy.getByTestId(`block-container_${landmarkPieceId}`).then($el => {
@@ -114,6 +117,20 @@ describe('Aggulative Workflow', () => {
     { mod: 'mod-fill', group: 'fill-color_fill-green', input: 'fill-green' },
     { mod: 'mod-stroke', group: 'stroke-color_stroke-red', input: 'stroke-red' }
   ]
+  const singleDropScenarios: drapDropNewBlockI[] = [
+    { blockCount: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
+    { blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
+    { blockCount: 2, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
+    { blockCount: 2, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
+    { blockCount: 4, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
+    { blockCount: 4, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
+    { blockCount: 1, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
+    { blockCount: 1, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true },
+    { blockCount: 2, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
+    { blockCount: 2, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true },
+    { blockCount: 4, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
+    { blockCount: 4, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true }
+  ]
   beforeEach(() => {
     cy.visit('/build-your-own/aggulative')
   })
@@ -131,53 +148,22 @@ describe('Aggulative Workflow', () => {
   it('should have rendered the defalt workspace as expected', () => {
     verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
   })
-  // DEFAULT SELECTIONS
-  it('should allow SINGLE block to drag, apply DEFAULT selection, and drop ABOVE piece-1 in workspace', () => {
-    verifyWorkspaceAfterAction({
-      currentWorkspaceState: defaultWorkspace,
-      modifiers: defaultModifierState,
-      action: () => { dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' }) }
+  singleDropScenarios.forEach(s => {
+    it(`should allow *height-${s.blockCount}* block to drag, apply *${s.changeSelections ? 'new' : 'default'}* selection, and drop *${s.direction}* the *${s.landmarkPieceId}* block`, () => {
+      const newWorkspace = updateWorkspace({
+        workspaceToUpdate: defaultWorkspace,
+        newBlockInfo: {
+          location: { stackIndex: 0, blockIndex: 1 },
+          block: { height: 1, index: 0 }
+        }
+      })
+      verifyWorkspaceAfterAction({
+        currentState: { workspace: defaultWorkspace, modifiers: defaultModifierState },
+        newState: { workspace: newWorkspace, modifiers: s.changeSelections ? newModifierState : defaultModifierState },
+        action: () => { dragDropNewBlock(s) }
+      })
     })
   })
-  it('should allow SINGLE block to drag, apply DEFAULT selection, and drop BELOW piece-1 in workspace', () => {
-    verifyWorkspaceAfterAction({
-      currentWorkspaceState: defaultWorkspace,
-      modifiers: defaultModifierState,
-      action: () => { dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' }) }
-    })
-  })
-  it('should allow DOUBLE block to drag, apply DEFAULT selection, and drop ABOVE piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 2, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow DOUBLE block to drag, apply DEFAULT selection, and drop BELOW piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 2, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow QUADRUPLE block to drag, apply DEFAULT selection, and drop ABOVE piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 4, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow QUADRUPLE block to drag, apply DEFAULT selection, and drop BELOW piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 4, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-  })
-  // CHANGE SELECTIONS
-  it('should allow SINGLE block to drag, apply NEW selection, and drop ABOVE piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 1, changeSelections: true, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow SINGLE block to drag, apply NEW selection, and drop BELOW piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 1, changeSelections: true, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow DOUBLE block to drag, apply NEW selection, and drop ABOVE piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 2, changeSelections: true, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow DOUBLE block to drag, apply NEW selection, and drop BELOW piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 2, changeSelections: true, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow QUADRUPLE block to drag, apply NEW selection, and drop ABOVE piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 4, changeSelections: true, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
-  })
-  it('should allow QUADRUPLE block to drag, apply NEW selection, and drop BELOW piece-1 in workspace', () => {
-    dragDropNewBlock({ blockCount: 4, changeSelections: true, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-  })
-  // OTHER
   it('should allow for multiple drops across the workspace, changing selections between some drops', () => {
     dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
     dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
@@ -190,7 +176,6 @@ describe('Aggulative Workflow', () => {
     dragDropNewBlock({ blockCount: 1, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
     dragDropNewBlock({ blockCount: 1, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
   })
-  // new pieces can be added upon
   it('should allow for new pieces to be added upon', () => {
     dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
     relativeDragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', distance: 1, landmarkPieceId: 'piece-1' })
