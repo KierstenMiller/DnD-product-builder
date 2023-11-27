@@ -37,16 +37,34 @@ Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, target
     })
 })
 
+Cypress.Commands.add('toggleModifier', ({ modId, isOpen }: { modId: string, isOpen?: boolean }) => {
+  cy.getByTestId(`${modId}-modifier`)
+    .find('button')
+    .invoke('attr', 'aria-expanded')
+    .then((ariaExpanded) => {
+      const booleanAriaExpanded = ariaExpanded === 'true'
+      if (booleanAriaExpanded === isOpen) return
+      cy.getByTestId(`${modId}-modifier`)
+        .find(`button#${modId}`)
+        .should('exist') // need to retry until button is rendered and event handlers are attached https://www.cypress.io/blog/2019/01/22/when-can-the-test-click
+        .click()
+      cy.getByTestId(`${modId}-modifier`)
+        .find('button')
+        .invoke('attr', 'aria-expanded')
+        .should('not.eq', ariaExpanded)
+    })
+})
+
 Cypress.Commands.add('changeSelections', (modifiers: testModifiersT) => {
   modifiers.forEach(m => {
     // open [i] modifier accordion
-    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+    cy.toggleModifier({ modId: m.mod, isOpen: true })
     // click on the mirage to check the input
     cy.getByTestId(m.group).find('[data-testid="mirage-container"]').click()
     // make sure NEW input is now checked
     cy.getByTestId(m.group).find(`#${m.input}`).should('to.have.attr', 'checked')
     // close the modifier accordion we just tested
-    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+    cy.toggleModifier({ modId: m.mod, isOpen: false })
   })
 })
 

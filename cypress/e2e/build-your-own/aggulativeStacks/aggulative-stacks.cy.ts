@@ -6,7 +6,7 @@ interface TestBlockI {
 }
 
 // newStack?: { stackIndex: number, stack: TestBlockI[] }
-const updateWorkspace = ({ workspaceToUpdate, newBlockInfo }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: { location: { stackIndex: number, blockIndex: number }, block: TestBlockI } }) => {
+const updateMockWorkspaceData = ({ workspaceToUpdate, newBlockInfo }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: { location: { stackIndex: number, blockIndex: number }, block: TestBlockI } }) => {
   const newWorkspace = workspaceToUpdate.map(s => s.map(b => ({ ...b })))
   newWorkspace[newBlockInfo.location.stackIndex].splice(newBlockInfo.location.blockIndex, 0, newBlockInfo.block)
   newWorkspace.forEach((s) => {
@@ -16,7 +16,6 @@ const updateWorkspace = ({ workspaceToUpdate, newBlockInfo }: { workspaceToUpdat
   })
   return newWorkspace
 }
-
 const verifyStack = ({ index, blocksConfig, modifiers }: { index: number, blocksConfig: TestBlockI[], modifiers: testModifiersT }) => {
   cy.getByTestId(`stack-container_${index}`)
     .find('[data-testid^="block-container_"]')
@@ -35,7 +34,6 @@ const verifyStack = ({ index, blocksConfig, modifiers }: { index: number, blocks
       })
     })
 }
-
 const verifyWorkspace = ({ stacksConfig, modifiers }: { stacksConfig: TestBlockI[][], modifiers: testModifiersT }) => {
   cy.get('[data-testid^="stack-container_"]').should('have.length', stacksConfig.length)
   cy.get('[data-testid^="block-container_"]').should('have.length', stacksConfig.flat().length)
@@ -53,17 +51,17 @@ const verifyWorkspaceAfterAction = ({ currentState, newState, action }: verifyWo
   action()
   verifyWorkspace({ stacksConfig: newState.workspace, modifiers: newState.modifiers })
 }
-interface drapDropNewBlockI { blockCount: number, landmarkPieceId: string, direction: 'above' | 'below', modifiers: testModifiersT, changeSelections?: boolean }
+interface drapDropNewBlockI { height: number, landmarkPieceId: string, direction: 'above' | 'below', modifiers: testModifiersT, changeSelections?: boolean }
 interface relativeDragDropNewBlockI extends drapDropNewBlockI { distance: number }
-const dragDropNewBlock = ({ blockCount, landmarkPieceId, direction, modifiers, changeSelections = false }: drapDropNewBlockI) => {
+const dragDropNewBlock = ({ height, landmarkPieceId, direction, modifiers, changeSelections = false }: drapDropNewBlockI) => {
   changeSelections && cy.changeSelections(modifiers)
-  cy.getByTestId('mod-height-modifier').find('button#mod-height').click() // open height modifier accordion
-  cy.getByTestId(`dragzone_${blockCount}`).drag(`dropzone_${landmarkPieceId}-${direction}`, true)
+  cy.toggleModifier({ modId: 'mod-height', isOpen: true })
+  cy.getByTestId(`dragzone_${height}`).drag(`dropzone_${landmarkPieceId}-${direction}`, true)
   cy.getByTestId(`block-container_${landmarkPieceId}`).then($el => {
     if (direction === 'above') {
       cy.wrap($el)
         .prev()
-        .should('contain', `height: ${blockCount}`).then(() => {
+        .should('contain', `height: ${height}`).then(() => {
           modifiers.forEach(m => {
             cy.wrap($el).should('contain', `${m.mod}: ${m.input}`)
           })
@@ -71,28 +69,28 @@ const dragDropNewBlock = ({ blockCount, landmarkPieceId, direction, modifiers, c
     } else {
       cy.wrap($el)
         .next()
-        .should('contain', `height: ${blockCount}`).then(() => {
+        .should('contain', `height: ${height}`).then(() => {
           modifiers.forEach(m => {
             cy.wrap($el).should('contain', `${m.mod}: ${m.input}`)
           })
         })
     }
   })
-  cy.getByTestId('mod-height-modifier').find('button#mod-height').click() // close height modifier accordion
+  cy.toggleModifier({ modId: 'mod-height', isOpen: false })
 }
-const relativeDragDropNewBlock = ({ blockCount, landmarkPieceId, direction, distance, modifiers, changeSelections = false }: relativeDragDropNewBlockI) => {
+const relativeDragDropNewBlock = ({ height, landmarkPieceId, direction, distance, modifiers, changeSelections = false }: relativeDragDropNewBlockI) => {
   const eqId = distance - 1
   changeSelections && cy.changeSelections(modifiers)
   cy.getByTestId(`block-container_${landmarkPieceId}`).then($el => {
     if (direction === 'above') {
       cy.wrap($el).prevAll().eq(eqId).find("[data-testid^='dragzone_']").invoke('attr', 'data-testid').then(nextPieceId => {
         const targetId = nextPieceId?.replace(/dragzone_/g, '')
-        targetId ? dragDropNewBlock({ blockCount, landmarkPieceId: targetId, direction, modifiers, changeSelections }) : console.error('NO NEXT PIECE ID FOUND')
+        targetId ? dragDropNewBlock({ height, landmarkPieceId: targetId, direction, modifiers, changeSelections }) : console.error('NO NEXT PIECE ID FOUND')
       })
     } else if (direction === 'below') {
       cy.wrap($el).nextAll().eq(eqId).find("[data-testid^='dragzone_']").invoke('attr', 'data-testid').then(nextPieceId => {
         const targetId = nextPieceId?.replace(/dragzone_/g, '')
-        targetId ? dragDropNewBlock({ blockCount, landmarkPieceId: targetId, direction, modifiers, changeSelections }) : console.error('NO NEXT PIECE ID FOUND')
+        targetId ? dragDropNewBlock({ height, landmarkPieceId: targetId, direction, modifiers, changeSelections }) : console.error('NO NEXT PIECE ID FOUND')
       })
     }
   })
@@ -118,18 +116,18 @@ describe('Aggulative Workflow', () => {
     { mod: 'mod-stroke', group: 'stroke-color_stroke-red', input: 'stroke-red' }
   ]
   const singleDropScenarios: drapDropNewBlockI[] = [
-    { blockCount: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
-    { blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
-    { blockCount: 2, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
-    { blockCount: 2, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
-    { blockCount: 4, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
-    { blockCount: 4, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
-    { blockCount: 1, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
-    { blockCount: 1, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true },
-    { blockCount: 2, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
-    { blockCount: 2, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true },
-    { blockCount: 4, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
-    { blockCount: 4, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true }
+    { height: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
+    { height: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
+    { height: 2, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
+    { height: 2, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
+    { height: 4, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' },
+    { height: 4, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' },
+    { height: 1, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
+    { height: 1, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true },
+    { height: 2, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
+    { height: 2, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true },
+    { height: 4, modifiers: newModifierState, direction: 'above', landmarkPieceId: 'piece-1', changeSelections: true },
+    { height: 4, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1', changeSelections: true }
   ]
   beforeEach(() => {
     cy.visit('/build-your-own/aggulative')
@@ -149,12 +147,12 @@ describe('Aggulative Workflow', () => {
     verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
   })
   singleDropScenarios.forEach(s => {
-    it(`should allow *height-${s.blockCount}* block to drag, apply *${s.changeSelections ? 'new' : 'default'}* selection, and drop *${s.direction}* the *${s.landmarkPieceId}* block`, () => {
-      const newWorkspace = updateWorkspace({
+    it.only(`should allow *height-${s.height}* block to drag, apply *${s.changeSelections ? 'new' : 'default'}* selection, and drop *${s.direction}* the *${s.landmarkPieceId}* block`, () => {
+      const newWorkspace = updateMockWorkspaceData({
         workspaceToUpdate: defaultWorkspace,
         newBlockInfo: {
           location: { stackIndex: 0, blockIndex: 1 },
-          block: { height: 1, index: 0 }
+          block: { height: s.height, index: 0 }
         }
       })
       verifyWorkspaceAfterAction({
@@ -165,26 +163,26 @@ describe('Aggulative Workflow', () => {
     })
   })
   it('should allow for multiple drops across the workspace, changing selections between some drops', () => {
-    dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
-    dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-    dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-    dragDropNewBlock({ blockCount: 2, changeSelections: true, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-    dragDropNewBlock({ blockCount: 4, changeSelections: true, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-2' })
-    dragDropNewBlock({ blockCount: 1, changeSelections: true, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-3' })
-    dragDropNewBlock({ blockCount: 2, changeSelections: true, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-4' })
-    dragDropNewBlock({ blockCount: 4, changeSelections: true, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
-    dragDropNewBlock({ blockCount: 1, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
-    dragDropNewBlock({ blockCount: 1, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
+    dragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-1' })
+    dragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
+    dragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
+    dragDropNewBlock({ height: 2, changeSelections: true, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
+    dragDropNewBlock({ height: 4, changeSelections: true, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-2' })
+    dragDropNewBlock({ height: 1, changeSelections: true, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-3' })
+    dragDropNewBlock({ height: 2, changeSelections: true, modifiers: newModifierState, direction: 'below', landmarkPieceId: 'piece-4' })
+    dragDropNewBlock({ height: 4, changeSelections: true, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
+    dragDropNewBlock({ height: 1, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
+    dragDropNewBlock({ height: 1, modifiers: newerModifierState, direction: 'below', landmarkPieceId: 'piece-5' })
   })
   it('should allow for new pieces to be added upon', () => {
-    dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
-    relativeDragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', distance: 1, landmarkPieceId: 'piece-1' })
-    relativeDragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', distance: 2, landmarkPieceId: 'piece-1' })
-    relativeDragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'below', distance: 3, landmarkPieceId: 'piece-1' })
-    dragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-4' })
-    relativeDragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'above', distance: 1, landmarkPieceId: 'piece-4' })
-    relativeDragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'above', distance: 2, landmarkPieceId: 'piece-4' })
-    relativeDragDropNewBlock({ blockCount: 1, modifiers: defaultModifierState, direction: 'above', distance: 3, landmarkPieceId: 'piece-4' })
+    dragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'below', landmarkPieceId: 'piece-1' })
+    relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'below', distance: 1, landmarkPieceId: 'piece-1' })
+    relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'below', distance: 2, landmarkPieceId: 'piece-1' })
+    relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'below', distance: 3, landmarkPieceId: 'piece-1' })
+    dragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', landmarkPieceId: 'piece-4' })
+    relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', distance: 1, landmarkPieceId: 'piece-4' })
+    relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', distance: 2, landmarkPieceId: 'piece-4' })
+    relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', distance: 3, landmarkPieceId: 'piece-4' })
   })
   // make new stacks
   // new blocks can be made on new stacks

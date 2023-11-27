@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/method-signature-style */
 import { type testModifiersT } from './support/commands'
 
 export { }
@@ -11,10 +12,10 @@ declare global{
       // react dnd actions
       drag(targetSelector: string, skipCleanup?: boolean): Chainable<JQuery<HTMLElement>>
       // modifier actions
+      toggleModifier({ modId, isOpen }: { modId: string, isOpen?: boolean }): Chainable<JQuery<HTMLElement>>
       changeSelections(modifiers: testModifiersT): Chainable<JQuery<HTMLElement>>
       testChangingSelections(modifiers: testModifiersT, defaultValues?: testModifiersT): Chainable<JQuery<HTMLElement>>
       testCurrentSelections(modifiers: testModifiersT): Chainable<JQuery<HTMLElement>>
-
     }
   }
 }
