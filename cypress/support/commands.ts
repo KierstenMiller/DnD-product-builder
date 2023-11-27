@@ -38,8 +38,9 @@ Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, target
 })
 
 Cypress.Commands.add('toggleModifier', ({ modId, isOpen }: { modId: string, isOpen?: boolean }) => {
+  cy.getByTestId(`${modId}-modifier`).scrollIntoView()
   cy.getByTestId(`${modId}-modifier`)
-    .find('button')
+    .find(`button#${modId}`)
     .invoke('attr', 'aria-expanded')
     .then((ariaExpanded) => {
       const booleanAriaExpanded = ariaExpanded === 'true'
@@ -49,7 +50,7 @@ Cypress.Commands.add('toggleModifier', ({ modId, isOpen }: { modId: string, isOp
         .should('exist') // need to retry until button is rendered and event handlers are attached https://www.cypress.io/blog/2019/01/22/when-can-the-test-click
         .click()
       cy.getByTestId(`${modId}-modifier`)
-        .find('button')
+        .find(`button#${modId}`)
         .invoke('attr', 'aria-expanded')
         .should('not.eq', ariaExpanded)
     })
@@ -75,7 +76,7 @@ Cypress.Commands.add('testChangingSelections', (modifiers: testModifiersT, defau
   // STEP 1: change selections and confirm "Current Selections" section is correct after each change
   modifiers.forEach(m => {
     // open [i] modifier accordion
-    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+    cy.toggleModifier({ modId: m.mod, isOpen: true })
     // make sure NEW input selection is not yet checked
     cy.getByTestId(m.group).find(`#${m.input}`).should('to.not.have.attr', 'checked')
     // click on the mirage to check the input
@@ -90,7 +91,7 @@ Cypress.Commands.add('testChangingSelections', (modifiers: testModifiersT, defau
       cy.getByTestId(`${m2.mod}-selection-group`).find('[data-testid="selection-value"]').contains(expectedValue)
     })
     // close the modifier accordion we just tested
-    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+    cy.toggleModifier({ modId: m.mod, isOpen: false })
   })
   // STEP 2: double check all current selections are correct
   cy.testCurrentSelections(modifiers)
@@ -103,11 +104,11 @@ Cypress.Commands.add('testCurrentSelections', (modifiers: Array<{ mod: string, g
   // STEP 2: confirm all inputs reflect default state
   modifiers.forEach(m => {
     // open a modifier accordion
-    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+    cy.toggleModifier({ modId: m.mod, isOpen: true })
     // make sure selected input is checked
     cy.getByTestId(m.group).find(`#${m.input}`).should('to.have.attr', 'checked')
     // close the modifier accordion we just tested
-    cy.getByTestId(`${m.mod}-modifier`).find(`button#${m.mod}`).click()
+    cy.toggleModifier({ modId: m.mod, isOpen: false })
   })
 })
 // TODO: make this work

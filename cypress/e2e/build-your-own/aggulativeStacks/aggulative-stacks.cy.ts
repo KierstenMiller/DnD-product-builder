@@ -147,7 +147,7 @@ describe('Aggulative Workflow', () => {
     verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
   })
   singleDropScenarios.forEach(s => {
-    it.only(`should allow *height-${s.height}* block to drag, apply *${s.changeSelections ? 'new' : 'default'}* selection, and drop *${s.direction}* the *${s.landmarkPieceId}* block`, () => {
+    it(`should allow *height-${s.height}* block to drag, apply *${s.changeSelections ? 'new' : 'default'}* selection, and drop *${s.direction}* the *${s.landmarkPieceId}* block`, () => {
       const newWorkspace = updateMockWorkspaceData({
         workspaceToUpdate: defaultWorkspace,
         newBlockInfo: {
