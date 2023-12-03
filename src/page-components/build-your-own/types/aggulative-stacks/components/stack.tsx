@@ -16,9 +16,9 @@ interface propsI {
 export const Stack = observer(({ index, stack, isDragging, validDrop, onStackDrop, onBlockDrop, onBlockDrag }: propsI) => {
   const canDropLeft = index === 0 && isDragging && validDrop({ stack: index, block: 0 }, true)
   const canDropRight = isDragging && validDrop({ stack: index + 1, block: 0 }, true)
-  return (<div className="flex a-i-end">
-        {canDropLeft && <DropZone onDrop={() => { onStackDrop(index) }} />}
-        <div data-testid={`stack-container_${index}`}>
+  return (<div data-testid={`stack-container_${index}`} className="flex a-i-end">
+        {canDropLeft && <DropZone testId={`${index}-left`} onDrop={() => { onStackDrop(index) }} />}
+        <div>
             {stack.map((block, blockIndex) => <Block
                 key={blockIndex}
                 block={block}
@@ -29,6 +29,6 @@ export const Stack = observer(({ index, stack, isDragging, validDrop, onStackDro
                 isDragging={isDragging}
             />)}
         </div>
-        {canDropRight && <DropZone onDrop={() => { onStackDrop(index + 1) }} />}
+        {canDropRight && <DropZone testId={`${index}-right`} onDrop={() => { onStackDrop(index + 1) }} />}
     </div>)
 })

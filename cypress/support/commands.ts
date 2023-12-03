@@ -39,16 +39,16 @@ Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, target
 
 Cypress.Commands.add('toggleModifier', ({ modId, isOpen }: { modId: string, isOpen?: boolean }) => {
   cy.getByTestId(`${modId}-modifier`).scrollIntoView() // need to scroll button into view to click it (without {force: true})
-  cy.getByTestId(`${modId}-modifier`).find(`button#${modId}`).as('modButton')
-  cy.get('@modButton')
+  // cy.getByTestId(`${modId}-modifier`).find(`button#${modId}`).as('modButton')
+  cy.getByTestId(`${modId}-modifier`).find(`button#${modId}`)
     .invoke('attr', 'aria-expanded')
     .then((ariaExpanded) => {
       const booleanAriaExpanded = ariaExpanded === 'true'
       if (booleanAriaExpanded === isOpen) return
-      cy.get('@modButton')
+      cy.getByTestId(`${modId}-modifier`).find(`button#${modId}`)
         .should('exist') // need to retry until button is rendered and event handlers are attached https://www.cypress.io/blog/2019/01/22/when-can-the-test-click
         .click()
-      cy.get('@modButton')
+      cy.getByTestId(`${modId}-modifier`).find(`button#${modId}`)
         .invoke('attr', 'aria-expanded')
         .should('not.eq', ariaExpanded)
     })
