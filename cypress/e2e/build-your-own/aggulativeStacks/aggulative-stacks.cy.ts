@@ -86,7 +86,7 @@ describe('Aggulative Workflow', () => {
     dragDropNewBlock({ height: 1, modifiers: newerModifierState, direction: 'below', landmarkId: 'piece-5' })
     verifyWorkspace({ stacksConfig: newWorkspace, modifiers: newerModifierState })
   })
-  it.only('should allow for new pieces to be added upon other new pieces (no new stacks)', () => {
+  it('should allow for new pieces to be added upon other new pieces (no new stacks)', () => {
     const newWorkspace = [
       [{ height: 1, index: 0 }, { height: 1, index: 1 }, { height: 1, index: 2 }, { height: 1, index: 3 }, { height: 1, index: 4 }, { height: 1, index: 5 }, { height: 1, index: 6 }],
       [{ height: 1, index: 0 }, { height: 1, index: 1 }, { height: 1, index: 2 }, { height: 1, index: 3 }, { height: 2, index: 4 }],
@@ -102,10 +102,18 @@ describe('Aggulative Workflow', () => {
     relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', distance: 1, landmarkId: 'piece-4' })
     relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', distance: 2, landmarkId: 'piece-4' })
     relativeDragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'above', distance: 3, landmarkId: 'piece-4' })
-    cy.pause()
     verifyWorkspace({ stacksConfig: newWorkspace, modifiers: defaultModifierState })
   })
-  // make new stacks
-  // new blocks can be made on new stacks
-  // new stacks can be made on new stacks
+  it('should allow for multiple stacks to be added to the workspace, allow for new stacks to be added to other new stacks and changing selection between some drops', () => {
+    dragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'right', landmarkId: '3' })
+    dragDropNewBlock({ height: 2, changeSelections: true, modifiers: newModifierState, direction: 'right', landmarkId: '3' })
+    dragDropNewBlock({ height: 2, modifiers: newModifierState, direction: 'right', landmarkId: '3' })
+    dragDropNewBlock({ height: 2, changeSelections: true, modifiers: newerModifierState, direction: 'right', landmarkId: '5' })
+    dragDropNewBlock({ height: 2, modifiers: newerModifierState, direction: 'right', landmarkId: '6' })
+    dragDropNewBlock({ height: 4, modifiers: newerModifierState, direction: 'left', landmarkId: '0' })
+    dragDropNewBlock({ height: 4, changeSelections: true, modifiers: newModifierState, direction: 'right', landmarkId: '0' })
+    dragDropNewBlock({ height: 2, changeSelections: true, modifiers: defaultModifierState, direction: 'right', landmarkId: '0' })
+    dragDropNewBlock({ height: 1, modifiers: defaultModifierState, direction: 'left', landmarkId: '0' })
+    dragDropNewBlock({ height: 4, modifiers: defaultModifierState, direction: 'right', landmarkId: '3' })
+  })
 })
