@@ -1,5 +1,5 @@
 import { type testModifiersT } from '../../../support/commands'
-interface TestBlockI { height: number, index: number }
+interface TestBlockI { uniqueKey: string, uniqueValue: string, index: number }
 export interface newBlockInfoI { location: { stackIndex: number, blockIndex: number }, block: TestBlockI, isNewStack?: boolean }
 interface verifyWorkspaceAfterActionI {
   currentState: { workspace: TestBlockI[][], modifiers: testModifiersT }
@@ -28,7 +28,7 @@ export const verifyStack = ({ index, blocksConfig, modifiers }: { index: number,
     .then($block => {
       blocksConfig.forEach((b, i) => {
         cy.wrap($block)
-          .should('contain', `height: ${b.height}`)
+          .should('contain', `${b.uniqueKey}: ${b.uniqueValue}`)
           .then(() => {
             expect(b.index).to.equal(i)
             modifiers.forEach(m => {

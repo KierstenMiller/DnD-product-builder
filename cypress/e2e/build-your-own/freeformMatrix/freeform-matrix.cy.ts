@@ -30,7 +30,7 @@ const dragDropNewShape = ({ drop, modifiers, change = false }: { drop: string, m
   change && freeformChangeSelections(modifiers)
   cy.getByTestId('freeform-dragzone')
     .find('[draggable="true"]')
-    .drag(drop)
+    .dragDrop(drop)
   cy.getByTestId(drop)
     .find('[data-testid="config"]')
     .should('contain', modifiers[0].input)
@@ -48,7 +48,7 @@ const dragDropExistingShape = ({ drag, drop }: { drag: string, drop: string }) =
     const dragShapeConfig = dragEl.text()
     cy.getByTestId(drop).find('[data-testid="config"]').then(dropEl => {
       const dropShapeConfig = dropEl.text()
-      cy.getByTestId(drag).drag(drop)
+      cy.getByTestId(drag).dragDrop(drop)
       cy.getByTestId(drag).find('[data-testid="config"]').should('contain', dropShapeConfig)
       cy.getByTestId(drop).find('[data-testid="config"]').should('contain', dragShapeConfig)
     })

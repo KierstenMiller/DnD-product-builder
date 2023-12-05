@@ -18,8 +18,30 @@ Cypress.Commands.add('getByTestIdLike', (selector, ...args) => {
   return cy.get(`[data-testid*=${selector}]`, ...args)
 })
 
+Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector) => {
+  const dataTransfer = new DndSimulatorDataTransfer()
+  cy.wrap(sourceSelector.get(0))
+    .trigger('mousedown', { which: 1 })
+    .trigger('dragstart', { dataTransfer })
+    .trigger('drag', {})
+})
+
+Cypress.Commands.add('drop', (targetSelector, skipCleanup) => {
+  const dataTransfer = new DndSimulatorDataTransfer()
+  cy.getByTestId(targetSelector)
+    .trigger('dragover', { dataTransfer })
+    .trigger('drop', { dataTransfer })
+    .then(el => {
+      if (!skipCleanup) {
+        cy.wrap(el)
+          .trigger('dragend', { dataTransfer })
+          .trigger('mouseup', { which: 1 })
+      }
+    })
+})
+
 // solution from: https://github.com/cypress-io/cypress/issues/1752
-Cypress.Commands.add('drag', { prevSubject: 'element' }, (sourceSelector, targetSelector, skipCleanup) => {
+Cypress.Commands.add('dragDrop', { prevSubject: 'element' }, (sourceSelector, targetSelector, skipCleanup) => {
   const dataTransfer = new DndSimulatorDataTransfer()
   cy.wrap(sourceSelector.get(0))
     .trigger('mousedown', { which: 1 })

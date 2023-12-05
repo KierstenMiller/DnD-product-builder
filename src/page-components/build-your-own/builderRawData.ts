@@ -52,7 +52,7 @@ export const dataAggulativeStacksRental: buildYourOwnRawDataI = {
     type: builderKeys.aggulativeStacks,
     rules: [
       { type: validationValues.maxStackHeight, values: ['8'] },
-      { type: validationValues.maxStacksCount, values: ['4'] }
+      { type: validationValues.maxStacksCount, values: ['6'] }
     ],
     data: rentalStacksMock
   }
