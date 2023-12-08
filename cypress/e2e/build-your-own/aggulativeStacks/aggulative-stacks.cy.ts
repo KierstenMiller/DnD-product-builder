@@ -1,4 +1,4 @@
-import { directions as dirs, dragDropNewBlock, relativeDragDropNewBlock, type dragDropNewBlockI } from './drag-drop.util'
+import { directions as dirs, dragDropBlock, dragDropNewBlock, relativeDragDropNewBlock, type dragDropNewBlockI } from './drag-drop.util'
 import { doActionThenVerify, getNewWorkspace, verifyWorkspace, type newBlockInfoI } from './verfiy.util'
 
 interface dragDropScenarioI extends dragDropNewBlockI { newBlockInfo: newBlockInfoI }
@@ -132,4 +132,9 @@ describe('Aggulative Workflow', () => {
     verifyWorkspace({ stacksConfig: newWorkspace, modifiers: newerModifierState })
   })
   // TODO: should be able to drag blocks in the stacks to other stacks or another location in the same stack
+  it.only('should allow for blocks to be dropped into another location in the same stack', () => {
+    dragDropBlock({ drag: { blockId: 'piece-1' }, drop: { direction: dirs.below, landmarkId: 'piece-2' }, state: { modifiers: defaultModifierState } })
+    // dragDropBlock({ drag: { blockId: 'piece-8' }, drop: { direction: dirs.below, landmarkId: 'piece-6' }, state: { modifiers: defaultModifierState } })
+  })
+  // TODO: If a stack only has one block, and that block is dragged away, the stack should be removed
 })

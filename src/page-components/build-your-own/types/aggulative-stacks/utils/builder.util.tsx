@@ -10,7 +10,7 @@ export const findIndex2D = (stacks: aggulativeStacksListT, id: string) => {
   })
   return stack >= 0 ? { stack, block } : null
 }
-export const findPiece = (id: string, stacksData: aggulativeStacksListT) => {
+export const findPiece = (id: string, stacksData: aggulativeStacksListT): { index: { stack: number, block: number } | null, piece: pieceI | null } => {
   const index = findIndex2D(stacksData, id)
   const piece = (index && isNum(index.stack) && isNum(index.block)) ? (stacksData[index.stack][index.block])?.piece : null
   return { index, piece }
@@ -28,8 +28,11 @@ export const addStack = (stackIndex: number, piece: pieceI, stacksData: aggulati
   stacksData.splice(stackIndex, 0, [{ piece }])
   return clearEmptyStacks(stacksData)
 }
-export const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksListT) => {
+export const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksListT, isDroppingInSameStack?: boolean) => {
+  const blockIndex2 = isDroppingInSameStack
+    ? Math.max(0, blockIndex - 1) // need to update blockIndex if dropping in same stack
+    : blockIndex
   findAndRemoveBlock(piece.id, stacksData)
-  stacksData[stackIndex].splice(blockIndex, 0, { piece })
+  stacksData[stackIndex].splice(blockIndex2, 0, { piece })
   return clearEmptyStacks(stacksData)
 }

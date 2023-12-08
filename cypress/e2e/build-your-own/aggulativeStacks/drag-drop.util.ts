@@ -83,7 +83,6 @@ export const dragDropNewBlock = ({ drag, drop, state }: dragDropNewBlockI) => {
 
 export const relativeDragDropNewBlock = ({ drag, drop, state }: relativeDragDropNewBlockI) => {
   const location = drop.distance - 1
-  console.log(location)
   state.changeSelections && cy.changeSelections(state.modifiers)
   cy.getByTestId(`block-container_${drop.landmarkId}`).then($el => {
     switch (drop.direction) {

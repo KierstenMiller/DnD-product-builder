@@ -28,7 +28,7 @@ describe('Aggulative Rental Workflow', () => {
   beforeEach(() => {
     cy.visit('/build-your-own/aggulative/rental')
   })
-  it('should render the singleton page as expected', () => {
+  it('should render the aggulative rental page as expected', () => {
     cy.contains('h1', 'Build Your Own')
     cy.contains('h2', 'Current Selections')
     cy.get('[data-testid$="-selection-group"]').should('have.length', 3)

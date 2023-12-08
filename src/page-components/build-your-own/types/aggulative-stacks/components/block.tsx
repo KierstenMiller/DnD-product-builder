@@ -9,15 +9,17 @@ interface propsI {
   index: number
   block: blockI
   isDragging: boolean
+  isDraggingPieceId: string
   validDrop: (index: number) => boolean
   onDrop: (index: number) => void
   onDrag: (isDraggingState: boolean) => void
 }
-export const Block = observer(({ block, index, isDragging, validDrop, onDrop, onDrag }: propsI) => {
-  const aboveDrop = () => { onDrop(index) }
-  const belowDrop = () => { onDrop(index + 1) }
+export const Block = observer(({ block, index, isDragging, isDraggingPieceId, validDrop, onDrop, onDrag }: propsI) => {
+  const isDraggingSelf = isDragging && isDraggingPieceId === block.piece.id
   const canDropAbove = index === 0 && isDragging && validDrop(index)
   const canDropBelow = isDragging && validDrop(index + 1)
+  const aboveDrop = () => { onDrop(index) }
+  const belowDrop = () => { onDrop(index + 1) }
   return <div data-testid={`block-container_${block.piece.id}`}>
         <>{canDropAbove && <DropZone testId={`${block.piece.id}-above`} onDrop={aboveDrop} />}</>
         <DragZone
@@ -26,7 +28,7 @@ export const Block = observer(({ block, index, isDragging, validDrop, onDrop, on
             setIsDraggingState={onDrag}
         >
             <div data-testid="config" className="text-xx-small">
-                {block.piece.id}<br />
+                <b>{block.piece.id}{isDraggingPieceId === block.piece.id ? 'DRAGGING' : ''}</b><br />
                 {block.piece.config.map(c => c.id + ': ' + c.selection + ' - ')}<br />
             </div>
 

@@ -9,7 +9,6 @@ interface verifyWorkspaceAfterActionI {
 
 export const getNewWorkspace = ({ workspaceToUpdate, newBlockInfo }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: newBlockInfoI }) => {
   const newWorkspace = workspaceToUpdate.map(s => s.map(b => ({ ...b })))
-  console.log('newBlockInfo', newBlockInfo)
   newBlockInfo.isNewStack
     ? newWorkspace.splice(newBlockInfo.location.stackIndex, 0, [newBlockInfo.block])
     : newWorkspace[newBlockInfo.location.stackIndex].splice(newBlockInfo.location.blockIndex, 0, newBlockInfo.block)
@@ -18,7 +17,6 @@ export const getNewWorkspace = ({ workspaceToUpdate, newBlockInfo }: { workspace
       b.index = j
     })
   })
-  console.log('newWorkspace', newWorkspace)
   return newWorkspace
 }
 export const verifyStack = ({ index, blocksConfig, modifiers }: { index: number, blocksConfig: TestBlockI[], modifiers: testModifiersT }) => {
