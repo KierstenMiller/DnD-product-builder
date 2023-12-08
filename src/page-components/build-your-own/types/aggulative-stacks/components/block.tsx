@@ -15,7 +15,6 @@ interface propsI {
   onDrag: (isDraggingState: boolean) => void
 }
 export const Block = observer(({ block, index, isDragging, isDraggingPieceId, validDrop, onDrop, onDrag }: propsI) => {
-  const isDraggingSelf = isDragging && isDraggingPieceId === block.piece.id
   const canDropAbove = index === 0 && isDragging && validDrop(index)
   const canDropBelow = isDragging && validDrop(index + 1)
   const aboveDrop = () => { onDrop(index) }
