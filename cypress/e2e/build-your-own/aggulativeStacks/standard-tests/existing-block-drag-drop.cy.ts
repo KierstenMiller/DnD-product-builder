@@ -1,29 +1,33 @@
 import { directions as dirs, dragDropBlock, type dragDropBlockI } from '../drag-drop.util'
 import { doActionThenVerify, getNewWorkspace, type newBlockInfoI } from '../verfiy.util'
-import { defaultModifierState, defaultWorkspace, newModifierState } from './shared-data.util'
+import { defaultModifierState, defaultWorkspace, doubleBlock, newModifierState, quadBlock, singleBlock } from './shared-data.util'
 
 interface dragDropExistingBlockScenarioI extends dragDropBlockI { index: number, newBlockInfo: newBlockInfoI }
 describe('Aggulative Workflow', () => {
-  const singleExistingBlock = { blockId: '1' }
-  const doubleExistingBlock = { blockId: '2' }
-  const quadExistingBlock = { blockId: '4' }
   // NOTE: formatted data for easy scanning
   const dragDropExistingBlockScenarios: dragDropExistingBlockScenarioI[] = [
     // move EXISTING blocks inside same stack, no change to selection
-    { index: 1, drag: { blockId: 'piece-1' }, drop: { direction: dirs.below, landmarkId: 'piece-2' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 1 }, block: { ...singleExistingBlock, index: 1 } } },
-    { index: 2, drag: { blockId: 'piece-9' }, drop: { direction: dirs.below, landmarkId: 'piece-6' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 3, blockIndex: 1 }, block: { ...singleExistingBlock, index: 1 } } }
-    // { index: 2, drag: { blockId: 'piece-3' }, drop: { direction: dirs.above, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 0 }, block: { ...singleExistingBlock, index: 0 } } },
-    // { index: 3, drag: { blockId: 'piece-3' }, drop: { direction: dirs.below, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 1 }, block: { ...singleExistingBlock, index: 1 } } },
-    // { index: 4, drag: { blockId: 'piece-3' }, drop: { direction: dirs.below, landmarkId: 'piece-2' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 2 }, block: { ...singleExistingBlock, index: 2 } } }
-    // move EXISTING blocks to other stacks
+    { index: 1, drag: { ...singleBlock, id: 'piece-1' }, drop: { direction: dirs.below, landmarkId: 'piece-2' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 1 }, block: { ...singleBlock, id: 'piece-1', index: 1 } } },
+    { index: 2, drag: { ...singleBlock, id: 'piece-2' }, drop: { direction: dirs.above, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 0 }, block: { ...singleBlock, id: 'piece-2', index: 1 } } },
+    { index: 3, drag: { ...singleBlock, id: 'piece-3' }, drop: { direction: dirs.below, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 1 }, block: { ...singleBlock, id: 'piece-3', index: 1 } } },
+    { index: 4, drag: { ...singleBlock, id: 'piece-9' }, drop: { direction: dirs.below, landmarkId: 'piece-6' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 3, blockIndex: 1 }, block: { ...singleBlock, id: 'piece-9', index: 1 } } },
+    // move EXISTING blocks to same location in stack, no change to selection
+    { index: 5, drag: { ...singleBlock, id: 'piece-1' }, drop: { direction: dirs.above, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 1 }, block: { ...singleBlock, id: 'piece-1', index: 1 } } },
+    { index: 6, drag: { ...singleBlock, id: 'piece-2' }, drop: { direction: dirs.below, landmarkId: 'piece-2' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 1 }, block: { ...singleBlock, id: 'piece-2', index: 1 } } },
+    { index: 7, drag: { ...doubleBlock, id: 'piece-4' }, drop: { direction: dirs.below, landmarkId: 'piece-4' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 1, blockIndex: 0 }, block: { ...doubleBlock, id: 'piece-4', index: 1 } } },
+    { index: 8, drag: { ...quadBlock, id: 'piece-5' }, drop: { direction: dirs.below, landmarkId: 'piece-5' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 2, blockIndex: 0 }, block: { ...quadBlock, id: 'piece-5', index: 1 } } },
+    // move EXISTING blocks to other stacks, no change to selection
+    { index: 9, drag: { ...singleBlock, id: 'piece-2' }, drop: { direction: dirs.above, landmarkId: 'piece-5' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 2, blockIndex: 0 }, block: { ...singleBlock, id: 'piece-2', index: 1 } } },
+    { index: 10, drag: { ...singleBlock, id: 'piece-3' }, drop: { direction: dirs.below, landmarkId: 'piece-7' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 3, blockIndex: 2 }, block: { ...singleBlock, id: 'piece-3', index: 1 } } },
+    { index: 11, drag: { ...singleBlock, id: 'piece-6' }, drop: { direction: dirs.above, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 0 }, block: { ...singleBlock, id: 'piece-6', index: 1 } } }
   ]
   beforeEach(() => {
     cy.visit('/build-your-own/aggulative')
   })
   // TODO: should be able to drag blocks in the stacks to other stacks or another location in the same stack
   dragDropExistingBlockScenarios.forEach(s => {
-    it(`${s.index}: should allow EXISTING block *${s.drag.blockId}* to be dragged, application of *${s.state.changeSelections ? 'new' : 'default'}* selection(s), and dropped *${s.drop.direction}* relative to *${s.drop.landmarkId}* in the SAME stack '}`, () => {
-      const newWorkspace = getNewWorkspace({ workspaceToUpdate: defaultWorkspace, newBlockInfo: s.newBlockInfo, id: s.drag.blockId })
+    it(`${s.index}: should allow EXISTING block *${s.drag.id}* to be dragged, application of *${s.state.changeSelections ? 'new' : 'default'}* selection(s), and dropped *${s.drop.direction}* relative to *${s.drop.landmarkId}*'}`, () => {
+      const newWorkspace = getNewWorkspace({ workspaceToUpdate: defaultWorkspace, newBlockInfo: s.newBlockInfo, id: s.drag.id })
       console.log('newWorkspace', newWorkspace)
       doActionThenVerify({
         currentState: { workspace: defaultWorkspace, modifiers: defaultModifierState },

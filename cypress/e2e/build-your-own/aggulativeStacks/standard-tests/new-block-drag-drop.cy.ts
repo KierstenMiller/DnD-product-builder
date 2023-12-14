@@ -39,7 +39,7 @@ describe('Aggulative Workflow', () => {
     cy.visit('/build-your-own/aggulative')
   })
   dragDropNewBlockScenarios.forEach(s => {
-    it(`${s.index}: should allow the NEW BLOCK *${s.drag.modId}-${s.drag.blockId}* to be dragged, application of *${s.state.changeSelections ? 'new' : 'default'}* selection(s), and drop it *${s.drop.direction}* of the *${s.drop.landmarkId}* ${s.drop.direction === dirs.left || s.drop.direction === dirs.right ? 'block' : 'stack'}`, () => {
+    it(`${s.index}: should allow the NEW BLOCK *${s.drag.modId}-${s.drag.value}* to be dragged, application of *${s.state.changeSelections ? 'new' : 'default'}* selection(s), and drop it *${s.drop.direction}* of the *${s.drop.landmarkId}* ${s.drop.direction === dirs.left || s.drop.direction === dirs.right ? 'block' : 'stack'}`, () => {
       const newWorkspace = getNewWorkspace({ workspaceToUpdate: defaultWorkspace, newBlockInfo: s.newBlockInfo, landmarkId: s.drop.landmarkId })
       doActionThenVerify({
         currentState: { workspace: defaultWorkspace, modifiers: defaultModifierState },

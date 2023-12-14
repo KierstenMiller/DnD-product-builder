@@ -1,11 +1,11 @@
 import { type testModifiersT } from '../../../support/commands'
 
-interface dragBlockI {
-  blockId: string
+export interface dragBlockI {
+  value: string
+  id?: string // NOTE: this is only existing blocks have ids
 }
-interface dragNewBlockI {
+interface dragNewBlockI extends dragBlockI {
   modId: string
-  blockId: string
 }
 interface dropI {
   landmarkId: string
@@ -43,19 +43,20 @@ export enum directions {
   right = 'right'
 }
 
-export const dragNewBlock = ({ modId, blockId }: dragNewBlockI) => {
+export const dragNewBlock = ({ modId, value }: dragNewBlockI) => {
   cy.toggleModifier({ modId: `mod-${modId}`, isOpen: true })
-  cy.getByTestId(`dragzone_${blockId}`).drag()
+  cy.getByTestId(`dragzone_${value}`).drag()
   cy.toggleModifier({ modId: `mod-${modId}`, isOpen: false })
 }
 
 export const dragDropBlock = ({ drag, drop, state }: dragDropBlockI) => {
   const containerSelector = drop.direction === directions.above || drop.direction === directions.below ? 'block-container' : 'stack-container'
   state.changeSelections && cy.changeSelections(state.modifiers)
-  cy.getByTestId(`dragzone_${drag.blockId}`)
+  cy.getByTestId(`dragzone_${drag.id ?? drag.value}`)
     .dragDrop(`dropzone_${drop.landmarkId}-${drop.direction}`, true)
   cy.getByTestId(`${containerSelector}_${drop.landmarkId}`)
     .then($el => { // validate the new block is in the correct position
+      if (drag.id === drop.landmarkId) return cy.wrap($el) // NOTE: special case where the block is dropped in the same location - there is no previous or next element in this scenario
       switch (drop.direction) {
         case directions.left:
           return cy.wrap($el)
@@ -68,7 +69,7 @@ export const dragDropBlock = ({ drag, drop, state }: dragDropBlockI) => {
           console.error('INVALID DIRECTION')
       }
     }).then(($el2) => {
-      cy.wrap($el2).should('contain', drag.blockId).then(() => {
+      cy.wrap($el2).should('contain', drag.value).then(() => {
         state.modifiers.forEach(m => {
           cy.wrap($el2).should('contain', `${m.mod}: ${m.input}`)
         })

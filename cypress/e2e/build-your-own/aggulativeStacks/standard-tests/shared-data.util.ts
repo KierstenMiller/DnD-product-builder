@@ -1,7 +1,7 @@
 export const modId = 'height'
-export const singleBlock = { modId, blockId: '1' }
-export const doubleBlock = { modId, blockId: '2' }
-export const quadBlock = { modId, blockId: '4' }
+export const singleBlock = { modId, value: '1' }
+export const doubleBlock = { modId, value: '2' }
+export const quadBlock = { modId, value: '4' }
 export const defaultWorkspace = [
   [{ ...singleBlock, index: 0, id: 'piece-1' }, { ...singleBlock, index: 1, id: 'piece-2' }, { ...singleBlock, index: 2, id: 'piece-3' }],
   [{ ...doubleBlock, index: 0, id: 'piece-4' }],
