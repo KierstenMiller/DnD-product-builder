@@ -29,10 +29,8 @@ export const addStack = (stackIndex: number, piece: pieceI, stacksData: aggulati
   return clearEmptyStacks(stacksData)
 }
 export const addPieceToStack = (stackIndex: number, blockIndex: number, piece: pieceI, stacksData: aggulativeStacksListT, isDroppingInSameStack?: boolean) => {
-  const blockIndex2 = isDroppingInSameStack
-    ? Math.max(0, blockIndex - 1) // need to update blockIndex if dropping in same stack
-    : blockIndex
+  // console.log('blockIndex2', blockIndex2)
   findAndRemoveBlock(piece.id, stacksData)
-  stacksData[stackIndex].splice(blockIndex2, 0, { piece })
+  stacksData[stackIndex].splice(blockIndex, 0, { piece })
   return clearEmptyStacks(stacksData)
 }

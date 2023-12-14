@@ -1,5 +1,5 @@
-import { directions as dirs, dragDropNewBlock, dragNewBlock } from './drag-drop.util'
-import { verifyWorkspace } from './verfiy.util'
+import { directions as dirs, dragDropNewBlock, dragNewBlock } from '../drag-drop.util'
+import { verifyWorkspace } from '../verfiy.util'
 
 describe('Aggulative Rental Workflow', () => {
   const modId = 'blocks'

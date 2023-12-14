@@ -64,10 +64,12 @@ export class AggulativeStacksBuildModel {
 
   addToStack = (stackIndex: number, blockIndex: number, pieceId?: string) => {
     const { index, piece } = pieceId ? findPiece(pieceId, this.stacksData) : { index: {}, piece: null }
-    // TODO: FIX THIS BUG. When I drag a block and drop it in its origin stack below its current position it in 1 off in position. I think it has to do with the fact that the block is removed from the stack before being added back in. I think the index is off by 1 because of this. I think the fix is to not remove the block from the stack until after the new block is added. I think this is a bug in the addPieceToStack() function
     const isDroppingInSameStack = index?.stack === stackIndex
-    if (index?.stack === stackIndex) console.log('SAME STACK')
-    this.stacksData = addPieceToStack(stackIndex, blockIndex, piece ?? this.generatePiece(), this.stacksData, isDroppingInSameStack)
+    // TODO: MAKE THIS NEATER
+    const blockIndex2 = isDroppingInSameStack && typeof index?.block === 'number' && index.block < blockIndex
+      ? Math.max(0, blockIndex - 1) // need to update blockIndex if dropping in same stack
+      : blockIndex
+    this.stacksData = addPieceToStack(stackIndex, blockIndex2, piece ?? this.generatePiece(), this.stacksData, isDroppingInSameStack)
   }
 
   // removal actions

@@ -20,7 +20,7 @@ interface stateI {
   modifiers: testModifiersT
   changeSelections?: boolean
 }
-interface dragDropBlockI {
+export interface dragDropBlockI {
   drag: dragBlockI
   drop: dropI
   state: stateI

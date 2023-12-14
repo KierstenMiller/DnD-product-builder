@@ -1,5 +1,5 @@
 import { type testModifiersT } from '../../../support/commands'
-interface TestBlockI { modId: string, blockId: string, index: number }
+interface TestBlockI { modId?: string, blockId: string, index: number }
 export interface newBlockInfoI { location: { stackIndex: number, blockIndex: number }, block: TestBlockI, isNewStack?: boolean }
 interface verifyWorkspaceAfterActionI {
   currentState: { workspace: TestBlockI[][], modifiers: testModifiersT }
@@ -7,8 +7,15 @@ interface verifyWorkspaceAfterActionI {
   action: () => void
 }
 
-export const getNewWorkspace = ({ workspaceToUpdate, newBlockInfo }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: newBlockInfoI }) => {
+export const getNewWorkspace = ({ workspaceToUpdate, newBlockInfo, id }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: newBlockInfoI, id?: string }) => {
   const newWorkspace = workspaceToUpdate.map(s => s.map(b => ({ ...b })))
+  const matchingPieceIndex = id ? newWorkspace[newBlockInfo.location.stackIndex].findIndex(b => b.id === id) : -1
+  console.log('--- id', id)
+  console.log('--- workspaceToUpdate', workspaceToUpdate)
+  console.log('--- matchingPieceIndex', matchingPieceIndex)
+  if (matchingPieceIndex !== -1) newWorkspace[newBlockInfo.location.stackIndex].splice(matchingPieceIndex, 1)
+  console.log('--- after splice', newWorkspace)
+  if (matchingPieceIndex !== -1 && matchingPieceIndex < newBlockInfo.location.blockIndex) newBlockInfo.location.blockIndex -= 1
   newBlockInfo.isNewStack
     ? newWorkspace.splice(newBlockInfo.location.stackIndex, 0, [newBlockInfo.block])
     : newWorkspace[newBlockInfo.location.stackIndex].splice(newBlockInfo.location.blockIndex, 0, newBlockInfo.block)
