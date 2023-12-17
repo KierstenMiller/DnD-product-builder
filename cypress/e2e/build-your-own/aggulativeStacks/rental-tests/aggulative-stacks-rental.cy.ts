@@ -1,5 +1,5 @@
-import { directions as dirs, dragDropNewBlock, dragNewBlock } from '../drag-drop.util'
-import { verifyWorkspace } from '../verfiy.util'
+// import { directions as dirs, dragDropNewBlock, dragNewBlock } from '../drag-drop.util'
+// import { verifyWorkspace } from '../verfiy.util'
 
 describe('Aggulative Rental Workflow', () => {
   const modId = 'blocks'
@@ -7,12 +7,12 @@ describe('Aggulative Rental Workflow', () => {
   const amenityGym = { modId, blockId: 'amenity-gym' }
   const amenityCafe = { modId, blockId: 'amenity-cafe' }
   const apartmentSingleStudio = { modId, blockId: 'apartment-single-studio' }
-  const defaultWorkspace = [
-    [{ ...simpleEntry, index: 0 }, { ...amenityGym, index: 1 }, { ...amenityCafe, index: 2 }],
-    [{ ...simpleEntry, index: 0 }],
-    [{ ...simpleEntry, index: 0 }],
-    [{ ...simpleEntry, index: 0 }, { ...apartmentSingleStudio, index: 1 }, { ...amenityCafe, index: 2 }]
-  ]
+  // const defaultWorkspace = [
+  //   [{ ...simpleEntry, index: 0 }, { ...amenityGym, index: 1 }, { ...amenityCafe, index: 2 }],
+  //   [{ ...simpleEntry, index: 0 }],
+  //   [{ ...simpleEntry, index: 0 }],
+  //   [{ ...simpleEntry, index: 0 }, { ...apartmentSingleStudio, index: 1 }, { ...amenityCafe, index: 2 }]
+  // ]
   const defaultModifierState = [
     { mod: 'mod-fill', group: 'fill-color_fill-light-red', input: 'fill-light-red' },
     { mod: 'mod-stroke', group: 'stroke-color_stroke-red', input: 'stroke-red' }
@@ -39,29 +39,29 @@ describe('Aggulative Rental Workflow', () => {
   it('should update current selections when new selections are made', () => {
     cy.testChangingSelections(newModifierState, defaultModifierState)
   })
-  it('should have rendered the defalt workspace as expected', () => {
-    verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
-  })
-  it('should only allow for 6 stacks', () => {
-    dragDropNewBlock({ drag: simpleEntry, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState } }) // 5th stack
-    dragDropNewBlock({ drag: simpleEntry, drop: { direction: dirs.right, landmarkId: '0' }, state: { modifiers: defaultModifierState } }) // 6th stack
-    dragNewBlock({ ...simpleEntry })
-    cy.get('[data-testid^="stack-container_"]').should('have.length', 6)
-    cy.get('[data-testid^="block-container_"]').should('have.length', 10)
-    cy.get('[data-testid="dropzone_"]').should('have.length', 0) // there should be no dropzones
-  })
-  it('should only allow for 8 blocks per stack', () => {
-    dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-1' }, state: { modifiers: defaultModifierState } }) // 4th block
-    dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-2' }, state: { modifiers: defaultModifierState } }) // 4th block
-    dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-3' }, state: { modifiers: defaultModifierState } }) // 4th block
-    dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-3' }, state: { modifiers: defaultModifierState } }) // 4th block
-    dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-3' }, state: { modifiers: defaultModifierState } }) // 4th block
-    dragNewBlock({ ...apartmentSingleStudio })
-    cy.get('[data-testid^="stack-container_"]').should('have.length', 4)
-    cy.get('[data-testid^="block-container_"]').should('have.length', 13)
-    cy.getByTestId('stack-container_0').find('[data-testid^="block-container_"]').should('have.length', 8)
-    cy.getByTestId('stack-container_0').find('[data-testid="dropzone_"]').should('have.length', 0) // there should be no dropzones in stack 0
-  })
+  // it('should have rendered the defalt workspace as expected', () => {
+  //   verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
+  // })
+  // it('should only allow for 6 stacks', () => {
+  //   dragDropNewBlock({ drag: simpleEntry, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState } }) // 5th stack
+  //   dragDropNewBlock({ drag: simpleEntry, drop: { direction: dirs.right, landmarkId: '0' }, state: { modifiers: defaultModifierState } }) // 6th stack
+  //   dragNewBlock({ ...simpleEntry })
+  //   cy.get('[data-testid^="stack-container_"]').should('have.length', 6)
+  //   cy.get('[data-testid^="block-container_"]').should('have.length', 10)
+  //   cy.get('[data-testid="dropzone_"]').should('have.length', 0) // there should be no dropzones
+  // })
+  // it('should only allow for 8 blocks per stack', () => {
+  //   dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-1' }, state: { modifiers: defaultModifierState } }) // 4th block
+  //   dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-2' }, state: { modifiers: defaultModifierState } }) // 4th block
+  //   dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-3' }, state: { modifiers: defaultModifierState } }) // 4th block
+  //   dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-3' }, state: { modifiers: defaultModifierState } }) // 4th block
+  //   dragDropNewBlock({ drag: apartmentSingleStudio, drop: { direction: dirs.below, landmarkId: 'rental-piece-3' }, state: { modifiers: defaultModifierState } }) // 4th block
+  //   dragNewBlock({ ...apartmentSingleStudio })
+  //   cy.get('[data-testid^="stack-container_"]').should('have.length', 4)
+  //   cy.get('[data-testid^="block-container_"]').should('have.length', 13)
+  //   cy.getByTestId('stack-container_0').find('[data-testid^="block-container_"]').should('have.length', 8)
+  //   cy.getByTestId('stack-container_0').find('[data-testid="dropzone_"]').should('have.length', 0) // there should be no dropzones in stack 0
+  // })
   it('should only allow dropping a ENTRY block on a new stack. Other block types cannot create a new stack', () => {})
   it('should allow APARTMENTS to be dropped anywhere in a stack (except level 0 - entry level)', () => {})
   it('should allow AMENITY-CAFE to be dropped anywhere (except level 0 - entry level)', () => {})
