@@ -2,11 +2,11 @@
 // import { verifyWorkspace } from '../verfiy.util'
 
 describe('Aggulative Rental Workflow', () => {
-  const modId = 'blocks'
-  const simpleEntry = { modId, blockId: 'simple-entry' }
-  const amenityGym = { modId, blockId: 'amenity-gym' }
-  const amenityCafe = { modId, blockId: 'amenity-cafe' }
-  const apartmentSingleStudio = { modId, blockId: 'apartment-single-studio' }
+  // const modId = 'blocks'
+  // const simpleEntry = { modId, blockId: 'simple-entry' }
+  // const amenityGym = { modId, blockId: 'amenity-gym' }
+  // const amenityCafe = { modId, blockId: 'amenity-cafe' }
+  // const apartmentSingleStudio = { modId, blockId: 'apartment-single-studio' }
   // const defaultWorkspace = [
   //   [{ ...simpleEntry, index: 0 }, { ...amenityGym, index: 1 }, { ...amenityCafe, index: 2 }],
   //   [{ ...simpleEntry, index: 0 }],

@@ -40,7 +40,7 @@ describe('Aggulative Workflow', () => {
   })
   dragDropNewBlockScenarios.forEach(s => {
     it(`${s.index}: should allow the NEW BLOCK *${s.drag.modId}-${s.drag.value}* to be dragged, application of *${s.state.changeSelections ? 'new' : 'default'}* selection(s), and drop it *${s.drop.direction}* of the *${s.drop.landmarkId}* ${s.drop.direction === dirs.left || s.drop.direction === dirs.right ? 'block' : 'stack'}`, () => {
-      const newWorkspace = getNewWorkspace({ workspaceToUpdate: defaultWorkspace, newBlockInfo: s.newBlockInfo, landmarkId: s.drop.landmarkId })
+      const newWorkspace = getNewWorkspace({ workspaceToUpdate: defaultWorkspace, newBlockInfo: s.newBlockInfo })
       doActionThenVerify({
         currentState: { workspace: defaultWorkspace, modifiers: defaultModifierState },
         newState: { workspace: newWorkspace, modifiers: s.state.changeSelections ? newModifierState : defaultModifierState },
