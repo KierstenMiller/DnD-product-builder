@@ -24,6 +24,9 @@ export interface dragDropBlockI {
   drag: dragBlockI
   drop: dropI
   state: stateI
+  customValidation?: {
+    id: string
+  }
 }
 export interface dragDropNewBlockI {
   drag: dragNewBlockI
@@ -49,14 +52,14 @@ export const dragNewBlock = ({ modId, value }: dragNewBlockI) => {
   cy.toggleModifier({ modId: `mod-${modId}`, isOpen: false })
 }
 
-export const dragDropBlock = ({ drag, drop, state }: dragDropBlockI) => {
+const verifyDrop = ({ drag, drop, state, customValidation }: dragDropBlockI) => {
+  const validationId = customValidation?.id ?? drop.landmarkId
   const containerSelector = drop.direction === directions.above || drop.direction === directions.below ? 'block-container' : 'stack-container'
-  state.changeSelections && cy.changeSelections(state.modifiers)
-  cy.getByTestId(`dragzone_${drag.id ?? drag.value}`)
-    .dragDrop(`dropzone_${drop.landmarkId}-${drop.direction}`, true)
-  cy.getByTestId(`${containerSelector}_${drop.landmarkId}`)
+  cy.getByTestId(`${containerSelector}_${validationId}`)
     .then($el => { // validate the new block is in the correct position
-      if (drag.id === drop.landmarkId) return cy.wrap($el) // NOTE: special case where the block is dropped in the same location - there is no previous or next element in this scenario
+      // NOTE: drag.id === validationId is a special case where the block is dropped in the same location - there is no previous or next element in this scenario
+      // NOTE: customValidation?.id indicates we are checking a specific element, not the next or previous element
+      if (customValidation?.id != null || drag.id === validationId) return cy.wrap($el)
       switch (drop.direction) {
         case directions.left:
           return cy.wrap($el)
@@ -75,6 +78,16 @@ export const dragDropBlock = ({ drag, drop, state }: dragDropBlockI) => {
         })
       })
     })
+}
+
+export const dragDropBlock = ({ drag, drop, state, customValidation }: dragDropBlockI) => {
+  state.changeSelections && cy.changeSelections(state.modifiers)
+  cy.getByTestId('stack-container_0').find('[data-testid^="block-container_"]').then($all => {
+    cy.wrap($all)
+  })
+  cy.getByTestId(`dragzone_${drag.id ?? drag.value}`)
+    .dragDrop(`dropzone_${drop.landmarkId}-${drop.direction}`, true)
+  verifyDrop({ drag, drop, state, customValidation })
 }
 export const dragDropNewBlock = ({ drag, drop, state }: dragDropNewBlockI) => {
   cy.toggleModifier({ modId: `mod-${drag.modId}`, isOpen: true })

@@ -27,7 +27,7 @@ describe('Aggulative Workflow', () => {
     { index: 16, drag: doubleBlock, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 0 }, block: { ...doubleBlock, index: 0 }, isNewStack: true } },
     { index: 17, drag: quadBlock, drop: { direction: dirs.right, landmarkId: '0' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 1, blockIndex: 0 }, block: { ...quadBlock, index: 0 }, isNewStack: true } },
     { index: 18, drag: quadBlock, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 0 }, block: { ...quadBlock, index: 0 }, isNewStack: true } },
-    // add new blocks to new stacks, changing selections
+    // add new blocks to make new stacks, changing selections
     { index: 19, drag: singleBlock, drop: { direction: dirs.right, landmarkId: '0' }, state: { modifiers: newModifierState, changeSelections: true }, newBlockInfo: { location: { stackIndex: 1, blockIndex: 0 }, block: { ...singleBlock, index: 0 }, isNewStack: true } },
     { index: 20, drag: singleBlock, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: newModifierState, changeSelections: true }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 0 }, block: { ...singleBlock, index: 0 }, isNewStack: true } },
     { index: 21, drag: doubleBlock, drop: { direction: dirs.right, landmarkId: '0' }, state: { modifiers: newModifierState, changeSelections: true }, newBlockInfo: { location: { stackIndex: 1, blockIndex: 0 }, block: { ...doubleBlock, index: 0 }, isNewStack: true } },

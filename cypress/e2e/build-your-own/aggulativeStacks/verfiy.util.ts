@@ -21,8 +21,16 @@ interface verifyWorkspaceAfterActionI {
 export const getNewWorkspace = ({ workspaceToUpdate, newBlockInfo, id }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: newBlockInfoI, id?: string }) => {
   const newWorkspace = workspaceToUpdate.map(s => s.map(b => ({ ...b })))
   const match = id ? findIndex(newWorkspace, id) : null
-  if (match) newWorkspace[match.stack].splice(match.block, 1)
-  if (match && match.block < newBlockInfo.location.blockIndex) newBlockInfo.location.blockIndex -= 1
+  const droppingOnSelf = !newBlockInfo.isNewStack && match && match.stack === newBlockInfo.location.stackIndex && match.block === newBlockInfo.location.blockIndex
+  if (droppingOnSelf) return newWorkspace
+  if (match) { // if block is found, remove it from the workspace and clear empty stacks
+    newWorkspace[match.stack].splice(match.block, 1)
+    if (match.block < newBlockInfo.location.blockIndex) newBlockInfo.location.blockIndex -= 1
+    if (newWorkspace[match.stack].length === 0) {
+      newWorkspace.splice(match.stack, 1)
+      if (match.stack < newBlockInfo.location.stackIndex) newBlockInfo.location.stackIndex -= 1
+    }
+  }
   newBlockInfo.isNewStack
     ? newWorkspace.splice(newBlockInfo.location.stackIndex, 0, [newBlockInfo.block])
     : newWorkspace[newBlockInfo.location.stackIndex].splice(newBlockInfo.location.blockIndex, 0, newBlockInfo.block)
