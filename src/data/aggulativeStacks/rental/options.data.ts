@@ -94,7 +94,7 @@ export const blockOptions = [
     rank: 3,
     validation: [
       { type: validationValues.has, values: ['simple-entry', 'fancy-entry', 'raised-entry'] },
-      { type: validationValues.position, values: ['level-4', 'level-5', 'level-6', 'level-7', 'level-8'] }
+      { type: validationValues.position, values: ['level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'level-8'] }
     ]
   },
   {

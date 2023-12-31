@@ -4,7 +4,7 @@ export interface dragBlockI {
   value: string
   id?: string // NOTE: this is only existing blocks have ids
 }
-interface dragNewBlockI extends dragBlockI {
+export interface dragNewBlockI extends dragBlockI {
   modId: string
 }
 interface dropI {

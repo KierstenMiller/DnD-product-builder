@@ -1,17 +1,31 @@
-import { directions as dirs, dragDropNewBlock, dragNewBlock } from '../drag-drop.util'
+import { directions as dirs, dragDropNewBlock, dragNewBlock, type dragNewBlockI } from '../drag-drop.util'
 import { verifyWorkspace } from '../verfiy.util'
 
 describe('Aggulative Rental Workflow', () => {
+  const newStackRegex = /^dropzone_[0-9]-(left|right)$/
+  const newBlockRegex = /^dropzone_rental-piece-[0-9]-(above|below)$/
+
   const modId = 'blocks'
   const simpleEntry = { modId, value: 'simple-entry' }
-  const amenityGym = { modId, value: 'amenity-gym' }
-  const amenityCafe = { modId, value: 'amenity-cafe' }
+  const fancyEntry = { modId, value: 'fancy-entry' }
+  const raisedEntry = { modId, value: 'raised-entry' }
   const apartmentSingleStudio = { modId, value: 'apartment-single-studio' }
+  const apartmentDoubleStudio = { modId, value: 'apartment-double-studio' }
+  const apartmentSingleOne = { modId, value: 'apartment-single-one' }
+  const apartmentDoubleOne = { modId, value: 'apartment-double-one' }
+  const amenityPool = { modId, value: 'amenity-pool' }
+  const amenityObservatory = { modId, value: 'amenity-observatory' }
+  const amenityCafe = { modId, value: 'amenity-cafe' }
+  const amenityDinning = { modId, value: 'amenity-dinning' }
+  const amenityKitchen = { modId, value: 'amenity-kitchen' }
+  const amenityGym = { modId, value: 'amenity-gym' }
+  const amenityLocker = { modId, value: 'amenity-locker' }
+
   const defaultWorkspace = [
     [{ ...simpleEntry, index: 0 }, { ...amenityGym, index: 1 }, { ...amenityCafe, index: 2 }],
     [{ ...simpleEntry, index: 0 }],
     [{ ...simpleEntry, index: 0 }],
-    [{ ...simpleEntry, index: 0 }, { ...apartmentSingleStudio, index: 1 }, { ...amenityCafe, index: 2 }]
+    [{ ...simpleEntry, index: 0 }, { ...amenityCafe, index: 1 }, { ...amenityDinning, index: 2 }]
   ]
   const defaultModifierState = [
     { mod: 'mod-fill', group: 'fill-color_fill-light-red', input: 'fill-light-red' },
@@ -62,12 +76,57 @@ describe('Aggulative Rental Workflow', () => {
     cy.getByTestId('stack-container_0').find('[data-testid^="block-container_"]').should('have.length', 8)
     cy.getByTestId('stack-container_0').find('[data-testid="dropzone_"]').should('have.length', 0) // there should be no dropzones in stack 0
   })
-  it('should only allow dropping a ENTRY block on a new stack. Other block types cannot create a new stack', () => {})
-  it('should allow APARTMENTS to be dropped anywhere in a stack (except level 0 - entry level)', () => {})
-  it('should allow AMENITY-CAFE to be dropped anywhere (except level 0 - entry level)', () => {})
-  it('should allow AMENITY-GYM to be dropped anywhere (except level 0 - entry level)', () => {})
-  it('should only alllow AMENITY-POOL to be dropped on level 1', () => {})
-  it('should only allow AMENITY-OBSERVATORY on level 4, 5, 6, 7, and 8', () => {})
+  it('should only allow dropping a ENTRY block to create a new stack. Other block types cannot create a new stack', () => {
+    const entryBlocks = [{ block: simpleEntry, regex: newStackRegex }, { block: fancyEntry, regex: newStackRegex }, { block: raisedEntry, regex: newStackRegex }]
+    const nonEntryBlocks = [{ block: apartmentSingleStudio, regex: newBlockRegex }, { block: apartmentDoubleStudio, regex: newBlockRegex }, { block: apartmentSingleOne, regex: newBlockRegex }, { block: apartmentDoubleOne, regex: newBlockRegex }, { block: amenityPool, regex: newBlockRegex }, { block: amenityObservatory, regex: newBlockRegex }, { block: amenityCafe, regex: newBlockRegex }, { block: amenityDinning, regex: newBlockRegex }, { block: amenityKitchen, regex: newBlockRegex }, { block: amenityGym, regex: newBlockRegex }, { block: amenityLocker, regex: newBlockRegex }]
+    cy.wrap([...entryBlocks, ...nonEntryBlocks])
+      .each((test: { block: dragNewBlockI, regex: typeof newStackRegex | typeof newBlockRegex }) => { // using Cypress.each() to ensure syncronous execution of tests https://docs.cypress.io/guides/core-concepts/variables-and-aliases
+        cy.log(`*** TESTING ${test.block.value} ***`)
+        dragNewBlock({ ...test.block })
+        cy.get('[data-testid^="dropzone_"]').each((el) => {
+          cy.wrap(el).invoke('attr', 'data-testid').should('match', test.regex)
+        })
+      })
+  })
+  it('should allow APARTMENTS to be dropped anywhere in a stack (except level 0 - entry level)', () => {
+    const apartmentValidDropRegex = /^dropzone_rental-piece-[1-9]-(above|below)$/
+    const apartmentBlocks = [apartmentSingleStudio, apartmentDoubleStudio, apartmentSingleOne, apartmentDoubleOne]
+    cy.wrap(apartmentBlocks).each((block: dragNewBlockI) => { // using Cypress.each() to ensure syncronous execution of tests https://docs.cypress.io/guides/core-concepts/variables-and-aliases
+      cy.log(`*** TESTING ${block.value} ***`)
+      dragNewBlock({ ...block })
+      cy.get('[data-testid^="dropzone_"]').each((el) => {
+        cy.wrap(el).invoke('attr', 'data-testid').should('match', apartmentValidDropRegex)
+      })
+    })
+  })
+  it('should allow AMENITY-CAFE to be dropped anywhere (except level 0 - entry level)', () => {
+    const cafeValidDropRegex = /^dropzone_rental-piece-[1-9]-(above|below)$/
+    dragNewBlock({ ...amenityCafe })
+    cy.get('[data-testid^="dropzone_"]').each((el) => {
+      cy.wrap(el).invoke('attr', 'data-testid').should('match', cafeValidDropRegex)
+    })
+  })
+  it('should allow AMENITY-GYM to be dropped anywhere (except level 0 - entry level)', () => {
+    const gymValidDropRegex = /^dropzone_rental-piece-[1-9]-(above|below)$/
+    dragNewBlock({ ...amenityGym })
+    cy.get('[data-testid^="dropzone_"]').each((el) => {
+      cy.wrap(el).invoke('attr', 'data-testid').should('match', gymValidDropRegex)
+    })
+  })
+  it('should only alllow AMENITY-POOL to be dropped on level 1', () => {
+    const poolValidDropRegex = /^dropzone_rental-piece-[1|4|5|6]-below$/
+    dragNewBlock({ ...amenityPool })
+    cy.get('[data-testid^="dropzone_"]').each((el) => {
+      cy.wrap(el).invoke('attr', 'data-testid').should('match', poolValidDropRegex)
+    })
+  })
+  it('should only allow AMENITY-OBSERVATORY on level 3, 4, 5, 6, 7, and 8', () => {
+    const observatoryValidDropRegex = /dropzone_rental-piece-[3-8]-below/
+    dragNewBlock({ ...amenityObservatory })
+    cy.get('[data-testid^="dropzone_"]').each((el) => {
+      cy.wrap(el).invoke('attr', 'data-testid').should('match', observatoryValidDropRegex)
+    })
+  })
   it('should only allow AMENITY-LOCKER to be dropped if all conditions are met: 1: stack has a AMENITY-GYM 2: it is being placed directly next to a AMENITY-GYM, 3: it is being placed on a valid level (1-5)', () => {})
   it('should only allow AMENITY-KITCHEN to be dropped if all conditions are met: 1: stack has a AMENITY-CAFE and a AMENITY-DINNING, 2: it is being placed directly next to a AMENITY-DINNING, 3: it is being place on a valid level (1-8)', () => {})
   // TODO: should be able to drag blocks in the stacks to other stacks, or a new location in the same stack
