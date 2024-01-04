@@ -35,10 +35,6 @@ describe('Aggulative Rental Workflow', () => {
     { mod: 'mod-fill', group: 'fill-color_fill-blue', input: 'fill-blue' },
     { mod: 'mod-stroke', group: 'stroke-color_stroke-blue', input: 'stroke-blue' }
   ]
-  // const newerModifierState = [
-  //   { mod: 'mod-fill', group: 'fill-color_fill-green', input: 'fill-green' },
-  //   { mod: 'mod-stroke', group: 'stroke-color_stroke-red', input: 'stroke-red' }
-  // ]
   beforeEach(() => {
     cy.visit('/build-your-own/aggulative/rental')
   })
@@ -127,7 +123,21 @@ describe('Aggulative Rental Workflow', () => {
       cy.wrap(el).invoke('attr', 'data-testid').should('match', observatoryValidDropRegex)
     })
   })
-  it('should only allow AMENITY-LOCKER to be dropped if all conditions are met: 1: stack has a AMENITY-GYM 2: it is being placed directly next to a AMENITY-GYM, 3: it is being placed on a valid level (1-5)', () => {})
-  it('should only allow AMENITY-KITCHEN to be dropped if all conditions are met: 1: stack has a AMENITY-CAFE and a AMENITY-DINNING, 2: it is being placed directly next to a AMENITY-DINNING, 3: it is being place on a valid level (1-8)', () => {})
+  it('should only allow AMENITY-LOCKER to be dropped if all conditions are met: 1: stack has a AMENITY-GYM 2: it is being placed directly next to a AMENITY-GYM, 3: it is being placed on a valid level (1-5)', () => {
+    const lockerValidDropRegex = /^dropzone_rental-piece-[1-2]-below$/
+    dragNewBlock({ ...amenityLocker })
+    cy.get('[data-testid^="dropzone_"]').each((el) => {
+      cy.wrap(el).invoke('attr', 'data-testid').should('match', lockerValidDropRegex)
+    })
+  })
+  it('should only allow AMENITY-KITCHEN to be dropped if all conditions are met: 1: stack has a AMENITY-CAFE and a AMENITY-DINNING, 2: it is being placed directly next to a AMENITY-DINNING, 3: it is being place on a valid level (1-8)', () => {
+    const kitchenValidDropRegex = /^dropzone_rental-piece-[7-8]-below$/
+    dragNewBlock({ ...amenityKitchen })
+    cy.get('[data-testid^="dropzone_"]').each((el) => {
+      cy.wrap(el).invoke('attr', 'data-testid').should('match', kitchenValidDropRegex)
+    })
+  })
+  // TODO: All above tests but with existing blocks instead of new blocks
+  // TODO: Mix up existing and new blocks and test validity of drops after each
   // TODO: should be able to drag blocks in the stacks to other stacks, or a new location in the same stack
 })
