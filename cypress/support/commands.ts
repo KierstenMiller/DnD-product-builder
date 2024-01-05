@@ -49,6 +49,7 @@ Cypress.Commands.add('dragDrop', { prevSubject: 'element' }, (sourceSelector, ta
     .trigger('drag', {})
   cy.getByTestId(targetSelector)
     .trigger('dragover', { dataTransfer })
+  cy.getByTestId(targetSelector)
     .trigger('drop', { dataTransfer })
     .then(el => {
       if (!skipCleanup) {
