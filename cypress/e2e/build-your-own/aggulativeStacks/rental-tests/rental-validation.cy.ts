@@ -139,5 +139,4 @@ describe('Aggulative Rental Workflow', () => {
   })
   // TODO: All above tests but with existing blocks instead of new blocks
   // TODO: Mix up existing and new blocks and test validity of drops after each
-  // TODO: should be able to drag blocks in the stacks to other stacks, or a new location in the same stack
 })
