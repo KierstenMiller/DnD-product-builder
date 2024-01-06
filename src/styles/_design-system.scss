@@ -3,12 +3,18 @@ $font-unit: 1rem;
 // maps
 $font-sizes: (
     xx-small: $font-unit,
-    x-small: calc(1.25 * var($font-unit)),
-    small: calc(1.5 * var($font-unit)),
-    medium: calc(1.75 * var($font-unit)),
-    large: calc(2 * var($font-unit)),
-    x-large: calc(2.25 * var($font-unit)),
-    xx-large: calc(2.5 * var($font-unit)),
+    x-small: calc(1.25 * $font-unit),
+    // 12.5px
+    small: calc(1.5 * $font-unit),
+    // 15px
+    medium: calc(1.75 * $font-unit),
+    // 17.5px
+    large: calc(2 * $font-unit),
+    // 20px
+    x-large: calc(2.25 * $font-unit),
+    // 22.5px
+    xx-large: calc(2.5 * $font-unit),
+    // 25px
 );
 $spacing-sizes: (
     xxx-small: 1px,
@@ -59,9 +65,8 @@ $colors: (
     }
 
         {
-
-        // if current value of key-value pair is another map, recurse
         @if type-of($value)=='map' {
+            // if current value of key-value pair is another map, recurse
             @include modifiers($value, $attribute, $seperator);
         }
 

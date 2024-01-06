@@ -1,0 +1,36 @@
+@use '#/_design-system' as ds;
+
+// TODO: figure out a better way to globally style lower leaf components... this is a bad solution because of the namespace conflicts. This would be better as plain css solution...
+.app {
+    background: #2d2219;
+
+    * {
+        font-family: futura;
+    }
+
+    button {
+        background-color: #ffaed0;
+    }
+}
+
+.columnRight {
+    background: #faff52;
+    padding: ds.getSpace('xx-large') ds.getSpace('medium');
+
+    .description {
+        padding: 0;
+    }
+}
+
+.accordionContainer {
+    margin-top: ds.getSpace('small');
+
+    .accordionTrigger {
+        background: transparent;
+        border: 1px solid black;
+        border-radius: 8px;
+        align-items: center;
+        padding: ds.getSpace('medium');
+        font-size: ds.getFontSize('small');
+    }
+}

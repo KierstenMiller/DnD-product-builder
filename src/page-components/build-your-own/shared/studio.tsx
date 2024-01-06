@@ -6,16 +6,15 @@ import { type StandardModelT, type globalRulesI, type modifiersT, type validatio
 import { getDisplay, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
 import { ModifierGroups } from '-/page-components/build-your-own/shared/modifier/modifierGroups'
 
-import styles from '#/Home.module.scss'
-
 interface propsI {
   model: StandardModelT
   modifiers: modifiersT
+  styles: any // K-TODO: type this
   globalValidation?: globalRulesI
   validationLibrary?: validationLibraryT
 }
 
-export const Studio = observer(({ model, modifiers, globalValidation, validationLibrary }: propsI) => {
+export const Studio = observer(({ model, modifiers, styles, globalValidation, validationLibrary }: propsI) => {
   const Workspace = getWorkspace(model.builder.type)
   const Display = getDisplay(model.builder.type)
   return (<DndProvider backend={HTML5Backend}>
@@ -41,7 +40,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
                         <Display build={model.builder.build} config={model.config} />
                     </div>
                 </div>
-                <ModifierGroups model={model} modifiers={modifiers} />
+                <ModifierGroups model={model} modifiers={modifiers} styles={styles}/>
             </div>
         </div>
     </DndProvider>)

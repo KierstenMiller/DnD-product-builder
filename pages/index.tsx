@@ -1,7 +1,9 @@
-import styles from '#/Home.module.scss'
+import baseStyles from '#/Home.module.scss'
+import pencilScheme from '#/pencil-scheme.module.scss'
 import Head from 'next/head'
 
 export default function Home () {
+  const styles = { ...baseStyles, ...pencilScheme }
   return (
     <>
       <Head>

@@ -22,21 +22,22 @@ interface Props {
 export const BasicAccordion = ({
   id, headerText, headerLevel, testId, drawerOpen = false, disableCollapse = false, children, stylesOverride = {}
 }: Props) => {
-  const styles = { ...defaultStyles, ...stylesOverride }
+//   const styles = { ...defaultStyles, ...stylesOverride }
+  const getStyles = (id: string) => classNames(defaultStyles[id], stylesOverride[id])
   const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse)
   const toggleDrawerVisibility = () => { !disableCollapse && setIsOpen(!isOpen) }
-  return <div data-testid={testId} className={styles.container}>
-        <Header headerLevel={headerLevel} className={styles.accordionTriggerContainer}>
+  return <div data-testid={testId} className={getStyles('accordionContainer')}>
+        <Header headerLevel={headerLevel} className={getStyles('accordionTriggerContainer')}>
             <button
                 aria-expanded={isOpen}
-                className={`${styles.accordionTrigger} h${headerLevel}`}
+                className={`${getStyles('accordionTrigger')} h${headerLevel}`}
                 aria-controls={`${id}-content`}
                 aria-disabled={disableCollapse}
                 id={id}
                 onClick={toggleDrawerVisibility}
             >
                 {headerText}{' '}
-                {!disableCollapse && <span className={styles.arrowContainer}>
+                {!disableCollapse && <span className={getStyles('arrowContainer')}>
                     <span className={classNames(defaultStyles.arrow, isOpen ? defaultStyles.up : defaultStyles.down)} />
                 </span>}
             </button>
@@ -46,7 +47,7 @@ export const BasicAccordion = ({
             role="region"
             aria-labelledby={id}
             // // including "display-none" css and the "hidden" attribute for older browsers. They do the same thing but it's good to have both
-            className={classNames(styles.accordionContent, !isOpen && defaultStyles.hidden)}
+            className={classNames(getStyles('accordionContent'), !isOpen && defaultStyles.hidden)}
             hidden={!isOpen}
         >
             {children}
