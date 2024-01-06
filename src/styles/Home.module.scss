@@ -18,22 +18,15 @@
   top: 0; // Threshold is required
 }
 
-.columnLeft {
-  background: lightgreen;
-}
+.columnLeft {}
 
-.columnRight {
-  background: lightyellow;
-}
+.columnRight {}
 
 .image {
-  background: palevioletred;
   min-height: 180px;
-  border-bottom: 3px solid pink;
 }
 
 .dots {
-  background: coral;
   height: 70px;
 }
 
@@ -47,9 +40,6 @@
 
 .selector {
   height: 80px;
-  background: blue;
-  color: yellow;
-  border-bottom: 3px solid pink;
 }
 
 .summary {
@@ -57,6 +47,5 @@
 }
 
 .otherContent {
-  background: yellow;
   height: 1000px;
 }
