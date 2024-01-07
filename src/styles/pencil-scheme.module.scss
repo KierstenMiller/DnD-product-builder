@@ -1,4 +1,5 @@
-@use '#/_design-system' as ds;
+@use "#/design-system/_spacing" as space;
+@use "#/design-system/_text" as text;
 
 // TODO: figure out a better way to globally style lower leaf components... this is a bad solution because of the namespace conflicts. This would be better as plain css solution...
 .app {
@@ -15,7 +16,7 @@
 
 .columnRight {
     background: #faff52;
-    padding: ds.getSpace('xx-large') ds.getSpace('medium');
+    padding: space.$large; // space.$medium;
 
     .description {
         padding: 0;
@@ -23,14 +24,14 @@
 }
 
 .accordionContainer {
-    margin-top: ds.getSpace('small');
+    margin-top: space.$small;
 
     .accordionTrigger {
         background: transparent;
         border: 1px solid black;
         border-radius: 8px;
         align-items: center;
-        padding: ds.getSpace('medium');
-        font-size: ds.getFontSize('small');
+        padding: space.$medium;
+        font-size: text.$small;
     }
 }

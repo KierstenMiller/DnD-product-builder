@@ -1,0 +1,12 @@
+$colors: (
+    red: #ff3538,
+    grey: (base: #404145,
+        light: #c7c7cd),
+    yellow: (base: #ecaf2d),
+    green: (base: #5ad864)
+);
+
+// functions
+@function getColor($scheme, $tone: base) {
+    @return map-get(map-get($colors, $scheme), $tone);
+}

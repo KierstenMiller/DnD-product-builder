@@ -1,0 +1,22 @@
+// TODO: get VSCode to format this file properly
+@mixin modifiers($map, $attribute, $prefix: '-', $seperator: '-', $base: 'base') {
+
+    @each $key,
+    $value in $map {
+        // if key is specified as the 'base', do not add key to class's name
+        &#{if($key != $base, #{$prefix}#{$key},
+        '')
+    }
+
+        {
+        @if type-of($value)=='map' {
+            // if current value of key-value pair is another map, recurse
+            @include modifiers($value, $attribute, $seperator);
+        }
+
+        @else {
+            #{$attribute}: $value;
+        }
+    }
+}
+}
