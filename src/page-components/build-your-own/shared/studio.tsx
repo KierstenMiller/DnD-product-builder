@@ -10,7 +10,9 @@ import { useContext } from 'react'
 import { ThemeContext } from '../build-your-own-page'
 
 // TODO: refactor to make this studio specific
+import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import defaultStyles from '-/page-components/build-your-own/build-your-own-layout.module.scss'
+import classNames from 'classnames'
 
 interface propsI {
   model: StandardModelT
@@ -25,7 +27,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
   const Workspace = getWorkspace(model.builder.type)
   const Display = getDisplay(model.builder.type)
   return (<DndProvider backend={HTML5Backend}>
-        <div className={styles('row')}>
+        <div className={classNames(styles('row'), styles('sticky'))}>
             <div className={`${styles('column')} ${styles('columnLeft')}`}>
                 {model.builder.build && <div data-testid="workspace" className={styles('image')}>
                     <Workspace build={model.builder.build} globalValidation={globalValidation} validationLibrary={validationLibrary} />
@@ -48,6 +50,18 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
                     </div>
                 </div>
                 <ModifierGroups model={model} modifiers={modifiers}/>
+                {/* TODO: ADD CLASSNAME 'MODIFIER' AT END OF 'accordionContainer' CLASSNAME TO PREVENT NEEDING ANOTHER DIV HERE */}
+                <div className={styles('cost')}>
+                    <BasicAccordion id="cost" headerText="Total Cost: $000,000" headerLevel={2}>
+                        <div>Materials: $000,000</div>
+                        <div>Labor: $000,000</div>
+                        <div>Logistics: $000,000</div>
+                        <div>Overall cost of build: $000,000</div>
+                        <div>Tax: $000,000</div>
+                        <div>Insurance: $000,000</div>
+                        <div>Total: $000,000</div>
+                    </BasicAccordion>
+                </div>
             </div>
         </div>
     </DndProvider>)

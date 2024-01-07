@@ -9,13 +9,19 @@
 
 .row {
   display: flex;
-  align-items: flex-start;
+
+  &.sticky {
+    align-items: flex-start;
+
+    .column {
+      position: sticky;
+      top: 0; // Threshold is required
+    }
+  }
 }
 
 .column {
   width: 50%;
-  position: sticky;
-  top: 0; // Threshold is required
 }
 
 .summary {
