@@ -1,0 +1,27 @@
+.app {
+  overflow: hidden;
+}
+
+.pageContainer {
+  overflow-x: auto;
+  height: 100vh;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.column {
+  width: 50%;
+  position: sticky;
+  top: 0; // Threshold is required
+}
+
+.summary {
+  height: 400px;
+}
+
+.otherContent {
+  height: 1000px;
+}

@@ -11,13 +11,9 @@ import { displays } from './displays'
 import { adderDisplayValues } from './modifier.types'
 import { assembleOptionsMap } from './modifier.util'
 
-interface propsI {
-  mod: modifierI
-  onChange: ({ newSelection }: onChangeI) => void
-  styles: any // K-TODO: type this
-}
+interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
 
-export const ModifierInstance = observer(({ mod, onChange, styles }: propsI) => {
+export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
   const isAdder = Object.values(adderDisplayValues).some(aDV => aDV === mod.display)
   const theSort = Array.isArray(mod.sortBy) ? mod.sortBy[0] : mod.sortBy
   const newModifier = {
@@ -29,7 +25,6 @@ export const ModifierInstance = observer(({ mod, onChange, styles }: propsI) => 
   }
   return <BasicAccordion
     key={mod.id}
-    stylesOverride={styles}
     headerText={mod.label}
     headerLevel={3}
     testId={`${mod.id}-modifier`}

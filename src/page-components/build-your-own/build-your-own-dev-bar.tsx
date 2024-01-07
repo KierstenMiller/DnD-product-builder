@@ -1,12 +1,17 @@
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
+import { getStyles } from '-/util/helpers'
+import { useContext } from 'react'
+import { ThemeContext } from './build-your-own-page'
 import { dataAggulativeStacks, dataAggulativeStacksRental, dataFreeformMatrix, dataSingletonMock, dataSingletonRobot } from './builderRawData'
 
 export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }) => {
+  const theme = useContext(ThemeContext)
+  const styles = (id: string) => getStyles({}, theme, id)
   return (
-        <div>
+        <div className={styles('dev-bar')}>
             <BasicAccordion
                 id="workspace-goals"
-                headerText="Dev Bar"
+                headerText="Project Tools"
                 headerLevel={2}
             >
                 <span className="mr-medium"><b>UP NEXT:</b> Create slick design for website </span>

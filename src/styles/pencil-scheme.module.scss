@@ -1,9 +1,32 @@
 @use "#/design-system/_spacing" as space;
 @use "#/design-system/_text" as text;
 
-// TODO: figure out a better way to globally style lower leaf components... this is a bad solution because of the namespace conflicts. This would be better as plain css solution...
+.dev-bar {
+    * {
+        font-family: futura;
+    }
+
+    .accordionTrigger {
+        border-width: 0;
+        background: white;
+        align-items: center;
+        font-size: text.$small;
+        padding: space.$medium space.$large;
+
+        .arrowContainer {
+            display: flex;
+            margin-left: space.$medium;
+
+            .arrow {
+                border-width: 0 2px 2px 0;
+            }
+        }
+
+    }
+}
+
 .app {
-    background: #2d2219;
+    background: #131313;
 
     * {
         font-family: futura;
@@ -12,26 +35,71 @@
     button {
         background-color: #ffaed0;
     }
-}
 
-.columnRight {
-    background: #faff52;
-    padding: space.$large; // space.$medium;
+    .column {
+        padding: space.$x-large space.$large;
+    }
+
+    .columnLeft {
+        //align-self: flex-end;
+        padding-bottom: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        min-height: 369px; // TODO: refactor this to be dynamic and change as the website grows/shrinks
+    }
+
+    .columnRight {
+        background: #faff52;
+    }
+
+    .headline {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+    }
 
     .description {
-        padding: 0;
-    }
-}
+        padding-left: space.$medium;
+        padding-right: space.$medium;
+        padding-bottom: space.$x-large;
 
-.accordionContainer {
-    margin-top: space.$small;
-
-    .accordionTrigger {
-        background: transparent;
-        border: 1px solid black;
-        border-radius: 8px;
-        align-items: center;
-        padding: space.$medium;
-        font-size: text.$small;
+        .header {
+            margin-bottom: space.$small;
+        }
     }
+
+    .accordionContainer {
+        width: 100%;
+        margin-bottom: space.$medium;
+
+        .accordionTrigger {
+            background: transparent;
+            border: 1px solid black;
+            border-radius: 8px;
+            align-items: center;
+            padding: space.$medium;
+            font-size: text.$small;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: space.$medium;
+
+            .arrow {
+                border-width: 0 2px 2px 0;
+            }
+        }
+
+        .accordionContent {
+            padding: space.$medium;
+        }
+    }
+
+    .block-container {
+        .config {
+            display: none;
+        }
+    }
+
+
 }

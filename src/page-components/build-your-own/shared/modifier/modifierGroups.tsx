@@ -10,10 +10,9 @@ import { assembleModifierMap } from './modifier.util'
 interface BuildYourOwnPageI {
   model: StandardModelT
   modifiers: modifiersT
-  styles: any // K-TODO: type this
 }
 
-export const ModifierGroups = observer(({ model, modifiers, styles }: BuildYourOwnPageI) => {
+export const ModifierGroups = observer(({ model, modifiers }: BuildYourOwnPageI) => {
   const sortedGroupedModifiers = assembleModifierMap(modifiers, 'modifierChunkKey', sortByValues.descending)
   const getOptionValue = (modId: string, selectionId: string) => {
     const match = modifiers.find(mod => mod.id === modId)?.options.find(o => o.id === selectionId)?.value
@@ -25,7 +24,7 @@ export const ModifierGroups = observer(({ model, modifiers, styles }: BuildYourO
   }
   return <>
     {[...sortedGroupedModifiers.entries()].map(([category, modifierGroup]) => <BasicAccordionGroup key={category} className="mt-large">
-      {modifierGroup.map((mod: modifierI) => <ModifierInstance key={mod.id} mod={mod} styles={styles} onChange={(args) => { onChange(args, mod) }} />)}
+      {modifierGroup.map((mod: modifierI) => <ModifierInstance key={mod.id} mod={mod} onChange={(args) => { onChange(args, mod) }} />)}
     </BasicAccordionGroup>)
     }
   </>
