@@ -26,6 +26,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
   const styles = (id: string) => getStyles(defaultStyles, theme, id)
   const Workspace = getWorkspace(model.builder.type)
   const Display = getDisplay(model.builder.type)
+  console.log('Display', Display)
   return (<DndProvider backend={HTML5Backend}>
         <div className={classNames(styles('row'), styles('sticky'))}>
             <div className={`${styles('column')} ${styles('columnLeft')}`}>
@@ -34,7 +35,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
                 </div>}
             </div>
             <div className={`${styles('column')} ${styles('columnRight')} ${styles('isSticky')}`}>
-                <div className={styles('headline')}>
+                <div className={classNames(styles('headline'), { [styles('displayed')]: Display })}>
                     <div className={styles('description')}>
                         <h1 className={styles('header')}>Build Your Own</h1>
                         <h2>Current Selections</h2>
@@ -45,14 +46,14 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
                             </div>)}
                         </div>
                     </div>
-                    <div className={styles('displayContainer')}>
+                    {Display && <div className={styles('displayContainer')}>
                         <Display build={model.builder.build} config={model.config} />
-                    </div>
+                    </div>}
                 </div>
                 <ModifierGroups model={model} modifiers={modifiers}/>
                 {/* TODO: ADD CLASSNAME 'MODIFIER' AT END OF 'accordionContainer' CLASSNAME TO PREVENT NEEDING ANOTHER DIV HERE */}
                 <div className={styles('cost')}>
-                    <BasicAccordion id="cost" headerText="Total Cost: $000,000" headerLevel={2}>
+                    <BasicAccordion id="cost" triggerText="Total Cost: $000,000" headerLevel={2}>
                         <div>Materials: $000,000</div>
                         <div>Labor: $000,000</div>
                         <div>Logistics: $000,000</div>

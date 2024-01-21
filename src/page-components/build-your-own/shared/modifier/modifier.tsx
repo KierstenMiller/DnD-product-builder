@@ -25,7 +25,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
   }
   return <BasicAccordion
     key={mod.id}
-    headerText={mod.label}
+    triggerText={mod.label}
     headerLevel={3}
     testId={`${mod.id}-modifier`}
     id={mod.id}

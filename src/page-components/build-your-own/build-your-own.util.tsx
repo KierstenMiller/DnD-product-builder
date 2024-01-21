@@ -1,4 +1,3 @@
-import { AggulativeStacksDisplay } from '-/page-components/build-your-own/types/aggulative-stacks/components/aggulative-stacks-display'
 import { AggulativeStacksWorkspace } from '-/page-components/build-your-own/types/aggulative-stacks/components/aggulative-stacks-workspace'
 import { AggulativeStacksBuildModel } from '-/page-components/build-your-own/types/aggulative-stacks/models/aggulative-stacks.model'
 import { FreeformMatrixDisplay } from '-/page-components/build-your-own/types/freeform-matrix/components/freeform-matrix-display'
@@ -26,14 +25,14 @@ export const getWorkspace = (type: builderKeys): functionalComponentT => {
     default: throw new Error(`Workspace does not exist for provided builder type: ${type}`)
   }
 }
-export const getDisplay = (type: builderKeys): functionalComponentT => {
+export const getDisplay = (type: builderKeys): functionalComponentT | null => {
   switch (type) {
     case builderKeys.singleton:
       return SingletonDisplay
     case builderKeys.freeformMatrix:
       return FreeformMatrixDisplay
     case builderKeys.aggulativeStacks:
-      return AggulativeStacksDisplay
+      return null
     // NOTE: disabling this eslint/typescript warning. The type value is registered as 'never' by Typescript here (as we've covered all possible cases above.) We want to throw an error if type is not present in builderKeys.
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     default: throw new Error(`Builder type is not valid: ${type}`)

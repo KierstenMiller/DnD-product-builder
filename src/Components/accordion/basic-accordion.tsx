@@ -2,35 +2,42 @@ import classNames from 'classnames'
 import { useContext, useState } from 'react'
 
 import { Header, type headerLevelT } from '-/Components/atoms/header/header'
-
 import { ThemeContext } from '-/page-components/build-your-own/build-your-own-page'
-import { getStyles } from '-/util/helpers'
+import { ConditionalWrapper, getStyles } from '-/util/helpers'
 import defaultStyles from './basic-accordion-styles.module.scss'
 
 interface Props {
   children: React.ReactNode
-  headerText: string
-  headerLevel: headerLevelT
+  triggerText: string
   id: string
   // optional
   testId?: string // made optional to prevent DOM bloat
   drawerOpen?: boolean
   disableCollapse?: boolean
+  headerLevel?: headerLevelT
+  wrapped?: boolean
 }
 
-// TODO: Make cypress component test
 export const BasicAccordion = ({
-  id, headerText, headerLevel, testId, drawerOpen = false, disableCollapse = false, children
+  id, triggerText: headerText, headerLevel, testId, drawerOpen = false, disableCollapse = false, children, wrapped = true
 }: Props) => {
   const theme = useContext(ThemeContext)
   const styles = (id: string) => getStyles(defaultStyles, theme, id)
   const [isOpen, setIsOpen] = useState(drawerOpen || disableCollapse)
   const toggleDrawerVisibility = () => { !disableCollapse && setIsOpen(!isOpen) }
-  return <div data-testid={testId} className={styles('accordionContainer')}>
-        <Header headerLevel={headerLevel} className={styles('accordionTriggerContainer')}>
+  return <ConditionalWrapper
+    condition={wrapped}
+    wrapper={children => <div data-testid={testId} className={styles('accordionContainer')}>{children}</div>}
+  >
+    <>
+        <ConditionalWrapper
+            condition={Boolean(headerLevel)}
+            // Need to provide a fallback for the headerLevel because typescript can't tell headerLevel will always be defined here
+            wrapper={children => <Header headerLevel={headerLevel ?? '1'} className={styles('accordionTriggerContainer')}>{children}</Header>}
+        >
             <button
                 aria-expanded={isOpen}
-                className={`${styles('accordionTrigger')} h${headerLevel}`}
+                className={classNames(styles('accordionTrigger'), { [`h${headerLevel}`]: headerLevel })}
                 aria-controls={`${id}-content`}
                 aria-disabled={disableCollapse}
                 id={id}
@@ -41,7 +48,7 @@ export const BasicAccordion = ({
                     <span className={classNames(styles('arrow'), isOpen ? styles('up') : styles('down'))} />
                 </span>}
             </button>
-        </Header>
+        </ ConditionalWrapper>
         <div
             id={`${id}-content`}
             role="region"
@@ -52,5 +59,6 @@ export const BasicAccordion = ({
         >
             {children}
         </div>
-    </div>
+    </>
+  </ConditionalWrapper>
 }

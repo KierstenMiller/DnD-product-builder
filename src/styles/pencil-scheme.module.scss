@@ -1,10 +1,91 @@
 @use "#/design-system/_spacing" as space;
 @use "#/design-system/_text" as text;
 
+$borderRadius: 8px;
+
 // TODO: clean up all of this styling to use design system variables and just be... beter
+@mixin tube-trigger {
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 8px;
+    align-items: center;
+    padding: space.$medium;
+    font-size: text.$small;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: space.$medium;
+    font-family: system-ui; // TODO: See if this is machine specific (does Windows have a different font)
+    font-weight: 300;
+
+    .arrow {
+        border-width: 0 2px 2px 0;
+    }
+}
+
 .dev-bar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
     * {
         font-family: futura;
+    }
+
+    .menu {
+        button {
+            background: transparent;
+            border: transparent;
+            height: 100%;
+            font-size: text.$small;
+            margin-left: space.$medium;
+
+            &:hover {
+                background: rgb(223, 223, 223);
+            }
+        }
+    }
+
+    .status-goals-container {
+        display: flex;
+
+
+        .status {
+            margin-right: 24px;
+            font-size: 14px;
+
+
+            label {
+                font-weight: bold;
+                display: block;
+                padding-bottom: 16px;
+            }
+
+            select {
+                @include tube-trigger;
+                font-family: system-ui !important;
+                background: black;
+                color: white;
+            }
+        }
+    }
+
+    .up-next {
+        font-size: 14px;
+    }
+
+    .goals {
+        margin-top: space.$medium;
+        display: flex;
+
+        .accordionContainer {
+            margin-right: 12px;
+
+            .accordionTrigger {
+                @include tube-trigger;
+
+            }
+        }
     }
 
     .accordionTrigger {
@@ -23,6 +104,12 @@
             }
         }
 
+    }
+
+    :global(#workspace-goals-content).accordionContent {
+        padding: space.$medium space.$large;
+        background: #d3d3d3;
+        flex-basis: 100%;
     }
 }
 
@@ -79,10 +166,9 @@
         }
     }
 
-    .headline {
+    .headline.displayed {
         display: grid;
         grid-template-columns: 1fr 1fr;
-
     }
 
     .description {
@@ -100,20 +186,7 @@
         margin-bottom: 12px; //space.$medium;
 
         .accordionTrigger {
-            background: transparent;
-            border: 1px solid black;
-            border-radius: 8px;
-            align-items: center;
-            padding: space.$medium;
-            font-size: text.$small;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: space.$medium;
-
-            .arrow {
-                border-width: 0 2px 2px 0;
-            }
+            @include tube-trigger;
         }
 
         .accordionContent {
