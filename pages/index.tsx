@@ -1,4 +1,3 @@
-import styles from '#/Home.module.scss'
 import Head from 'next/head'
 
 export default function Home () {
@@ -10,57 +9,7 @@ export default function Home () {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div className={styles.app}>
-        <div className={styles.container}>
-          <div className={styles.row}>
-            <div className={`${styles.column} ${styles.columnLeft}`}>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.image}>image</div>
-              <div className={styles.dots}>dots</div>
-            </div>
-            <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
-              <div className={styles.description}>Description</div>
-              <div className={styles.selector}>selector</div>
-              <div className={styles.selector}>selector</div>
-              <div className={styles.selector}>selector</div>
-              <div className={styles.selector}>selector</div>
-              <div className={`${styles.selector} ${styles.scrollTo}`}>
-                selector
-              </div>
-              <div className={`${styles.selector} ${styles.active}`}>
-                selector
-                <button id="active-button">expand</button>
-              </div>
-            </div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.column}>
-              blank
-            </div>
-            <div className={styles.column}>
-              <div className={styles.summary}>
-                summary
-              </div>
-            </div>
-
-          </div>
-          <div className={styles.otherContent}>
-            other content
-          </div>
-        </div>
-      </div>
-
+      <div>WIP: Coming soon...</div>
     </>
   )
 }
