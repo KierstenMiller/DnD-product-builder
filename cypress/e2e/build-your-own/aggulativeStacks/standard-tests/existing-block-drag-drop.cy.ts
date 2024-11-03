@@ -87,6 +87,7 @@ describe('Aggulative Workflow', () => {
     verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-2' }, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState } })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-1' }, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState } })
+    cy.wait(4000)
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-9' }, drop: { direction: dirs.right, landmarkId: '5' }, state: { modifiers: defaultModifierState } })
     // dragDropBlock({ drag: { ...singleBlock, id: 'piece-6' }, drop: { direction: dirs.right, landmarkId: '4' }, state: { modifiers: defaultModifierState } })
     // dragDropBlock({ drag: { ...singleBlock, id: 'piece-7' }, drop: { direction: dirs.right, landmarkId: '5' }, state: { modifiers: defaultModifierState } })
