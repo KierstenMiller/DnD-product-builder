@@ -31,6 +31,7 @@ describe('Aggulative Workflow', () => {
     { index: 17, drag: { ...doubleBlock, id: 'piece-4' }, drop: { direction: dirs.right, landmarkId: '1' }, state: { modifiers: defaultModifierState }, newBlockInfo: { location: { stackIndex: 1, blockIndex: 0 }, block: { ...doubleBlock, index: 0 }, isNewStack: true }, customValidation: { id: '1' } }
   ]
   beforeEach(() => {
+    cy.viewport(1600, 768) // makes viewport large enough to test edge cases
     cy.visit('/build-your-own/aggulative')
   })
   dragDropExistingBlockScenarios.forEach(s => {
@@ -87,7 +88,6 @@ describe('Aggulative Workflow', () => {
     verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-2' }, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState } })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-1' }, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: defaultModifierState } })
-    cy.wait(4000)
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-9' }, drop: { direction: dirs.right, landmarkId: '5' }, state: { modifiers: defaultModifierState } })
     // dragDropBlock({ drag: { ...singleBlock, id: 'piece-6' }, drop: { direction: dirs.right, landmarkId: '4' }, state: { modifiers: defaultModifierState } })
     // dragDropBlock({ drag: { ...singleBlock, id: 'piece-7' }, drop: { direction: dirs.right, landmarkId: '5' }, state: { modifiers: defaultModifierState } })
