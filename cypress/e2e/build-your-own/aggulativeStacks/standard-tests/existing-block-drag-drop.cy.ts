@@ -69,7 +69,7 @@ describe('Aggulative Workflow', () => {
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-7' }, drop: { direction: dirs.below, landmarkId: 'piece-4' }, state: { modifiers: defaultModifierState } })
     dragDropBlock({ drag: { ...quadBlock, id: 'piece-5' }, drop: { direction: dirs.below, landmarkId: 'piece-4' }, state: { modifiers: defaultModifierState } })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-6' }, drop: { direction: dirs.below, landmarkId: 'piece-5' }, state: { modifiers: defaultModifierState } })
-    // verifyWorkspace({ stacksConfig: newWorkspace, modifiers: defaultModifierState })
+    verifyWorkspace({ stacksConfig: newWorkspace, modifiers: defaultModifierState })
   })
   it('should allow for all blocks in the workspace to become one stack', () => {
     const newWorkspace = [
