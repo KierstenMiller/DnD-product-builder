@@ -45,7 +45,7 @@ describe('Aggulative Workflow', () => {
     })
   })
   // TODO: ONLY WORKS LOCALLY - MAKE FIX FOR THIS
-  it.only('should allow for all blocks in the workspace to become one stack', () => {
+  it('should allow for all blocks in the workspace to become one stack', () => {
     const newWorkspace = [
       [
         { ...singleBlock, index: 0 },
