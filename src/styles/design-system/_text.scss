@@ -1,0 +1,32 @@
+@use "#/design-system/_helpers" as h;
+@use "#/design-system/_color" as color;
+
+$base-font-size: 62.5%; // using percentage here to change browser's base font-size from 16px to 10px, which is easier to think around
+$font-unit: 1rem;
+$xx-small: $font-unit;
+$x-small: calc(1.25 * $font-unit); // 12.5px
+$small: calc(1.5 * $font-unit); // 15px
+$medium: calc(1.75 * $font-unit); // 17.5px
+$large: calc(2.2 * $font-unit); // 22px
+$x-large: calc(2.22 * $font-unit); // 22.5px
+$xx-large: calc(2.5* $font-unit); // 25px
+// maps
+$font-sizes: (
+    xx-small: $xx-small,
+    x-small: $x-small,
+    small: $small,
+    medium: $medium,
+    large: $large,
+    x-large: $x-large,
+    xx-large: $xx-large,
+);
+
+@function getFontSize($size) {
+    @return map-get($font-sizes, $size);
+}
+
+// class generators
+.text {
+    @include h.modifiers(color.$colors, 'color');
+    @include h.modifiers($font-sizes, 'font-size');
+}

@@ -1,0 +1,55 @@
+@use "#/design-system/_helpers" as h;
+
+$xxx-small: 1px;
+$xx-small: 2px;
+$x-small: 4px;
+$small: 8px;
+$medium: 16px;
+$large: 24px;
+$x-large: 32px;
+$xx-large: 40px;
+$xxx-large: 48px;
+$xxxx-large: 56px;
+$huge: 64px;
+$x-huge: 72px;
+$xx-huge: 80px;
+$xxx-huge: 88px;
+$xxxx-huge: 96px;
+
+$spacing-sizes: (
+    xxx-small: $xxx-small,
+    xx-small: $xx-small,
+    x-small: $x-small,
+    small: $small,
+    medium: $medium,
+    large: $large,
+    x-large: $x-large,
+    xx-large: $xx-large,
+    xxx-large: $xxx-large,
+    xxxx-large: $xxxx-large,
+    huge: $huge,
+    x-huge: $x-huge,
+    xx-huge: $xx-huge,
+    xxx-huge: $xxx-huge,
+    xxxx-huge: $xxxx-huge,
+);
+
+@function getSpace($size) {
+    @return map-get($spacing-sizes, $size);
+}
+
+.m {
+    @include h.modifiers($spacing-sizes, 'margin');
+    @include h.modifiers($spacing-sizes, 'margin-top', 't-');
+    @include h.modifiers($spacing-sizes, 'margin-right', 'r-');
+    @include h.modifiers($spacing-sizes, 'margin-bottom', 'b-');
+    @include h.modifiers($spacing-sizes, 'margin-left', 'l-');
+}
+
+.p {
+    @include h.modifiers($spacing-sizes, 'padding');
+    @include h.modifiers($spacing-sizes, 'padding-top', 't-');
+    @include h.modifiers($spacing-sizes, 'padding-right', 'r-');
+    @include h.modifiers($spacing-sizes, 'padding-bottom', 'b-');
+    @include h.modifiers($spacing-sizes, 'padding-left', 'l-');
+}

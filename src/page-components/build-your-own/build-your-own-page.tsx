@@ -1,10 +1,14 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import { createContext, useState } from 'react'
+
+import pencilSchemeStyles from '#/pencil-scheme.module.scss'
 
 import { BuildYourOwnDevBar } from '-/page-components/build-your-own/build-your-own-dev-bar'
 import { BuildYourOwnLayout } from '-/page-components/build-your-own/build-your-own-layout'
 import { type buildYourOwnRawDataI } from '-/page-components/build-your-own/build-your-own.types'
 import { formatBuilderData } from './shared/compilePageData'
+
+export const ThemeContext = createContext({})
 
 export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
   const [viewData, setData] = useState(data)
@@ -21,8 +25,10 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <BuildYourOwnDevBar setData={setDataCallback} />
-            <BuildYourOwnLayout model={model} modifiers={viewData.modifiers} globalValidation={viewData.builder?.rules} { ...validationLibrary.length > 0 && { validationLibrary }}/>
+            <ThemeContext.Provider value={pencilSchemeStyles}>
+              <BuildYourOwnDevBar setData={setDataCallback} />
+              <BuildYourOwnLayout model={model} modifiers={viewData.modifiers} globalValidation={viewData.builder?.rules} { ...validationLibrary.length > 0 && { validationLibrary }}/>
+            </ThemeContext.Provider>
         </>
   )
 }

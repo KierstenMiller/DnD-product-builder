@@ -1,0 +1,250 @@
+@use "#/design-system/_spacing" as space;
+@use "#/design-system/_text" as text;
+
+$borderRadius: 8px;
+
+// TODO: clean up all of this styling to use design system variables and just be... beter
+@mixin tube-trigger {
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 8px;
+    align-items: center;
+    padding: space.$medium;
+    font-size: text.$small;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: space.$medium;
+    font-family: system-ui; // TODO: See if this is machine specific (does Windows have a different font)
+    font-weight: 300;
+
+    .arrow {
+        border-width: 0 2px 2px 0;
+    }
+}
+
+.dev-bar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    * {
+        font-family: futura;
+    }
+
+    .menu {
+        button {
+            background: transparent;
+            border: transparent;
+            height: 100%;
+            font-size: text.$small;
+            margin-left: space.$medium;
+
+            &:hover {
+                background: rgb(223, 223, 223);
+            }
+        }
+    }
+
+    .status-goals-container {
+        display: flex;
+
+
+        .status {
+            margin-right: 24px;
+            font-size: 14px;
+
+
+            label {
+                font-weight: bold;
+                display: block;
+                padding-bottom: 16px;
+            }
+
+            select {
+                @include tube-trigger;
+                font-family: system-ui !important;
+                background: black;
+                color: white;
+            }
+        }
+    }
+
+    .up-next {
+        font-size: 14px;
+    }
+
+    .goals {
+        margin-top: space.$medium;
+        display: flex;
+
+        .accordionContainer {
+            margin-right: 12px;
+
+            .accordionTrigger {
+                @include tube-trigger;
+
+            }
+        }
+    }
+
+    .accordionTrigger {
+        border-width: 0;
+        background: white;
+        align-items: center;
+        font-size: text.$small;
+        padding: space.$medium space.$large;
+
+        .arrowContainer {
+            display: flex;
+            margin-left: space.$medium;
+
+            .arrow {
+                border-width: 0 2px 2px 0;
+            }
+        }
+
+    }
+
+    :global(#workspace-goals-content).accordionContent {
+        padding: space.$medium space.$large;
+        background: #d3d3d3;
+        flex-basis: 100%;
+    }
+}
+
+.app {
+    background: #131313;
+    font-size: 14px;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: futura;
+    }
+
+    h1 {
+        font-family: futura;
+        font-weight: bold;
+        font-size: 32px;
+    }
+
+    h2 {
+
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    * {
+        font-family: system-ui; // TODO: See if this is machine specific (does Windows have a different font)
+        font-weight: 300;
+    }
+
+    button {
+        background-color: #ffaed0;
+    }
+
+    .column {
+        padding: space.$x-large space.$large;
+    }
+
+    .row.sticky {
+        .columnLeft {
+            //align-self: flex-end;
+            padding-bottom: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 394px; // TODO: refactor this to be dynamic and change as the website grows/shrinks
+        }
+
+        .columnRight {
+            background: #faff52;
+        }
+    }
+
+    .headline.displayed {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .description {
+        padding-left: space.$medium;
+        padding-right: space.$medium;
+        padding-bottom: space.$x-large;
+
+        .header {
+            margin-bottom: 18px; //space.$small;
+        }
+    }
+
+    .accordionContainer {
+        width: 100%;
+        margin-bottom: 12px; //space.$medium;
+
+        .accordionTrigger {
+            @include tube-trigger;
+        }
+
+        .accordionContent {
+            padding: space.$medium;
+        }
+    }
+
+    .cost {
+        .accordionContainer {
+            margin-top: 28px;
+            margin-left: 16px;
+            width: inherit;
+
+            .accordionTrigger {
+                border: 0;
+                border-bottom: 1px solid black;
+                border-radius: 0;
+                font-weight: bold;
+                width: 50%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .accordionContent {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+
+    .block-container {
+        .config {
+            display: none;
+        }
+    }
+
+    .information {
+        color: white;
+        padding: space.$x-large space.$large;
+
+        .column {
+            padding: 0;
+        }
+
+        p {
+            margin-top: 6px;
+            margin-bottom: 24px;
+        }
+
+        .accordionContainer {
+            .accordionTrigger {
+                border: 1px solid white;
+                color: white;
+
+                .arrow {
+                    border-color: white;
+                }
+            }
+        }
+    }
+}

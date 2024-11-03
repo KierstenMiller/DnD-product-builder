@@ -11,8 +11,6 @@ import { displays } from './displays'
 import { adderDisplayValues } from './modifier.types'
 import { assembleOptionsMap } from './modifier.util'
 
-import BYOStyles from '#/build-your-own.module.scss'
-
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
 
 export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
@@ -27,8 +25,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
   }
   return <BasicAccordion
     key={mod.id}
-    stylesOverride={BYOStyles}
-    headerText={mod.label}
+    triggerText={mod.label}
     headerLevel={3}
     testId={`${mod.id}-modifier`}
     id={mod.id}
