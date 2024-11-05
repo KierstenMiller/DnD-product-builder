@@ -76,7 +76,8 @@ $borderRadius: 8px;
 
     .goals {
         margin-top: space.$medium;
-        display: flex;
+        // display: grid;
+        // grid-template-columns: 1fr 1fr;
 
         .accordionContainer {
             margin-right: 12px;

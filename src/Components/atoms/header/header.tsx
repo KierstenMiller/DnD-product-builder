@@ -4,12 +4,13 @@ interface HeaderProps {
   children: React.ReactNode
   // optional
   className?: string
+  id?: string
   testId?: string
 }
 
-export const Header = ({ headerLevel, children, className, testId: rawTestId = '' }: HeaderProps) => {
+export const Header = ({ headerLevel, children, className, id, testId: rawTestId = '' }: HeaderProps) => {
   const testId = `header-${headerLevel}` + rawTestId
-  const props = { className, 'data-testid': testId }
+  const props = { className, id, 'data-testid': testId }
   switch (headerLevel) {
     case 1:
       return <h1 {...props}>{children}</h1>

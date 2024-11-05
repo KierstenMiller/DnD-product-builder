@@ -1,14 +1,15 @@
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import { Select } from '-/Components/form-controls/select/select'
+import { TabList } from '-/Components/tabs/tabs'
 import { getStyles } from '-/util/helpers'
 import { useContext } from 'react'
 import { ThemeContext } from './build-your-own-page'
 import { dataAggulativeStacks, dataAggulativeStacksRental, dataFreeformMatrix, dataSingletonMock, dataSingletonRobot } from './builderRawData'
 
 export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }) => {
-  const theme = useContext(ThemeContext)
-  const styles = (id: string) => getStyles({}, theme, id)
-  return (
+    const theme = useContext(ThemeContext)
+    const styles = (id: string) => getStyles({}, theme, id)
+    return (
         <div className={styles('dev-bar')}>
             {/* TODO: Make these buttons into links - shallow (optimize rerender and mobx 'un-packing' too) */}
             <div className={styles('menu')}>
@@ -23,11 +24,22 @@ export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }
                 triggerText="Project Tools"
                 wrapped={false}
             >
+                <TabList
+                    id="project-tools"
+                    heading={{ text: 'Project Tools', level: 2 }}
+                    tabs={[
+                        { id: '1', isSelected: true, tabButton: <span>Button 1</span>, tabPanel: <div>Panel 1</div> },
+                        { id: '2', isSelected: false, tabButton: <span>Button 2</span>, tabPanel: <div>Panel 2</div> },
+                        { id: '3', isSelected: false, tabButton: <span>Button 3</span>, tabPanel: <div>Panel 3</div> },
+                        { id: '4', isSelected: false, tabButton: <span>Button 4</span>, tabPanel: <div>Panel 4</div> },
+                        { id: '5', isSelected: false, tabButton: <span>Button 5</span>, tabPanel: <div>Panel 5</div> },
+                    ]}
+                />
                 <div className={styles('status-goals-container')}>
                     <div className={styles('status')}>
                         <Select id="view-schemes" label="CURRENT VIEW SCHEME:" onChange={() => { console.log('todo') }} options={[
-                          { id: 'pencil', text: 'Pencil' },
-                          { id: 'none', text: 'No Styles' }
+                            { id: 'pencil', text: 'Pencil' },
+                            { id: 'none', text: 'No Styles' }
                         ]} />
                     </div>
                     <div>
@@ -100,5 +112,5 @@ export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }
                 </div>
             </BasicAccordion>
         </div>
-  )
+    )
 }
