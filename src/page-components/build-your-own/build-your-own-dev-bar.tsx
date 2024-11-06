@@ -28,11 +28,11 @@ export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }
           id="project-tools"
           heading={{ text: 'Project Tools', level: 2 }}
           tabs={[
-            { id: '1', isSelected: true, tabButton: <span>Button 1</span>, tabPanel: <div>Panel 1</div> },
-            { id: '2', isSelected: false, tabButton: <span>Button 2</span>, tabPanel: <div>Panel 2</div> },
-            { id: '3', isSelected: false, tabButton: <span>Button 3</span>, tabPanel: <div>Panel 3</div> },
-            { id: '4', isSelected: false, tabButton: <span>Button 4</span>, tabPanel: <div>Panel 4</div> },
-            { id: '5', isSelected: false, tabButton: <span>Button 5</span>, tabPanel: <div>Panel 5</div> }
+            { id: 'first-tab', isSelected: true, tabButton: <span>Button 1</span>, tabPanel: <div>Panel 1</div> },
+            { id: 'second-tab', isSelected: false, tabButton: <span>Button 2</span>, tabPanel: <div>Panel 2</div> },
+            { id: 'third-tab', isSelected: false, tabButton: <span>Button 3</span>, tabPanel: <div>Panel 3</div> },
+            { id: 'fourth-tab', isSelected: false, tabButton: <span>Button 4</span>, tabPanel: <div>Panel 4</div> },
+            { id: 'fifth-tab', isSelected: false, tabButton: <span>Button 5</span>, tabPanel: <div>Panel 5</div> }
           ]}
         />
         <div className={styles('status-goals-container')}>
