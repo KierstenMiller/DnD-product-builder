@@ -12,12 +12,14 @@ import defaultStyles from './tabs.module.scss'
 // https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/
 
 interface Props {
+  testId?: string
   id: string
   heading: { text: string, level: headerLevelT }
   tabs: Array<{ id: string, isSelected: boolean, tabButton: React.ReactNode, tabPanel: React.ReactNode }>
 }
 
 export const TabList = ({
+  testId,
   id,
   heading,
   tabs
@@ -55,37 +57,35 @@ export const TabList = ({
     }
   }
 
-  return <div>
-    <div className={styles('tabs')}>
-      {heading && <Header className={styles('tabs-header')} id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
-      <div className={styles('tabs-buttons-container')} role="tablist" aria-labelledby={`tablist-heading-${id}`}>
-        {tabs.map((tab, index) => <button
-          className={styles('tabs-button')}
-          key={tab.id}
-          id={`tab-button-${tab.id}`}
-          type="button"
-          role="tab"
-          ref={(element: HTMLButtonElement) => (tabRefs.current[index] = element)}
-          aria-selected={selectedTabId === tab.id}
-          aria-controls={`tab-panel-${tab.id}`}
-          tabIndex={selectedTabId === tab.id ? 0 : -1}
-          onFocus={() => { setSelectedTab(tab.id) }}
-          onClick={() => { setSelectedTab(tab.id) }}
-          onKeyDown={(e) => { onKeyDown(index, e) }}
-        >
-          {tab.tabButton} - {index}
-        </button>)}
-      </div>
-      {tabs.map(tab => <div
-        className={classNames(styles('tabs-panel'), { hidden: selectedTabId !== tab.id })}
-        key={`tab-panel-${tab.id}`}
-        id={`tab-panel-${tab.id}`}
-        role="tabpanel"
-        tabIndex={0}
-        aria-labelledby={`tab-button-${tab.id}`}
+  return <div data-testid={testId} className={styles('tabs-container')}>
+    {heading && <Header testId="tabs-heading" className={styles('tabs-header')} id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
+    <div className={styles('tabs-buttons-container')} role="tablist" aria-labelledby={`tablist-heading-${id}`}>
+      {tabs.map((tab, index) => <button
+        className={styles('tabs-button')}
+        key={tab.id}
+        id={`tab-button-${tab.id}`}
+        type="button"
+        role="tab"
+        ref={(element: HTMLButtonElement) => (tabRefs.current[index] = element)}
+        aria-selected={selectedTabId === tab.id}
+        aria-controls={`tab-panel-${tab.id}`}
+        tabIndex={selectedTabId === tab.id ? 0 : -1}
+        onFocus={() => { setSelectedTab(tab.id) }}
+        onClick={() => { setSelectedTab(tab.id) }}
+        onKeyDown={(e) => { onKeyDown(index, e) }}
       >
-        {tab.tabPanel}
-      </div>)}
+        {tab.tabButton} - {index}
+      </button>)}
     </div>
+    {tabs.map(tab => <div
+      className={classNames(styles('tabs-panel'), { hidden: selectedTabId !== tab.id })}
+      key={`tab-panel-${tab.id}`}
+      id={`tab-panel-${tab.id}`}
+      role="tabpanel"
+      tabIndex={0}
+      aria-labelledby={`tab-button-${tab.id}`}
+    >
+      {tab.tabPanel}
+    </div>)}
   </div>
 }
