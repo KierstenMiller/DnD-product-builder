@@ -1,7 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
+import { ThemeContext } from '-/page-components/build-your-own/build-your-own-page'
+import { getStyles } from '-/util/helpers'
 import type { headerLevelT } from '../atoms/header/header'
 import { Header } from '../atoms/header/header'
+
+import classNames from 'classnames'
+import defaultStyles from './tabs.module.scss'
+
+// Implementation reference:
+// https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/
 
 interface Props {
   id: string
@@ -14,34 +22,30 @@ export const TabList = ({
   heading,
   tabs
 }: Props) => {
-  // const theme = useContext(ThemeContext)
+  const theme = useContext(ThemeContext)
+  const styles = (id: string) => getStyles(defaultStyles, theme, id)
   const [selectedTabId, setSelectedTab] = useState(tabs.find(tab => tab.isSelected)?.id ?? tabs[0].id)
   const tabRefs = React.useRef<HTMLButtonElement[]>([])
-  // TODO: Add keyboard navigation and other accessibility features
-  // https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/
-  // https://amanexplains.com/how-to-create-an-accessible-tabs-component-in-react/
-  // https://dev.to/eevajonnapanula/keyboard-accessible-tabs-with-react-5ch4
 
   const handleKeyDown = (newSelectionId: string, newSelectionIndex: number, event: React.KeyboardEvent<HTMLButtonElement>) => {
-    console.log('handleKeyDown', newSelectionId)
-    const tab = tabRefs.current[newSelectionIndex]
-    if (tab) {
-      // focus() will call the state setter
-      // to display the associated tabpanel
-      tab.focus()
-    }
+    tabRefs.current[newSelectionIndex]?.focus()
     setSelectedTab(newSelectionId)
     event.preventDefault()
   }
 
   const onKeyDown = (selectedIndex: number, event: React.KeyboardEvent<HTMLButtonElement>) => {
     switch (event.key) {
-      case 'ArrowRight':
-        handleKeyDown(tabs[selectedIndex + 1]?.id, selectedIndex + 1, event)
+      case 'ArrowRight': {
+        const nextTabID = tabs[selectedIndex + 1]?.id
+        handleKeyDown(nextTabID || tabs[0].id, nextTabID ? (selectedIndex + 1) : 0, event) // if there is no next tab, go to the first tab
         break
-      case 'ArrowLeft':
-        handleKeyDown(tabs[selectedIndex - 1]?.id, selectedIndex - 1, event)
+      }
+      case 'ArrowLeft': {
+        const prevTabID = tabs[selectedIndex - 1]?.id
+        const lastTabIndex = tabs.length - 1
+        handleKeyDown(prevTabID || tabs[lastTabIndex].id, prevTabID ? (selectedIndex - 1) : lastTabIndex, event) // if there is no prev tab, go to the last tab
         break
+      }
       case 'Home':
         handleKeyDown(tabs[0]?.id, 0, event)
         break
@@ -52,11 +56,11 @@ export const TabList = ({
   }
 
   return <div>
-    <div className="tabs">
-      Selected: {selectedTabId}
-      {heading && <Header id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
-      <div role="tablist" aria-labelledby={`tablist-heading-${id}`}>
+    <div className={styles('tabs')}>
+      {heading && <Header className={styles('tabs-header')} id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
+      <div className={styles('tabs-buttons-container')} role="tablist" aria-labelledby={`tablist-heading-${id}`}>
         {tabs.map((tab, index) => <button
+          className={styles('tabs-button')}
           key={tab.id}
           id={`tab-button-${tab.id}`}
           type="button"
@@ -73,12 +77,12 @@ export const TabList = ({
         </button>)}
       </div>
       {tabs.map(tab => <div
+        className={classNames(styles('tabs-panel'), { hidden: selectedTabId !== tab.id })}
         key={`tab-panel-${tab.id}`}
         id={`tab-panel-${tab.id}`}
         role="tabpanel"
         tabIndex={0}
         aria-labelledby={`tab-button-${tab.id}`}
-        className={selectedTabId === tab.id ? '' : 'hidden'}
       >
         {tab.tabPanel}
       </div>)}

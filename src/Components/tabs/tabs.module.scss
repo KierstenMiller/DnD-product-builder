@@ -1,0 +1,19 @@
+@use "#/design-system/_color" as color;
+
+.tabs-button {
+    border: none;
+    border-top: 3px transparent solid;
+
+    &:not(:last-of-type) {
+        border-right: 1px solid color.$grey;
+    }
+
+    &:hover,
+    &:focus {
+        outline: 1px solid color.$blue;
+    }
+
+    &:focus {
+        border-top-color: color.$blue;
+    }
+}
