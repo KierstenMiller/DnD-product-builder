@@ -58,9 +58,10 @@ export const TabList = ({
   }
 
   return <div data-testid={testId} className={styles('tabs-container')}>
-    {heading && <Header testId="tabs-heading" className={styles('tabs-header')} id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
-    <div className={styles('tabs-buttons-container')} role="tablist" aria-labelledby={`tablist-heading-${id}`}>
+    {heading && <Header testId="tablist-heading" className={styles('tabs-header')} id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
+    <div data-testid="tablist-buttons-container" className={styles('tabs-buttons-container')} role="tablist" aria-labelledby={`tablist-heading-${id}`}>
       {tabs.map((tab, index) => <button
+        data-testid={`tab-button-${tab.id}`}
         className={styles('tabs-button')}
         key={tab.id}
         id={`tab-button-${tab.id}`}
@@ -78,6 +79,7 @@ export const TabList = ({
       </button>)}
     </div>
     {tabs.map(tab => <div
+      data-testid={`tab-panel-${tab.id}`}
       className={classNames(styles('tabs-panel'), { hidden: selectedTabId !== tab.id })}
       key={`tab-panel-${tab.id}`}
       id={`tab-panel-${tab.id}`}
