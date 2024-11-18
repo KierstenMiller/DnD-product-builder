@@ -10,7 +10,7 @@ export const mockModifierA = {
   sortBy: sortByValues.ascending,
   measurementUnit: measurementValues.inches,
   display: radioDisplayValues.card,
-  filter: mockFilterDoubleDropDown, // TODO: implement ability to filter modifier's options
+  filter: mockFilterDoubleDropDown,
   options: mockOptions3D
 }
 

@@ -65,7 +65,6 @@ export class AggulativeStacksBuildModel {
   addToStack = (stackIndex: number, blockIndex: number, pieceId?: string) => {
     const { index, piece } = pieceId ? findPiece(pieceId, this.stacksData) : { index: {}, piece: null }
     const isDroppingInSameStack = index?.stack === stackIndex
-    // TODO: MAKE THIS NEATER
     const blockIndex2 = isDroppingInSameStack && typeof index?.block === 'number' && index.block < blockIndex
       ? Math.max(0, blockIndex - 1) // need to update blockIndex if dropping in same stack
       : blockIndex

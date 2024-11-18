@@ -132,7 +132,3 @@ Cypress.Commands.add('testCurrentSelections', (modifiers: Array<{ mod: string, g
     cy.toggleModifier({ modId: m.mod, isOpen: false })
   })
 })
-// TODO: make this work
-// Cypress.Commands.add('findByTestId', { prevSubject: true }, (subject, id) => {
-//   return subject.find(`[data-cy=${id}]`)
-// })

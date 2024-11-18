@@ -4,7 +4,6 @@ describe('<TextInput />', () => {
   const testId = 'test-id'
   const id = 'input-id'
   const label = 'test label'
-  const ariaDescribedById = 'aria-id'
   const helpText = 'help text'
   context('minimal props (only required props given)', () => {
     beforeEach(() => {
@@ -37,7 +36,7 @@ describe('<TextInput />', () => {
       cy.getByTestId(testId)
         .find('input')
         .should('not.have.attr', 'aria-describedby')
-      cy.get(`#${ariaDescribedById}`).should('not.exist')
+      cy.get(`#${id}-help-text`).should('not.exist')
     })
     it('should update the input value when the user types in a value', () => {
       const typedValue = 'test value'
@@ -60,12 +59,12 @@ describe('<TextInput />', () => {
         .and('have.attr', 'value', defaultValue)
     })
     it('should render with accessibility text and aria attributes when given helpText or ariaDescribedBy values', () => {
-      cy.mount(<TextInput helpText={helpText} ariaDescribedById={ariaDescribedById} {...standardProps} />)
+      cy.mount(<TextInput helpText={helpText} {...standardProps} />)
       cy.getByTestId(testId)
         .find('input')
-        .should('have.attr', 'aria-describedby', ariaDescribedById)
+        .should('have.attr', 'aria-describedby', `${id}-help-text`)
       cy.getByTestId(testId)
-        .find(`#${ariaDescribedById}`)
+        .find(`#${id}-help-text`)
         .contains(helpText)
     })
     it('should spy on onChange and be called when input value is changed', () => {
