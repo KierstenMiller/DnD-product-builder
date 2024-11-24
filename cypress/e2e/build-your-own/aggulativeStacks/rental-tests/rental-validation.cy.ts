@@ -1,4 +1,4 @@
-import { directions as dirs, dragDropNewBlock, dragNewBlock, type dragNewBlockI } from '../drag-drop.util'
+import { directions as dirs, dragDropNewBlock, dragNewBlock, type DragNewBlockI } from '../drag-drop.util'
 import { verifyWorkspace } from '../verfiy.util'
 
 describe('Aggulative Rental Workflow', () => {
@@ -76,7 +76,7 @@ describe('Aggulative Rental Workflow', () => {
     const entryBlocks = [{ block: simpleEntry, regex: newStackRegex }, { block: fancyEntry, regex: newStackRegex }, { block: raisedEntry, regex: newStackRegex }]
     const nonEntryBlocks = [{ block: apartmentSingleStudio, regex: newBlockRegex }, { block: apartmentDoubleStudio, regex: newBlockRegex }, { block: apartmentSingleOne, regex: newBlockRegex }, { block: apartmentDoubleOne, regex: newBlockRegex }, { block: amenityPool, regex: newBlockRegex }, { block: amenityObservatory, regex: newBlockRegex }, { block: amenityCafe, regex: newBlockRegex }, { block: amenityDinning, regex: newBlockRegex }, { block: amenityKitchen, regex: newBlockRegex }, { block: amenityGym, regex: newBlockRegex }, { block: amenityLocker, regex: newBlockRegex }]
     cy.wrap([...entryBlocks, ...nonEntryBlocks])
-      .each((test: { block: dragNewBlockI, regex: typeof newStackRegex | typeof newBlockRegex }) => { // using Cypress.each() to ensure syncronous execution of tests https://docs.cypress.io/guides/core-concepts/variables-and-aliases
+      .each((test: { block: DragNewBlockI, regex: typeof newStackRegex | typeof newBlockRegex }) => { // using Cypress.each() to ensure syncronous execution of tests https://docs.cypress.io/guides/core-concepts/variables-and-aliases
         cy.log(`*** TESTING ${test.block.value} ***`)
         dragNewBlock({ ...test.block })
         cy.get('[data-testid^="dropzone_"]').each((el) => {
@@ -87,7 +87,7 @@ describe('Aggulative Rental Workflow', () => {
   it('should allow APARTMENTS to be dropped anywhere in a stack (except level 0 - entry level)', () => {
     const apartmentValidDropRegex = /^dropzone_rental-piece-[1-9]-(above|below)$/
     const apartmentBlocks = [apartmentSingleStudio, apartmentDoubleStudio, apartmentSingleOne, apartmentDoubleOne]
-    cy.wrap(apartmentBlocks).each((block: dragNewBlockI) => { // using Cypress.each() to ensure syncronous execution of tests https://docs.cypress.io/guides/core-concepts/variables-and-aliases
+    cy.wrap(apartmentBlocks).each((block: DragNewBlockI) => { // using Cypress.each() to ensure syncronous execution of tests https://docs.cypress.io/guides/core-concepts/variables-and-aliases
       cy.log(`*** TESTING ${block.value} ***`)
       dragNewBlock({ ...block })
       cy.get('[data-testid^="dropzone_"]').each((el) => {

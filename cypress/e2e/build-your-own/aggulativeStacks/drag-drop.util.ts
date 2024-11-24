@@ -1,42 +1,42 @@
 import { type testModifiersT } from '../../../support/commands'
 
-export interface dragBlockI {
+export interface DragBlockI {
   value: string
   id?: string // NOTE: this is only existing blocks have ids
 }
-export interface dragNewBlockI extends dragBlockI {
+export interface DragNewBlockI extends DragBlockI {
   modId: string
 }
-interface dropI {
+interface DropI {
   landmarkId: string
   direction: directions
 }
-interface relativeDropI {
+interface RelativeDropI {
   landmarkId: string
   direction: directions.above | directions.below
   distance: number
 }
-interface stateI {
+interface StateI {
   modifiers: testModifiersT
   changeSelections?: boolean
 }
-export interface dragDropBlockI {
-  drag: dragBlockI
-  drop: dropI
-  state: stateI
+export interface DragDropBlockI {
+  drag: DragBlockI
+  drop: DropI
+  state: StateI
   customValidation?: {
     id: string
   }
 }
-export interface dragDropNewBlockI {
-  drag: dragNewBlockI
-  drop: dropI
-  state: stateI
+export interface DragDropNewBlockI {
+  drag: DragNewBlockI
+  drop: DropI
+  state: StateI
 }
-interface relativeDragDropNewBlockI {
-  drag: dragNewBlockI
-  drop: relativeDropI
-  state: stateI
+interface RelativeDragDropNewBlockI {
+  drag: DragNewBlockI
+  drop: RelativeDropI
+  state: StateI
 }
 
 export enum directions {
@@ -46,13 +46,13 @@ export enum directions {
   right = 'right'
 }
 
-export const dragNewBlock = ({ modId, value }: dragNewBlockI) => {
+export const dragNewBlock = ({ modId, value }: DragNewBlockI) => {
   cy.toggleModifier({ modId: `mod-${modId}`, isOpen: true })
   cy.getByTestId(`dragzone_${value}`).drag()
   cy.toggleModifier({ modId: `mod-${modId}`, isOpen: false })
 }
 
-const verifyDrop = ({ drag, drop, state, customValidation }: dragDropBlockI) => {
+const verifyDrop = ({ drag, drop, state, customValidation }: DragDropBlockI) => {
   const validationId = customValidation?.id ?? drop.landmarkId
   const containerSelector = drop.direction === directions.above || drop.direction === directions.below ? 'block-container' : 'stack-container'
   cy.getByTestId(`${containerSelector}_${validationId}`)
@@ -80,7 +80,7 @@ const verifyDrop = ({ drag, drop, state, customValidation }: dragDropBlockI) => 
     })
 }
 
-export const dragDropBlock = ({ drag, drop, state, customValidation }: dragDropBlockI) => {
+export const dragDropBlock = ({ drag, drop, state, customValidation }: DragDropBlockI) => {
   state.changeSelections && cy.changeSelections(state.modifiers)
   cy.getByTestId('stack-container_0').find('[data-testid^="block-container_"]').then($all => {
     cy.wrap($all)
@@ -89,13 +89,13 @@ export const dragDropBlock = ({ drag, drop, state, customValidation }: dragDropB
     .dragDrop(`dropzone_${drop.landmarkId}-${drop.direction}`, true)
   verifyDrop({ drag, drop, state, customValidation })
 }
-export const dragDropNewBlock = ({ drag, drop, state }: dragDropNewBlockI) => {
+export const dragDropNewBlock = ({ drag, drop, state }: DragDropNewBlockI) => {
   cy.toggleModifier({ modId: `mod-${drag.modId}`, isOpen: true })
   dragDropBlock({ drag, drop, state })
   cy.toggleModifier({ modId: `mod-${drag.modId}`, isOpen: false })
 }
 
-export const relativeDragDropNewBlock = ({ drag, drop, state }: relativeDragDropNewBlockI) => {
+export const relativeDragDropNewBlock = ({ drag, drop, state }: RelativeDragDropNewBlockI) => {
   const location = drop.distance - 1
   state.changeSelections && cy.changeSelections(state.modifiers)
   cy.getByTestId(`block-container_${drop.landmarkId}`).then($el => {

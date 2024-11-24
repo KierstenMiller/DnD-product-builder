@@ -1,5 +1,5 @@
 import { type testModifiersT } from '../../../support/commands'
-import { type dragBlockI } from './drag-drop.util'
+import { type DragBlockI } from './drag-drop.util'
 
 const findIndex = (stacks: TestBlockI[][], id: string) => {
   let block = -1
@@ -9,31 +9,34 @@ const findIndex = (stacks: TestBlockI[][], id: string) => {
   })
   return stack >= 0 ? { stack, block } : null
 }
-interface TestBlockI extends dragBlockI { index: number, modId?: string }
-export interface newBlockInfoI { location: { stackIndex: number, blockIndex: number }, block: TestBlockI, isNewStack?: boolean }
-interface verifyWorkspaceAfterActionI {
+interface TestBlockI extends DragBlockI { index: number, modId?: string }
+export interface NewBlockInfoI { location: { stackIndex: number, blockIndex: number }, block: TestBlockI, isNewStack?: boolean }
+interface VerifyWorkspaceAfterActionI {
   currentState: { workspace: TestBlockI[][], modifiers: testModifiersT }
   newState: { workspace: TestBlockI[][], modifiers: testModifiersT }
   action: () => void
 }
 
-// TODO: MAKE THIS BETTER
-export const getNewWorkspace = ({ workspaceToUpdate, newBlockInfo, id }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: newBlockInfoI, id?: string }) => {
+export const getNewWorkspace = ({ workspaceToUpdate, newBlockInfo, id }: { workspaceToUpdate: TestBlockI[][], newBlockInfo: NewBlockInfoI, id?: string }) => {
   const newWorkspace = workspaceToUpdate.map(s => s.map(b => ({ ...b })))
   const match = id ? findIndex(newWorkspace, id) : null
   const droppingOnSelf = !newBlockInfo.isNewStack && match && match.stack === newBlockInfo.location.stackIndex && match.block === newBlockInfo.location.blockIndex
   if (droppingOnSelf) return newWorkspace
   if (match) { // if block is found, remove it from the workspace and clear empty stacks
     newWorkspace[match.stack].splice(match.block, 1)
+    // adjust block indexes when necessary
     if (match.block < newBlockInfo.location.blockIndex) newBlockInfo.location.blockIndex -= 1
+    // if stack is empty, remove it and adjust its index
     if (newWorkspace[match.stack].length === 0) {
       newWorkspace.splice(match.stack, 1)
       if (match.stack < newBlockInfo.location.stackIndex) newBlockInfo.location.stackIndex -= 1
     }
   }
+  // Add the block to the new location (either as a new stack or within an existing stack)
   newBlockInfo.isNewStack
     ? newWorkspace.splice(newBlockInfo.location.stackIndex, 0, [newBlockInfo.block])
     : newWorkspace[newBlockInfo.location.stackIndex].splice(newBlockInfo.location.blockIndex, 0, newBlockInfo.block)
+  // Update indices for all blocks
   newWorkspace.forEach((s) => {
     s.forEach((b, j) => {
       b.index = j
@@ -67,7 +70,7 @@ export const verifyWorkspace = ({ stacksConfig, modifiers }: { stacksConfig: Tes
     verifyStack({ index: i, blocksConfig: stack, modifiers })
   })
 }
-export const doActionThenVerify = ({ currentState, newState, action }: verifyWorkspaceAfterActionI) => {
+export const doActionThenVerify = ({ currentState, newState, action }: VerifyWorkspaceAfterActionI) => {
   verifyWorkspace({ stacksConfig: currentState.workspace, modifiers: currentState.modifiers })
   cy.log('RUNNING action')
   action()

@@ -1,8 +1,8 @@
-import { directions as dirs, dragDropBlock, type dragDropBlockI } from '../drag-drop.util'
-import { doActionThenVerify, getNewWorkspace, verifyWorkspace, type newBlockInfoI } from '../verfiy.util'
+import { directions as dirs, dragDropBlock, type DragDropBlockI } from '../drag-drop.util'
+import { doActionThenVerify, getNewWorkspace, verifyWorkspace, type NewBlockInfoI } from '../verfiy.util'
 import { defaultModifierState, defaultWorkspace, doubleBlock, newModifierState, quadBlock, singleBlock } from './shared-data.util'
 
-interface dragDropExistingBlockScenarioI extends dragDropBlockI { index: number, newBlockInfo: newBlockInfoI }
+interface dragDropExistingBlockScenarioI extends DragDropBlockI { index: number, newBlockInfo: NewBlockInfoI }
 describe('Aggulative Workflow', () => {
   // NOTE: formatted data for easy scanning
   const dragDropExistingBlockScenarios: dragDropExistingBlockScenarioI[] = [
