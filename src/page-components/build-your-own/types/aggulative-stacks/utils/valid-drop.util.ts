@@ -1,5 +1,5 @@
 import { type aggulativeStacksListT, type stackI, type validationT } from '-/page-components/build-your-own/build-your-own.types'
-import { validationValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { validationValues } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 
 interface withinRangeI { blockIndex: number, proximity: number, stack: stackI, values: string[] }
 interface validLevelI { blockIndex: number, values: string[] }

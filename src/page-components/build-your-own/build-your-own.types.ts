@@ -1,5 +1,6 @@
-import { type displayValuesT, type filterDisplayValues, type groupByValues, type measurementValues, type modifierChunkKeyValues, type sortByValues, type validationValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { type groupByValues, type measurementValues, type modifierChunkKeyValues, type sortByValues, type validationValues } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { type builderKeys } from './build-your-own.util'
+import { type displayValuesT, type filterDisplayValues } from './shared/modifier-components/shared/components/display-components/displays.types'
 import { type StandardModel } from './shared/standard.model'
 import { type AggulativeStacksBuildModel } from './types/aggulative-stacks/models/aggulative-stacks.model'
 import { type FreeformMatrixBuildModel } from './types/freeform-matrix/models/freeform-grid.model'
@@ -67,9 +68,7 @@ interface shapeMapI {
 export interface builderRawDataShapeI<T extends { type: builderKeys }> {
   type: T['type']
   config: configT
-  data: T['type'] extends keyof shapeMapI
-    ? shapeMapI[T['type']]
-    : never
+  data: T['type'] extends keyof shapeMapI ? shapeMapI[T['type']] : never
 }
 // export interface builderRawDataT { type: builderKeys, config: configT, data?: any[][] }
 export type builderRawDataT = singletonRawDataI | freeformMatrixRawDataI | aggulativeStacksRawDataI

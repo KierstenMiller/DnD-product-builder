@@ -1,4 +1,5 @@
-import { groupByValues, modifierChunkKeyValues, radioDisplayValues, sortByValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { radioDisplayValues } from '-/page-components/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
+import { groupByValues, modifierChunkKeyValues, sortByValues } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { robotColorOptions, robotPersonalityOptions, robotShapeOptions, robotSupportOptions } from './options.data'
 
 export const robotModifiers = [

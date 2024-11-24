@@ -1,4 +1,5 @@
-import { modifierChunkKeyValues, radioDisplayValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { radioDisplayValues } from '-/page-components/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
+import { modifierChunkKeyValues } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { fillOptions, shapeOptions, strokeOptions } from './options.data'
 
 export const shapeModifiers = [

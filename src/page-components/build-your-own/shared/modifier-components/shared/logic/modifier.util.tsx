@@ -1,11 +1,11 @@
 import { type modifiersT, type optionsT } from '-/page-components/build-your-own/build-your-own.types'
-import { sortByValues, type groupByValues, type sortAlphaI, type sortNumI } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { sortByValues, type groupByValues, type sortAlphaI, type sortNumI } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 
 /// ///////////////////////
 //      GENERAL USE     //
 /// ///////////////////////
 // returns map, keys are grouping key and values are an array of items
-const groupByMap = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+const groupByMap = <T, K extends keyof any> (arr: T[], key: (i: T) => K) =>
   arr.reduce((groups, item) => {
     const computedKey = key(item)
     const matchingValue = groups.get(computedKey)

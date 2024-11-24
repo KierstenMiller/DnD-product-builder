@@ -5,11 +5,11 @@ import { CategorizedRadioInputGroup } from '-/Components/form-controls/categoriz
 import { type onChangeI } from '-/Components/form-controls/radioInput/radioInput'
 import { RadioInputGroup } from '-/Components/form-controls/radioInputGroup/radioInputGroup'
 import { type modifierI } from '-/page-components/build-your-own/build-your-own.types'
-import { AdderGroup } from '-/page-components/build-your-own/shared/modifier/Adder/adderGroup'
-import { CategorizedAdderGroup } from '-/page-components/build-your-own/shared/modifier/Adder/categorizedAdderGroup'
-import { displays } from './displays'
-import { adderDisplayValues } from './modifier.types'
-import { assembleOptionsMap } from './modifier.util'
+import { AdderGroup } from '-/page-components/build-your-own/shared/modifier-components/adder-modifier-component/adderGroup'
+import { CategorizedAdderGroup } from '-/page-components/build-your-own/shared/modifier-components/adder-modifier-component/categorizedAdderGroup'
+import { displays } from '../shared/components/display-components/displays'
+import { adderDisplayValues } from '../shared/components/display-components/displays.types'
+import { assembleOptionsMap } from '../shared/logic/modifier.util'
 
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
 

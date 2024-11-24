@@ -1,7 +1,7 @@
 import { action, computed, makeAutoObservable, makeObservable, observable } from 'mobx'
 
 import { type aggulativeStacksListT, type configT } from '-/page-components/build-your-own/build-your-own.types'
-import { modifierChunkKeyValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { modifierChunkKeyValues } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { addPieceToStack, addStack, clearEmptyStacks, findAndRemoveBlock, findPiece, generateId } from '-/page-components/build-your-own/types/aggulative-stacks/utils/builder.util'
 
 class Piece {

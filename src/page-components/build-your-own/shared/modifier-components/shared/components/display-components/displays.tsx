@@ -1,12 +1,12 @@
 import { type mirageCallbackPropsI } from '-/Components/form-controls/radioInput/radioInput'
 import { DragZone } from '-/page-components/build-your-own/shared/DnD/dragZone'
-import { AddModal } from '-/page-components/build-your-own/shared/addModal'
+import { AddModal } from '-/page-components/build-your-own/shared/add-modal/addModal'
+import { adderDisplayValues, radioDisplayValues } from '-/page-components/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
 import { DnDItemTypes } from '-/page-components/build-your-own/types/freeform-matrix/utils/shapes.util'
-import { adderDisplayValues, radioDisplayValues } from './modifier.types'
 
-import cardStyles from './card-styles.module.scss'
-import imageFirstStyles from './image-first-styles.module.scss'
-import titledStyles from './titled-styles.module.scss'
+import cardStyles from '-/page-components/build-your-own/shared/modifier-components/shared/components/display-components/styles/card-styles.module.scss'
+import imageFirstStyles from '-/page-components/build-your-own/shared/modifier-components/shared/components/display-components/styles/image-first-styles.module.scss'
+import titledStyles from '-/page-components/build-your-own/shared/modifier-components/shared/components/display-components/styles/titled-styles.module.scss'
 
 export const displays = {
   [adderDisplayValues.card]: {

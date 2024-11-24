@@ -1,4 +1,5 @@
-import { adderDisplayValues, groupByValues, modifierChunkKeyValues, radioDisplayValues, sortByValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { adderDisplayValues, radioDisplayValues } from '-/page-components/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
+import { groupByValues, modifierChunkKeyValues, sortByValues } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { blockOptions, fillOptions, strokeOptions } from './options.data'
 
 export const modifiers = [

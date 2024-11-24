@@ -4,10 +4,10 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import { type StandardModelT, type globalRulesI, type modifiersT, type validationLibraryT } from '-/page-components/build-your-own/build-your-own.types'
 import { getDisplay, getWorkspace } from '-/page-components/build-your-own/build-your-own.util'
-import { ModifierGroups } from '-/page-components/build-your-own/shared/modifier/modifierGroups'
+import { ModifierGroups } from '-/page-components/build-your-own/shared/modifier-components/base-modifier-component/modifierGroups'
 import { getStyles } from '-/util/helpers'
 import { useContext } from 'react'
-import { ThemeContext } from '../build-your-own-page'
+import { ThemeContext } from '../../build-your-own-page'
 
 import { BasicAccordion } from '-/Components/accordion/basic-accordion'
 import defaultStyles from '-/page-components/build-your-own/build-your-own-layout.module.scss'

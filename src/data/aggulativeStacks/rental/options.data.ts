@@ -1,4 +1,4 @@
-import { validationValues } from '-/page-components/build-your-own/shared/modifier/modifier.types'
+import { validationValues } from '-/page-components/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 
 export const blockOptions = [
   {

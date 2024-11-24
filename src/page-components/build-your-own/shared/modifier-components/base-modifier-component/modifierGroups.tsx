@@ -3,9 +3,9 @@ import { observer } from 'mobx-react-lite'
 import { BasicAccordionGroup } from '-/Components/accordion/basic-accordion-group'
 import { type onChangeI } from '-/Components/form-controls/radioInput/radioInput'
 import { type StandardModelT, type modifierI, type modifiersT } from '-/page-components/build-your-own/build-your-own.types'
+import { assembleModifierMap } from '../shared/logic/modifier.util'
+import { sortByValues } from '../shared/typing/modifier.types'
 import { ModifierInstance } from './modifier'
-import { sortByValues } from './modifier.types'
-import { assembleModifierMap } from './modifier.util'
 
 interface BuildYourOwnPageI {
   model: StandardModelT
