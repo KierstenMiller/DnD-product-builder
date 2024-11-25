@@ -1,8 +1,8 @@
-import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { dataFreeformMatrix } from '-/page-components/build-your-own/builderRawData'
+import { dataFreeformMatrix } from '-/build-your-own/data/compiledResponses'
+import { BuildYourOwnPage } from '-/build-your-own/page-layout/build-your-own-page'
 
 const BuildYourOwn = () => {
-  return <BuildYourOwnPage data={dataFreeformMatrix}/>
+  return <BuildYourOwnPage data={dataFreeformMatrix} />
 }
 
 export default BuildYourOwn

@@ -1,8 +1,8 @@
-import { BuildYourOwnPage } from '-/page-components/build-your-own/build-your-own-page'
-import { dataSingletonMock } from '-/page-components/build-your-own/builderRawData'
+import { dataSingletonMock } from '-/build-your-own/data/compiledResponses'
+import { BuildYourOwnPage } from '-/build-your-own/page-layout/build-your-own-page'
 
 const BuildYourOwn = () => {
-  return <BuildYourOwnPage data={dataSingletonMock}/>
+  return <BuildYourOwnPage data={dataSingletonMock} />
 }
 
 export default BuildYourOwn
