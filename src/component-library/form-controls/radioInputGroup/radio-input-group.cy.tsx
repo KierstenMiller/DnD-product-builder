@@ -1,4 +1,4 @@
-import { RadioInputGroup, type propsOptionI } from './radioInputGroup'
+import { RadioInputGroup, type propsOptionI } from './radio-input-group'
 
 describe('RadioInputGroup', () => {
   const heading = 'test-heading'

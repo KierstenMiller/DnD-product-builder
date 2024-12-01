@@ -1,4 +1,4 @@
-import { CategorizedRadioInputGroup } from './categorizedRadioInputGroup'
+import { CategorizedRadioInputGroup } from './categorized-radio-input-group'
 
 describe('CategorizedRadioInputGroup', () => {
   const heading = 'test-heading'
@@ -118,7 +118,7 @@ describe('CategorizedRadioInputGroup', () => {
               expect($radioInput).to.have.attr('name', heading)
               // 3.) all RadioInput input's should have a aria-labelledby attribute (inputAriaLabelledBy)
               expect($radioInput).to.have.attr('aria-labelledBy')
-              // 4.) all inputAriaLabelledBy values should contain the labelElemId value
+                // 4.) all inputAriaLabelledBy values should contain the labelElemId value
                 .and.contain(labelElemId)
             })
           $catGroup.find('label')

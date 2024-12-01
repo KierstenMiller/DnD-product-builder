@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 
-import { AddModal, type AddModalOnClickI } from '-/build-your-own/shared/add-modal-component/addModal'
-import { DragZone } from '-/build-your-own/shared/dnd-compnents/dragZone'
+import { AddModal, type AddModalOnClickI } from '-/build-your-own/shared/add-modal-component/add-modal'
+import { DragZone } from '-/build-your-own/shared/dnd-compnents/drag-zone'
 import { type configT } from '-/build-your-own/shared/typing/build-your-own.types'
 import { type FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-files/freeform-matrix/models/freeform-grid.model'
 import { DnDItemTypes, generateImage } from '-/build-your-own/workspace-specific-files/freeform-matrix/utils/shapes.util'

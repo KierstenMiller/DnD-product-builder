@@ -1,6 +1,6 @@
 import { radioDisplayValues } from '-/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
 import { groupByValues, measurementValues, modifierChunkKeyValues, sortByValues } from '-/build-your-own/shared/modifier-components/shared/typing/modifier.types'
-import { mockFilterDoubleDropDown, mockFilterSingleTabbed } from './mockFilters.data'
+import { mockFilterDoubleDropDown, mockFilterSingleTabbed } from './mock-filters.data'
 import { mockOptions2D, mockOptions2DPriced, mockOptions3D, mockOptions3DStocked, mockOptions3DStockedPriced } from './options.data'
 
 export const mockModifierA = {

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { dataAggulativeStacks, dataAggulativeStacksRental, dataFreeformMatrix, dataSingletonMock, dataSingletonRobot } from '-/build-your-own/data/compiledResponses'
+import { dataAggulativeStacks, dataAggulativeStacksRental, dataFreeformMatrix, dataSingletonMock, dataSingletonRobot } from '-/build-your-own/data/compiled-responses'
 import { ThemeContext } from '-/build-your-own/page-layout/build-your-own-page'
 import { BasicAccordion } from '-/component-library/accordion/basic-accordion'
 import { Select } from '-/component-library/form-controls/select/select'

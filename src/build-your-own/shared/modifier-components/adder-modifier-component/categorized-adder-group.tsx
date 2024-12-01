@@ -1,6 +1,6 @@
-import { type onChangeI } from '-/component-library/form-controls/radioInput/radioInput'
+import { type onChangeI } from '-/component-library/form-controls/radioInput/radio-input'
 import { type sassStylesI } from '-/util-library/typing-util'
-import { AdderGroup } from './adderGroup'
+import { AdderGroup } from './adder-group'
 
 interface propsOptionI {
   id: string

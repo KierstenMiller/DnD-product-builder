@@ -1,8 +1,8 @@
-import { AddModal } from '-/build-your-own/shared/add-modal-component/addModal'
-import { DragZone } from '-/build-your-own/shared/dnd-compnents/dragZone'
+import { AddModal } from '-/build-your-own/shared/add-modal-component/add-modal'
+import { DragZone } from '-/build-your-own/shared/dnd-compnents/drag-zone'
 import { adderDisplayValues, radioDisplayValues } from '-/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
 import { DnDItemTypes } from '-/build-your-own/workspace-specific-files/freeform-matrix/utils/shapes.util'
-import { type mirageCallbackPropsI } from '-/component-library/form-controls/radioInput/radioInput'
+import { type mirageCallbackPropsI } from '-/component-library/form-controls/radioInput/radio-input'
 
 import cardStyles from '-/build-your-own/shared/modifier-components/shared/components/display-components/styles/card-styles.module.scss'
 import imageFirstStyles from '-/build-your-own/shared/modifier-components/shared/components/display-components/styles/image-first-styles.module.scss'

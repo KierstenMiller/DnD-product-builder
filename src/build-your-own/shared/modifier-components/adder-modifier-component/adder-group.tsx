@@ -1,4 +1,4 @@
-import { type mirageCallbackPropsI, type onChangeI } from '-/component-library/form-controls/radioInput/radioInput'
+import { type mirageCallbackPropsI, type onChangeI } from '-/component-library/form-controls/radioInput/radio-input'
 import { type sassStylesI } from '-/util-library/typing-util'
 
 interface propsOptionI {

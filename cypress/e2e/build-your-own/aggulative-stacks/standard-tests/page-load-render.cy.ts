@@ -1,4 +1,4 @@
-import { verifyWorkspace } from '~/e2e/build-your-own/aggulativeStacks/verfiy.util'
+import { verifyWorkspace } from '~/e2e/build-your-own/aggulative-stacks/verfiy.util'
 import { defaultModifierState, defaultWorkspace, newModifierState } from './shared-data.util'
 
 describe('Aggulative Workflow', () => {

@@ -4,7 +4,7 @@ import { assembleModifierMap } from '-/build-your-own/shared/modifier-components
 import { sortByValues } from '-/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { type StandardModelT, type modifierI, type modifiersT } from '-/build-your-own/shared/typing/build-your-own.types'
 import { BasicAccordionGroup } from '-/component-library/accordion/basic-accordion-group'
-import { type onChangeI } from '-/component-library/form-controls/radioInput/radioInput'
+import { type onChangeI } from '-/component-library/form-controls/radioInput/radio-input'
 import { ModifierInstance } from './modifier'
 
 interface BuildYourOwnPageI {

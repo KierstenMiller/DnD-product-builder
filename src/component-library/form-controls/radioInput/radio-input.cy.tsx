@@ -1,4 +1,4 @@
-import { RadioInput, type onChangeI } from './radioInput'
+import { RadioInput, type onChangeI } from './radio-input'
 
 describe('<RadioInput />', () => {
   const id = 'select-id'

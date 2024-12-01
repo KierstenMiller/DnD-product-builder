@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite'
 
-import { AdderGroup } from '-/build-your-own/shared/modifier-components/adder-modifier-component/adderGroup'
-import { CategorizedAdderGroup } from '-/build-your-own/shared/modifier-components/adder-modifier-component/categorizedAdderGroup'
+import { AdderGroup } from '-/build-your-own/shared/modifier-components/adder-modifier-component/adder-group'
+import { CategorizedAdderGroup } from '-/build-your-own/shared/modifier-components/adder-modifier-component/categorized-adder-group'
 import { displays } from '-/build-your-own/shared/modifier-components/shared/components/display-components/displays'
 import { adderDisplayValues } from '-/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
 import { assembleOptionsMap } from '-/build-your-own/shared/modifier-components/shared/logic/modifier.util'
 import { type modifierI } from '-/build-your-own/shared/typing/build-your-own.types'
 import { BasicAccordion } from '-/component-library/accordion/basic-accordion'
-import { CategorizedRadioInputGroup } from '-/component-library/form-controls/categorizedRadioInputGroup/categorizedRadioInputGroup'
-import { type onChangeI } from '-/component-library/form-controls/radioInput/radioInput'
-import { RadioInputGroup } from '-/component-library/form-controls/radioInputGroup/radioInputGroup'
+import { CategorizedRadioInputGroup } from '-/component-library/form-controls/categorizedRadioInputGroup/categorized-radio-input-group'
+import { type onChangeI } from '-/component-library/form-controls/radioInput/radio-input'
+import { RadioInputGroup } from '-/component-library/form-controls/radioInputGroup/radio-input-group'
 
 interface propsI { mod: modifierI, onChange: ({ newSelection }: onChangeI) => void }
 

@@ -1,4 +1,4 @@
-import { ModalTrigger } from './modalTrigger'
+import { ModalTrigger } from './modal-trigger'
 
 describe('ModalTrigger', () => {
   const testId = 'test-modal'

@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
 
 import { type aggulativeStackIndexI, type stackI } from '-/build-your-own/shared/typing/build-your-own.types'
-import { DropZone } from './DropZone'
 import { Block } from './block'
+import { DropZone } from './drop-zone'
 
 interface propsI {
   index: number

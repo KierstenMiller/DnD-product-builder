@@ -1,4 +1,4 @@
-import { TextInput, type onChangeI } from './textInput'
+import { TextInput, type onChangeI } from './text-input'
 
 describe('<TextInput />', () => {
   const testId = 'test-id'

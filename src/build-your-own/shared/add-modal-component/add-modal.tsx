@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { type matrixIndexCoordinatesI } from '-/build-your-own/shared/typing/build-your-own.types'
 import { Select } from '-/component-library/form-controls/select/select'
-import { ModalTrigger } from '-/component-library/modals/modalTrigger/modalTrigger'
+import { ModalTrigger } from '-/component-library/modals/modal-trigger/modal-trigger'
 import { noop } from '-/util-library/helpers'
 import { type mouseClickT } from '-/util-library/interaction-typing'
 

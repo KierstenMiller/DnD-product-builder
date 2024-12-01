@@ -1,5 +1,5 @@
 import { type buildYourOwnRawDataI, type validationLibraryT } from '../shared/typing/build-your-own.types'
-import { getBuilder } from './compilePageData.util'
+import { getBuilder } from './compile-page-data.util'
 import { StandardModel } from './standard.model'
 
 // TODO: refactor and jest test

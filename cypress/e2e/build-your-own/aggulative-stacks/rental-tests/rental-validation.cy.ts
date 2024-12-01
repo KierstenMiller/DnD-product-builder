@@ -1,5 +1,5 @@
-import { directions as dirs, dragDropNewBlock, dragNewBlock, type DragNewBlockI } from '~/e2e/build-your-own/aggulativeStacks/drag-drop.util'
-import { verifyWorkspace } from '~/e2e/build-your-own/aggulativeStacks/verfiy.util'
+import { directions as dirs, dragDropNewBlock, dragNewBlock, type DragNewBlockI } from '~/e2e/build-your-own/aggulative-stacks/drag-drop.util'
+import { verifyWorkspace } from '~/e2e/build-your-own/aggulative-stacks/verfiy.util'
 
 describe('Aggulative Rental Workflow', () => {
   const newStackRegex = /^dropzone_[0-9]-(left|right)$/

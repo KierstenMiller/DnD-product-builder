@@ -1,4 +1,4 @@
-import { dataAggulativeStacks } from '-/build-your-own/data/compiledResponses'
+import { dataAggulativeStacks } from '-/build-your-own/data/compiled-responses'
 import { BuildYourOwnPage } from '-/build-your-own/page-layout/build-your-own-page'
 
 const BuildYourOwn = () => {

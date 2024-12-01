@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { RadioInput, type mirageCallbackT, type onChangeI } from '-/component-library/form-controls/radioInput/radioInput'
+import { RadioInput, type mirageCallbackT, type onChangeI } from '-/component-library/form-controls/radioInput/radio-input'
 import { makeId } from '-/util-library/helpers'
 import { type sassStylesI } from '-/util-library/typing-util'
 

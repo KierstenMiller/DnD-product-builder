@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 
 import { type matrixIndexCoordinatesI } from '-/build-your-own/shared/typing/build-your-own.types'
 import { type FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-files/freeform-matrix/models/freeform-grid.model'
-import { DropZone } from './dropZone'
+import { DropZone } from './drop-zone'
 
 interface propsI {
   build: FreeformMatrixBuildModel
