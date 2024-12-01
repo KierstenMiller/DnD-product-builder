@@ -1,5 +1,8 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true, //this works only with below noEmit set to true https://www.typescriptlang.org/tsconfig/#allowImportingTsExtensions
+    "noEmit": true,
     "target": "es5",
     "strict": true,
     "strictNullChecks": true,

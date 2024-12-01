@@ -28,6 +28,9 @@
       "#/*": [
         "src/styling-library/*"
       ],
+      "~/*": [
+        "cypress/*"
+      ],
     }
   },
   "include": [
