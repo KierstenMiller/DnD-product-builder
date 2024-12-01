@@ -1,5 +1,5 @@
-import { directions as dirs, dragDropNewBlock, relativeDragDropNewBlock, type DragDropNewBlockI } from '../drag-drop.util'
-import { doActionThenVerify, getNewWorkspace, verifyWorkspace, type NewBlockInfoI } from '../verfiy.util'
+import { directions as dirs, dragDropNewBlock, relativeDragDropNewBlock, type DragDropNewBlockI } from '~/e2e/build-your-own/aggulativeStacks/drag-drop.util'
+import { doActionThenVerify, getNewWorkspace, verifyWorkspace, type NewBlockInfoI } from '~/e2e/build-your-own/aggulativeStacks/verfiy.util'
 import { defaultModifierState, defaultWorkspace, doubleBlock, newModifierState, newerModifierState, quadBlock, singleBlock } from './shared-data.util'
 
 interface dragDropNewBlockScenarioI extends DragDropNewBlockI { index: number, newBlockInfo: NewBlockInfoI }

@@ -1,4 +1,4 @@
-import type { headerLevelT } from '../atoms/header/header'
+import type { headerLevelT } from '-/component-library/atoms/header/header'
 import { TabList } from './tabs'
 
 // Helper function to test tab state

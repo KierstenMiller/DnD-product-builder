@@ -1,4 +1,5 @@
-import { type testModifiersT } from '../../../support/commands'
+import { type testModifiersT } from '~/support/commands'
+
 
 export interface DragBlockI {
   value: string

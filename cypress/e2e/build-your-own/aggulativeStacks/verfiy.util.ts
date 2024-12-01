@@ -1,4 +1,4 @@
-import { type testModifiersT } from '../../../support/commands'
+import { type testModifiersT } from '~/support/commands'
 import { type DragBlockI } from './drag-drop.util'
 
 const findIndex = (stacks: TestBlockI[][], id: string) => {

@@ -1,4 +1,4 @@
-import { type testModifiersT } from '../../../support/commands'
+import { type testModifiersT } from '~/support/commands'
 
 const clearDropzone = (dropzone: string) => {
   cy.getByTestId(dropzone).find('button[data-testid="clear"]').click()
