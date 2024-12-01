@@ -1,12 +1,12 @@
+import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
+import { useContext } from 'react'
 
 import { ThemeContext } from '-/build-your-own/page-layout/build-your-own-page'
 import { DragZone } from '-/build-your-own/shared/dnd-compnents/dragZone'
 import { type blockI } from '-/build-your-own/shared/typing/build-your-own.types'
 import { DnDItemTypes, generateBlock } from '-/build-your-own/workspace-specific-files/freeform-matrix/utils/shapes.util'
 import { getStyles } from '-/util-library/helpers'
-import classNames from 'classnames'
-import { useContext } from 'react'
 import { DropZone } from './DropZone'
 
 interface propsI {

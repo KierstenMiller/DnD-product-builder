@@ -1,11 +1,10 @@
+import classNames from 'classnames'
 import React, { useContext, useState } from 'react'
 
 import { ThemeContext } from '-/build-your-own/page-layout/build-your-own-page'
+import { Header, type headerLevelT } from '-/component-library/atoms/header/header'
 import { getStyles } from '-/util-library/helpers'
-import type { headerLevelT } from '../atoms/header/header'
-import { Header } from '../atoms/header/header'
 
-import classNames from 'classnames'
 import defaultStyles from './tabs.module.scss'
 
 // Implementation reference:

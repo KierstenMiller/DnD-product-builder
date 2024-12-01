@@ -1,3 +1,4 @@
+import { type builderRawDataShapeI, type builderT, type configT } from '-/build-your-own/shared/typing/build-your-own.types'
 import { AggulativeStacksWorkspace } from '-/build-your-own/workspace-specific-files/aggulative-stacks/components/aggulative-stacks-workspace'
 import { AggulativeStacksBuildModel } from '-/build-your-own/workspace-specific-files/aggulative-stacks/models/aggulative-stacks.model'
 import { FreeformMatrixDisplay } from '-/build-your-own/workspace-specific-files/freeform-matrix/components/freeform-matrix-display'
@@ -5,7 +6,6 @@ import { FreeformMatrixWorkspace } from '-/build-your-own/workspace-specific-fil
 import { FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-files/freeform-matrix/models/freeform-grid.model'
 import { SingletonDisplay } from '-/build-your-own/workspace-specific-files/singleton/singleton-display'
 import { SingletonWorkspace } from '-/build-your-own/workspace-specific-files/singleton/singleton-workspace'
-import { type builderRawDataShapeI, type builderT, type configT } from '../shared/typing/build-your-own.types'
 
 type functionalComponentT = (((props: any) => JSX.Element) & { displayName: string })
 export enum builderKeys { singleton = 'singleton', freeformMatrix = 'freeform-matrix', aggulativeStacks = 'aggulative-stacks', }

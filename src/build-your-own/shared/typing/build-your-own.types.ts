@@ -1,9 +1,9 @@
+import { type builderKeys } from '-/build-your-own/page-state/compilePageData.util'
+import { type StandardModel } from '-/build-your-own/page-state/standard.model'
+import { type displayValuesT, type filterDisplayValues } from '-/build-your-own/shared/modifier-components/shared/components/display-components/displays.types'
 import { type groupByValues, type measurementValues, type modifierChunkKeyValues, type sortByValues, type validationValues } from '-/build-your-own/shared/modifier-components/shared/typing/modifier.types'
-import { type builderKeys } from '../../page-state/compilePageData.util'
-import { type StandardModel } from '../../page-state/standard.model'
-import { type AggulativeStacksBuildModel } from '../../workspace-specific-files/aggulative-stacks/models/aggulative-stacks.model'
-import { type FreeformMatrixBuildModel } from '../../workspace-specific-files/freeform-matrix/models/freeform-grid.model'
-import { type displayValuesT, type filterDisplayValues } from '../modifier-components/shared/components/display-components/displays.types'
+import { type AggulativeStacksBuildModel } from '-/build-your-own/workspace-specific-files/aggulative-stacks/models/aggulative-stacks.model'
+import { type FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-files/freeform-matrix/models/freeform-grid.model'
 
 /// ///////////////////////////////
 //      AGGULATIVE STACKS      //
