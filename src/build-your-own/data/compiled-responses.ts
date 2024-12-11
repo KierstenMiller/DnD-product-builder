@@ -6,7 +6,7 @@ import { matrixMock } from '-/build-your-own/data/freeform-matrix/matrix.data'
 import { shapeModifiers } from '-/build-your-own/data/freeform-matrix/modifiers.data'
 import { robotModifiers } from '-/build-your-own/data/singleton/robots/modifiers.data'
 import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE } from '-/build-your-own/data/singleton/testing-mocks/modifiers.data'
-import { builderKeys } from '-/build-your-own/page-state/compile-page-data.util'
+import { builderKeys } from '-/build-your-own/page-state/builder-key-getters'
 import { validationValues } from '-/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { type buildYourOwnRawDataI } from '-/build-your-own/shared/typing/build-your-own.types'
 

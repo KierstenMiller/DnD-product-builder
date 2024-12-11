@@ -3,7 +3,7 @@ import { createContext, useState } from 'react'
 
 import { BuildYourOwnDevBar } from '-/build-your-own/page-layout/build-your-own-dev-bar'
 import { BuildYourOwnLayout } from '-/build-your-own/page-layout/build-your-own-layout'
-import { formatBuilderData } from '-/build-your-own/page-state/compile-page-data'
+import { formatBuilderData } from '-/build-your-own/page-state/compile-builder-helpers'
 import { type buildYourOwnRawDataI } from '-/build-your-own/shared/typing/build-your-own.types'
 
 import pencilSchemeStyles from '#/pencil-scheme.module.scss'

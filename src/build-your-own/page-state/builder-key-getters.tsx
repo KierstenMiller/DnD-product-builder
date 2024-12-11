@@ -1,4 +1,4 @@
-import { type builderRawDataShapeI, type builderT, type configT } from '-/build-your-own/shared/typing/build-your-own.types'
+import { type builderRawDataShapeI, type builderT } from '-/build-your-own/shared/typing/build-your-own.types'
 import { AggulativeStacksWorkspace } from '-/build-your-own/workspace-specific-files/aggulative-stacks/components/aggulative-stacks-workspace'
 import { AggulativeStacksBuildModel } from '-/build-your-own/workspace-specific-files/aggulative-stacks/models/aggulative-stacks.model'
 import { FreeformMatrixDisplay } from '-/build-your-own/workspace-specific-files/freeform-matrix/components/freeform-matrix-display'
@@ -6,12 +6,10 @@ import { FreeformMatrixWorkspace } from '-/build-your-own/workspace-specific-fil
 import { FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-files/freeform-matrix/models/freeform-grid.model'
 import { SingletonDisplay } from '-/build-your-own/workspace-specific-files/singleton/singleton-display'
 import { SingletonWorkspace } from '-/build-your-own/workspace-specific-files/singleton/singleton-workspace'
+import { functionalComponentT } from '-/util-library/typing-util'
 
-type functionalComponentT = (((props: any) => JSX.Element) & { displayName: string })
 export enum builderKeys { singleton = 'singleton', freeformMatrix = 'freeform-matrix', aggulativeStacks = 'aggulative-stacks', }
-export const overrideConfig = (config: configT, overrideConfig: configT) => {
-  return config.map(c => (overrideConfig.find(o => o.id === c.id) ?? c))
-}
+
 export const getWorkspace = (type: builderKeys): functionalComponentT => {
   switch (type) {
     case builderKeys.singleton:
