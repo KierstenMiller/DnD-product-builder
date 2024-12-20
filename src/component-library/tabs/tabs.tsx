@@ -1,11 +1,9 @@
 import classNames from 'classnames'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 
-import { ThemeContext } from '-/build-your-own/page-layout/build-your-own-page'
 import { Header, type headerLevelT } from '-/component-library/atoms/header/header'
-import { getStyles } from '-/util-library/helpers'
 
-import defaultStyles from './tabs.module.scss'
+import styles from './tabs.module.scss'
 
 // Implementation reference:
 // https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/
@@ -23,8 +21,6 @@ export const TabList = ({
   heading,
   tabs
 }: Props) => {
-  const theme = useContext(ThemeContext)
-  const styles = (id: string) => getStyles(defaultStyles, theme, id)
   const [selectedTabId, setSelectedTab] = useState(tabs.find(tab => tab.isSelected)?.id ?? tabs[0].id)
   const tabRefs = React.useRef<HTMLButtonElement[]>([])
 
@@ -56,12 +52,12 @@ export const TabList = ({
     }
   }
 
-  return <div data-testid={testId} className={styles('tabs-container')}>
-    {heading && <Header testId="tablist-heading" className={styles('tabs-header')} id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
-    <div data-testid="tablist-buttons-container" className={styles('tabs-buttons-container')} role="tablist" aria-labelledby={`tablist-heading-${id}`}>
+  return <div data-testid={testId} className={styles.tabsContainer}>
+    {heading && <Header testId="tablist-heading" className={styles.tabsHeader} id={`tablist-heading-${id}`} headerLevel={heading.level}>{heading.text}</Header>}
+    <div data-testid="tablist-buttons-container" className={styles.tabsButtonsContainer} role="tablist" aria-labelledby={`tablist-heading-${id}`}>
       {tabs.map((tab, index) => <button
         data-testid={`tab-button-${tab.id}`}
-        className={styles('tabs-button')}
+        className={styles.tabsButton}
         key={tab.id}
         id={`tab-button-${tab.id}`}
         type="button"
@@ -79,7 +75,7 @@ export const TabList = ({
     </div>
     {tabs.map(tab => <div
       data-testid={`tab-panel-${tab.id}`}
-      className={classNames(styles('tabs-panel'), { hidden: selectedTabId !== tab.id })}
+      className={classNames(styles.tabsPanel, { hidden: selectedTabId !== tab.id })}
       key={`tab-panel-${tab.id}`}
       id={`tab-panel-${tab.id}`}
       role="tabpanel"

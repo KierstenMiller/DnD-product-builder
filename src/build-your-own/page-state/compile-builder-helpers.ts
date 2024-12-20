@@ -1,4 +1,4 @@
-import { configT, modifiersT, type buildYourOwnRawDataI, type validationLibraryT } from '../shared/typing/build-your-own.types'
+import { type buildYourOwnRawDataI, type configT, type modifiersT, type validationLibraryT } from '../shared/typing/build-your-own.types'
 import { getBuilder } from './builder-key-getters'
 import { StandardModel } from './standard.model'
 
@@ -22,7 +22,7 @@ const constructValidationLibrary = (modifiers: modifiersT): validationLibraryT =
 }
 
 // TODO: Make "builder" its own type in build-your-own.types.ts
-const constructBuilderDataWithModifierChunkKeys = (builder: buildYourOwnRawDataI["builder"], config: configT) => {
+const constructBuilderDataWithModifierChunkKeys = (builder: buildYourOwnRawDataI['builder'], config: configT) => {
   return builder?.data?.map(d => d.map(m => {
     if (!m.piece?.config) return m
     m.piece.config = m.piece?.config.map((pC: { id: string }) => {

@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react-lite'
-import { useContext } from 'react'
 
-import { ThemeContext } from '-/build-your-own/page-layout/build-your-own-page'
 import { Studio } from '-/build-your-own/shared/studio-component/studio'
 import { type StandardModelT, type globalRulesI, type modifiersT, type validationLibraryT } from '-/build-your-own/shared/typing/build-your-own.types'
-import { getStyles } from '-/util-library/helpers'
 
-import defaultStyles from './build-your-own-layout.module.scss'
+import styles from './build-your-own-layout.module.scss'
 
 interface BuildYourOwnPageI {
   model: StandardModelT
@@ -16,16 +13,14 @@ interface BuildYourOwnPageI {
 }
 
 export const BuildYourOwnLayout = observer(({ model, modifiers, globalValidation, validationLibrary }: BuildYourOwnPageI) => {
-  const theme = useContext(ThemeContext)
-  const styles = (id: string) => getStyles(defaultStyles, theme, id)
   return (<>
-    <div className={styles('app')}>
-      <div className={styles('pageContainer')}>
+    <div className={styles.app}>
+      <div className={styles.pageContainer}>
         <Studio model={model} modifiers={modifiers} globalValidation={globalValidation} validationLibrary={validationLibrary} />
-        <div className={styles('information')}>
+        <div className={styles.information}>
           <h2>Get To Know Your Build</h2>
-          <div className={styles('row')}>
-            <div className={styles('column')}>
+          <div className={styles.row}>
+            <div className={styles.column}>
               <h3>Adjectives</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dui leo, tempus ut posuere vel, ullamcorper quis est. Nullam ipsum erat, tincidunt eget quam id, maximus tempus eros. Sed ullamcorper nisl at est luctus, a condimentum augue elementum. Mauris lobortis lectus et tortor sodales cursus. Donec finibus ex placerat massa condimentum dignissim. Donec in enim quis ligula molestie rutrum. Fusce in aliquam dolor. Nam et accumsan dui.</p>
               <h4>Most prominent adjective</h4>
@@ -39,7 +34,7 @@ export const BuildYourOwnLayout = observer(({ model, modifiers, globalValidation
               <h4>Most minor adjective</h4>
               <p>Phasellus a lectus libero. Phasellus cursus pulvinar fringilla. In malesuada non urna iaculis tempus. Morbi massa quam, posuere mattis mauris nec, dapibus facilisis risus.</p>
             </div>
-            <div className={styles('column')}>
+            <div className={styles.column}>
               <h3>Specifications Summary</h3>
               <h4>Block types</h4>
               <ul>
@@ -97,7 +92,7 @@ export const BuildYourOwnLayout = observer(({ model, modifiers, globalValidation
             </div>
           </div>
         </div>
-        <div className={styles('otherContent')}>
+        <div className={styles.otherContent}>
           other content
         </div>
       </div>

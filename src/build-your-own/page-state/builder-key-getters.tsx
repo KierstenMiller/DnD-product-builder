@@ -6,7 +6,7 @@ import { FreeformMatrixWorkspace } from '-/build-your-own/workspace-specific-fil
 import { FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-files/freeform-matrix/models/freeform-grid.model'
 import { SingletonDisplay } from '-/build-your-own/workspace-specific-files/singleton/singleton-display'
 import { SingletonWorkspace } from '-/build-your-own/workspace-specific-files/singleton/singleton-workspace'
-import { functionalComponentT } from '-/util-library/typing-util'
+import { type functionalComponentT } from '-/util-library/typing-util'
 
 export enum builderKeys { singleton = 'singleton', freeformMatrix = 'freeform-matrix', aggulativeStacks = 'aggulative-stacks', }
 

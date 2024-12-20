@@ -1,19 +1,14 @@
-import { useContext } from 'react'
-
 import { dataAggulativeStacks, dataAggulativeStacksRental, dataFreeformMatrix, dataSingletonMock, dataSingletonRobot } from '-/build-your-own/data/compiled-responses'
-import { ThemeContext } from '-/build-your-own/page-layout/build-your-own-page'
 import { BasicAccordion } from '-/component-library/accordion/basic-accordion'
 import { Select } from '-/component-library/form-controls/select/select'
 import { TabList } from '-/component-library/tabs/tabs'
-import { getStyles } from '-/util-library/helpers'
+import styles from './build-your-own-dev-bar.module.scss'
 
 export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }) => {
-  const theme = useContext(ThemeContext)
-  const styles = (id: string) => getStyles({}, theme, id)
   return (
-    <div className={styles('dev-bar')}>
+    <div className={styles.devBar}>
       {/* TODO: Make these buttons into links - shallow (optimize rerender and mobx 'un-packing' too) */}
-      <div className={styles('menu')}>
+      <div className={styles.menu}>
         <button onClick={() => { setData(dataSingletonMock) }}>Singleton Mock</button>
         <button onClick={() => { setData(dataSingletonRobot) }}>Singleton Robots</button>
         <button onClick={() => { setData(dataFreeformMatrix) }}>Freeform Matrix Mock</button>
@@ -36,16 +31,16 @@ export const BuildYourOwnDevBar = ({ setData }: { setData: (data: any) => void }
             { id: 'fifth-tab', isSelected: false, tabButton: <span>Button 5</span>, tabPanel: <div>Panel 5</div> }
           ]}
         />
-        <div className={styles('status-goals-container')}>
-          <div className={styles('status')}>
+        <div className={styles.statusGoalsContainer}>
+          <div className={styles.status}>
             <Select id="view-schemes" label="CURRENT VIEW SCHEME:" onChange={() => { console.log('todo') }} options={[
               { id: 'pencil', text: 'Pencil' },
               { id: 'none', text: 'No Styles' }
             ]} />
           </div>
           <div>
-            <span className={styles('up-next')}><b>UP NEXT:</b> Create slick design for website </span>
-            <div className={styles('goals')}>
+            <span className={styles.upNext}><b>UP NEXT:</b> Create slick design for website </span>
+            <div className={styles.goals}>
               <BasicAccordion
                 id="workspace-goals"
                 triggerText="Workspace Goals"
