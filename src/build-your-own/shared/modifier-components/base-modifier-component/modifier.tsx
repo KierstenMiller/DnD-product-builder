@@ -29,6 +29,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
     headerLevel={3}
     testId={`${mod.id}-modifier`}
     id={mod.id}
+    className="mb-huge"
   >
     {isAdder
       ? newModifier.composedOptions

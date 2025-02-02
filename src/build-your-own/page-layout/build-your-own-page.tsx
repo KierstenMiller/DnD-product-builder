@@ -5,6 +5,7 @@ import { BuildYourOwnDevBar } from '-/build-your-own/page-layout/build-your-own-
 import { BuildYourOwnLayout } from '-/build-your-own/page-layout/build-your-own-layout'
 import { formatBuilderData } from '-/build-your-own/page-state/compile-builder-helpers'
 import { type buildYourOwnRawDataI } from '-/build-your-own/shared/typing/build-your-own.types'
+import { BasicAccordion } from '-/component-library/accordion/basic-accordion'
 
 import styles from './build-your-own-page.module.scss'
 
@@ -30,16 +31,22 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {inTestMode && <BuildYourOwnDevBar setData={setDataCallback} />}
-      <div className={styles.header}>
-        <div className={styles.headerLevelOne}>
-          <div className={styles.logo}>Logo</div>
-          <div className={styles.productNav}>
-            <div className={styles.product}>Cubby Unit</div>
-            <div className={styles.product}>Cabinet</div>
-            <div className={styles.product}>Media Cabinet</div>
-          </div>
+      <div className={styles.headerLevelOne}>
+        <div className={styles.logo}>Logo</div>
+        <div className={styles.productNav}>
+          <div className={styles.product}>Cubby Unit</div>
+          <div className={styles.product}>Cabinet</div>
+          <div className={styles.product}>Media Cabinet</div>
         </div>
-        <div className={styles.headerLevelTwo}>
+      </div>
+      <div className={styles.results}>
+        <BasicAccordion
+          triggerText={'Results'}
+          headerLevel={2}
+          id={'results'}
+          drawerOpen={true}
+        >
+          <div className={styles.resultsContent}>
           <div className={styles.price}>
             <div className={styles.label}>Total Price</div>
             <div className={styles.data}>$0,000.00</div>
@@ -63,6 +70,8 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
             </div>
           </div>
         </div>
+        </BasicAccordion>
+        
       </div>
       <BuildYourOwnLayout model={model} modifiers={viewData.modifiers} globalValidation={viewData.builder?.rules} {...validationLibrary.length > 0 && { validationLibrary }} />
     </>

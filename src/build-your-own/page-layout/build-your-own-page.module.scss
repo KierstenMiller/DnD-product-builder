@@ -1,39 +1,60 @@
-.header {
-  position: sticky;
-  top: 0;
+.headerLevelOne {
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+    padding: 20px 22px;
+  }
+
+  .productNav {
+    display: flex;
+
+    .product {
+      border: 1px solid black;
+      padding: 20px 22px;
+      max-width: 300px;
+      width: 20vw;
+      text-align: center;
+      color: #6C6C6C;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}
+
+.results {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   z-index: 1;
   background: white;
+  
 
-  .headerLevelOne {
-    display: flex;
-    justify-content: space-between;
-
-    .logo {
-      padding: 20px 22px;
+  // basicAccordion base styles overrides
+  :global .accordionContainer {
+    border-radius: 0;
+    box-shadow: 0px -1px 8px 0px rgba(0, 0, 0, 0.15);
+    padding: 0 80px;
+    .accordionTrigger {
+      font-size: 12px;
+      align-items: center; // to center text and arrow
+      justify-content: unset;
+      width: unset;
     }
-
-    .productNav {
-      display: flex;
-
-      .product {
-        border: 1px solid black;
-        padding: 20px 22px;
-        max-width: 300px;
-        width: 20vw;
-        text-align: center;
-        color: #6C6C6C;
-        font-size: 16px;
-        font-weight: 600;
-      }
+    .accordionArrowContainer {
+      margin-bottom: 3px; // need a little nudge to center - we rotate the box of the arrow, so there is about 3px of empty space at the top-most point (at this size)
+    }
+    .accordionArrow {
+      display: block; // need to override inline-block to center
+      padding: 2px; // size of arrow
     }
   }
 
-  .headerLevelTwo {
+  .resultsContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 160px;
-    box-shadow: 0px -1px 8px 0px rgba(0, 0, 0, 0.15);
+    
 
     .price {
       .label {
