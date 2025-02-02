@@ -1,10 +1,10 @@
 .app {
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .pageContainer {
-  overflow-x: auto;
-  height: 100vh;
+  // overflow-x: auto;
+  // height: 100vh;
 }
 
 .row {
@@ -24,10 +24,53 @@
   width: 50%;
 }
 
-.summary {
-  height: 400px;
-}
-
 .otherContent {
   height: 1000px;
+}
+
+.pageContainer {
+  padding: 80px 160px;
+}
+
+.description {
+  margin-bottom: 64px;
+
+  .mainHeading {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .pricing {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+
+  .breakdown {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+
+  .selectionsHeading {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .selectionContainer {
+    display: flex;
+
+    .selection {
+      font-size: 16px;
+      margin-right: 32px;
+
+      .label {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 8px;
+      }
+    }
+  }
 }

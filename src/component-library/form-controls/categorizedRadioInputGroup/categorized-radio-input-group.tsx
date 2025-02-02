@@ -21,21 +21,29 @@ interface propsI {
   }>
   // optional
   testId?: string // made optional to prevent DOM bloat
+  includeCount?: boolean
   hideInput?: boolean
   styles?: sassStylesI
   mirage?: mirageCallbackT
 }
 
-export const CategorizedRadioInputGroup = ({ heading, categorizedOptions, onChange, styles = {}, mirage, testId, hideInput }: propsI) => {
+export const CategorizedRadioInputGroup = ({ heading, categorizedOptions, onChange, styles = {}, mirage, testId, includeCount, hideInput }: propsI) => {
   const [selection, setSelection] = useState(categorizedOptions.flatMap(cat => cat.options).find(opt => opt.selected)?.id)
   const onChangeToUse = ({ event, newSelection }: onChangeI) => {
     setSelection(newSelection)
     onChange({ event, newSelection })
   }
   return <fieldset data-testid={testId} className={styles.fieldset}>
-    <legend className={styles.legend}>{heading}</legend>
+    <legend className={styles.legend}>
+      {heading}
+      {includeCount && <>
+        {': '}
+        <span className={styles.count}>{categorizedOptions.flatMap(cat => cat.options).length} Options</span>
+      </>}
+    </legend>
     {categorizedOptions.map(cat => <div data-testid={`${cat.id.toString()}-group`} key={cat.id}>
       <div
+        className={styles.categoryLabel}
         data-testid={`${cat.id.toString()}-label`}
         id={cat.id.toString()} // NOTE: this is used as part of the aria-labelledby attribute on the RadioInput's input element
       >

@@ -18,18 +18,22 @@ interface propsI {
   options: propsOptionI[]
   // optional
   testId?: string // made optional to prevent DOM bloat
+  includeCount?: boolean
   styles?: sassStylesI
   mirage?: ((props: mirageCallbackPropsI) => JSX.Element)
 }
 
-export const RadioInputGroup = ({ heading, options, onChange, testId, styles = {}, mirage }: propsI) => {
+export const RadioInputGroup = ({ heading, options, onChange, testId, includeCount, styles = {}, mirage }: propsI) => {
   const [selection, setSelection] = useState(options.find(opt => opt.selected)?.id)
   const onChangeToUse = ({ event, newSelection }: onChangeI) => {
     setSelection(newSelection)
     onChange({ event, newSelection })
   }
   return <fieldset data-testid={testId} className={styles.fieldset}>
-    <legend className={styles.legend}>{heading}</legend>
+    <legend className={styles.legend}>
+      {heading}
+      {includeCount && <span className={styles.count}>{options.length}</span>}
+    </legend>
     <div data-testid={`${testId}-options`} className={styles.optionsContainer}>
       {options.map(opt => <RadioInput
         testId={`${makeId(heading)}_${opt.id}`}

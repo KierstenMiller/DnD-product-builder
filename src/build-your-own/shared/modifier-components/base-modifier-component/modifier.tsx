@@ -50,6 +50,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
         ? <CategorizedRadioInputGroup
           heading={`${mod.label} ${mod.groupBy}`}
           onChange={onChange}
+          includeCount={true}
           categorizedOptions={[...newModifier.composedOptions.entries()].map(([category, options]) => ({ id: `${mod.id}_${category}`, category, options }))}
           styles={displays[mod.display]?.styles}
           mirage={displays[mod.display]?.view}
@@ -58,6 +59,7 @@ export const ModifierInstance = observer(({ mod, onChange }: propsI) => {
           heading={mod.label}
           options={mod.options}
           onChange={onChange}
+          includeCount={true}
           styles={displays[mod.display]?.styles}
           mirage={displays[mod.display]?.view}
         />

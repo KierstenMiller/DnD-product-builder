@@ -6,7 +6,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { getDisplay, getWorkspace } from '-/build-your-own/page-state/builder-key-getters'
 import { ModifierGroups } from '-/build-your-own/shared/modifier-components/base-modifier-component/modifier-groups'
 import { type StandardModelT, type globalRulesI, type modifiersT, type validationLibraryT } from '-/build-your-own/shared/typing/build-your-own.types'
-import { BasicAccordion } from '-/component-library/accordion/basic-accordion'
 
 // TODO: seperate this from global styles
 import styles from '-/build-your-own/page-layout/build-your-own-layout.module.scss'
@@ -24,19 +23,24 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
   return (<DndProvider backend={HTML5Backend}>
     <div className={classNames(styles.row, styles.sticky)}>
       <div className={`${styles.column} ${styles.columnLeft}`}>
-        {model.builder.build && <div data-testid="workspace" className={styles.image}>
+        {Workspace && <div data-testid="workspace" className={styles.image}>
           <Workspace build={model.builder.build} globalValidation={globalValidation} validationLibrary={validationLibrary} />
         </div>}
       </div>
       <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
         <div className={classNames(styles.headline, { [styles.displayed]: Display })}>
           <div className={styles.description}>
-            <h1 className={styles.header}>Build Your Own</h1>
-            <h2>Current Selections</h2>
-            <div>
-              {model.config.map(c => <div key={c.id} data-testid={`${c.id}-selection-group`}>
-                <span data-testid="selection-id">{c.id}</span>:
-                <span data-testid="selection-value">{c.selection}</span>
+            <h1 className={styles.mainHeading}>Custom Cabinet Builder</h1>
+            <div className={styles.pricing}>
+              <span className={styles.label}>Total Price: {' '}</span>
+              <span className={styles.data}>$0,000.00</span>
+            </div>
+            <p className={styles.breakdown}>This copy is a quick breakdown of this page or product. It can help the viewer learn about the page’s usage and goals as well as define it’s purpose within this project. Maybe it’s a little longer or perhaps it’s kept short - either way, the reader should leave this copy with greater knowledge moving forward.</p>
+            <h2 className={styles.selectionsHeading}>Current Selections</h2>
+            <div className={styles.selectionContainer}>
+              {model.config.map(c => <div className={styles.selection} key={c.id} data-testid={`${c.id}-selection-group`}>
+                <span className={styles.label} data-testid="selection-id">{c.id}:</span>
+                <span className={styles.data} data-testid="selection-value">{c.selection}</span>
               </div>)}
             </div>
           </div>
@@ -45,17 +49,6 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
           </div>}
         </div>
         <ModifierGroups model={model} modifiers={modifiers} />
-        <div className={styles.cost}>
-          <BasicAccordion id="cost" triggerText="Total Cost: $000,000" headerLevel={2}>
-            <div>Materials: $000,000</div>
-            <div>Labor: $000,000</div>
-            <div>Logistics: $000,000</div>
-            <div>Overall cost of build: $000,000</div>
-            <div>Tax: $000,000</div>
-            <div>Insurance: $000,000</div>
-            <div>Total: $000,000</div>
-          </BasicAccordion>
-        </div>
       </div>
     </div>
   </DndProvider>)

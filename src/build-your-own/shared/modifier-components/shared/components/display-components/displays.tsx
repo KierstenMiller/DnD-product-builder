@@ -46,7 +46,7 @@ export const displays = {
   [radioDisplayValues.titled]: {
     styles: titledStyles,
     view: ({ id, image, label }: mirageCallbackPropsI) => <div className={titledStyles.option}>
-      <div>{label}</div>
+      <div className={titledStyles.label}>{label}</div>
       <div aria-hidden={true} className={titledStyles.image}>{image}</div>
       <div>{id}</div>
     </div>
