@@ -17,7 +17,7 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
     model?.builder?.build?.clearWorkspace() // clearing to ensure there are no conflicts between workspace data
     setData(newData)
   }
-  console.log('model', model);
+  console.log('model', model)
   return (
     <>
       <Head>
@@ -71,7 +71,6 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
           </div>
         </div>
         </BasicAccordion>
-        
       </div>
       <BuildYourOwnLayout model={model} modifiers={viewData.modifiers} globalValidation={viewData.builder?.rules} {...validationLibrary.length > 0 && { validationLibrary }} />
     </>
