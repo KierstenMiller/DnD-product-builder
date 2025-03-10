@@ -18,6 +18,8 @@ interface propsI {
     id: string | number
     category: string | number
     options: propsOptionI[]
+    // optional
+    categoryLabel?: string
   }>
   // optional
   testId?: string // made optional to prevent DOM bloat
@@ -47,6 +49,7 @@ export const CategorizedRadioInputGroup = ({ heading, categorizedOptions, onChan
         data-testid={`${cat.id.toString()}-label`}
         id={cat.id.toString()} // NOTE: this is used as part of the aria-labelledby attribute on the RadioInput's input element
       >
+        {cat.categoryLabel && <span>{cat.categoryLabel}: </span>}
         {cat.category}
       </div>
       <div

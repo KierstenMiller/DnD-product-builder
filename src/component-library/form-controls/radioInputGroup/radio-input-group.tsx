@@ -32,7 +32,7 @@ export const RadioInputGroup = ({ heading, options, onChange, testId, includeCou
   return <fieldset data-testid={testId} className={styles.fieldset}>
     <legend className={styles.legend}>
       {heading}
-      {includeCount && <span className={styles.count}>{options.length}</span>}
+      {includeCount && <span className={styles.count}>: {options.length} Options</span>}
     </legend>
     <div data-testid={`${testId}-options`} className={styles.optionsContainer}>
       {options.map(opt => <RadioInput

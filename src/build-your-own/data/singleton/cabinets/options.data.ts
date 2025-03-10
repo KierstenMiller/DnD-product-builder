@@ -27,44 +27,58 @@ export const cabinetColorOptions = [
     id: 'grey-1',
     label: 'Default Grey',
     image: '',
-    value: 'default-grey'
+    value: 'default-grey',
+    colorFamily: 'Grey'
   },
   {
     id: 'grey-2',
     label: 'Millennial Grey',
     image: '',
-    value: 'millenial-grey'
+    value: 'millenial-grey',
+    colorFamily: 'Grey'
+  },
+  {
+    id: 'red-1',
+    label: 'Ruby Red',
+    image: '',
+    value: 'ruby-red',
+    colorFamily: 'Red'
   },
   {
     id: 'red-2',
     label: 'Peach Pink',
     image: '',
-    value: 'peach-pink'
+    value: 'peach-pink',
+    colorFamily: 'Red'
   },
   {
     id: 'green-1',
     label: 'Verdant Green',
     image: '',
-    value: 'verdant-green'
+    value: 'verdant-green',
+    colorFamily: 'Green'
   },
   {
     id: 'green-2',
     label: 'Summer Green',
     image: '',
-    value: 'summer-green'
+    value: 'summer-green',
+    colorFamily: 'Green'
   },
   {
     id: 'blue-1',
     label: 'Lapis Blue',
     image: '',
     selected: true,
-    value: 'lapis-blue'
+    value: 'lapis-blue',
+    colorFamily: 'Blue'
   },
   {
     id: 'blue-2',
     label: 'Angel Blue',
     image: '',
-    value: 'angel-blue'
+    value: 'angel-blue',
+    colorFamily: 'Blue'
   }
 
 ]

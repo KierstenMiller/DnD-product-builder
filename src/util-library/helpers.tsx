@@ -9,6 +9,7 @@ interface WrapProps {
 
 export const noop = () => { }
 export const isNum = (n: any) => typeof n === 'number'
+export const isFunc = (f: any) => f instanceof Function
 export const isKeyboardEvent = (e: inclusiveClickEventT): e is React.KeyboardEvent => {
   return (e as React.KeyboardEvent).getModifierState !== undefined
 }
