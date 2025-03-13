@@ -1,3 +1,6 @@
+@use "#/design-system/_spacing" as s;
+@use "#/design-system/_responsive" as r;
+
 .app {
   // overflow: hidden;
 }
@@ -29,7 +32,11 @@
 }
 
 .pageContainer {
-  padding: 80px 160px;
+  padding: s.$xx-huge r.$desktop-gutter;
+
+  @media screen and (max-width: r.$tablet-max) {
+    padding: s.$xx-large r.$mobile-gutter;
+  }
 }
 
 .description {

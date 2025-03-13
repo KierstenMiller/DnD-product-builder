@@ -36,6 +36,7 @@ describe('Aggulative Rental Workflow', () => {
     { mod: 'mod-stroke', group: 'stroke-color_stroke-blue', input: 'stroke-blue' }
   ]
   beforeEach(() => {
+    cy.viewport(2000, 2000) // makes viewport large enough to test edge cases
     cy.visit('/build-your-own/aggulative/rental')
   })
   it('should render the aggulative rental page as expected', () => {

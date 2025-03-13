@@ -1,0 +1,20 @@
+@use "#/design-system/_spacing" as s;
+
+$desktop-max: 1440px;
+$desktop-min: 1025px;
+$tablet-max: 1024px;
+$tablet-min: 769px;
+$mobile-max: 768px;
+$mobile-min: 370px;
+$mini-max: 369px;
+
+// $desktop-spacing: $huge; // 64px
+// $mobile-spacing: $xx-large; // 40px
+
+// $desktop-gap: $xx-large; // 40px
+// $mobile-gap: $large; // 24px
+
+$desktop-gutter: s.$massive; // 160px
+$mobile-gutter: s.$x-large; // 32px
+// $mini-gutter: $large; // 24px
+
