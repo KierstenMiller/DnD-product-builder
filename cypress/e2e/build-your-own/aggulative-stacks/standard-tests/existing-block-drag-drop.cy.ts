@@ -61,7 +61,6 @@ describe('Aggulative Workflow', () => {
     ]
     verifyWorkspace({ stacksConfig: defaultWorkspace, modifiers: defaultModifierState })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-1' }, drop: { direction: dirs.above, landmarkId: 'piece-4' }, state: { modifiers: defaultModifierState } })
-    cy.wait(4000) // Do not need locally - only for CI. Not sure why TODO LOOK INTO FIX
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-3' }, drop: { direction: dirs.below, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState } })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-2' }, drop: { direction: dirs.below, landmarkId: 'piece-1' }, state: { modifiers: defaultModifierState } })
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-9' }, drop: { direction: dirs.below, landmarkId: 'piece-4' }, state: { modifiers: defaultModifierState } })

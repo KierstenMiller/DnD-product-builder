@@ -88,6 +88,7 @@ export const dragDropBlock = ({ drag, drop, state, customValidation }: DragDropB
   })
   cy.getByTestId(`dragzone_${drag.id ?? drag.value}`)
     .dragDrop(`dropzone_${drop.landmarkId}-${drop.direction}`, true)
+  cy.wait(2000) // NOTE: this is a hack to wait for the drag and drop to finishand UI to finish rendering- there is no better way to do this
   verifyDrop({ drag, drop, state, customValidation })
 }
 export const dragDropNewBlock = ({ drag, drop, state }: DragDropNewBlockI) => {
