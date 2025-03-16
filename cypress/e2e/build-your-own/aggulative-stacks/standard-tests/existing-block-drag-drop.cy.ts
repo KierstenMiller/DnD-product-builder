@@ -71,7 +71,7 @@ describe('Aggulative Workflow', () => {
     dragDropBlock({ drag: { ...singleBlock, id: 'piece-6' }, drop: { direction: dirs.below, landmarkId: 'piece-5' }, state: { modifiers: defaultModifierState } })
     verifyWorkspace({ stacksConfig: newWorkspace, modifiers: defaultModifierState })
   })
-  // TODO: ONLY WORKS LOCALLY - MAKE FIX FOR THIS
+  // TODO: ONLY WORKS LOCALLY - MAKE FIX FOR THIS (re-introduced 3/16 with no changes - keeping note here in case it starts acting up again)
   it('should allow for all blocks in the workspace to become their own stack (left right)', () => {
     const newWorkspace = [
       [{ ...singleBlock, index: 0 }],
