@@ -24,7 +24,8 @@ export enum groupByValues {
   depth = 'depth',
   stocked = 'stocked',
   price = 'price',
-  rank = 'rank'
+  rank = 'rank',
+  colorFamily = 'colorFamily'
 }
 export enum sortByValues {
   ascending = 'ascending',

@@ -9,6 +9,7 @@ import { mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifie
 import { builderKeys } from '-/build-your-own/page-state/builder-key-getters'
 import { validationValues } from '-/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { type buildYourOwnRawDataI } from '-/build-your-own/shared/typing/build-your-own.types'
+import { cabinetModifiers } from './singleton/cabinets/modifiers.data'
 
 // NOTE: ALL OPTION IDS MUST BE UNIQUE ACROSS WORKSPACES, OTHERWISE MOBX GETS CONFUSED
 // NOTE: Not using subclassing to standardize models as MobX has major subclassing limitations - https://mobx.js.org/subclassing.html
@@ -24,6 +25,14 @@ export const dataSingletonMock: buildYourOwnRawDataI = {
 // robot SINGLETON data
 export const dataSingletonRobot: buildYourOwnRawDataI = {
   modifiers: robotModifiers,
+  builder: {
+    type: builderKeys.singleton,
+    data: undefined
+  }
+}
+// cabinet SINGLETON data
+export const dataCustomCabinet: buildYourOwnRawDataI = {
+  modifiers: cabinetModifiers,
   builder: {
     type: builderKeys.singleton,
     data: undefined

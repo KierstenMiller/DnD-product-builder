@@ -106,8 +106,10 @@ export interface modifierI {
   display: displayValuesT
   options: optionsT
   // optional
+  subLabel?: string // label shown as directions or parent label
   filter?: filterI
   modifierChunkKey?: modifierChunkKeyValues // groups modifiers by key
+  groupLabel?: string // label shown on ui for each group
   groupBy?: groupByValues // determines how options are grouped
   sortBy?: sortByValues | sortByValues[] // determines how grouped options are sorted
   measurementUnit?: measurementValues

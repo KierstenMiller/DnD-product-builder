@@ -1,17 +1,51 @@
-.fieldset {}
+.fieldset {
+    min-inline-size: auto;
+    margin-inline: 0;
+    border: none;
+    padding-block: unset;
+    padding-inline: 0;
 
-.option {
-    border: 1px solid black;
+    legend {
+        font-size: 16px;
+        font-weight: 600;
+
+        .count {
+            font-size: 12px;
+            font-weight: 500;
+        }
+    }
 }
 
-.image {
-    background: lightgray;
-    height: 100px;
-    width: 100px;
-    margin-right: 8px;
+.option {
+    font-size: 12px;
+    font-weight: 700;
+    justify-items: center;
+    text-align: center;
+    max-width: min-content;
+    margin-right: 16px;
+
+    .label {
+        margin-bottom: 8px;
+    }
 }
 
 .optionsContainer {
     display: flex;
-    flex-wrap: wrap;
+    overflow-x: auto;
+}
+
+.image {
+    background: lightgrey;
+    background: linear-gradient(45deg, #D9D9D9 0%, #F9F9F9 100%);
+    height: 136px;
+    width: 136px;
+    color: transparent;
+    margin-bottom: 8px;
+}
+
+.categoryLabel {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }

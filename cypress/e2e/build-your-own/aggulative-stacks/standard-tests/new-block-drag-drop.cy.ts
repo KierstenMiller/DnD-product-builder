@@ -36,7 +36,7 @@ describe('Aggulative Workflow', () => {
     { index: 24, drag: quadBlock, drop: { direction: dirs.left, landmarkId: '0' }, state: { modifiers: newModifierState, changeSelections: true }, newBlockInfo: { location: { stackIndex: 0, blockIndex: 0 }, block: { ...quadBlock, index: 0 }, isNewStack: true } }
   ]
   beforeEach(() => {
-    cy.viewport(1600, 768) // makes viewport large enough to test edge cases
+    cy.viewport(2000, 2000) // makes viewport large enough to test edge cases
     cy.visit('/build-your-own/aggulative')
   })
   dragDropNewBlockScenarios.forEach(s => {
