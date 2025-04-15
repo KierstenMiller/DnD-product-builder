@@ -6,17 +6,18 @@ import { type StandardModelT, type globalRulesI, type modifiersT, type validatio
 import styles from './build-your-own-layout.module.scss'
 
 interface BuildYourOwnPageI {
+  title: string
   model: StandardModelT
   modifiers: modifiersT
   globalValidation?: globalRulesI
   validationLibrary?: validationLibraryT
 }
 
-export const BuildYourOwnLayout = observer(({ model, modifiers, globalValidation, validationLibrary }: BuildYourOwnPageI) => {
+export const BuildYourOwnLayout = observer(({ title, model, modifiers, globalValidation, validationLibrary }: BuildYourOwnPageI) => {
   return (<>
     <div className={styles.app}>
       <div className={styles.pageContainer}>
-        <Studio model={model} modifiers={modifiers} globalValidation={globalValidation} validationLibrary={validationLibrary} />
+        <Studio title={title} model={model} modifiers={modifiers} globalValidation={globalValidation} validationLibrary={validationLibrary} />
       </div>
     </div>
   </>

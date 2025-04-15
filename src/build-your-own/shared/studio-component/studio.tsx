@@ -11,13 +11,14 @@ import { type StandardModelT, type globalRulesI, type modifiersT, type validatio
 import styles from '-/build-your-own/page-layout/build-your-own-layout.module.scss'
 
 interface propsI {
+  title: string
   model: StandardModelT
   modifiers: modifiersT
   globalValidation?: globalRulesI
   validationLibrary?: validationLibraryT
 }
 
-export const Studio = observer(({ model, modifiers, globalValidation, validationLibrary }: propsI) => {
+export const Studio = observer(({ title, model, modifiers, globalValidation, validationLibrary }: propsI) => {
   const Workspace = getWorkspace(model.builder.type)
   const Display = getDisplay(model.builder.type)
   return (<DndProvider backend={HTML5Backend}>
@@ -30,7 +31,7 @@ export const Studio = observer(({ model, modifiers, globalValidation, validation
       <div className={`${styles.column} ${styles.columnRight} ${styles.isSticky}`}>
         <div className={classNames(styles.headline, { [styles.displayed]: Display })}>
           <div className={styles.description}>
-            <h1 className={styles.mainHeading}>Build Your Own</h1>
+            <h1 className={styles.mainHeading}>{title}</h1>
             <div className={styles.pricing}>
               <span className={styles.label}>Total Price: {' '}</span>
               <span className={styles.data}>$0,000.00</span>

@@ -16,6 +16,7 @@ import { cabinetModifiers } from './singleton/cabinets/modifiers.data'
 
 // mock SINGLETON data
 export const dataSingletonMock: buildYourOwnRawDataI = {
+  title: 'Build Your Own',
   modifiers: [mockModifierA, mockModifierB, mockModifierC, mockModifierD, mockModifierE],
   builder: {
     type: builderKeys.singleton,
@@ -24,6 +25,7 @@ export const dataSingletonMock: buildYourOwnRawDataI = {
 }
 // robot SINGLETON data
 export const dataSingletonRobot: buildYourOwnRawDataI = {
+  title: 'Build Your Own',
   modifiers: robotModifiers,
   builder: {
     type: builderKeys.singleton,
@@ -32,6 +34,7 @@ export const dataSingletonRobot: buildYourOwnRawDataI = {
 }
 // cabinet SINGLETON data
 export const dataCustomCabinet: buildYourOwnRawDataI = {
+  title: 'Custom Cabinet Builder',
   modifiers: cabinetModifiers,
   builder: {
     type: builderKeys.singleton,
@@ -40,6 +43,7 @@ export const dataCustomCabinet: buildYourOwnRawDataI = {
 }
 // mock FREEFORM MATRIX data
 export const dataFreeformMatrix: buildYourOwnRawDataI = {
+  title: 'Build Your Own',
   modifiers: shapeModifiers,
   builder: {
     type: builderKeys.freeformMatrix,
@@ -48,6 +52,7 @@ export const dataFreeformMatrix: buildYourOwnRawDataI = {
 }
 // mock AGGULATIVE STACKS data
 export const dataAggulativeStacks: buildYourOwnRawDataI = {
+  title: 'Build Your Own',
   modifiers,
   builder: {
     type: builderKeys.aggulativeStacks,
@@ -56,6 +61,7 @@ export const dataAggulativeStacks: buildYourOwnRawDataI = {
 }
 // rental AGGULATIVE STACKS data
 export const dataAggulativeStacksRental: buildYourOwnRawDataI = {
+  title: 'Build Your Own',
   modifiers: rentalModifiers,
   builder: {
     type: builderKeys.aggulativeStacks,

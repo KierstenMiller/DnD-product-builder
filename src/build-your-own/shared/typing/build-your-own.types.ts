@@ -78,6 +78,7 @@ export interface pieceI {
   config: configT
 }
 export interface buildYourOwnRawDataI {
+  title: string
   modifiers: modifiersT
   builder: {
     type: builderKeys
