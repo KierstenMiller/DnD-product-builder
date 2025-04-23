@@ -26,7 +26,7 @@ export const robotShapeOptions = [
   },
   {
     id: 'KAT',
-    label: 'Class E',
+    label: 'Class K',
     productId: 4,
     image: 'KAT_default',
     height: 1,

@@ -10,7 +10,6 @@ import { BasicAccordion } from '-/component-library/accordion/basic-accordion'
 import styles from './build-your-own-page.module.scss'
 
 export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
-  console.log(data);
   const inTestMode = true
   const [viewData, setData] = useState(data)
   const { model, validationLibrary } = formatBuilderData(viewData) // K-TODO: do this data massaging in getServerSideProps (if that is the method you choose for getting data)
@@ -18,7 +17,6 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
     model?.builder?.build?.clearWorkspace() // clearing to ensure there are no conflicts between workspace data
     setData(newData)
   }
-  console.log('model', model)
   return (
     <>
       <Head>
