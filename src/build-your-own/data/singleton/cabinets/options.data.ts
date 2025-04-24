@@ -85,59 +85,48 @@ export const cabinetColorOptions = [
 export const cabinetHandleOptions = [
   {
     id: 'handle-1',
-    label: 'Handle Option 1',
+    label: 'Handle Top',
     image: '',
-    value: 'handle-option-1'
+    value: 'handle-top'
   },
   {
     id: 'handle-2',
-    label: 'Handle Option 2',
+    label: 'Handle Round',
     image: '',
-    value: 'handle-option-2'
+    value: 'handle-round'
   },
   {
     id: 'handle-3',
-    label: 'Handle Option 3',
+    label: 'Handle Short',
     image: '',
-    value: 'handle-option-3'
+    value: 'handle-short',
+    selected: true
   },
   {
     id: 'handle-4',
-    label: 'Handle Option 4',
+    label: 'Handle Long',
     image: '',
-    value: 'handle-option-4'
-  },
-  {
-    id: 'none',
-    label: 'None',
-    image: '',
-    value: 'handle-none'
+    value: 'handle-long'
   }
 ]
 export const cabinetLegOptions = [
   {
     id: 'leg-1',
-    label: 'Leg Option 1',
+    label: 'Classic Legs',
     image: '',
-    value: 'leg-option-1',
-    selected: true
+    value: 'leg-sturdy'
   },
   {
     id: 'leg-2',
-    label: 'Leg Option 2',
+    label: 'Peg Legs',
     image: '',
-    value: 'leg-option-2'
+    value: 'leg-sticks'
   },
   {
     id: 'leg-3',
-    label: 'Leg Option 3',
+    label: 'Bar Stand',
     image: '',
-    value: 'leg-option-3'
-  },
-  {
-    id: 'leg-4',
-    label: 'Leg Option 4',
-    image: '',
-    value: 'leg-option-4'
+    value: 'leg-bar',
+    selected: true
   }
 ]
