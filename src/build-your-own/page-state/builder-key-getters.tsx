@@ -7,6 +7,7 @@ import { FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-fi
 import { SingletonDisplay } from '-/build-your-own/workspace-specific-files/singleton/singleton-display'
 import { SingletonWorkspace } from '-/build-your-own/workspace-specific-files/singleton/singleton-workspace'
 import { type functionalComponentT } from '-/util-library/typing-util'
+import { SingletonBuildModel } from '-/build-your-own/workspace-specific-files/singleton/models/singleton.model'
 
 export enum builderKeys { singleton = 'singleton', freeformMatrix = 'freeform-matrix', aggulativeStacks = 'aggulative-stacks', }
 
@@ -39,7 +40,7 @@ export const getDisplay = (type: builderKeys): functionalComponentT | null => {
 export const getBuilder = ({ type, config, data }: builderRawDataShapeI<any>): builderT => {
   switch (type) {
     case builderKeys.singleton:
-      return { type, build: undefined }
+      return { type, build: new SingletonBuildModel({ config }) }
     case builderKeys.freeformMatrix:
       return { type, build: new FreeformMatrixBuildModel({ config, matrix: data }) }
     case builderKeys.aggulativeStacks:

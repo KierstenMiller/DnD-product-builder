@@ -4,6 +4,7 @@ import { type displayValuesT, type filterDisplayValues } from '-/build-your-own/
 import { type groupByValues, type measurementValues, type modifierChunkKeyValues, type sortByValues, type validationValues } from '-/build-your-own/shared/modifier-components/shared/typing/modifier.types'
 import { type AggulativeStacksBuildModel } from '-/build-your-own/workspace-specific-files/aggulative-stacks/models/aggulative-stacks.model'
 import { type FreeformMatrixBuildModel } from '-/build-your-own/workspace-specific-files/freeform-matrix/models/freeform-grid.model'
+import { type SingletonBuildModel } from '-/build-your-own/workspace-specific-files/singleton/models/singleton.model'
 
 /// ///////////////////////////////
 //      AGGULATIVE STACKS      //
@@ -51,8 +52,8 @@ export type matrixT = matrixIndexI[][]
 /// ///////////////////////
 //      SINGLETON      //
 /// //////////////////////
-// note: singletons do not need a build
-export interface singletonI { type: builderKeys.singleton, build: undefined }
+export type singletonBuildT = SingletonBuildModel
+export interface singletonI { type: builderKeys.singleton, build: singletonBuildT }
 export type singletonRawDataI = builderRawDataShapeI<{ type: builderKeys.singleton }>
 
 /// ///////////////////
@@ -63,7 +64,7 @@ export type builderT = singletonI | freeformMatrixI | aggulativeStacksI
 interface shapeMapI {
   [builderKeys.aggulativeStacks]: aggulativeStacksListT
   [builderKeys.freeformMatrix]: matrixT
-  [builderKeys.singleton]: undefined
+  [builderKeys.singleton]: singletonBuildT
 }
 export interface builderRawDataShapeI<T extends { type: builderKeys }> {
   type: T['type']

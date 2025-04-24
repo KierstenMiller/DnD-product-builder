@@ -1,7 +1,14 @@
 import { observer } from 'mobx-react-lite'
+import { generateCabinet } from './cabinet/cabinet-util'
+import { type SingletonBuildModel } from './models/singleton.model'
 
-export const SingletonWorkspace = observer(() => {
+interface propsI {
+  build: SingletonBuildModel
+}
+
+export const SingletonWorkspace = observer(({ build }: propsI) => {
+  const shape = generateCabinet(build.config)
   return (<div className="flex">
-        SINGLETON
-    </div>)
+    {shape}
+  </div>)
 })
