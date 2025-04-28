@@ -34,7 +34,7 @@ const legOptionShapes = {
   </g>
 }
 
-export const cabinetOne = ({ frameFill, doorFill, handleSelection, legSelection }: { frameFill: colorCodes, doorFill: colorCodes, handleSelection: handleOptionKeys, legSelection: legOptionKeys }) => {
+export const CabinetOne = ({ frameFill, doorFill, handleSelection, legSelection }: { frameFill: colorCodes, doorFill: colorCodes, handleSelection: handleOptionKeys, legSelection: legOptionKeys }) => {
   const handle = handleOptions[handleSelection] || handleOptions[handleOptionKeys.handleLong]
   const leg = legOptionShapes[legSelection] || legOptionShapes[legOptionKeys.legSturdy]
   return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720">

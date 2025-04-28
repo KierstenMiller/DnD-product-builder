@@ -1,13 +1,19 @@
+export enum cabinetSizeKeys {
+  one = 'cab-one',
+  two = 'cab-two',
+  three = 'cab-three',
+  four = 'cab-four'
+}
 export enum handleOptionKeys {
   handleTop = 'handle-top',
   handleRound = 'handle-round',
   handleShort = 'handle-short',
-  handleLong = 'handle-long',
+  handleLong = 'handle-long'
 }
 export enum legOptionKeys {
   legSturdy = 'leg-sturdy',
   legSticks = 'leg-sticks',
-  legBar = 'leg-bar',
+  legBar = 'leg-bar'
 }
 export enum colorKeys {
   defaultGrey = 'default-grey',
@@ -17,7 +23,7 @@ export enum colorKeys {
   verdantGreen = 'verdant-green',
   summerGreen = 'summer-green',
   lapisBlue = 'lapis-blue',
-  angelBlue = 'angel-blue',
+  angelBlue = 'angel-blue'
 }
 export enum colorCodes {
   defaultGrey = '#404040',
@@ -35,7 +41,7 @@ export enum colorCodes {
   lapisBlue = '#26619C',
   lapisBlueLight = '#A7C6ED',
   angelBlue = '#87C4FF',
-  angelBlueLight = '#c8e7f7',
+  angelBlueLight = '#c8e7f7'
 }
 export const colors = {
   [colorKeys.defaultGrey]: [colorCodes.defaultGrey, colorCodes.defaultGreyLight],

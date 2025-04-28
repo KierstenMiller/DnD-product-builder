@@ -1,25 +1,32 @@
 export const cabinetSizeOptions = [
   {
-    id: 'small-cabinet',
-    label: 'Small',
+    id: 'cabinet-one',
+    label: 'One',
     productId: 111,
     image: '',
-    value: 'small'
+    value: 'cab-one'
   },
   {
-    id: 'medium-cabinet',
-    label: 'Medium',
+    id: 'cabinet-two',
+    label: 'Two',
     productId: 222,
     image: '',
-    value: 'medium',
+    value: 'cab-two',
     selected: true
   },
   {
-    id: 'large-cabinet',
-    label: 'Large',
+    id: 'cabinet-three',
+    label: 'Three',
     productId: 333,
     image: '',
-    value: 'large'
+    value: 'cab-three'
+  },
+  {
+    id: 'cabinet-four',
+    label: 'Four',
+    productId: 444,
+    image: '',
+    value: 'cab-four'
   }
 ]
 export const cabinetColorOptions = [
