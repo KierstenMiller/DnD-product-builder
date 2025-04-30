@@ -1,0 +1,49 @@
+.results {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 160px;
+  border-top: 1px solid black;
+
+  .price {
+    .label {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .data {
+      font-size: 24px;
+      font-weight: 600;
+      color: #6C6C6C;
+    }
+  }
+
+
+  .selectionList {
+    display: flex;
+
+    .label {
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 14px;
+      color: #454545;
+    }
+
+    .data {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 14px;
+      color: #454545;
+    }
+
+    .selection {
+      margin-left: 60px;
+    }
+  }
+}

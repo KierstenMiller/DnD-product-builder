@@ -41,7 +41,6 @@ describe('Aggulative Rental Workflow', () => {
   })
   it('should render the aggulative rental page as expected', () => {
     cy.contains('h1', 'Build Your Own')
-    cy.contains('h2', 'Current Selections')
     cy.get('[data-testid$="-selection-group"]').should('have.length', 3)
   })
   it('should be displaying default selections on page load', () => {

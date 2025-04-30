@@ -76,7 +76,6 @@ describe('Freeform Workflow', () => {
   })
   it('should render the singleton Robots page as expected', () => {
     cy.contains('h1', 'Build Your Own')
-    cy.contains('h2', 'Current Selections')
     cy.get('[data-testid$="-selection-group"]').should('have.length', 3)
   })
   it('default selections should be selected on page load', () => {

@@ -32,18 +32,7 @@ export const Studio = observer(({ title, model, modifiers, globalValidation, val
         <div className={classNames(styles.headline, { [styles.displayed]: Display })}>
           <div className={styles.description}>
             <h1 className={styles.mainHeading}>{title}</h1>
-            <div className={styles.pricing}>
-              <span className={styles.label}>Total Price: {' '}</span>
-              <span className={styles.data}>$0,000.00</span>
-            </div>
             <p className={styles.breakdown}>This copy is a quick breakdown of this page or product. It can help the viewer learn about the page’s usage and goals as well as define it’s purpose within this project. Maybe it’s a little longer or perhaps it’s kept short - either way, the reader should leave this copy with greater knowledge moving forward.</p>
-            <h2 className={styles.selectionsHeading}>Current Selections</h2>
-            <div className={styles.selectionContainer}>
-              {model.config.map(c => <div className={styles.selection} key={c.id} data-testid={`${c.id}-selection-group`}>
-                <span className={styles.label} data-testid="selection-id">{c.id}:</span>
-                <span className={styles.data} data-testid="selection-value">{c.selection}</span>
-              </div>)}
-            </div>
           </div>
           {Display && <div className={styles.displayContainer}>
             <Display build={model.builder.build} config={model.config} />
