@@ -4,7 +4,8 @@ export const cabinetSizeOptions = [
     label: 'One',
     productId: 111,
     image: '',
-    value: 'cab-one'
+    value: 'cab-one',
+    price: 350
   },
   {
     id: 'cabinet-two',
@@ -12,6 +13,7 @@ export const cabinetSizeOptions = [
     productId: 222,
     image: '',
     value: 'cab-two',
+    price: 400,
     selected: true
   },
   {
@@ -19,14 +21,16 @@ export const cabinetSizeOptions = [
     label: 'Three',
     productId: 333,
     image: '',
-    value: 'cab-three'
+    value: 'cab-three',
+    price: 750
   },
   {
     id: 'cabinet-four',
     label: 'Four',
     productId: 444,
     image: '',
-    value: 'cab-four'
+    value: 'cab-four',
+    price: 900
   }
 ]
 export const cabinetColorOptions = [
@@ -94,26 +98,30 @@ export const cabinetHandleOptions = [
     id: 'handle-1',
     label: 'Handle Top',
     image: '',
-    value: 'handle-top'
+    value: 'handle-top',
+    price: 50
   },
   {
     id: 'handle-2',
     label: 'Handle Round',
     image: '',
-    value: 'handle-round'
+    value: 'handle-round',
+    price: 75
   },
   {
     id: 'handle-3',
     label: 'Handle Short',
     image: '',
     value: 'handle-short',
+    price: 100,
     selected: true
   },
   {
     id: 'handle-4',
     label: 'Handle Long',
     image: '',
-    value: 'handle-long'
+    value: 'handle-long',
+    price: 125
   }
 ]
 export const cabinetLegOptions = [
@@ -121,19 +129,22 @@ export const cabinetLegOptions = [
     id: 'leg-1',
     label: 'Classic Legs',
     image: '',
-    value: 'leg-sturdy'
+    value: 'leg-sturdy',
+    price: 200
   },
   {
     id: 'leg-2',
     label: 'Peg Legs',
     image: '',
-    value: 'leg-sticks'
+    value: 'leg-sticks',
+    price: 50
   },
   {
     id: 'leg-3',
     label: 'Bar Stand',
     image: '',
     value: 'leg-bar',
+    price: 125,
     selected: true
   }
 ]

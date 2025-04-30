@@ -97,6 +97,7 @@ export interface optionI {
   selected?: boolean
   productId?: string | number
   validation?: validationT
+  price?: number
 }
 export interface filterI {
   display: filterDisplayValues
