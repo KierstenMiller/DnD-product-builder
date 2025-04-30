@@ -30,6 +30,7 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {inTestMode && <BuildYourOwnDevBar setData={setDataCallback} />}
+      {/* Future navigation mock - commenting out for now
       <div className={styles.headerLevelOne}>
         <div className={styles.logo}>Logo</div>
         <div className={styles.productNav}>
@@ -37,7 +38,7 @@ export const BuildYourOwnPage = ({ data }: { data: buildYourOwnRawDataI }) => {
           <div className={styles.product}>Cabinet</div>
           <div className={styles.product}>Media Cabinet</div>
         </div>
-      </div>
+      </div> */}
       <div className={styles.results}>
         <CheckoutBar modifiers={viewData.modifiers} model={model} />
       </div>
